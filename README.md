@@ -56,3 +56,8 @@ Whenever you need to use X11 forard and found it does not work, try the followin
 ```bash
 tmux update-env
 ```
+# Python Project List
+
+https://github.com/checkcheckzz/python-github-projects
+
+https://awesome-python.com/
