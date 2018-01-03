@@ -61,3 +61,8 @@ tmux update-env
 https://github.com/checkcheckzz/python-github-projects
 
 https://awesome-python.com/
+
+# Vim Plugin for Python Code Folding
+
+https://github.com/tmhedberg/SimpylFold
+
