@@ -66,3 +66,9 @@ https://awesome-python.com/
 
 https://github.com/tmhedberg/SimpylFold
 
+
+# cross-entropy
+
+When reading tensorflow document, it reminds that this post could explain cross-entropy well.
+
+http://colah.github.io/posts/2015-09-Visual-Information/
