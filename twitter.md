@@ -17,3 +17,8 @@ which I do not think), but it ignores that we have a lot more other problems whi
 Type safety is not bad as long as it does not become an execuse to ignore other important issues. 
 
 Python is a good justification.
+
+## goroutine (golang) 
+
+Similarly in python there is `coroutine`
+
