@@ -96,3 +96,9 @@ Done, and you could test in python
 # golang goroutine
 
 goroutine has advantages on correntcy which could make the application flow streamlized. But people may forget another important factor that goroutine is stateful. So if you are make a statemachine or something similar, it might be code of smell, probably it could be optimized off.
+
+# where to define golang interface
+
+https://github.com/golang/go/wiki/CodeReviewComments#interfaces
+
+```Go interfaces generally belong in the package that uses values of the interface type, not the package that implements those values. The implementing package should return concrete (usually pointer or struct) types: that way, new methods can be added to implementations without requiring extensive refactoring.```
