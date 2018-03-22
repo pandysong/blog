@@ -102,3 +102,16 @@ goroutine has advantages on correntcy which could make the application flow stre
 https://github.com/golang/go/wiki/CodeReviewComments#interfaces
 
 ```Go interfaces generally belong in the package that uses values of the interface type, not the package that implements those values. The implementing package should return concrete (usually pointer or struct) types: that way, new methods can be added to implementations without requiring extensive refactoring.```
+
+
+                    
+# Vim: copy the internal command output to buffer
+
+This is the workaround:
+```bash
+:redir @+>
+:set guifont?
+:redir END
+```
+Now in the reigster "+, it is the output of set guifont?.
+we can not using "+p to paste the register content to buffer.
