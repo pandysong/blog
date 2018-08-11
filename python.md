@@ -56,6 +56,6 @@ s = yield s
 
 Now the right part of statement is executed, and and c.send("hello") returns the "hello processed".
 
-# setup.py vs requirements.txt
+# <a name="setup_requirement"></a> setup.py vs requirements.txt
 Very good and clear document:
 https://caremad.io/posts/2013/07/setup-vs-requirement/
