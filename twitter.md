@@ -27,3 +27,7 @@ Similarly in python there is `coroutine`
 ## Process, Process Group and Process Session
 
 https://www.usna.edu/Users/cs/aviv/classes/ic221/s16/lec/17/lec.html
+
+## `top` command filter by process name
+
+After running `top -c` , hit o and write a filter on a column, e.g. to show rows where COMMAND column contains the string foo, write COMMAND=foo
