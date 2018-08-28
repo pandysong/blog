@@ -22,3 +22,8 @@ Python is a good justification.
 
 Similarly in python there is `coroutine`
 
+# Linux 
+
+## Process, Process Group and Process Session
+
+https://www.usna.edu/Users/cs/aviv/classes/ic221/s16/lec/17/lec.html
