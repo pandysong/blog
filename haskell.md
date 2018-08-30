@@ -50,3 +50,17 @@ tree_blossom :: Double -> Picture
 tree_blossom t = tree 8 (blossom t)
 main = animationOf (tree_blossom)
 ```
+
+# Which applicaton is applicable of using Haskell?
+
+Haskell is for sure not suitable for embedded application, but where it is most suitable?
+
+Following paper may give some idea:
+
+www.starling-software.com/misc/icfp-2009-cjs.pdf
+
+In short, in finnacial applications, where
+- algorithm is complex and the language should be more `expressive`
+- better perfomrance than Java
+- strong type system and pure functional language makes the software less bug
+- much less test code. (In C, usually test code is, sometimes much, more than the production code).
