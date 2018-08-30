@@ -64,3 +64,8 @@ In short, in finnacial applications, where
 - better perfomrance than Java
 - strong type system and pure functional language makes the software less bug
 - much less test code. (In C, usually test code is, sometimes much, more than the production code).
+
+
+And also this Paper:
+
+https://pdfs.semanticscholar.org/a722/b1ca878a662f132e7fd7a5b6b29298378dd5.pdf
