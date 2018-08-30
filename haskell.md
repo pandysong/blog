@@ -30,3 +30,23 @@ frame = rectangle 2.5 7.5
 main :: IO ()
 main = animationOf trafficController
 ```
+
+## Exercise 2
+
+
+```Haskell
+import CodeWorld
+import Data.Fixed
+tree :: Integer -> Picture -> Picture
+tree 0 b = b
+tree n b = path [(0,0),(0,1)] & translated 0 1 (
+  rotated (pi/10) (tree (n-1) b) & rotated (- pi/10) (tree (n-1) b))
+
+blossom :: Double -> Picture
+blossom t = colored yellow (solidCircle ( min s (t / 10.0 * s)))
+  where s = 0.2
+
+tree_blossom :: Double -> Picture
+tree_blossom t = tree 8 (blossom t)
+main = animationOf (tree_blossom)
+```
