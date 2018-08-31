@@ -77,3 +77,13 @@ https://pdfs.semanticscholar.org/a722/b1ca878a662f132e7fd7a5b6b29298378dd5.pdf
 This makes it more expressive:
 
 https://www.haskell.org/tutorial/patterns.html
+
+## List and Tuple are different with ones in Python
+
+In Python, 
+- List is mutable sequence of elements, each element could have different type.
+- Tuple is immutable sequences of elements, each element could have different type
+
+In Haskell, since all data are immutable:
+- List is sequence of elements with all same type with infinite length.
+- Tuple is seuqnce of elements with possiblely differnet types with limitted length.
