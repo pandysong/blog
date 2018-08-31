@@ -69,3 +69,11 @@ In short, in finnacial applications, where
 And also this Paper:
 
 https://pdfs.semanticscholar.org/a722/b1ca878a662f132e7fd7a5b6b29298378dd5.pdf
+
+# Exciting Features in Haskell
+
+## Pattern Match
+
+This makes it more expressive:
+
+https://www.haskell.org/tutorial/patterns.html
