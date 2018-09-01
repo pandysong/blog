@@ -93,3 +93,6 @@ In Haskell, since all data are immutable:
 Excellent examples about Recursion and Pattern Matching:
 
 http://learnyouahaskell.com/recursion
+
+
+The combination of Pattern Matching and Recursion may explain why Haskell needs less test code as the implementation is more or less how the test code is written (consider the edge conditions first).
