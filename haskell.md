@@ -96,3 +96,7 @@ http://learnyouahaskell.com/recursion
 
 
 The combination of Pattern Matching and Recursion may explain why Haskell needs less test code as the implementation is more or less how the test code is written (consider the edge conditions first).
+
+# Real World Project
+
+https://github.com/erkmos/haskell-companies
