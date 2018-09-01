@@ -87,3 +87,9 @@ In Python,
 In Haskell, since all data are immutable:
 - List is sequence of elements with all same type with infinite length.
 - Tuple is seuqnce of elements with possiblely differnet types with limitted length.
+
+### Recursion
+
+Excellent examples about Recursion and Pattern Matching:
+
+http://learnyouahaskell.com/recursion
