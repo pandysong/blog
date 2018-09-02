@@ -100,3 +100,8 @@ The combination of Pattern Matching and Recursion may explain why Haskell needs 
 # Real World Project
 
 https://github.com/erkmos/haskell-companies
+
+## Adjoint Uplink
+
+This project is written in Haskell, it is a blockchain project.
+https://github.com/adjoint-io/uplink
