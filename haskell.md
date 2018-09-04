@@ -99,7 +99,13 @@ The combination of Pattern Matching and Recursion may explain why Haskell needs 
 
 ### Functors, Applicatives, Monads
 
-Every easy-to-understand article about Functor, Applicative and Monad
+Every one should read this paper for Monads:
+
+http://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf
+
+To put it simple, Monads are design pattern in FP to decouple the states that was coupled with main logic usually.
+
+Very easy-to-understand article about Functor, Applicative and Monad
 http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html#functors
 
 
