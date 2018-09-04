@@ -108,6 +108,12 @@ http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.h
 
 ```For functions, (->) is a type constructor; the types f -> g and (->) f g are the same. Similarly, the types [a] and [] a are the same```
 
+### Haskell Type Class
+
+```Haskell classes are roughly similar to a Java interface. Like an interface declaration, a Haskell class declaration defines a protocol for using an object rather than defining an object itself. ```
+
+It is more like the interface in Golang, where the interface is defined in the place where it is used. As long as the object passed in has conformed interfaces it works fine.
+
 
 # Real World Project
 
