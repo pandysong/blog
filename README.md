@@ -146,3 +146,7 @@ Search in all go code:
 ```
 Ack --go SomeVar
 ```
+
+## Query Manual 
+
+put the cursor on a function and press Shift K will show the manual for the function.
