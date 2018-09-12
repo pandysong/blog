@@ -115,3 +115,8 @@ This is the workaround:
 ```
 Now in the reigster "+, it is the output of set guifont?.
 we can not using "+p to paste the register content to buffer.
+
+## Excellent Lint Plugin
+
+It works out of box as long as the lint tool is available in the system.
+https://github.com/w0rp/ale
