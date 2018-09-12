@@ -120,3 +120,29 @@ we can not using "+p to paste the register content to buffer.
 
 It works out of box as long as the lint tool is available in the system.
 https://github.com/w0rp/ale
+
+## Code Search Plugin using Ag
+Inspired by:
+https://gorillalogic.com/blog/faster-grepping-vim/
+
+Install Ag first:
+
+Then add following line into .vimrc
+```
+Plugin 'mileszs/ack.vim'
+
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
+
+```
+
+Search in all c code:
+```
+Ack --cc SomeVar
+```
+
+Search in all go code:
+```
+Ack --go SomeVar
+```
