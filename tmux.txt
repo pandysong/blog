@@ -1,0 +1,125 @@
+# add following code in ./bash_profie # otherwise the font will not be shown correctly 
+# export TERM=screen-256color
+# export PATH=$PATH:~/usr/bin
+# export LC_ALL=en_US.UTF-8
+# export LANG=en_US.UTF-8
+# export LANGUAGE=en_US.UTF-8
+
+# also please install following font in windows where putty is installed
+# https://github.com/powerline/fonts/tree/master/DejaVuSansMono
+# set the font in putty
+# window -> apearance, select cleartype and change the font
+
+
+# change the default C-b to C-n. Since C-b is conflicted with vim's C-b for moving backwards 
+set-option -g prefix 'C-n'
+
+
+# reload ~/.tmux.conf using PREFIX r
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
+
+# general 
+# set -g default-terminal "screen-256color"
+set -g default-terminal "tmux-256color"
+
+# http://www.tylercipriani.com/2013/09/12/important-lines-in-my-tmux.html
+set-option -sg escape-time 0
+
+# resolve the long delay(slow response in vim)
+#https://stackoverflow.com/questions/13404602/how-to-prevent-esc-from-waiting-for-more-input-in-insert-mode
+set -g escape-time 0
+
+# set inactive/active window styles
+#-------------------------------------------------------#
+#Pane colours
+#-------------------------------------------------------#
+# set inactive/active window styles
+set -g window-style 'fg=colour247,bg=colour236'
+set -g window-active-style 'fg=colour250,bg=black'
+ 
+#pane border
+set -g pane-border-bg colour235
+set -g pane-border-fg colour238
+set -g pane-active-border-bg colour236
+set -g pane-active-border-fg colour51
+#-------------------------------------------------------#
+
+
+# Split window a la vim <C-W>s and <C-W>v
+unbind '%'
+unbind '"'
+bind 's' split-window
+bind 'v' split-window -h
+
+# Smart pane switching with awareness of vim splits
+is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?x?)(diff)?$"'
+bind-key -n C-h if-shell "$is_vim" "send-keys C-h" "select-pane -L"
+bind-key -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
+bind-key -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
+bind-key -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
+bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
+
+# Vim style pane selection
+bind h select-pane -L
+bind j select-pane -D 
+bind k select-pane -U
+bind l select-pane -R
+# now in termnial you could use contrl+B h,j,k,l to switch on panes 
+
+
+# Use Alt-vim keys without prefix key to switch panes
+bind -n M-h select-pane -L
+bind -n M-j select-pane -D 
+bind -n M-k select-pane -U
+bind -n M-l select-pane -R
+
+# now in vim you could use esc + h,j,k.l to switch between panges without press control+B
+
+
+bind-key J resize-pane -D 5
+bind-key K resize-pane -U 5
+bind-key H resize-pane -L 5
+bind-key L resize-pane -R 5
+
+# Now you could resie the page by press Control+B J,K,H,L to resize a pane
+
+
+bind-key M-J resize-pane -D
+bind-key M-K resize-pane -U
+bind-key M-H resize-pane -L
+bind-key M-L resize-pane -R
+
+# Now in vim, you could use esc+H,J,K,L to resize a page
+
+
+# config tmux status line outlook
+
+# this line is not needed any more as it is by default
+# set -g status-utf8 on
+set -g status-justify left
+set -g status-bg default
+set -g status-fg colour12
+set -g status-interval 2
+
+# window status
+setw -g window-status-format " #F#I:#W#F "
+setw -g window-status-current-format " #F#I:#W#F "
+setw -g window-status-format "#[fg=magenta]#[bg=black] #I #[bg=cyan]#[fg=colour8] #W "
+setw -g window-status-current-format "#[bg=brightmagenta]#[fg=colour8] #I #[fg=colour8]#[bg=colour14] #W "
+setw -g window-status-current-bg colour0
+setw -g window-status-current-fg colour11
+setw -g window-status-current-attr dim
+setw -g window-status-bg green
+setw -g window-status-fg black
+setw -g window-status-attr reverse
+
+# Info on left (I don't have a session display for now)
+# set -g status-left ''
+
+
+# tmux scheme 
+# https://github.com/jimeh/tmux-themepack
+# source-file "~/.tmux-themepack/powerline/double/yellow.tmuxtheme"
+
+# using vi mode in ctrl-n [
+ set-window-option -g mode-keys vi  
