@@ -147,6 +147,19 @@ Search in all go code:
 Ack --go SomeVar
 ```
 
+## slime.vim
+
+The perfact and elegant tool to do repl in tmux (it also support other 
+
+https://github.com/jpalardy/vim-slime
+
+It is also perfect to send the data to another tmux session 
+
+```
+"h:i.j" means the tmux session where h is the session identifier
+        (either session name or number), the ith window and the jth pane
+```
+
 ## Query Manual 
 
 put the cursor on a function and press Shift K will show the manual for the function.
