@@ -153,6 +153,20 @@ The perfact and elegant tool to do repl in tmux (it also support other
 
 https://github.com/jpalardy/vim-slime
 
+# https proxy server
+
+#https server
+
+using https://github.com/qwj/python-proxy
+
+On windows:
+>>> pproxy.exe -i http+socks://:8123
+
+On Client 
+
+$ pip install --proxy https://serveraddress:8123 --user flake8
+
+
 It is also perfect to send the data to another tmux session 
 
 ```
