@@ -121,6 +121,12 @@ we can not using "+p to paste the register content to buffer.
 It works out of box as long as the lint tool is available in the system.
 https://github.com/w0rp/ale
 
+config in vim so that we know where the error comes from, as there might be multiple linter in system:
+```
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+```
+
+
 ## Code Search Plugin using Ag
 Inspired by:
 https://gorillalogic.com/blog/faster-grepping-vim/
