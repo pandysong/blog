@@ -183,3 +183,9 @@ It is also perfect to send the data to another tmux session
 ## Query Manual 
 
 put the cursor on a function and press Shift K will show the manual for the function.
+
+## tmux to select a buffer to paste from
+
+Choose which buffer to paste interactively from a list.
+
+prefix key =
