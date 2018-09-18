@@ -5,3 +5,7 @@ https://medium.com/a-tiny-piece-of-vim/perform-vim-normal-mode-moves-using-the-c
 # view log in vim
 
 One may consider to use plugin "vim-scripts/LogViewer"
+
+# V vs v
+
+V to select whole line
