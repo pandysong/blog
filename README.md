@@ -218,3 +218,7 @@ vim --servername server_name_here  --remote-send "<ESC>"
 ```
 
 Through --remote-expr and --remote-send, one could almost totally control the vim server.
+
+# C book
+
+Algorithms\ in\ C\ \[Sedgewick\ 1990-01-01\]
