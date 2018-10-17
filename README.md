@@ -222,3 +222,6 @@ Through --remote-expr and --remote-send, one could almost totally control the vi
 # C book
 
 Algorithms\ in\ C\ \[Sedgewick\ 1990-01-01\]
+
+# markdown extension
+https://support.typora.io/Draw-Diagrams-With-Markdown/
