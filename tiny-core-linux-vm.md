@@ -75,11 +75,32 @@ cfdisk /dev/sda
 
 - in tiny core Linux, using mkfs.ext3 to create a file system on the partition.
 ```
-mkfs.ext3 /dev/sda1
+
+# create host-only adaptor
+
+In virtual box it is possible to set up second virtual network adaptor to allow
+host to connect to VM and vice verse.
+
+Do it in two steps:
+
+- VirtualBox-> File  -> Host Network Manager -> Create , This will create a
+  virtual network adaptor
+- Now, int the guest  settings, Network -> Adapter2 -> Enable Network Adaptor ->
+  Attached to -> Host-only Adaapter -> Name -> vboxnet0
+
+
+# run ssh server
+
+```
+tce-load -wi openssh
+sudo /usr/local/etc/init.d/openssh start
 ```
 
-Reboot and put parameters `tce=/dev/sda1` to the boot command line.
+# connect from host to guest via ssh
 
-Now if you install extensions, it will be stored in `/dev/sda1`. Since tiny core
-Linux could now automatically mount the device, it could automatically found the
-`tce` location.
+```
+ssh username@192.168.56.101
+```
+
+Chagne the username and ip address accordingly.
+
