@@ -49,3 +49,37 @@ chmod +x thebinary
 
 Make sure the file exists, otherwise it is possible that you are running a 32bit
 binary in a 64bit Linux.
+
+#  persistence of extensions
+
+tiny core Linux support to make the extensions install persistent by put a boot
+parameter.
+
+In case of micro-core:
+```
+mc tce=/dev/sda1
+```
+
+Note that this could be done only once. But before doing that, we should format
+and make a file system on it.
+
+Do it in three steps:
+
+- From `VirtualBox`, create a Virtual Disk Image (sda1)
+- in tiny core Linux, using `cfdisk` or `fdisk` to create partitions, reboot to go
+  to next step.
+
+```
+cfdisk /dev/sda
+```
+
+- in tiny core Linux, using mkfs.ext3 to create a file system on the partition.
+```
+mkfs.ext3 /dev/sda1
+```
+
+Reboot and put parameters `tce=/dev/sda1` to the boot command line.
+
+Now if you install extensions, it will be stored in `/dev/sda1`. Since tiny core
+Linux could now automatically mount the device, it could automatically found the
+`tce` location.
