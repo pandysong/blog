@@ -26,3 +26,23 @@ upperIPAddress: 192.168.56.254
 Enabled:        Yes
 ```
 Remember to reboot VirtualBox, otherwise it does not work (at least in my setup)
+
+# ubuntu netplan
+
+new ubuntu release uses netplan to configure interface. 
+
+Add the last two lines to enable the interface `enp0s8`
+
+```
+pandy@ubuntu:~$ cat /etc/netplan/01-netcfg.yaml
+# This file describes the network interfaces available on your system
+# For more information, see netplan(5).
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: yes
+    enp0s8:
+      dhcp4: yes
+```
