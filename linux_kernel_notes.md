@@ -72,3 +72,7 @@ strace could filter as well.
 
 
 ## http://eudyptula-challenge.org/
+
+# network 
+
+https://www.slideshare.net/hugolu/the-linux-networking-architecture
