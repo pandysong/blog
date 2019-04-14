@@ -77,6 +77,10 @@ It is also perfect to send the data to another tmux session
         (either session name or number), the ith window and the jth pane
 ```
 
+## Find out the pane number
+
+press `prefix + q`, it will shows the pane number in the same window.
+
 # Query Manual 
 
 put the cursor on a function and press Shift K will show the manual for the function.
