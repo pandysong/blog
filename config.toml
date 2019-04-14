@@ -3,6 +3,7 @@ languageCode = "en-us"
 title = "Pandy's Blog"
 theme = "basics"
 canonifyURLs = true
+googleAnalytics = "UA-131168379-4"
 
 [params]
     author = "Pandy Song"
