@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2019 15:00:46 +0800</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MMU One to One mapping</title>
+      <link>https://pandysong.github.io/blog/post/mmu_one_to_one_map/</link>
+      <pubDate>Sun, 14 Apr 2019 15:00:46 +0800</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/mmu_one_to_one_map/</guid>
+      <description>Introduction What is the purpse of one to one mapping when using MMU? If we have the same physical address with virtual address, why bother to do memory mapping?
+MMU Functionalities Refer to following paragraph in post. In short, the MMU not only provide the memory address mapping, but also provide memory protection for example, set the memory page to read-only or write-only or allowing execution.
+The MMU does much more than mapping a virtual address space to a physical address space of different size.</description>
+    </item>
     
     <item>
       <title>Replace Toyota RAV4 Font Brake</title>
