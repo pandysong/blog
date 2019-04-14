@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pandy&#39;s Blog</title>
+    <link>https://pandysong.github.io/blog/</link>
+    <description>Recent content on Pandy&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 12 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://pandysong.github.io/blog/about/</link>
+      <pubDate>Fri, 12 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/about/</guid>
+      <description>Who am I now I am currently a software engineer working in Syndey Australia.
+When to start coding I stared programming when I was in high school. The first language I used is Pascal, the first compiler I used was Borland Pascal compiler. I also join some coding competition at that time.
+My career I was working in a big telco equipment manufacturer when I started my career.
+I switched to a silicon company which provide chips and solutions for wireless/voice/IoT products.</description>
+    </item>
+    
+    <item>
+      <title>Replace Toyota RAV4 Oil Filter</title>
+      <link>https://pandysong.github.io/blog/post/rav-oil-filter-replacement/</link>
+      <pubDate>Fri, 12 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/rav-oil-filter-replacement/</guid>
+      <description>The Engine module of my RAV4 is 3ZR-FAE, which needs 4.2 Liters of engine oil.
+The part number used:
+Oil Filter: 04152 37010 , $22.41 Smug Plug: 90430 12031, $1.98 Oil Filer Tool: 09228 06501 $236.83  The manual on how to remove old filter and install new filter:</description>
+    </item>
+    
+    <item>
+      <title>Mac OSX High CPU; process `opendirectoryrd`</title>
+      <link>https://pandysong.github.io/blog/post/highcpu_opendirectoryrd/</link>
+      <pubDate>Thu, 28 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/highcpu_opendirectoryrd/</guid>
+      <description>High cpu due to opendirectoryrd I found several links where people complaint about high cpu of the process &amp;ldquo;opendirectoryrd&amp;rdquo; in mac, which causes system busy and macbook becomes very hot.
+Here is the how I resolve MY problem.
+Find the problem in system log I found following log repated many times in the system log:
+com.apple.xpc.launchd[1] (com.avast.uninstall): Service only ran for 5 seconds. Pushing respawn out by 5 seconds.  How to open the system log?</description>
+    </item>
+    
+    <item>
+      <title>Play with tinycorelinux</title>
+      <link>https://pandysong.github.io/blog/post/tiny-core-linux-vm/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/tiny-core-linux-vm/</guid>
+      <description>The problem My issue is that I got some binary from 3rd party which is a 32bit Linux executive. However I am using Mac, and I do not want to install a big virtual machine on my Mac for this tiny little Linux tools.
+I found a project in Github called noah and tried but not be able to make it run on my Mac.
+At the end of the day, I found tinycorelinux.</description>
+    </item>
+    
+    <item>
+      <title>Install ssh public key</title>
+      <link>https://pandysong.github.io/blog/post/ssh/</link>
+      <pubDate>Fri, 04 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/ssh/</guid>
+      <description>convient command ssh-copy-id This could be used to install the public key to remote server. Instead of manually copy the public manupilate .ssh/authorized_keys</description>
+    </item>
+    
+    <item>
+      <title>Singing a binary in one step or in two steps</title>
+      <link>https://pandysong.github.io/blog/post/sign/</link>
+      <pubDate>Thu, 03 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/sign/</guid>
+      <description>Sign a binary in one step Generate digest and then sign it to get the signature in one step:
+openssl dgst -sha256 -sign ${PRIVATE_KEY} -out ${INPUT_FILE}.sig ${INPUT_FILE}  Two steps Sometimes it is not convenient or not possible to provide a complete binary for other party to sign. Two steps could be used so that one party could only provide digest of the binary for other party to sign.</description>
+    </item>
+    
+    <item>
+      <title>Infor about Xilinx</title>
+      <link>https://pandysong.github.io/blog/post/xilinx/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/xilinx/</guid>
+      <description>WiKi Page Xilinx BOOT.bin generation https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841976/Prepare+boot+image
+building DTB https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842279/Build+Device+Tree+Blob
+The place to search for Q&amp;amp;A https://china.xilinx.com/support.html</description>
+    </item>
+    
+    <item>
+      <title>Golang notes</title>
+      <link>https://pandysong.github.io/blog/post/golang_notes/</link>
+      <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/golang_notes/</guid>
+      <description>Language Spec: https://golang.org/ref/spec
+Package: https://golang.org/pkg/
+Must watch 1 Go Concurrency Patterns (slides) : https://www.youtube.com/watch?v=f6kdp27TYZs
+goroutines important: goroutines are not threads. They are cheap, it&amp;rsquo;s practical to have thousands, even hundreds of thousands of goroutines
+channels channel sending and receving are synchronized operations
+Channels are first-class types
+shared memory do not communicate via shared memory using channels instead
+using another goroutine to get the value to other two channels and feed to one channels So that the two channels are not necessarily synchronized</description>
+    </item>
+    
+    <item>
+      <title>Install OpenCV Python in Macos</title>
+      <link>https://pandysong.github.io/blog/post/install_python_opencv_on_mac/</link>
+      <pubDate>Sat, 28 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/install_python_opencv_on_mac/</guid>
+      <description> Install OpenCV Python in Macos There are several tutorial on the internet on how to insall Python OpenCV support.
+Here is the simplifiled guide (for Python 3)
+ brew install opencv go to the virtual environment directory cd lib/python3.6/site-packages/ ln -s /usr/local/opt/opencv/lib/python3.6/site-packages/cv2.cpython-36m-darwin.so cv2.so  Done, and you could test in python
+&amp;gt;&amp;gt;&amp;gt; import cv2 &amp;gt;&amp;gt;&amp;gt; print(cv2.__version__) 3.4.0  </description>
+    </item>
+    
+    <item>
+      <title>Notes about Virtualbox</title>
+      <link>https://pandysong.github.io/blog/post/virtualbox/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/virtualbox/</guid>
+      <description>Virtual Box DHCP Server not working I installed a mini Ubuntu Linux guest, however the host-only network interface could not get appropriate ip address from dhcp server
+$ VBoxManage list dhcpservers NetworkName: HostInterfaceNetworking-vboxnet0 IP: 192.168.56.100 NetworkMask: 255.255.255.0 lowerIPAddress: 192.168.56.101 upperIPAddress: 192.168.56.254 Enabled: No  It looks the dhcp server is not enabled, alought it looks enabled from GUI
+$ VBoxManage dhcpserver modify --netname HostInterfaceNetworking-vboxnet0 --enable $ VBoxManage list dhcpservers NetworkName: HostInterfaceNetworking-vboxnet0 IP: 192.</description>
+    </item>
+    
+    <item>
+      <title>C, C&#43;&#43; and Python</title>
+      <link>https://pandysong.github.io/blog/post/cc&#43;&#43;python/</link>
+      <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/cc&#43;&#43;python/</guid>
+      <description>Introduction There are lot of articles on the internet about the differences between different language. However, to do peer to peer comparison sometime does not make sense as the language (especially new language)is designed has its own market proposition.
+I personally used mostly these three languages, and here to highlight merely according to my personal experiences.
+C ``` C is a general-purpose, high-level language that was originally developed by Dennis M.</description>
+    </item>
+    
+    <item>
+      <title>Haskell notes</title>
+      <link>https://pandysong.github.io/blog/post/haskell/</link>
+      <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/haskell/</guid>
+      <description>courses https://www.seas.upenn.edu/~cis194/fall16/
+Exercies 1 import CodeWorld import Data.Fixed trafficController :: Double -&amp;gt; Picture trafficController t | s &amp;lt; 3 = trafficLight Green | s &amp;lt; 4 = trafficLight Amber | s &amp;lt; 6 = trafficLight Red | s &amp;lt; 7 = trafficLight RedAmber where s = mod&#39; t 7 botCircle c = colored c (translated 0 (-2.5) (solidCircle 1)) midCircle c = colored c (translated 0 0 (solidCircle 1)) topCircle c = colored c (translated 0 2.</description>
+    </item>
+    
+    <item>
+      <title>What is cross-entropy</title>
+      <link>https://pandysong.github.io/blog/post/cross-entropy/</link>
+      <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/cross-entropy/</guid>
+      <description> cross-entropy When reading tensorflow document, it reminds that this post could explain cross-entropy well.
+http://colah.github.io/posts/2015-09-Visual-Information/
+ So, why should you care about cross-entropy? Well, cross-entropy gives us a way to express how different two probability distributions are.
+ </description>
+    </item>
+    
+    <item>
+      <title>Using external file explorer with vim</title>
+      <link>https://pandysong.github.io/blog/post/vim_and_external_file_manager/</link>
+      <pubDate>Wed, 14 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_and_external_file_manager/</guid>
+      <description>using external file explorer http://midnight-commander.org/
+Then config it to use external editor vim
+For open all files in one vim, one may open a vim server
+vim --servername server_name_here  then open in other location
+vim --servername server_name_here --remote file_name_here  One can get all lines:
+vim --servername server_name_here --remote-expr &amp;quot;getline(1,&#39;$&#39;)&amp;quot;  One can issue commands:
+vim --servername server_name_here --remote-send &amp;quot;&amp;lt;ESC&amp;gt;&amp;quot;  Through &amp;ndash;remote-expr and &amp;ndash;remote-send, one could almost totally control the vim server.</description>
+    </item>
+    
+    <item>
+      <title>golang goroutine</title>
+      <link>https://pandysong.github.io/blog/post/using_markdown_on_diagram/</link>
+      <pubDate>Wed, 14 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/using_markdown_on_diagram/</guid>
+      <description>markdown extension https://support.typora.io/Draw-Diagrams-With-Markdown/</description>
+    </item>
+    
+    <item>
+      <title>Closure notes</title>
+      <link>https://pandysong.github.io/blog/post/4clojure-60/</link>
+      <pubDate>Thu, 28 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/4clojure-60/</guid>
+      <description> Introduction The problem in following pages got attention. http://www.4clojure.com/problem/60#prob-title
+solution Here is my solution which passes the unit tests.
+(fn myreduce ([f coll] (when-let [s (seq coll)] (myreduce f (first s) (rest s)))) ([f v coll] (lazy-seq (cons v (when-let [s (seq coll)] (myreduce f (f v (first s)) (rest s)))))))  </description>
+    </item>
+    
+    <item>
+      <title>Where to define golang interface</title>
+      <link>https://pandysong.github.io/blog/post/correct_place_to_define_interface_golang/</link>
+      <pubDate>Mon, 22 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/correct_place_to_define_interface_golang/</guid>
+      <description>where to define golang interface https://github.com/golang/go/wiki/CodeReviewComments#interfaces
+Go interfaces generally belong in the package that uses values of the interface type, not the package that implements those values. The implementing package should return concrete (usually pointer or struct) types: that way, new methods can be added to implementations without requiring extensive refactoring.</description>
+    </item>
+    
+    <item>
+      <title>Understanding `yield` in Python</title>
+      <link>https://pandysong.github.io/blog/post/python/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/python/</guid>
+      <description>understanding yield in python def gen(): s = &amp;quot;init string&amp;quot; while True: s = yield s s += &amp;quot; processed&amp;quot; c= gen() print(next(c)) print(format(c.send(&amp;quot;hello&amp;quot;)))  The above has following output
+init string hello processed  when next&amp;copy; is called, the gen function runs until line :
+s = yield s  However since it does not send anything (using next()), the gen() function only runs the right part of the statement:</description>
+    </item>
+    
+    <item>
+      <title>Understanding `yield` in Python</title>
+      <link>https://pandysong.github.io/blog/post/simple_proxy_server_in_python/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/simple_proxy_server_in_python/</guid>
+      <description>https proxy server Sometime you may need a simple proxy server to workaround the network limitation.
+https server using https://github.com/qwj/python-proxy
+On windows: &amp;gt;&amp;gt;&amp;gt; pproxy.exe -i http+socks://:8123
+On Client
+$ pip install &amp;ndash;proxy https://serveraddress:8123 &amp;ndash;user flake8</description>
+    </item>
+    
+    <item>
+      <title>Vim tips</title>
+      <link>https://pandysong.github.io/blog/post/vim_tips/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_tips/</guid>
+      <description>using macro and normal mode command https://medium.com/a-tiny-piece-of-vim/perform-vim-normal-mode-moves-using-the-command-line-730d21d9d19
+view log in vim One may consider to use plugin &amp;ldquo;vim-scripts/LogViewer&amp;rdquo;
+V vs v V to select whole line
+copy the internal command output to buffer This is the workaround:
+:redir @+&amp;gt; :set guifont? :redir END  Now in the reigster &amp;ldquo;+, it is the output of set guifont?. we can not using &amp;ldquo;+p to paste the register content to buffer.
+Excellent Lint Plugin It works out of box as long as the lint tool is available in the system.</description>
+    </item>
+    
+    <item>
+      <title>Vim Plugin for Python Code Folding</title>
+      <link>https://pandysong.github.io/blog/post/vim_python_code_fold/</link>
+      <pubDate>Tue, 12 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_python_code_fold/</guid>
+      <description>Vim Plugin for Python Code Folding https://github.com/tmhedberg/SimpylFold</description>
+    </item>
+    
+    <item>
+      <title>Javascript Notes</title>
+      <link>https://pandysong.github.io/blog/post/javascript/</link>
+      <pubDate>Mon, 28 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/javascript/</guid>
+      <description>books starter book Easy to follow free book:
+https://www.syncfusion.com/ebooks/javascript</description>
+    </item>
+    
+    <item>
+      <title>Some thoughts about a programming language</title>
+      <link>https://pandysong.github.io/blog/post/programing_language_thoughts/</link>
+      <pubDate>Sun, 13 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/programing_language_thoughts/</guid>
+      <description>Programming language Reflect (On reading golang reflect) Reflect is not good, I feel like it tries to climb over a wall which was built by golang own. The best is not to build the wall at all.
+Type safety (On reading some c code enfocing type safety)
+Type safety is good to resolve part of the programing problems (which some people think is critical to have not to introducing a subtle bugs which is difficut to debug, which I do not think), but it ignores that we have a lot more other problems which could introduce bugs, &amp;ldquo;type safe&amp;rdquo; loses great flexibility to resolve those other problems.</description>
+    </item>
+    
+    <item>
+      <title>Understanding `yield` in Python</title>
+      <link>https://pandysong.github.io/blog/post/python_project_list/</link>
+      <pubDate>Thu, 03 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/python_project_list/</guid>
+      <description>Python Project List https://github.com/checkcheckzz/python-github-projects
+https://awesome-python.com/</description>
+    </item>
+    
+    <item>
+      <title>Golang goroutine</title>
+      <link>https://pandysong.github.io/blog/post/golang_goroutine/</link>
+      <pubDate>Wed, 17 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/golang_goroutine/</guid>
+      <description>golang goroutine goroutine has advantages on correntcy which could make the application flow streamlized. But people may forget another important factor that goroutine is stateful. So if you are make a statemachine or something similar, it might be code of smell, probably it could be optimized off.</description>
+    </item>
+    
+    <item>
+      <title>Tmux how to update DISPLAY env vars</title>
+      <link>https://pandysong.github.io/blog/post/tmux_display_env/</link>
+      <pubDate>Sat, 28 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/tmux_display_env/</guid>
+      <description>tmux how to update DISPLAY env vars if tmux attached to an existing session by using
+tmux attach-session -t your-session-name  The DISPLAY env var may still be the old value kept from when it was detached.
+Following blog provides a solution
+https://raimue.blog/2013/01/30/tmux-update-environment/
+It introduces a shell function:
+function tmux() { local tmux=$(type -fp tmux) case &amp;quot;$1&amp;quot; in update-environment|update-env|env-update) local v while read v; do if [[ $v == -* ]]; then unset ${v/#-/} else # Add quotes around the argument v=${v/=/=\&amp;quot;} v=${v/%/\&amp;quot;} eval export $v fi done &amp;lt; &amp;lt;(tmux show-environment) ;; *) $tmux &amp;quot;$@&amp;quot; ;; esac }  Save it to a file ~/.</description>
+    </item>
+    
+    <item>
+      <title>X11 forwarding</title>
+      <link>https://pandysong.github.io/blog/post/x11_forwarding/</link>
+      <pubDate>Sat, 28 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/x11_forwarding/</guid>
+      <description>X11 forwarding How X11 forwarding works (in High Level) This blog explains clearly in high level how it works.
+http://alexteichman.com/octo/blog/2014/01/01/x11-forwarding-and-terminal-multiplexers/</description>
+    </item>
+    
+    <item>
+      <title>Bash notes</title>
+      <link>https://pandysong.github.io/blog/post/bash_notes/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/bash_notes/</guid>
+      <description>Commands
+ set -o vi to set the vi editing mode
+ clear screen ESC to enter vi editing mode CTRL-L
+ put # at the begning of line to put that line to history file
+ CTRL-U to erase whole line
+ CTRL-S to stop sending the typing characters and buffer them, CTRL-Q to resume and send the buffered keys
+ CTRL-D to terminate the inputs
+ !! to repeat the last command</description>
+    </item>
+    
+    <item>
+      <title>Python Notes</title>
+      <link>https://pandysong.github.io/blog/post/programming_in_python3/</link>
+      <pubDate>Fri, 28 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/programming_in_python3/</guid>
+      <description>Key Points This describes the key points when reading the book programming in Python 3.
+get help use help (function name) in Python shell.
+Data Types In Python, both str and the basic numeric types such as int are immutable. That is, once set, their value cannot be changed.
+Convert Types To convert a data item from one type to another, we can use the syntax type (item). For example</description>
+    </item>
+    
+    <item>
+      <title>Linux Notes</title>
+      <link>https://pandysong.github.io/blog/post/linux_kernel_notes/</link>
+      <pubDate>Thu, 28 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/linux_kernel_notes/</guid>
+      <description>basic command uname $ uname -a Linux syd-svr-pes 4.16.9-1-ARCH #1 SMP PREEMPT Thu May 17 02:10:09 UTC 2018 x86_64 GNU/Linux  driver modules /lib/modules cd /lib/modules  lsmod $ lsmod Module Size Used by nf_conntrack_ipv4 16384 18 ... ... ...  let tar to figure out the compression way tar xf somefile.tar.xz  more is old utility, use less instead of more Becuase less is a bit massive than more, some embedded system only have more.</description>
+    </item>
+    
+    <item>
+      <title>Some books</title>
+      <link>https://pandysong.github.io/blog/post/books/</link>
+      <pubDate>Fri, 28 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/books/</guid>
+      <description>C book Algorithms\ in\ C\ [Sedgewick\ 1990-01-01]</description>
+    </item>
+    
+  </channel>
+</rss>

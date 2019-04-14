@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+
+        <title>Mac OSX High CPU; process `opendirectoryrd`</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Mac OSX High CPU; process `opendirectoryrd`</h1>
+  <div class="blog-post-subheader">
+    <time>28 Mar 2019</time>
+  </div>
+  <div class="blog-post-content">
+    
+
+<h1 id="high-cpu-due-to-opendirectoryrd">High cpu due to opendirectoryrd</h1>
+
+<p>I found several links where people complaint about high cpu of the process &ldquo;opendirectoryrd&rdquo; in mac,
+which causes system busy and macbook becomes very hot.</p>
+
+<p>Here is the how I resolve MY problem.</p>
+
+<h2 id="find-the-problem-in-system-log">Find the problem in system log</h2>
+
+<p>I found following log repated many times in the system log:</p>
+
+<pre><code>com.apple.xpc.launchd[1] (com.avast.uninstall): Service only ran for 5 seconds. Pushing respawn out by 5 seconds.
+</code></pre>
+
+<p>How to open the system log?</p>
+
+<p>Open console.app and click tab <em>sytem.log</em></p>
+
+<p>You may also monitor the log by following command line:</p>
+
+<pre><code>tail -f /var/log/system.log
+</code></pre>
+
+<h2 id="analysis">Analysis</h2>
+
+<p>It looks the the service is launched again and again, which keeps opendirectoryrd very busy.
+I am not sure why it is is uninstalling, but there is no avast in the sytem.
+It is possible the previously uninstallation was not clean.</p>
+
+<h2 id="how-to-resolve">How to resolve</h2>
+
+<p>So let&rsquo;s try to uninstall it agian.</p>
+
+<p>Download the installation program (the uninstallation program is included) from avast.
+When you click it, you could choose to uninstall the current one in the system.</p>
+
+<p>After uninstallation, reboot the mac and my mac comes back to <em>cool</em> state.</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2019 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+
+        <title>Linux Notes</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Linux Notes</h1>
+  <div class="blog-post-subheader">
+    <time>28 Mar 2013</time>
+  </div>
+  <div class="blog-post-content">
+    
+
+<h1 id="basic-command">basic command</h1>
+
+<h2 id="uname">uname</h2>
+
+<pre><code>$ uname -a
+Linux syd-svr-pes 4.16.9-1-ARCH #1 SMP PREEMPT Thu May 17 02:10:09 UTC 2018 x86_64 GNU/Linux
+</code></pre>
+
+<h2 id="driver-modules-lib-modules">driver modules <code>/lib/modules</code></h2>
+
+<pre><code>cd /lib/modules
+
+</code></pre>
+
+<h2 id="lsmod">lsmod</h2>
+
+<pre><code>$ lsmod
+Module                  Size  Used by
+nf_conntrack_ipv4      16384  18
+...
+...
+...
+</code></pre>
+
+<h2 id="let-tar-to-figure-out-the-compression-way">let tar to figure out the compression way</h2>
+
+<pre><code>tar xf somefile.tar.xz
+</code></pre>
+
+<h2 id="more-is-old-utility-use-less-instead-of-more"><code>more</code> is old utility, use <code>less</code> instead of <code>more</code></h2>
+
+<p>Becuase <code>less</code> is a bit massive than <code>more</code>, some embedded system only have more.</p>
+
+<h2 id="compile-kernel">compile kernel</h2>
+
+<pre><code>make menuconfig
+make all
+make modules_install # install modules to /lib/modules/
+make install
+</code></pre>
+
+<h2 id="strace">strace</h2>
+
+<p>using strace to see the system call being called</p>
+
+<p><a href="https://www.youtube.com/watch?v=0IQlpFWTFbM">https://www.youtube.com/watch?v=0IQlpFWTFbM</a></p>
+
+<pre><code>strace &lt;your programe&gt;
+</code></pre>
+
+<p>strace could filter as well.</p>
+
+<h2 id="perf-track-l1-cache-misses">perf, track L1 cache misses</h2>
+
+<h2 id="ftrace-tracing-kernel-functions">ftrace, tracing kernel functions</h2>
+
+<h2 id="proc">/proc</h2>
+
+<h3 id="recover-the-deleted-but-still-runing-exe-files">recover the deleted but still runing exe files</h3>
+
+<h3 id="get-the-cmdline">get the cmdLine</h3>
+
+<h3 id="get-fd-file-opened">get fd (file opened)</h3>
+
+<h2 id="https-livegrep-com"><a href="https://livegrep.com">https://livegrep.com</a></h2>
+
+<h2 id="http-eudyptula-challenge-org"><a href="http://eudyptula-challenge.org/">http://eudyptula-challenge.org/</a></h2>
+
+<h1 id="network">network</h1>
+
+<p><a href="https://www.slideshare.net/hugolu/the-linux-networking-architecture">https://www.slideshare.net/hugolu/the-linux-networking-architecture</a></p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2019 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

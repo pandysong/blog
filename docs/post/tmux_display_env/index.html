@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+
+        <title>Tmux how to update DISPLAY env vars</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Tmux how to update DISPLAY env vars</h1>
+  <div class="blog-post-subheader">
+    <time>28 Mar 2015</time>
+  </div>
+  <div class="blog-post-content">
+    
+
+<h2 id="tmux-how-to-update-display-env-vars">tmux how to update DISPLAY env vars</h2>
+
+<p>if tmux attached to an existing session by using</p>
+
+<pre><code class="language-bash">tmux attach-session -t your-session-name
+</code></pre>
+
+<p>The DISPLAY env var may still be the old value kept from when it was detached.</p>
+
+<p>Following blog provides a solution</p>
+
+<p><a href="https://raimue.blog/2013/01/30/tmux-update-environment/">https://raimue.blog/2013/01/30/tmux-update-environment/</a></p>
+
+<p>It introduces a shell function:</p>
+
+<pre><code class="language-bash">function tmux() {
+    local tmux=$(type -fp tmux)
+    case &quot;$1&quot; in
+        update-environment|update-env|env-update)
+            local v
+            while read v; do
+                if [[ $v == -* ]]; then
+                    unset ${v/#-/}
+                else
+                    # Add quotes around the argument
+                    v=${v/=/=\&quot;}
+                    v=${v/%/\&quot;}
+                    eval export $v
+                fi
+            done &lt; &lt;(tmux show-environment)
+            ;;
+        *)
+            $tmux &quot;$@&quot;
+            ;;
+    esac
+}
+</code></pre>
+
+<p>Save it to a file ~/.whatever_name_you_want.sh, and source it from ~/.bashrc.</p>
+
+<p>Whenever you need to use X11 forard and found it does not work, try the following command to update the environment vars</p>
+
+<pre><code class="language-bash">tmux update-env
+</code></pre>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2019 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+
