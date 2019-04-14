@@ -1,6 +1,6 @@
 ---
 date: 2019-01-03
-title: Singing a binary in one step or in two steps
+title: Signing a binary in one step or in two steps
 weight: 10
 ---
 
