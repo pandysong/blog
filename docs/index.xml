@@ -6,10 +6,19 @@
     <description>Recent content on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Replace Toyota RAV4 Font Brake</title>
+      <link>https://pandysong.github.io/blog/post/rav-brake-replacement/</link>
+      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/rav-brake-replacement/</guid>
+      <description>The manual on how to replace front brake</description>
+    </item>
     
     <item>
       <title>About</title>
@@ -132,7 +141,7 @@ $ VBoxManage dhcpserver modify --netname HostInterfaceNetworking-vboxnet0 --enab
       <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://pandysong.github.io/blog/post/cc&#43;&#43;python/</guid>
-      <description>Introduction There are lot of articles on the internet about the differences between different language. However, to do peer to peer comparison sometime does not make sense as the language (especially new language)is designed has its own market proposition.
+      <description>Introduction There are lot of articles on the internet about the differences between different language. However, to do peer to peer comparison sometime does not make sense, as the language (especially new language)is designed has its own market proposition.
 I personally used mostly these three languages, and here to highlight merely according to my personal experiences.
 C ``` C is a general-purpose, high-level language that was originally developed by Dennis M.</description>
     </item>
@@ -205,18 +214,7 @@ Go interfaces generally belong in the package that uses values of the interface 
     </item>
     
     <item>
-      <title>Understanding `yield` in Python</title>
-      <link>https://pandysong.github.io/blog/post/python/</link>
-      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://pandysong.github.io/blog/post/python/</guid>
-      <description>understanding yield in python def gen(): s = &amp;quot;init string&amp;quot; while True: s = yield s s += &amp;quot; processed&amp;quot; c= gen() print(next(c)) print(format(c.send(&amp;quot;hello&amp;quot;)))  The above has following output
-init string hello processed  when next&amp;copy; is called, the gen function runs until line :
-s = yield s  However since it does not send anything (using next()), the gen() function only runs the right part of the statement:</description>
-    </item>
-    
-    <item>
-      <title>Understanding `yield` in Python</title>
+      <title>Https Proxy Server in Python</title>
       <link>https://pandysong.github.io/blog/post/simple_proxy_server_in_python/</link>
       <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
       
@@ -226,6 +224,17 @@ https server using https://github.com/qwj/python-proxy
 On windows: &amp;gt;&amp;gt;&amp;gt; pproxy.exe -i http+socks://:8123
 On Client
 $ pip install &amp;ndash;proxy https://serveraddress:8123 &amp;ndash;user flake8</description>
+    </item>
+    
+    <item>
+      <title>Understanding `yield` in Python</title>
+      <link>https://pandysong.github.io/blog/post/python/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/python/</guid>
+      <description>understanding yield in python def gen(): s = &amp;quot;init string&amp;quot; while True: s = yield s s += &amp;quot; processed&amp;quot; c= gen() print(next(c)) print(format(c.send(&amp;quot;hello&amp;quot;)))  The above has following output
+init string hello processed  when next&amp;copy; is called, the gen function runs until line :
+s = yield s  However since it does not send anything (using next()), the gen() function only runs the right part of the statement:</description>
     </item>
     
     <item>
