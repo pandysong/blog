@@ -2,6 +2,7 @@ baseURL = ""
 languageCode = "en-us"
 title = "Pandy's Blog"
 theme = "basics"
+canonifyURLs = true
 
 [params]
     author = "Pandy Song"
