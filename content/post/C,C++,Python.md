@@ -1,3 +1,9 @@
+---
+date: 2018-03-28
+title: C, C++ and Python
+weight: 10
+---
+
 # Introduction
 
 There are lot of articles on the internet about the differences between

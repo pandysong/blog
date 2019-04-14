@@ -1,3 +1,9 @@
+---
+date: 2014-03-28
+title: Python Notes
+weight: 10
+---
+
 # Key Points
 
 This describes the key points when reading the book `programming in Python 3`.

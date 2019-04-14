@@ -1,3 +1,9 @@
+---
+date: 2018-03-28
+title: Haskell notes
+weight: 10
+---
+
 # courses
 
 https://www.seas.upenn.edu/~cis194/fall16/

@@ -1,3 +1,9 @@
+---
+date: 2017-09-28
+title: Closure notes
+weight: 10
+---
+
 # Introduction
 The problem in following pages got attention. 
 http://www.4clojure.com/problem/60#prob-title

@@ -1,0 +1,8 @@
+baseURL = ""
+languageCode = "en-us"
+title = "Pandy's Blog"
+theme = "basics"
+
+[params]
+    author = "Pandy Song"
+    github = "pandysong"

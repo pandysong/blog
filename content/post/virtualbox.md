@@ -1,3 +1,9 @@
+---
+date: 2018-04-12
+title: Notes about Virtualbox
+weight: 10
+---
+
 # Virtual Box DHCP Server not working 
 
 I installed a mini Ubuntu Linux guest, however the host-only 

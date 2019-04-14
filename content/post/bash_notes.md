@@ -1,3 +1,10 @@
+---
+date: 2014-09-28
+title: Bash notes
+weight: 10
+---
+
+
 - Commands
 
     - set -o vi to set the vi editing mode

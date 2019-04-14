@@ -1,3 +1,9 @@
+---
+date: 2017-04-12
+title: Understanding `yield` in Python
+weight: 10
+---
+
 # understanding yield in python
 
 ```python

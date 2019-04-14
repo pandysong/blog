@@ -1,3 +1,9 @@
+---
+date: 2018-05-28
+title: Golang notes
+weight: 10
+---
+
 Language Spec: https://golang.org/ref/spec
 
 Package: https://golang.org/pkg/

@@ -1,3 +1,9 @@
+---
+date: 2019-03-28
+title: Mac OSX High CPU; process `opendirectoryrd`
+weight: 10
+---
+
 # High cpu due to opendirectoryrd
 
 I found several links where people complaint about high cpu of the process "opendirectoryrd" in mac,

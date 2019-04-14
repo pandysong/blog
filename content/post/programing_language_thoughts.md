@@ -1,3 +1,9 @@
+---
+date: 2016-03-13
+title: Some thoughts about a programming language 
+weight: 10
+---
+
 # Programming language 
 
 ## Reflect

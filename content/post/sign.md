@@ -1,5 +1,10 @@
-## Sign a binary in one step
+---
+date: 2019-01-03
+title: Singing a binary in one step or in two steps
+weight: 10
+---
 
+## Sign a binary in one step
 
 Generate digest and then sign it to get the signature in one step:
 

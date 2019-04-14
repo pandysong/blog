@@ -1,3 +1,9 @@
+---
+date: 2019-01-06
+title: Play with tinycorelinux
+weight: 10
+---
+
 # The problem
 
 My issue is that I got some binary from 3rd party which is a 32bit Linux
@@ -104,3 +110,17 @@ ssh username@192.168.56.101
 
 Chagne the username and ip address accordingly.
 
+# dns issue
+
+After host-only adaptor is enabled the guest nds might not work
+
+checkot following file 
+```
+/etc/resolv.conf
+```
+
+To see if following line exists
+
+```
+nameserver 192.168.0.1
+```
