@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using Cscope to read Linux Souce Code or U-Boot Source Code</title>
+      <link>https://pandysong.github.io/blog/post/cscope_for_linux_kernel_or_uboot/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/cscope_for_linux_kernel_or_uboot/</guid>
+      <description>create scope data for Linux Kernel or u-boot Follow the usual instructions on how to build Linux kernel or u-boot until the step which does the real make, at this stage you could create scope data by typing:
+make cscope  This will create scope.out, which could be used in vim:
+cs add scope.out  Then you could use the command defined in the following section to search the database and jump around.</description>
+    </item>
     
     <item>
       <title>Virtualbox High CPU in Mac</title>
