@@ -6,10 +6,22 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Apr 2019 15:00:46 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 23 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Virtualbox High CPU in Mac</title>
+      <link>https://pandysong.github.io/blog/post/virtualbox_high_cpu_in_mac/</link>
+      <pubDate>Tue, 23 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/virtualbox_high_cpu_in_mac/</guid>
+      <description>How to resolve My problem resolved after following one of the solutions in:
+https://www.virtualbox.org/ticket/18089?cversion=1&amp;amp;cnum_hist=13
+Which is
+I just updated to mac OS 10.14.3 and to VirtualBox 5.2.24, and the problem recurred on a VM where it had been fine before. I had previously set this VM to use the null audio driver. The settings were: Audio Enabled Null Audio Driver ICH AC97 Audio Output Enabled Audio Input Enabled I shut it down, unchecked the first box to disable audio entirely, restarted the VM, and CPU load is normal again.</description>
+    </item>
     
     <item>
       <title>MMU One to One mapping</title>
