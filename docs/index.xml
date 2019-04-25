@@ -6,10 +6,22 @@
     <description>Recent content on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Run u-boot in qemu</title>
+      <link>https://pandysong.github.io/blog/post/run_u-boot_in_qemu/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/run_u-boot_in_qemu/</guid>
+      <description>Introduction In u-boot source code doc/README.qemu-arm, it could be found that u-boot could run under qemu. This could help to understand or experiment u-boot without a real hardware.
+How to I am running this in a ubuntu virtual machine on my mac book.
+This is for running arm:
+export CROSS_COMPILE=arm-linux-gnueabi- make qemu_arm_defconfig make cscope # This is optional make  For AArch64, replace CROSS_COMPILE with correct cross compiler and then:</description>
+    </item>
     
     <item>
       <title>Using Cscope to read Linux Souce Code or U-Boot Source Code</title>

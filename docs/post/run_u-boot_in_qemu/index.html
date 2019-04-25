@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+
+        <title>Run u-boot in qemu</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Run u-boot in qemu</h1>
+  <div class="blog-post-subheader">
+    <time>25 Apr 2019</time>
+  </div>
+  <div class="blog-post-content">
+    
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In u-boot source code doc/README.qemu-arm, it could be found that u-boot could
+run under qemu. This could help to understand or experiment u-boot without a
+real hardware.</p>
+
+<h2 id="how-to">How to</h2>
+
+<p>I am running this in a ubuntu virtual machine on my mac book.</p>
+
+<p>This is for running arm:</p>
+
+<pre><code>export CROSS_COMPILE=arm-linux-gnueabi-
+make qemu_arm_defconfig
+make cscope # This is optional
+make
+</code></pre>
+
+<p>For AArch64, replace CROSS_COMPILE with correct cross compiler and then:</p>
+
+<pre><code>make qemu_arm64_defconfig
+</code></pre>
+
+<h2 id="run">Run:</h2>
+
+<p>I am running in a virtual machine by ssh to it</p>
+
+<pre><code>qemu-system-arm -curses -machine virt -bios u-boot.bin
+</code></pre>
+
+<p>I need <code>-curses</code>, otherwise it will complain:</p>
+
+<pre><code>Could not initialize SDL(No available video device) - exiting
+</code></pre>
+
+<p>For AArch64:</p>
+
+<pre><code>qemu-system-aarch64 -curses -machine virt -cpu cortex-a57 -bios u-boot.bin
+</code></pre>
+
+<p>Press <code>Esc + 1</code> to go to the qemu monitor command line interface, you could type
+<code>help</code> to get all qemu command, e.g. <code>stop</code> to stop emulation:</p>
+
+<pre><code>compat_monitor0 console
+QEMU 2.11.1 monitor - type 'help' for more information
+(qemu)
+
+</code></pre>
+
+<p>Press <code>Esc + 2</code> to go to the u-boot interface.</p>
+
+<pre><code>serial0 console
+
+
+U-Boot 2018.09 (Apr 25 2019 - 21:37:28 +1000)
+
+DRAM:  128 MiB
+WARNING: Caches not enabled
+In:    pl011@9000000
+Out:   pl011@9000000
+Err:   pl011@9000000
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+scanning bus for devices...
+
+Device 0: unknown device
+starting USB...
+No controllers found
+No ethernet found.
+No ethernet found.
+=&gt;
+</code></pre>
+
+<h1 id="qemu-version">QEMU version</h1>
+
+<p>This is tested on the following version:</p>
+
+<pre><code>pandy@ubuntu:~/u-boot-2018.09$ qemu-system-arm --version
+QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.8)
+Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
+</code></pre>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2019 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+
