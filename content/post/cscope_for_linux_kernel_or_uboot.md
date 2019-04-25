@@ -50,3 +50,31 @@ say `~/cscopecmd.txt`, then each time you want to use these command, you may
 After setting up, when you type `:fs` followed by space, the command will be
 expanded to `:cs find s <cword>`, you could then press *<enter>* or edit the
 command line as you want.
+
+# other type of database
+
+In u-boot, other type of database like ctags or etags could be generated.
+
+Generate ctags database:
+
+```
+make tags
+```
+
+Or
+
+```
+make ctags
+```
+
+Generate etags database:
+
+```
+make etags
+```
+
+In linux kernel source code, following target are available in Makefile:
+
+```
+tags TAGS cscope gtags
+```

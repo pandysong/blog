@@ -109,6 +109,30 @@ say <code>~/cscopecmd.txt</code>, then each time you want to use these command, 
 expanded to <code>:cs find s &lt;cword&gt;</code>, you could then press <em><enter></em> or edit the
 command line as you want.</p>
 
+<h1 id="other-type-of-database">other type of database</h1>
+
+<p>In u-boot, other type of database like ctags or etags could be generated.</p>
+
+<p>Generate ctags database:</p>
+
+<pre><code>make tags
+</code></pre>
+
+<p>Or</p>
+
+<pre><code>make ctags
+</code></pre>
+
+<p>Generate etags database:</p>
+
+<pre><code>make etags
+</code></pre>
+
+<p>In linux kernel source code, following target are available in Makefile:</p>
+
+<pre><code>tags TAGS cscope gtags
+</code></pre>
+
   </div>
 </div>
 
