@@ -1,4 +1,4 @@
-baseURL = ""
+baseURL = "https://pandysong.github.io/blog/"
 languageCode = "en-us"
 title = "Pandy's Blog"
 theme = "basics"
