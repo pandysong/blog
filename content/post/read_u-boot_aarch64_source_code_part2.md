@@ -6,8 +6,8 @@ weight: 10
 
 ## Introduction
 
-`_main` function is defined in a file called `crt0_64.S`, which is `crt0 -
-C-runtime startup Code for AArch64 U-Boot`.
+`_main` function is defined in a file called `crt0_64.S`, which is `C-runtime
+startup Code for AArch64 U-Boot`.
 
 ## crt0_64.S
 
@@ -173,9 +173,9 @@ board_init_r():
 	bl	board_init_f
 ```
 
-Above code first set `x0` to an address where stack pointer (SP) will be
-pointed to. And then it will set the `x0` to 16 byte alignment and then set it
-to `sp` in the code:
+Above code first set `x0` with an address where stack pointer (SP) will be
+pointed to. And then it will make the `x0` with 16 byte alignment and then set
+it to `sp` in the code:
 
 ```
 	bic	sp, x0, #0xf	/* 16-byte alignment for ABI compliance */
@@ -209,9 +209,8 @@ reason is that
 
 ### `board_init_f_alloc_reserve`
 
-
-This function get input of the top of the memory and return the address after
-reserving the memory for `(struct global_data)`.
+This function gets input of the top address of the memory and return the
+address after reserving the memory for `(struct global_data)`.
 
 ```
 ulong board_init_f_alloc_reserve(ulong top)
@@ -278,16 +277,16 @@ top memory ------------> lower memory
                                    sp (stack grow direction ---> )
 ```
 
-### calling board_init_f
+### calling `board_init_f`
 
 ```
 	mov	x0, #0
 	bl	board_init_f
 ```
 
-In function board_init_f(), a list of functions (list in init_sequence_f[]) is
-run, in which serial_init() is called and dram_init() is called. These two, I
-think is the most important ones.
+In function `board_init_f()`, a list of functions (list in `init_sequence_f[]`)
+is run, in which serial_init() is called and dram_init() is called. These two,
+I think is the most important ones.
 
 
 ###  relocation

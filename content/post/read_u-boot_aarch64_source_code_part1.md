@@ -13,23 +13,20 @@ method to create cscope database mentioned in
 
 ## start.S
 
-After loading the cscope.out, I could find search the starting point by the
-following command
+After loading the cscope.out, I could find the starting point by the following
+command:
 
 ```
 cs find f start.S
 ```
 
-This leads me to the file `/arm/cpu/armv8/start.S`.
-
+This leads me to the file `arm/cpu/armv8/start.S`.
 
 ## content values
 
 The first instruction is to jump to function `reset`, just after the branch
-instruction it defines some global variable, _TEXT_BASE is 64bit address which
-is defined during linking.
-
-
+instruction it defines some global variables and _TEXT_BASE is 64bit address
+which is defined during linking.
 
 ```
 #else
@@ -44,10 +41,10 @@ _TEXT_BASE:
 
 ```
 
-Then it defines some variable according to the linker script (refer to
+Then it defines some variables according to the linker script (refer to
 u-boot.lds). `_end_ofs` is the offset of `_end`,  `_bss_start_ofs` is the
-offset of start address of bss section. and `_bss_end_ofs` is the offset of
-end address of bss section.
+offset of start address of bss section. and `_bss_end_ofs` is the offset of end
+address of bss section.
 
 ```
 /*
@@ -68,7 +65,7 @@ _bss_end_ofs:
 
 ## reset function
 
-The reset function ump to a function `save_boot_params`.
+The reset function jumps to a function `save_boot_params`.
 
 ```
 reset:
@@ -82,8 +79,8 @@ From `save_boot_params`, it jumps back to `save_boot_params_ret`.
 
 ## CONFIG_POSITION_INDEPENDENT
 
-This part of code relocate the address `_TEXT_BASE` which is defined when
-linking to the real run time address `_start`.
+This part of code relocate the address `_TEXT_BASE`, which is defined when
+linking, to the real run time address `_start`.
 
 ```
 #if CONFIG_POSITION_INDEPENDENT
@@ -114,9 +111,7 @@ pie_fixup_done:
 ```
 For the details of implementation, we may need another post to discuss.
 
-
 ## other functionalities
-
 
 The rest of files are:
 
@@ -130,6 +125,5 @@ The rest of files are:
 master_cpu:
     bl  _main
 ```
-
 
 Continue with [part 2](../read_u-boot_aarch64_source_code_part2)

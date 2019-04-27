@@ -74,19 +74,19 @@ method to create cscope database mentioned in
 
 <h2 id="start-s">start.S</h2>
 
-<p>After loading the cscope.out, I could find search the starting point by the
-following command</p>
+<p>After loading the cscope.out, I could find the starting point by the following
+command:</p>
 
 <pre><code>cs find f start.S
 </code></pre>
 
-<p>This leads me to the file <code>/arm/cpu/armv8/start.S</code>.</p>
+<p>This leads me to the file <code>arm/cpu/armv8/start.S</code>.</p>
 
 <h2 id="content-values">content values</h2>
 
 <p>The first instruction is to jump to function <code>reset</code>, just after the branch
-instruction it defines some global variable, _TEXT_BASE is 64bit address which
-is defined during linking.</p>
+instruction it defines some global variables and _TEXT_BASE is 64bit address
+which is defined during linking.</p>
 
 <pre><code>#else
 	b	reset
@@ -100,10 +100,10 @@ _TEXT_BASE:
 
 </code></pre>
 
-<p>Then it defines some variable according to the linker script (refer to
+<p>Then it defines some variables according to the linker script (refer to
 u-boot.lds). <code>_end_ofs</code> is the offset of <code>_end</code>,  <code>_bss_start_ofs</code> is the
-offset of start address of bss section. and <code>_bss_end_ofs</code> is the offset of
-end address of bss section.</p>
+offset of start address of bss section. and <code>_bss_end_ofs</code> is the offset of end
+address of bss section.</p>
 
 <pre><code>/*
  * These are defined in the linker script.
@@ -123,7 +123,7 @@ _bss_end_ofs:
 
 <h2 id="reset-function">reset function</h2>
 
-<p>The reset function ump to a function <code>save_boot_params</code>.</p>
+<p>The reset function jumps to a function <code>save_boot_params</code>.</p>
 
 <pre><code>reset:
 	/* Allow the board to save important registers */
@@ -136,8 +136,8 @@ save_boot_params_ret:
 
 <h2 id="config-position-independent">CONFIG_POSITION_INDEPENDENT</h2>
 
-<p>This part of code relocate the address <code>_TEXT_BASE</code> which is defined when
-linking to the real run time address <code>_start</code>.</p>
+<p>This part of code relocate the address <code>_TEXT_BASE</code>, which is defined when
+linking, to the real run time address <code>_start</code>.</p>
 
 <pre><code>#if CONFIG_POSITION_INDEPENDENT
 	/*

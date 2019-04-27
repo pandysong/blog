@@ -67,8 +67,8 @@ if (!doNotTrack) {
 
 <h2 id="introduction">Introduction</h2>
 
-<p><code>_main</code> function is defined in a file called <code>crt0_64.S</code>, which is <code>crt0 -
-C-runtime startup Code for AArch64 U-Boot</code>.</p>
+<p><code>_main</code> function is defined in a file called <code>crt0_64.S</code>, which is <code>C-runtime
+startup Code for AArch64 U-Boot</code>.</p>
 
 <h2 id="crt0-64-s">crt0_64.S</h2>
 
@@ -231,9 +231,9 @@ board_init_r():
 	bl	board_init_f
 </code></pre>
 
-<p>Above code first set <code>x0</code> to an address where stack pointer (SP) will be
-pointed to. And then it will set the <code>x0</code> to 16 byte alignment and then set it
-to <code>sp</code> in the code:</p>
+<p>Above code first set <code>x0</code> with an address where stack pointer (SP) will be
+pointed to. And then it will make the <code>x0</code> with 16 byte alignment and then set
+it to <code>sp</code> in the code:</p>
 
 <pre><code>	bic	sp, x0, #0xf	/* 16-byte alignment for ABI compliance */
 </code></pre>
@@ -263,8 +263,8 @@ reason is that</p>
 
 <h3 id="board-init-f-alloc-reserve"><code>board_init_f_alloc_reserve</code></h3>
 
-<p>This function get input of the top of the memory and return the address after
-reserving the memory for <code>(struct global_data)</code>.</p>
+<p>This function gets input of the top address of the memory and return the
+address after reserving the memory for <code>(struct global_data)</code>.</p>
 
 <pre><code>ulong board_init_f_alloc_reserve(ulong top)
 {
@@ -328,15 +328,15 @@ reserving the memory for <code>(struct global_data)</code>.</p>
                                    sp (stack grow direction ---&gt; )
 </code></pre>
 
-<h3 id="calling-board-init-f">calling board_init_f</h3>
+<h3 id="calling-board-init-f">calling <code>board_init_f</code></h3>
 
 <pre><code>	mov	x0, #0
 	bl	board_init_f
 </code></pre>
 
-<p>In function board_init_f(), a list of functions (list in init_sequence_f[]) is
-run, in which serial_init() is called and dram_init() is called. These two, I
-think is the most important ones.</p>
+<p>In function <code>board_init_f()</code>, a list of functions (list in <code>init_sequence_f[]</code>)
+is run, in which serial_init() is called and dram_init() is called. These two,
+I think is the most important ones.</p>
 
 <h3 id="relocation">relocation</h3>
 

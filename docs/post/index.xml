@@ -18,9 +18,9 @@
       
       <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part1/</guid>
       <description>Introduction In previous code walking through, we uses make cscope which is not quite convenient. In this tutorial, we used the new method to create cscope database mentioned in cscope_u-boot_improved.
-start.S After loading the cscope.out, I could find search the starting point by the following command
-cs find f start.S  This leads me to the file /arm/cpu/armv8/start.S.
-content values The first instruction is to jump to function reset, just after the branch instruction it defines some global variable, _TEXT_BASE is 64bit address which is defined during linking.</description>
+start.S After loading the cscope.out, I could find the starting point by the following command:
+cs find f start.S  This leads me to the file arm/cpu/armv8/start.S.
+content values The first instruction is to jump to function reset, just after the branch instruction it defines some global variables and _TEXT_BASE is 64bit address which is defined during linking.</description>
     </item>
     
     <item>
@@ -29,7 +29,7 @@ content values The first instruction is to jump to function reset, just after th
       <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part2/</guid>
-      <description>Introduction _main function is defined in a file called crt0_64.S, which is crt0 - C-runtime startup Code for AArch64 U-Boot.
+      <description>Introduction _main function is defined in a file called crt0_64.S, which is C-runtime startup Code for AArch64 U-Boot.
 crt0_64.S /* * This file handles the target-independent stages of the U-Boot * start-up where a C runtime environment is needed. Its entry point * is _main and is branched into from the target&#39;s start.S file. * * _main execution sequence is: * * 1. Set up initial environment for calling board_init_f().</description>
     </item>
     
