@@ -26,7 +26,15 @@ make
 For AArch64, replace CROSS_COMPILE with correct cross compiler and then:
 
 ```
+export CROSS_COMPILE=aarch64-linux-gnu-
 make qemu_arm64_defconfig
+make
+```
+
+BTW, install the cross-compiler for aarch64:
+
+```
+sudo apt-get install gcc-aarch64-linux-gnu
 ```
 
 ## Run:
