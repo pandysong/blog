@@ -101,6 +101,19 @@ cabbrev ff :cs find f &lt;cword&gt;
 cabbrev fi :cs find i &lt;cword&gt;
 </code></pre>
 
+<p>The meaning for each command is as follows (copied from vim helper):</p>
+
+<pre><code>0 or s: Find this C symbol
+1 or g: Find this definition
+2 or d: Find functions called by this function
+3 or c: Find functions calling this function
+4 or t: Find this text string
+6 or e: Find this egrep pattern
+7 or f: Find this file
+8 or i: Find files #including this file
+9 or a: Find places where this symbol is assigned a value
+</code></pre>
+
 <p>If you do not want to do such mapping by default, you may save to an text file
 say <code>~/cscopecmd.txt</code>, then each time you want to use these command, you may
 <code>so ~/cscopecmd.txt</code> to set up.</p>

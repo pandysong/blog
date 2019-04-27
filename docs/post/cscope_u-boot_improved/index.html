@@ -9,7 +9,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
 
-        <title>Run u-boot in qemu</title>
+        <title>Using Cscope to U-Boot Source Code (Improved)</title>
 
         <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
 
@@ -58,100 +58,90 @@ if (!doNotTrack) {
 
 
 <div class="blog-post">
-  <h1>Run u-boot in qemu</h1>
+  <h1>Using Cscope to U-Boot Source Code (Improved)</h1>
   <div class="blog-post-subheader">
-    <time>25 Apr 2019</time>
+    <time>26 Apr 2019</time>
   </div>
   <div class="blog-post-content">
     
 
-<h2 id="introduction">Introduction</h2>
+<h2 id="disadvantage-of-make-cscope">Disadvantage of <code>make cscope</code></h2>
 
-<p>In u-boot source code doc/README.qemu-arm, it could be found that u-boot could
-run under qemu. This could help to understand or experiment u-boot without a
-real hardware.</p>
+<p>In the <a href="../cscope_for_linux_kernel_or_uboot">post</a>, we uses the infrastructure
+by u-boot or Linux makefile to build the cscope database. But the disadvantage
+of that approach is that there are duplicated files for the same functions, so
+it is difficult the find a single path for the specific build.</p>
 
-<h2 id="how-to">How to</h2>
+<p>E.g. in the current build</p>
 
-<p>I am running this in a ubuntu virtual machine on my mac book.</p>
-
-<p>This is for running arm:</p>
-
-<pre><code>export CROSS_COMPILE=arm-linux-gnueabi-
-make qemu_arm_defconfig
-make cscope # This is optional
-make
+<pre><code>pandy@ubuntu:~/u-boot-2018.09$ cat cscope.files | wc -l
+5342
 </code></pre>
 
-<p>For AArch64, replace CROSS_COMPILE with correct cross compiler and then:</p>
+<p>The database includes 5K files.</p>
 
-<pre><code>export CROSS_COMPILE=aarch64-linux-gnu-
-make qemu_arm64_defconfig
-make
+<h2 id="improvement">Improvement</h2>
+
+<p>The approach is to limit the files to the ones used in the real build. We use
+the utility <code>readelf</code> to list all the files.</p>
+
+<pre><code>readelf --string-dump=.debug_str u-boot | sed -n '/\/\|\.c/{s/.*\]  //p}' &gt; cscope.files
 </code></pre>
 
-<p>BTW, install the cross-compiler for aarch64:</p>
+<p>This will create a list of files which is used in the compilation and included
+in the elf file.</p>
 
-<pre><code>sudo apt-get install gcc-aarch64-linux-gnu
+<p>Then use following command to create cscope database:</p>
+
+<pre><code>cscope -bqk
 </code></pre>
 
-<h2 id="run">Run:</h2>
+<p>The advantage of this method is that this method includes only files which are
+used in actual compilation.</p>
 
-<p>I am running in a virtual machine by ssh to it</p>
+<h2 id="header-files">Header files</h2>
 
-<pre><code>qemu-system-arm -curses -machine virt -bios u-boot.bin
+<p>The problem of this method is that it does not include header files. In order
+to overcome this issue, I need to find the all header files used in the
+compilation.</p>
+
+<p>gcc has an option <code>-H</code>, which will print all used header files used in
+compilation.</p>
+
+<p>In u-boot, environment var <code>KCFLAGS</code> could be used to specify customized
+option. Add following environment var:</p>
+
+<pre><code>export KCFLAGS=-H
 </code></pre>
 
-<p>I need <code>-curses</code>, otherwise it will complain:</p>
+<p>Prepare for a clean build:</p>
 
-<pre><code>Could not initialize SDL(No available video device) - exiting
+<pre><code>make clean
 </code></pre>
 
-<p>For AArch64:</p>
+<p>Capture all printing:</p>
 
-<pre><code>qemu-system-aarch64 -curses -machine virt -cpu cortex-a57 -bios u-boot.bin
+<pre><code>make &gt; headers.txt 2&gt;&amp;1
 </code></pre>
 
-<p>Press <code>Esc + 1</code> to go to the qemu monitor command line interface, you could type
-<code>help</code> to get all qemu command, e.g. <code>stop</code> to stop emulation:</p>
+<p>Filter out all header files:</p>
 
-<pre><code>compat_monitor0 console
-QEMU 2.11.1 monitor - type 'help' for more information
-(qemu)
-
+<pre><code>cat headers.txt  | sed -n 's/.* \(.*\.h\)/\1/p' | sort | uniq &gt; headers_filted_uniq.txt
 </code></pre>
 
-<p>Press <code>Esc + 2</code> to go to the u-boot interface.</p>
+<p>Create cscope.files as usualy:</p>
 
-<pre><code>serial0 console
-
-
-U-Boot 2018.09 (Apr 25 2019 - 21:37:28 +1000)
-
-DRAM:  128 MiB
-WARNING: Caches not enabled
-In:    pl011@9000000
-Out:   pl011@9000000
-Err:   pl011@9000000
-Net:   No ethernet found.
-Hit any key to stop autoboot:  0
-scanning bus for devices...
-
-Device 0: unknown device
-starting USB...
-No controllers found
-No ethernet found.
-No ethernet found.
-=&gt;
+<pre><code>readelf --string-dump=.debug_str u-boot | sed -n '/\/\|\.c/{s/.*\]  //p}' &gt; cscope.files
 </code></pre>
 
-<h1 id="qemu-version">QEMU version</h1>
+<p>Then add all header files:</p>
 
-<p>This is tested on the following version:</p>
+<pre><code>cat headers_filted_uniq.txt &gt;&gt; cscope.files
+</code></pre>
 
-<pre><code>pandy@ubuntu:~/u-boot-2018.09$ qemu-system-arm --version
-QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.8)
-Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
+<p>Finally create cscope database:</p>
+
+<pre><code>cscope -bqk
 </code></pre>
 
   </div>

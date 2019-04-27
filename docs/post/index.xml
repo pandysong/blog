@@ -6,10 +6,101 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Read u-boot aarch64 source code (part 1)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part1/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part1/</guid>
+      <description>Introduction In previous code walking through, we uses make cscope which is not quite convenient. In this tutorial, we used the new method to create cscope database mentioned in cscope_u-boot_improved.
+start.S After loading the cscope.out, I could find search the starting point by the following command
+cs find f start.S  This leads me to the file /arm/cpu/armv8/start.S.
+content values The first instruction is to jump to function reset, just after the branch instruction it defines some global variable, _TEXT_BASE is 64bit address which is defined during linking.</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot aarch64 source code (part 2)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part2/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part2/</guid>
+      <description>Introduction _main function is defined in a file called crt0_64.S, which is crt0 - C-runtime startup Code for AArch64 U-Boot.
+crt0_64.S /* * This file handles the target-independent stages of the U-Boot * start-up where a C runtime environment is needed. Its entry point * is _main and is branched into from the target&#39;s start.S file. * * _main execution sequence is: * * 1. Set up initial environment for calling board_init_f().</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot aarch64 source code (part 3)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part3/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part3/</guid>
+      <description> run_main_loop(void) This function calls main_loop().
+static int run_main_loop(void) { #ifdef CONFIG_SANDBOX sandbox_main_loop_init(); #endif /* main_loop() can return to retry autoboot, if so just run it again */ for (;;) main_loop(); return 0; }  main_loop(void) This is the place to receive command and execute it.
+/* We come here after U-Boot is initialised and ready to process commands */ void main_loop(void) { const char *s; bootstage_mark_name(BOOTSTAGE_ID_MAIN_LOOP, &amp;quot;main_loop&amp;quot;); #ifdef CONFIG_VERSION_VARIABLE env_set(&amp;quot;ver&amp;quot;, version_string); /* set version variable */ #endif /* CONFIG_VERSION_VARIABLE */ cli_init(); run_preboot_environment_command(); #if defined(CONFIG_UPDATE_TFTP) update_tftp(0UL, NULL, NULL); #endif /* CONFIG_UPDATE_TFTP */ s = bootdelay_process(); if (cli_process_fdt(&amp;amp;s)) cli_secure_boot_cmd(s); autoboot_command(s); cli_loop(); panic(&amp;quot;No CLI available&amp;quot;); }  </description>
+    </item>
+    
+    <item>
+      <title>.align assemble code</title>
+      <link>https://pandysong.github.io/blog/post/about_align_assemble_code/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/about_align_assemble_code/</guid>
+      <description>Introduction Often we find following assemble code
+.align &amp;lt;n&amp;gt;  Where n is an integer which could be e.g. 3, 5
+In this document, we will do some experiment for understanding this.
+Test code Create a file a.S with following content
+mov x0,0xf5 .align 3 mov x0,0xf4  Compile Now using an arm cross compiler to compile above code
+aarch64-linux-gnu-gcc -c a.S  This will generate an object file a.</description>
+    </item>
+    
+    <item>
+      <title>.quad assemble code</title>
+      <link>https://pandysong.github.io/blog/post/about_quad_assemble_code/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/about_quad_assemble_code/</guid>
+      <description>Introduction The .quad directive is used to define 64 bit numeric value(s). In similar way how .byte directive works. In this document, we will do some experiment for understanding .quad.
+Test code Create a file a.S with following content
+.globl _start _start: mov x0,0xf5 .quad 0x123456789ABCDEF0,2,3 .align 5 mov x0,0xf4  Compile Now using an arm cross compiler to compile above code
+aarch64-linux-gnu-gcc -c a.S  This will generate an object file a.</description>
+    </item>
+    
+    <item>
+      <title>Using Cscope to U-Boot Source Code (Improved)</title>
+      <link>https://pandysong.github.io/blog/post/cscope_u-boot_improved/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/cscope_u-boot_improved/</guid>
+      <description>Disadvantage of make cscope In the post, we uses the infrastructure by u-boot or Linux makefile to build the cscope database. But the disadvantage of that approach is that there are duplicated files for the same functions, so it is difficult the find a single path for the specific build.
+E.g. in the current build
+pandy@ubuntu:~/u-boot-2018.09$ cat cscope.files | wc -l 5342  The database includes 5K files.
+Improvement The approach is to limit the files to the ones used in the real build.</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot source code (part 1)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_source_code_part1/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_source_code_part1/</guid>
+      <description>Introduction By utilizing the make cscope to create cscope database, I could browse a specific build without being confused by a lot of symbols with same names. This document describe very basic scenario on how to read the u-boot source code.
+start.S After loading the cscope.out, I could find search the starting point by the following command
+cs find f start.S  This leads me to the file arm/cpu/arm1136/start.S.</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot source code (part 2)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_source_code_part2/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_source_code_part2/</guid>
+      <description>disable MMU and data cache #ifndef CONFIG_SKIP_LOWLEVEL_INIT_ONLY /* * Jump to board specific initialization... The Mask ROM will have already initialized * basic memory. Go here to bump up clock rate and handle wake up conditions. */ mov	ip, lr	/* persevere link reg across call */ bl	lowlevel_init	/* go setup pll,mux,memory */ mov	lr, ip	/* restore link */ #endif mov	pc, lr	/* back to my caller */  Register lr save the return address of the function call, before calling lowlevel_init, restore it to lr after that.</description>
+    </item>
     
     <item>
       <title>Run u-boot in qemu</title>

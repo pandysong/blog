@@ -9,7 +9,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
 
-        <title>Run u-boot in qemu</title>
+        <title>Read u-boot aarch64 source code (part 1)</title>
 
         <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
 
@@ -58,101 +58,133 @@ if (!doNotTrack) {
 
 
 <div class="blog-post">
-  <h1>Run u-boot in qemu</h1>
+  <h1>Read u-boot aarch64 source code (part 1)</h1>
   <div class="blog-post-subheader">
-    <time>25 Apr 2019</time>
+    <time>27 Apr 2019</time>
   </div>
   <div class="blog-post-content">
     
 
 <h2 id="introduction">Introduction</h2>
 
-<p>In u-boot source code doc/README.qemu-arm, it could be found that u-boot could
-run under qemu. This could help to understand or experiment u-boot without a
-real hardware.</p>
+<p>In previous <a href="../read_u-boot_source_code_part1">code walking through</a>, we uses
+<code>make cscope</code> which is not quite convenient. In this tutorial, we used the new
+method to create cscope database mentioned in
+<a href="../cscope_u-boot_improved">cscope_u-boot_improved</a>.</p>
 
-<h2 id="how-to">How to</h2>
+<h2 id="start-s">start.S</h2>
 
-<p>I am running this in a ubuntu virtual machine on my mac book.</p>
+<p>After loading the cscope.out, I could find search the starting point by the
+following command</p>
 
-<p>This is for running arm:</p>
-
-<pre><code>export CROSS_COMPILE=arm-linux-gnueabi-
-make qemu_arm_defconfig
-make cscope # This is optional
-make
+<pre><code>cs find f start.S
 </code></pre>
 
-<p>For AArch64, replace CROSS_COMPILE with correct cross compiler and then:</p>
+<p>This leads me to the file <code>/arm/cpu/armv8/start.S</code>.</p>
 
-<pre><code>export CROSS_COMPILE=aarch64-linux-gnu-
-make qemu_arm64_defconfig
-make
-</code></pre>
+<h2 id="content-values">content values</h2>
 
-<p>BTW, install the cross-compiler for aarch64:</p>
+<p>The first instruction is to jump to function <code>reset</code>, just after the branch
+instruction it defines some global variable, _TEXT_BASE is 64bit address which
+is defined during linking.</p>
 
-<pre><code>sudo apt-get install gcc-aarch64-linux-gnu
-</code></pre>
+<pre><code>#else
+	b	reset
+#endif
 
-<h2 id="run">Run:</h2>
+	.align 3
 
-<p>I am running in a virtual machine by ssh to it</p>
-
-<pre><code>qemu-system-arm -curses -machine virt -bios u-boot.bin
-</code></pre>
-
-<p>I need <code>-curses</code>, otherwise it will complain:</p>
-
-<pre><code>Could not initialize SDL(No available video device) - exiting
-</code></pre>
-
-<p>For AArch64:</p>
-
-<pre><code>qemu-system-aarch64 -curses -machine virt -cpu cortex-a57 -bios u-boot.bin
-</code></pre>
-
-<p>Press <code>Esc + 1</code> to go to the qemu monitor command line interface, you could type
-<code>help</code> to get all qemu command, e.g. <code>stop</code> to stop emulation:</p>
-
-<pre><code>compat_monitor0 console
-QEMU 2.11.1 monitor - type 'help' for more information
-(qemu)
+.globl	_TEXT_BASE
+_TEXT_BASE:
+	.quad	CONFIG_SYS_TEXT_BASE
 
 </code></pre>
 
-<p>Press <code>Esc + 2</code> to go to the u-boot interface.</p>
+<p>Then it defines some variable according to the linker script (refer to
+u-boot.lds). <code>_end_ofs</code> is the offset of <code>_end</code>,  <code>_bss_start_ofs</code> is the
+offset of start address of bss section. and <code>_bss_end_ofs</code> is the offset of
+end address of bss section.</p>
 
-<pre><code>serial0 console
+<pre><code>/*
+ * These are defined in the linker script.
+ */
+.globl	_end_ofs
+_end_ofs:
+	.quad	_end - _start
 
+.globl	_bss_start_ofs
+_bss_start_ofs:
+	.quad	__bss_start - _start
 
-U-Boot 2018.09 (Apr 25 2019 - 21:37:28 +1000)
-
-DRAM:  128 MiB
-WARNING: Caches not enabled
-In:    pl011@9000000
-Out:   pl011@9000000
-Err:   pl011@9000000
-Net:   No ethernet found.
-Hit any key to stop autoboot:  0
-scanning bus for devices...
-
-Device 0: unknown device
-starting USB...
-No controllers found
-No ethernet found.
-No ethernet found.
-=&gt;
+.globl	_bss_end_ofs
+_bss_end_ofs:
+	.quad	__bss_end - _start
 </code></pre>
 
-<h1 id="qemu-version">QEMU version</h1>
+<h2 id="reset-function">reset function</h2>
 
-<p>This is tested on the following version:</p>
+<p>The reset function ump to a function <code>save_boot_params</code>.</p>
 
-<pre><code>pandy@ubuntu:~/u-boot-2018.09$ qemu-system-arm --version
-QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.8)
-Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
+<pre><code>reset:
+	/* Allow the board to save important registers */
+	b	save_boot_params
+.globl	save_boot_params_ret
+save_boot_params_ret:
 </code></pre>
+
+<p>From <code>save_boot_params</code>, it jumps back to <code>save_boot_params_ret</code>.</p>
+
+<h2 id="config-position-independent">CONFIG_POSITION_INDEPENDENT</h2>
+
+<p>This part of code relocate the address <code>_TEXT_BASE</code> which is defined when
+linking to the real run time address <code>_start</code>.</p>
+
+<pre><code>#if CONFIG_POSITION_INDEPENDENT
+	/*
+	 * Fix .rela.dyn relocations. This allows U-Boot to be loaded to and
+	 * executed at a different address than it was linked at.
+	 */
+pie_fixup:
+	adr	x0, _start		/* x0 &lt;- Runtime value of _start */
+	ldr	x1, _TEXT_BASE		/* x1 &lt;- Linked value of _start */
+	sub	x9, x0, x1		/* x9 &lt;- Run-vs-link offset */
+	adr	x2, __rel_dyn_start	/* x2 &lt;- Runtime &amp;__rel_dyn_start */
+	adr	x3, __rel_dyn_end	/* x3 &lt;- Runtime &amp;__rel_dyn_end */
+pie_fix_loop:
+	ldp	x0, x1, [x2], #16	/* (x0, x1) &lt;- (Link location, fixup) */
+	ldr	x4, [x2], #8		/* x4 &lt;- addend */
+	cmp	w1, #1027		/* relative fixup? */
+	bne	pie_skip_reloc
+	/* relative fix: store addend plus offset at dest location */
+	add	x0, x0, x9
+	add	x4, x4, x9
+	str	x4, [x0]
+pie_skip_reloc:
+	cmp	x2, x3
+	b.lo	pie_fix_loop
+pie_fixup_done:
+#endif
+</code></pre>
+
+<p>For the details of implementation, we may need another post to discuss.</p>
+
+<h2 id="other-functionalities">other functionalities</h2>
+
+<p>The rest of files are:</p>
+
+<ul>
+<li>disable MMU, data cache, instruction cache,</li>
+<li>call <code>apply_core_errata</code></li>
+<li>call <code>lowlevel_init</code></li>
+</ul>
+
+<h2 id="end-of-start-s">end of start.S</h2>
+
+<pre><code>master_cpu:
+    bl  _main
+</code></pre>
+
+<p>Continue with <a href="../read_u-boot_aarch64_source_code_part2">part 2</a></p>
 
   </div>
 </div>

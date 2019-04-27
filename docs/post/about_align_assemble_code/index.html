@@ -9,7 +9,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
 
-        <title>Run u-boot in qemu</title>
+        <title>.align assemble code</title>
 
         <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
 
@@ -58,101 +58,95 @@ if (!doNotTrack) {
 
 
 <div class="blog-post">
-  <h1>Run u-boot in qemu</h1>
+  <h1>.align assemble code</h1>
   <div class="blog-post-subheader">
-    <time>25 Apr 2019</time>
+    <time>26 Apr 2019</time>
   </div>
   <div class="blog-post-content">
     
 
 <h2 id="introduction">Introduction</h2>
 
-<p>In u-boot source code doc/README.qemu-arm, it could be found that u-boot could
-run under qemu. This could help to understand or experiment u-boot without a
-real hardware.</p>
+<p>Often we find following assemble code</p>
 
-<h2 id="how-to">How to</h2>
-
-<p>I am running this in a ubuntu virtual machine on my mac book.</p>
-
-<p>This is for running arm:</p>
-
-<pre><code>export CROSS_COMPILE=arm-linux-gnueabi-
-make qemu_arm_defconfig
-make cscope # This is optional
-make
+<pre><code>.align &lt;n&gt;
 </code></pre>
 
-<p>For AArch64, replace CROSS_COMPILE with correct cross compiler and then:</p>
+<p>Where n is an integer which could be e.g. 3, 5</p>
 
-<pre><code>export CROSS_COMPILE=aarch64-linux-gnu-
-make qemu_arm64_defconfig
-make
+<p>In this document, we will do some experiment for understanding this.</p>
+
+<h2 id="test-code">Test code</h2>
+
+<p>Create a file <code>a.S</code> with following content</p>
+
+<pre><code>mov x0,0xf5
+.align 3
+mov x0,0xf4
 </code></pre>
 
-<p>BTW, install the cross-compiler for aarch64:</p>
+<h2 id="compile">Compile</h2>
 
-<pre><code>sudo apt-get install gcc-aarch64-linux-gnu
+<p>Now using an arm cross compiler to compile above code</p>
+
+<pre><code>aarch64-linux-gnu-gcc -c a.S
 </code></pre>
 
-<h2 id="run">Run:</h2>
+<p>This will generate an object file a.o</p>
 
-<p>I am running in a virtual machine by ssh to it</p>
-
-<pre><code>qemu-system-arm -curses -machine virt -bios u-boot.bin
+<pre><code>pandy@ubuntu:~/temp/asm_test$ file a.o
+a.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), not stripped
 </code></pre>
 
-<p>I need <code>-curses</code>, otherwise it will complain:</p>
+<h2 id="disassemble-the-code">Disassemble the code</h2>
 
-<pre><code>Could not initialize SDL(No available video device) - exiting
+<p>Let&rsquo;s check what is the generated code:</p>
+
+<pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
+
+a.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 &lt;.text&gt;:
+   0:   d2801ea0        mov     x0, #0xf5                       // #245
+   4:   d503201f        nop
+   8:   d2801e80        mov     x0, #0xf4                       // #244
 </code></pre>
 
-<p>For AArch64:</p>
+<p>It is found that after .align 3, the code is put to the alignment of 8, which
+happens to be <code>2^3</code>.</p>
 
-<pre><code>qemu-system-aarch64 -curses -machine virt -cpu cortex-a57 -bios u-boot.bin
+<h1 id="more-testing">More testing</h1>
+
+<p>Let&rsquo;s do some change:</p>
+
+<pre><code>mov x0,0xf5
+.align 5
+mov x0,0xf4
 </code></pre>
 
-<p>Press <code>Esc + 1</code> to go to the qemu monitor command line interface, you could type
-<code>help</code> to get all qemu command, e.g. <code>stop</code> to stop emulation:</p>
+<pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
 
-<pre><code>compat_monitor0 console
-QEMU 2.11.1 monitor - type 'help' for more information
-(qemu)
+a.o:     file format elf64-littleaarch64
 
+
+Disassembly of section .text:
+
+0000000000000000 &lt;.text&gt;:
+   0:   d2801ea0        mov     x0, #0xf5                       // #245
+   4:   d503201f        nop
+   8:   d503201f        nop
+   c:   d503201f        nop
+  10:   d503201f        nop
+  14:   d503201f        nop
+  18:   d503201f        nop
+  1c:   d503201f        nop
+  20:   d2801e80        mov     x0, #0xf4                       // #244
 </code></pre>
 
-<p>Press <code>Esc + 2</code> to go to the u-boot interface.</p>
-
-<pre><code>serial0 console
-
-
-U-Boot 2018.09 (Apr 25 2019 - 21:37:28 +1000)
-
-DRAM:  128 MiB
-WARNING: Caches not enabled
-In:    pl011@9000000
-Out:   pl011@9000000
-Err:   pl011@9000000
-Net:   No ethernet found.
-Hit any key to stop autoboot:  0
-scanning bus for devices...
-
-Device 0: unknown device
-starting USB...
-No controllers found
-No ethernet found.
-No ethernet found.
-=&gt;
-</code></pre>
-
-<h1 id="qemu-version">QEMU version</h1>
-
-<p>This is tested on the following version:</p>
-
-<pre><code>pandy@ubuntu:~/u-boot-2018.09$ qemu-system-arm --version
-QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.8)
-Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
-</code></pre>
+<p>0x20 happens to be 2^5.</p>
 
   </div>
 </div>
