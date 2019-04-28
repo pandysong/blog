@@ -22,6 +22,18 @@ But that is not perfact: in the production code like u-boot there are many macro
     </item>
     
     <item>
+      <title>vim&#39;s `sign` feature</title>
+      <link>https://pandysong.github.io/blog/post/vim_sign_highlight/</link>
+      <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_sign_highlight/</guid>
+      <description>An example Following define a sign with name piet:
+sign define piet text=. linehl=Search texthl=Search  Note that linehl=&amp;lt;groupname&amp;gt; is used to highlight the whole line. We may define a new group using following command
+:highlight &amp;lt;groupname&amp;gt; ctermbg=darkred guibg=darkred  Then using the command :sign place to put a sign
+:exe &amp;quot;:sign place 2 line=104 name=piet file=&amp;quot; . expand(&amp;quot;%:p&amp;quot;)  Conclusion It is possible to use this feature in the plugin.</description>
+    </item>
+    
+    <item>
       <title>Read u-boot aarch64 source code (part 1)</title>
       <link>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part1/</link>
       <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
