@@ -6,10 +6,20 @@
     <description>Recent content on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 28 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Read Source Code with Active Lines Highlighted</title>
+      <link>https://pandysong.github.io/blog/post/read_source_code_with_active_line_highlighted/</link>
+      <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_source_code_with_active_line_highlighted/</guid>
+      <description>cons of cscope database In cscope_for_linux_kernel_or_uboot and cscope_u-boot_improved, it was discussed how to scope the files to the ones actually used.
+But that is not perfact: in the production code like u-boot there are many macros, in an active file which is used in compilation some are active but some are not. When we are reading the code, unless we are debugging in a debugger we do not immediately know which part of code is active (generatting machine code), and which part of code is inactive.</description>
+    </item>
     
     <item>
       <title>Read u-boot aarch64 source code (part 1)</title>
