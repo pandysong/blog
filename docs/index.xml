@@ -6,10 +6,24 @@
     <description>Recent content on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 28 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A small discussion on `char *` in C and C&#43;&#43;</title>
+      <link>https://pandysong.github.io/blog/post/one_minor_difference_for_c_and_c&#43;&#43;/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/one_minor_difference_for_c_and_c&#43;&#43;/</guid>
+      <description>A piece of code Look at following code:
+#include &amp;lt;stdio.h&amp;gt; int main() { char *s = &amp;quot;hello world&amp;quot;; puts(s); }  Note that puts is basically a printf like funtion but without format functinalities.
+Now using the following command to compile as a c program.
+gcc puts_test.c -o puts_test_c  There are no errors emitted.
+However if we compile as C++ program:
+g++ -std=c++14 -o puts_test puts_test.cpp puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string literal to &#39;char *&#39; [-Wwritable-strings] char *s = &amp;quot;hello world&amp;quot;; ^ 1 warning generated.</description>
+    </item>
     
     <item>
       <title>Read Source Code with Active Lines Highlighted</title>
