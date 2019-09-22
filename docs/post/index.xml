@@ -6,10 +6,97 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Sep 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android aidl code generator</title>
+      <link>https://pandysong.github.io/blog/post/android_aidl/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/android_aidl/</guid>
+      <description> Introduction In Android, in between Java space and normal Linux User space (written in C++), the popular communication interface is called Binder. Two processes in Linux user space could also use Binder to communicate. aidl_generator is the tool to generate the client and server stubs for Binder interface.
+Detail Explanations. The code and document is in the Android source code tree:
+system/tools/aidl/docs/aidl-cpp.md  </description>
+    </item>
+    
+    <item>
+      <title>Understanding Android Fence Mechanism</title>
+      <link>https://pandysong.github.io/blog/post/understanding_android_fence/</link>
+      <pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/understanding_android_fence/</guid>
+      <description>Introduction There are a lot of articles discussing about Fence mechanism in Android. But I could not find a simple explanation.
+What Problem Fence try to resolve? Problem 1: Producer pass buffer to consumer before consumer could use the buffer In Android, there is an object called GraphicBuffer, which is passed in between different kind of producuers and consumers. When a producer pass a GraphicBuffer to a consumer, It is possible that the producer is still doing some job on that buffer in background, because the producer may have told GPU to render the buffer.</description>
+    </item>
+    
+    <item>
+      <title>Compile the optee_os</title>
+      <link>https://pandysong.github.io/blog/post/optee_os_init/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/optee_os_init/</guid>
+      <description>Get the source code git clone https://github.com/OP-TEE/optee_os.git  How to Compile The code must be compiled with cross-compiler, I have an quad-A7 SDK from Rockchip.
+CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make  The default PLATFORM would be vexpress, in order to select a platform:
+PLATFORM=rockchip CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make  A complete list of platform could be found in core/arch/arm.
+PSCI (Power State Coordination Interface) One of the secure firmware is to start/stop/suspend additional cores. PSCI is the interface defined by Linux and implemented by underlying vendor specific firmware to power on or power off or suspend the additional cores</description>
+    </item>
+    
+    <item>
+      <title>Understanding Android Repo</title>
+      <link>https://pandysong.github.io/blog/post/understanding_android_repo/</link>
+      <pubDate>Sun, 25 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/understanding_android_repo/</guid>
+      <description>Introduction In Android repo tool, after initializing, there exist following directory under .repo:
+project-objects projects
+How these are organized?
+Basically in projects, the layout is same as the one for the working directory, the project-objects layout is same as the files in the remote server.
+While in the working directory for each project, as usual for git repository, there is a .git directory, which basically has bunch of symbol link to project-objects and projects directory.</description>
+    </item>
+    
+    <item>
+      <title>reading device tree source (dts) file using folded feature in vim</title>
+      <link>https://pandysong.github.io/blog/post/vim-folded-feature-on-dts/</link>
+      <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim-folded-feature-on-dts/</guid>
+      <description>Introduction I am the heavy user of vim and like the folded feature very much. I wanted to use the feature in device tree source file (dts) but it looks it does not support by default. Vim support folded feature for popular languages like C or Python or JavaScript, however it looks not working for dts. I search around on internet and could not find the plugin for dts folder.</description>
+    </item>
+    
+    <item>
+      <title>using wget to download all files</title>
+      <link>https://pandysong.github.io/blog/post/using_wget_to_download/</link>
+      <pubDate>Fri, 26 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/using_wget_to_download/</guid>
+      <description>how to  wget -r -l1 -A.pdf -A.DSN target_web.com/target_url  -r means recursive -l1 means recursive depth is 1, &amp;lsquo;-l0&amp;rsquo; means indefinitely</description>
+    </item>
+    
+    <item>
+      <title>Reading Paper in Kindle (converting multi-colums pdf to single column pdf)</title>
+      <link>https://pandysong.github.io/blog/post/reading_paper_in_kindle/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/reading_paper_in_kindle/</guid>
+      <description>The Tool The tool could be found here
+Download it and put it in a path
+How to For the text based pdf file
+k2pdfopt &amp;lt;put_pdf_file_path_here&amp;gt; -ui- -as -om 0.1,0.1,0.1,0.1  To play around the command line options in k2pdfopt, simple type k2pdfopt</description>
+    </item>
+    
+    <item>
+      <title>Understanding How GAN works</title>
+      <link>https://pandysong.github.io/blog/post/understanding_gan/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/understanding_gan/</guid>
+      <description>GAN (Generative Adversarial Network) There are two Models in GAN: - G: Generator and - D: Discriminator
+Train Loss Function The generator will generate some Fake data to cheat Discriminator, the loss function is designed such that the probability to succeed to cheat D is high.
+While for D, there are two inputs, one is the real data, which D should think it is Real, while for input any data generated from G (no matter how real when human will look at) D should always regards it as Fake.</description>
+    </item>
     
     <item>
       <title>A small discussion on `char *` in C and C&#43;&#43;</title>
@@ -529,6 +616,29 @@ Convert Types To convert a data item from one type to another, we can use the sy
       
       <guid>https://pandysong.github.io/blog/post/books/</guid>
       <description>C book Algorithms\ in\ C\ [Sedgewick\ 1990-01-01]</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://pandysong.github.io/blog/post/dnn-voice/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/dnn-voice/</guid>
+      <description>voice improvement https://www.youtube.com/watch?v=zstghz0fWsg
+https://www.analyticsvidhya.com/blog/2018/01/10-audio-processing-projects-applications/
+http://www.utdallas.edu/~mirsamadi/files/mirsamadi_se_is16.pdf
+https://github.com/eesungkim/Speech_Enhancement_DNN_NMF
+Speach Enhancement GAN (Generative Adversarial Network) https://arxiv.org/abs/1703.09452</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://pandysong.github.io/blog/post/pytorch_and_cnn/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/pytorch_and_cnn/</guid>
+      <description>What is a CNN From my understanding, Convolutional neural network (ConvNets or CNNs) is basically a neural network where Convolution is used to extract features and neural network is used to do the classification.
+A typical CNN using several layers of convolution (including ReLU and Pooling) to extract features and then flat the output to vectors as inputs to the FC (Full connected network) which is basically the average neural network.</description>
     </item>
     
   </channel>

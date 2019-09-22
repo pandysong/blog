@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+
+        <title>Compile the optee_os</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Compile the optee_os</h1>
+  <div class="blog-post-subheader">
+    <time>27 Aug 2019</time>
+  </div>
+  <div class="blog-post-content">
+    
+
+<h1 id="get-the-source-code">Get the source code</h1>
+
+<pre><code>git clone https://github.com/OP-TEE/optee_os.git
+</code></pre>
+
+<h2 id="how-to-compile">How to Compile</h2>
+
+<p>The code must be compiled with cross-compiler, I have an quad-A7 SDK from
+Rockchip.</p>
+
+<pre><code>CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make
+</code></pre>
+
+<p>The default PLATFORM would be vexpress, in order to select a platform:</p>
+
+<pre><code>PLATFORM=rockchip CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make
+</code></pre>
+
+<p>A complete list of platform could be found in <code>core/arch/arm</code>.</p>
+
+<h1 id="psci-power-state-coordination-interface">PSCI (Power State Coordination Interface)</h1>
+
+<p>One of the secure firmware is to start/stop/suspend additional cores. PSCI is
+the interface defined by Linux and implemented by underlying vendor specific
+firmware to power on or power off or suspend the additional cores</p>
+
+<p>Following document describe the detailed standard interface:</p>
+
+<p><a href="http://infocenter.arm.com/help/topic/com.arm.doc.den0022d/Power_State_Coordination_Interface_PDD_v1_1_DEN0022D.pdf">http://infocenter.arm.com/help/topic/com.arm.doc.den0022d/Power_State_Coordination_Interface_PDD_v1_1_DEN0022D.pdf</a></p>
+
+<p>For example following figure shows that the command 0x84000000 could be used to
+fetch the psci implementation version in the firmware:</p>
+
+<p><img src="https://pandysong.github.io/blog/img/psci_version_api.png" alt="psci_version" /></p>
+
+<p>And following command defines the command 0x84000001 to suspend a CPU for
+ARM32:</p>
+
+<p><img src="https://pandysong.github.io/blog/img/psci_suspend.png" alt="psci_version" /></p>
+
+<p>Which is corresponding to the DTS configuration for the psci driver in arm</p>
+
+<pre><code>    psci {
+        compatible = &quot;arm,psci&quot;;
+        cpu_off = &lt;0x84000002&gt;;
+        cpu_on = &lt;0x84000003&gt;;
+        cpu_suspend = &lt;0x84000001&gt;;
+        method = &quot;smc&quot;;
+    };
+</code></pre>
+
+<p>The driver code in <code>arch/arm/kernel/psci.c</code> looks like:</p>
+
+<pre><code>  void __init psci_init(void)
+  {
+
+    ...
+
+      if (!of_property_read_u32(np, &quot;cpu_suspend&quot;, &amp;id)) {
+          psci_function_id[PSCI_FN_CPU_SUSPEND] = id;
+          psci_ops.cpu_suspend = psci_cpu_suspend;
+      }
+  ...
+  }
+</code></pre>
+
+<p>The ops is saved in <code>psci_function_id</code>. When needed, we use it to suspend the
+CPU:</p>
+
+<pre><code>static int psci_cpu_suspend(struct psci_power_state state,
+                  unsigned long entry_point)
+  {
+      int err;
+      u32 fn, power_state;
+
+      fn = psci_function_id[PSCI_FN_CPU_SUSPEND];
+      power_state = psci_power_state_pack(state);
+      err = invoke_psci_fn(fn, power_state, entry_point, 0);
+      return psci_to_linux_errno(err);
+  }
+</code></pre>
+
+<p>This function is saved in global variables <code>psci_ops</code> and used in <code>psci_smp.c</code>
+by the function psci_boot_secondary which is exposed by <code>psci_smp_ops</code>.</p>
+
+<pre><code>struct smp_operations __initdata psci_smp_ops = {
+      .smp_boot_secondary = psci_boot_secondary,
+  #ifdef CONFIG_HOTPLUG_CPU
+      .cpu_die        = psci_cpu_die,
+      .cpu_kill       = psci_cpu_kill,
+  #endif
+  };
+
+</code></pre>
+
+<pre><code>__cpu_up -&gt; boot_secondary -&gt; smp_ops.smp_boot_secondary(cpu, idle);
+-&gt; rockchip_boot_secondary
+</code></pre>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2019 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+
