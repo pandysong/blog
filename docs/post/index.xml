@@ -6,10 +6,87 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>EDID</title>
+      <link>https://pandysong.github.io/blog/post/edid/</link>
+      <pubDate>Wed, 04 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/edid/</guid>
+      <description>Introduction A brief introduction/notes for EDID format when reading the document of &amp;ldquo;E-EDID Standard.pdf&amp;rdquo; V1.3.
+The notes is laid out by explaining on an example
+Block  The EDID is compromised of one or more 128bytes-blocks. The first one is mandatory. Others are not. each block ends up with a checksum byte.  0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x32, 0x8d, 0xc5, 0x07, 0x01, 0x00, 0x00, 0x00, 0x2e, 0x14, 0x01, 0x03, 0x80, 0x59, 0x32, 0x78, 0x0a, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x21, 0x08, 0x80, 0x71, 0x40, 0x81, 0x00, 0x81, 0x40, 0x81, 0x80, 0x95, 0x00, 0xa9, 0xc0, 0xa9, 0x40, 0xd1, 0xc0, 0x01, 0x1d, 0x00, 0x72, 0x51, 0xd0, 0x1e, 0x20, 0x6e, 0x28, 0x55, 0x00, 0xc4, 0x8e, 0x21, 0x00, 0x00, 0x1e, 0x66, 0x21, 0x50, 0xb0, 0x51, 0x00, 0x1b, 0x30, 0x40, 0x70, 0x36, 0x00, 0xa0, 0x5a, 0x00, 0x00, 0x00, 0x1e, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18, 0x4b, 0x1a, 0x51, 0x17, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfc, 0x00, 0x4c, 0x4f, 0x4e, 0x54, 0x49, 0x55, 0x4d, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x01, 0x57,  0x02, 0x03, 0x2f, 0xc1, 0x48, 0x84, 0x13, 0x03, 0x12, 0x02, 0x11, 0x10, 0x1f, 0x23, 0x09, 0x07, 0x07, 0x83, 0x01, 0x00, 0x00, 0x02, 0x00, 0x0f, 0xe3, 0x05, 0x03, 0x01, 0x72, 0x03, 0x0c, 0x00, 0x40, 0x00, 0x80, 0x1e, 0x20, 0xd0, 0x08, 0x01, 0x40, 0x07, 0x3f, 0x40, 0x50, 0x90, 0xa0, 0x01, 0x1d, 0x00, 0xbc, 0x52, 0xd0, 0x1e, 0x20, 0xb8, 0x28, 0x55, 0x40, 0xc4, 0x8e, 0x21, 0x00, 0x00, 0x1e, 0x66, 0x21, 0x56, 0xaa, 0x51, 0x00, 0x1e, 0x30, 0x46, 0x8f, 0x33, 0x00, 0xc4, 0x8e, 0x21, 0x00, 0x00, 0x1e, 0x20, 0x1c, 0x56, 0x86, 0x50, 0x00, 0x20, 0x30, 0x0e, 0x38, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1e, 0x0e, 0x1f, 0x00, 0x80, 0x51, 0x00, 0x1e, 0x30, 0x40, 0x80, 0x37, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xef  The second block begins with 0x02, which means it is a block of &amp;ldquo;Additional timing date type 2&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>Vim tips quickfix</title>
+      <link>https://pandysong.github.io/blog/post/vim_tips_quickfix/</link>
+      <pubDate>Sun, 12 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_tips_quickfix/</guid>
+      <description>creat text recognized by quickfix using following command in vim to copy the text to clipboard:
+let @@=expand(&amp;quot;%:p&amp;quot;).&amp;quot;:&amp;quot;.line(&amp;quot;.&amp;quot;).&amp;quot;: &amp;quot;.expand(&amp;quot;&amp;lt;cword&amp;gt;&amp;quot;)  something like following will be yanked:
+`/home/pandy/notes.md:24: finit_module`  You may want to save a list of lines to a file.
+load the files to quick fix window Open the file and then load the current file to quickfix window: :cfile %
+then open the quickfix window: :copen
+Now you could b.</description>
+    </item>
+    
+    <item>
+      <title>Font cannot be found when using pandoc to covert to pdf</title>
+      <link>https://pandysong.github.io/blog/post/pandoc_found_cannot_be_found/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/pandoc_found_cannot_be_found/</guid>
+      <description>Error When running following command to convert a markdown to pdf:
+pandoc xyz.md -o xyz.pdf --pdf-engine=xelatex --template=./xyz_template.tex  I get following error.
+kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&#39;, contains &#39; kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&#39;, contains &#39; Error producing PDF. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ! ! fontspec error: &amp;quot;font-not-found&amp;quot; ! ! The font &amp;quot;文泉驿微米黑&amp;quot; cannot be found. ! ! See the fontspec documentation for further information. ! ! For immediate help type H &amp;lt;return&amp;gt;. !............................................... l.</description>
+    </item>
+    
+    <item>
+      <title>^? shows when pressing &#34;delete&#34; key in Mac</title>
+      <link>https://pandysong.github.io/blog/post/vim_ctrl_question_mark_issue/</link>
+      <pubDate>Sat, 05 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_ctrl_question_mark_issue/</guid>
+      <description>Instead of performing &amp;ldquo;del&amp;rdquo; operation, it shows the ^? characters. The solution is to put following line in .bash_profile.
+stty erase ^H  where to input ^H, you will type ctrl+v and then &amp;lsquo;delete&amp;rsquo;.</description>
+    </item>
+    
+    <item>
+      <title>how to append all matches to register</title>
+      <link>https://pandysong.github.io/blog/post/vim_repeat_last_yank_command/</link>
+      <pubDate>Sat, 05 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_repeat_last_yank_command/</guid>
+      <description>how to set cpoptions+=y  So for example if we type &amp;ldquo;Ayy, to append the current line to the register a, if we now go to next line which we want to append, you could just type dot command.
+how to append all matches to register :g/some pattern here/yank A  yank to register a, but since it is A, so it means append to register A.</description>
+    </item>
+    
+    <item>
+      <title>Android update read-only file system</title>
+      <link>https://pandysong.github.io/blog/post/android_update_bin/</link>
+      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/android_update_bin/</guid>
+      <description> Introduction During development, from time to time, we have to update part of the system by using adb push command, but sometimes the file is in the read-only part:
+remote couldn&#39;t create file: Read-only file system  using the following command to remount as with read and write previlige.
+adb root adb shell mount -o rw,remount -t auto /  </description>
+    </item>
+    
+    <item>
+      <title>VirtualBox NAT Network</title>
+      <link>https://pandysong.github.io/blog/post/virtual_box_nat_network/</link>
+      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/virtual_box_nat_network/</guid>
+      <description>Introduction I often needs to ssh to the VM which is installed on e.g. a Windows machines (or a macbook) from another host. In this case NAT network is enough.
+NAT basically hide the VM behind the host, but allows to access the server via NAT. For the world outside the host, it only knows the IP address of host. I will need to ssh to VM, I just ssh to the host which will do the port forward to VM</description>
+    </item>
     
     <item>
       <title>Android aidl code generator</title>
@@ -20,6 +97,17 @@
       <description> Introduction In Android, in between Java space and normal Linux User space (written in C++), the popular communication interface is called Binder. Two processes in Linux user space could also use Binder to communicate. aidl_generator is the tool to generate the client and server stubs for Binder interface.
 Detail Explanations. The code and document is in the Android source code tree:
 system/tools/aidl/docs/aidl-cpp.md  </description>
+    </item>
+    
+    <item>
+      <title>addr2line</title>
+      <link>https://pandysong.github.io/blog/post/addr2line/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/addr2line/</guid>
+      <description>Introduction When following back trace is seen, how to debug it?
+[ 4.877849] [&amp;lt;c05f563c&amp;gt;] (sensor_probe+0x314/0xcfc) from [&amp;lt;c05fe870&amp;gt;] (i2c_device_probe+0xa8/0xd4) [ 4.886672] [&amp;lt;c05fe870&amp;gt;] (i2c_device_probe+0xa8/0xd4) from [&amp;lt;c0355550&amp;gt;] (really_probe+0xa8/0x20c) [ 4.895403] [&amp;lt;c0355550&amp;gt;] (really_probe+0xa8/0x20c) from [&amp;lt;c03557ac&amp;gt;] (driver_probe_device+0x30/0x48) [ 4.904395] [&amp;lt;c03557ac&amp;gt;] (driver_probe_device+0x30/0x48) from [&amp;lt;c0355824&amp;gt;] (__driver_attach+0x60/0x84) [ 4.913558] [&amp;lt;c0355824&amp;gt;] (__driver_attach+0x60/0x84) from [&amp;lt;c0353fec&amp;gt;] (bus_for_each_dev+0x50/0x90) [ 4.922459] [&amp;lt;c0353fec&amp;gt;] (bus_for_each_dev+0x50/0x90) from [&amp;lt;c0354da0&amp;gt;] (bus_add_driver+0xac/0x20c)  The problem here is how to find the line number according to the address
+uses addr2line Following command will print the line number for the specific address:</description>
     </item>
     
     <item>
@@ -194,6 +282,28 @@ aarch64-linux-gnu-gcc -c a.S  This will generate an object file a.</description>
     </item>
     
     <item>
+      <title>Extend Display without Video Cable</title>
+      <link>https://pandysong.github.io/blog/post/extended_display_without_video_cable/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/extended_display_without_video_cable/</guid>
+      <description>Introduction I need an extended display to show more code. These code exits on remote server or on my local laptop. Usually if I would need an extended display, I would need a cable like HDMI to connect to another display device.
+I do not like this as first of all these cable is not lightweight, and make a mess on your neat table, second laptop would become very hot if it needs to driver additional display.</description>
+    </item>
+    
+    <item>
+      <title>SSH Agent How to</title>
+      <link>https://pandysong.github.io/blog/post/ssh-forward/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/ssh-forward/</guid>
+      <description> Step 1 Change config in ~/.ssh/config
+host xxxx user your_prefered_user_name ForwardX11 yes ForwardX11Trusted yes ForwardAgent yes  Step 2 Add the key you would like to forward:
+ssh-add ~/.ssh/id_rsa  Using commands to verify the key is added:
+ssh-add -l  </description>
+    </item>
+    
+    <item>
       <title>Using Cscope to U-Boot Source Code (Improved)</title>
       <link>https://pandysong.github.io/blog/post/cscope_u-boot_improved/</link>
       <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
@@ -203,6 +313,15 @@ aarch64-linux-gnu-gcc -c a.S  This will generate an object file a.</description>
 E.g. in the current build
 pandy@ubuntu:~/u-boot-2018.09$ cat cscope.files | wc -l 5342  The database includes 5K files.
 Improvement The approach is to limit the files to the ones used in the real build.</description>
+    </item>
+    
+    <item>
+      <title>rkdeveloptool on mac</title>
+      <link>https://pandysong.github.io/blog/post/rkdeveloptool_on_mac/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/rkdeveloptool_on_mac/</guid>
+      <description>Refer to https://docs.96rocks.com/rock960/start/installos/tools/macos/</description>
     </item>
     
     <item>
@@ -272,6 +391,16 @@ The MMU does much more than mapping a virtual address space to a physical addres
     </item>
     
     <item>
+      <title>MMU One to One mapping</title>
+      <link>https://pandysong.github.io/blog/post/xquartz_x11_clipboard_sync/</link>
+      <pubDate>Sun, 14 Apr 2019 15:00:46 +0800</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/xquartz_x11_clipboard_sync/</guid>
+      <description>Introduction If you believe everything was setup to enalble the synchronization of clipboard between remote ssh session and local mac, try to toggle &amp;ldquo;Enable syncing&amp;rdquo; in the Clipboard tab of the XQuartz Preferences.
+Refer to https://github.com/XQuartz/xquartz-old-tickets/blob/master/ticket/519.md</description>
+    </item>
+    
+    <item>
       <title>Replace Toyota RAV4 Font Brake</title>
       <link>https://pandysong.github.io/blog/post/rav-brake-replacement/</link>
       <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
@@ -331,6 +460,17 @@ At the end of the day, I found tinycorelinux.</description>
       <guid>https://pandysong.github.io/blog/post/sign/</guid>
       <description>Sign a binary in one step Generate digest and then sign it to get the signature in one step:
 openssl dgst -sha256 -sign ${PRIVATE_KEY} -out ${INPUT_FILE}.sig ${INPUT_FILE}  Two steps Sometimes it is not convenient or not possible to provide a complete binary for other party to sign. Two steps could be used so that one party could only provide digest of the binary for other party to sign.</description>
+    </item>
+    
+    <item>
+      <title>Array of pointer to array in C</title>
+      <link>https://pandysong.github.io/blog/post/array_of_pointer_to_array/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/array_of_pointer_to_array/</guid>
+      <description>Introduction Following code demonstrates how to initialize an array of pointer to an int array.
+#include &amp;lt;stdio.h&amp;gt; int main() { int *cmd[] = { (int []){0x1, 0x2, 0x3}, (int []){0x4, 0x5, 0x6, 0x7}, }; printf(&amp;quot;%d %d\n&amp;quot;, cmd[0][1], cmd[1][2]); }  See the differences with the following code?
+#include &amp;lt;stdio.h&amp;gt; int main() { int cmd[2][4] = { {0x1, 0x2, 0x3}, {0x4, 0x5, 0x6, 0x7}, }; printf(&amp;quot;%d %d\n&amp;quot;, cmd[0][1], cmd[1][2]); }  It is two dimensions array initialization.</description>
     </item>
     
     <item>
