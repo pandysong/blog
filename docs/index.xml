@@ -6,10 +6,63 @@
     <description>Recent content on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>open source verilog emulation tool</title>
+      <link>https://pandysong.github.io/blog/post/iverilog_hdl/</link>
+      <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/iverilog_hdl/</guid>
+      <description>Introduction FPGA is an interesting topic. Products with different market proposition are on the market. Xilinx&amp;rsquo;s product ranks in high performance while Lattice is on lower cost. Verilog is a HDL (Hardware Description Language). This document describe step to use iverilog on my Mac book.
+Build and Install The steps is written in details on https://github.com/steveicarus/iverilog.git. Please note that it needs the new version of Bison as mentioned &amp;ldquo;It has been reported that bison 2.</description>
+    </item>
+    
+    <item>
+      <title>Linux Kernel, regmap</title>
+      <link>https://pandysong.github.io/blog/post/regmap/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/regmap/</guid>
+      <description>Why regmap In Linux kernel, if we will need to access I2C or SPI, we usually use the e.g. struct i2c_client to access the bus directly. Common target to access the I2C device is to access the registers, by either reading or writing.
+regmap basically add another abstraction layer on top of struct i2c_client to make it easy to read and write registers.
+User just using struct i2c_client and struct regmap_config to construct a struct regmap, and then could use that to read and write register or only update masked bits in the register using regmap_update_bits.</description>
+    </item>
+    
+    <item>
+      <title>Experiences of &#34;DO NOT PUT PROBE ON CLOCK Signal&#34;</title>
+      <link>https://pandysong.github.io/blog/post/do-not-put-probe-on-clock-signal/</link>
+      <pubDate>Thu, 19 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/do-not-put-probe-on-clock-signal/</guid>
+      <description>Introduction Probe is nice to debug the signals. I have recently use oscilloscope and portable logic analyzer to debug an issue on port camera driver on Rockchip rk3128.
+Story It takes me a while to make the signal looks right to be compatible to rk3128 CIF interface which is a YUV422 with VSYNC, HSYNC and clock with additional 8 bit parallel interface. Everything seems right with my skills exhausted.</description>
+    </item>
+    
+    <item>
+      <title>Build developer tools on Android</title>
+      <link>https://pandysong.github.io/blog/post/build-bin-in-android/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/build-bin-in-android/</guid>
+      <description>Introduction In Android development environment, source code is organized by modules. It is same for the tool binaries. Some tools are not build or installed by default, especially those for debug purpose.
+AndroidDriverTools The developer&amp;rsquo;s tools such as this one mentioned in below command are not with the usual SDK.
+Here is the step to download and build on your build server:
+cd ~/&amp;lt;your working directory&amp;gt;/ git clone https://github.com/MeekJeen/AndroidDriverTools.git cd AndroidDriverTools/i2c-tools source .</description>
+    </item>
+    
+    <item>
+      <title>Internet ADB on Android</title>
+      <link>https://pandysong.github.io/blog/post/internet-adb/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/internet-adb/</guid>
+      <description> Introduction ADB could be connected wirelessly, other than connecting via USB cable. This could be usefull sometime.
+How to  Enable developer&amp;rsquo;s menu on the android device Enable &amp;ldquo;Internet Adb&amp;rdquo; in the developer&amp;rsquo;s menu then on your computer: adb connect :5555 here 5555 is the default port then you could use adb command as usual for example &amp;ldquo;adb shell&amp;rdquo;  </description>
+    </item>
     
     <item>
       <title>EDID</title>
@@ -316,6 +369,16 @@ Improvement The approach is to limit the files to the ones used in the real buil
     </item>
     
     <item>
+      <title>high speed signals on fpga</title>
+      <link>https://pandysong.github.io/blog/post/signals_on_fpga/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/signals_on_fpga/</guid>
+      <description>HDMI vs MIPI Both seem the high speed signal, however it looks HDMI is more complex than MIPI CSI/DSI.
+HDMI have some competing IP provider. While for MIPI, there are some open source project which could encode and decode the MIPI signals. Without digging into the details, the reason behind that is the HDMI is machine to machine interface which could be more comprehensive while for MIPI, it is inter-chip interface, which is used to transfer the data reliably, without consider much from end user point of view.</description>
+    </item>
+    
+    <item>
       <title>rkdeveloptool on mac</title>
       <link>https://pandysong.github.io/blog/post/rkdeveloptool_on_mac/</link>
       <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
@@ -494,6 +557,18 @@ openssl dgst -sha256 -sign ${PRIVATE_KEY} -out ${INPUT_FILE}.sig ${INPUT_FILE}  
       <description>WiKi Page Xilinx BOOT.bin generation https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841976/Prepare+boot+image
 building DTB https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842279/Build+Device+Tree+Blob
 The place to search for Q&amp;amp;A https://china.xilinx.com/support.html</description>
+    </item>
+    
+    <item>
+      <title>notes when developing HDMI interface</title>
+      <link>https://pandysong.github.io/blog/post/hdmi-edid-notes/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/hdmi-edid-notes/</guid>
+      <description>#Introduction
+HDMI is quite popular interface, the negotiation between the video source and vide sink is via EDID, which basically are blocks with 128bytes each block.
+Flexibility The EDID is provided by the sink side via DDC (physically i2c interface) to the video source (e.g. a computer). The source will then decide which format, timing, resolution to send over HDMI signal cable.
+EDID has been evolving while the industry is moving forward.</description>
     </item>
     
     <item>
@@ -781,6 +856,19 @@ https://www.analyticsvidhya.com/blog/2018/01/10-audio-processing-projects-applic
 http://www.utdallas.edu/~mirsamadi/files/mirsamadi_se_is16.pdf
 https://github.com/eesungkim/Speech_Enhancement_DNN_NMF
 Speach Enhancement GAN (Generative Adversarial Network) https://arxiv.org/abs/1703.09452</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://pandysong.github.io/blog/post/opencv2_demo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/opencv2_demo/</guid>
+      <description>Introduction This document describes how to build a simple opencv project in macos. It is done all in command lines.
+install the minimum set of xcode xcode-select --install  install python3 This is needed to run opencv4.
+brew install python3 brew switch python &amp;lt;the version you have installed&amp;gt;  test if python3 works
+python3  install opencv brew install opencv@2  pkg-config check if $PKG_CONFIG is configured:
+echo $PKG_CONFIG  If not set it</description>
     </item>
     
     <item>
