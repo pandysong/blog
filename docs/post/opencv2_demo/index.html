@@ -7,9 +7,10 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
-        <title></title>
+        <title>OpenCV on OSX</title>
 
         <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
 
@@ -58,79 +59,43 @@ if (!doNotTrack) {
 
 
 <div class="blog-post">
-  <h1></h1>
+  <h1>OpenCV on OSX</h1>
   <div class="blog-post-subheader">
-    <time>01 Jan 0001</time>
+    <time>24 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="introduction">Introduction</h1>
-
+    <h1 id="introduction">Introduction</h1>
 <p>This document describes how to build a simple opencv project in macos. It is
 done all in command lines.</p>
-
 <h1 id="install-the-minimum-set-of-xcode">install the minimum set of xcode</h1>
-
 <pre><code>xcode-select --install
-</code></pre>
-
-<h1 id="install-python3">install python3</h1>
-
+</code></pre><h1 id="install-python3">install python3</h1>
 <p>This is needed to run opencv4.</p>
-
 <pre><code>brew install python3
 brew switch python &lt;the version you have installed&gt;
-</code></pre>
-
-<p>test if python3 works</p>
-
+</code></pre><p>test if python3 works</p>
 <pre><code>python3
-</code></pre>
-
-<h1 id="install-opencv">install opencv</h1>
-
+</code></pre><h1 id="install-opencv">install opencv</h1>
 <pre><code>brew install opencv@2
-</code></pre>
-
-<h1 id="pkg-config">pkg-config</h1>
-
+</code></pre><h1 id="pkg-config">pkg-config</h1>
 <p>check if $PKG_CONFIG is configured:</p>
-
 <pre><code>echo $PKG_CONFIG
-</code></pre>
-
-<p>If not set it</p>
-
+</code></pre><p>If not set it</p>
 <pre><code>export PKG_CONFIG=/usr/local/lib/pkgconfig/
-</code></pre>
-
-<p>This is a tool to setup the path parameters when using command line to build.</p>
-
-<h1 id="setup-pkg-config-for-opencv-2">setup pkg-config for opencv@2</h1>
-
+</code></pre><p>This is a tool to setup the path parameters when using command line to build.</p>
+<h1 id="setup-pkg-config-for-opencv2">setup pkg-config for opencv@2</h1>
 <pre><code>ln -s /usr/local/opt/opencv@2/lib/pkgconfig/opencv.pc $PKG_CONFIG
-</code></pre>
-
-<p>Test to see if pkg-config return parameters for opencv:</p>
-
+</code></pre><p>Test to see if pkg-config return parameters for opencv:</p>
 <pre><code>pkg-config --cflags --libs opencv
-</code></pre>
-
-<h1 id="compile-the-project">compile the project</h1>
-
+</code></pre><h1 id="compile-the-project">compile the project</h1>
 <pre><code>g++ $(pkg-config --cflags --libs opencv)  demo.cpp
-</code></pre>
-
-<h1 id="ld-symbol-s-not-found-for-architecture-x86-64"><code>ld: symbol(s) not found for architecture x86_64</code></h1>
-
+</code></pre><h1 id="ld-symbols-not-found-for-architecture-x86_64"><code>ld: symbol(s) not found for architecture x86_64</code></h1>
 <pre><code>There are two implementations of the standard C++ library available on OS X:
 libstdc++ and libc++. They are not binary compatible and libMLi3 requires
 libstdc++.  On 10.8 and earlier libstdc++ is chosen by default, on 10.9 libc++
 is chosen by default. To ensure compatibility with libMLi3, we need to choose
 libstdc++ manually.  To do this, add -stdlib=libstdc++ to the linking command.
 </code></pre>
-
   </div>
 </div>
 

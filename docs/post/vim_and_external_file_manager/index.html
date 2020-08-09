@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Using external file explorer with vim</title>
 
@@ -63,35 +64,18 @@ if (!doNotTrack) {
     <time>14 Feb 2018</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="using-external-file-explorer">using external file explorer</h1>
-
+    <h1 id="using-external-file-explorer">using external file explorer</h1>
 <p><a href="http://midnight-commander.org/">http://midnight-commander.org/</a></p>
-
 <p>Then config it to use external editor vim</p>
-
 <p>For open all files in one vim, one may open a vim server</p>
-
-<pre><code class="language-bash">vim --servername server_name_here
-</code></pre>
-
-<p>then open in other location</p>
-
-<pre><code class="language-bash">vim --servername server_name_here --remote file_name_here
-</code></pre>
-
-<p>One can get all lines:</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim --servername server_name_here
+</code></pre></div><p>then open in other location</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim --servername server_name_here --remote file_name_here
+</code></pre></div><p>One can get all lines:</p>
 <pre><code>vim --servername server_name_here --remote-expr &quot;getline(1,'$')&quot;
-</code></pre>
-
-<p>One can issue commands:</p>
-
+</code></pre><p>One can issue commands:</p>
 <pre><code>vim --servername server_name_here  --remote-send &quot;&lt;ESC&gt;&quot;
-</code></pre>
-
-<p>Through &ndash;remote-expr and &ndash;remote-send, one could almost totally control the vim server.</p>
+</code></pre><p>Through &ndash;remote-expr and &ndash;remote-send, one could almost totally control the vim server.</p>
 
   </div>
 </div>

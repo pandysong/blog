@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>VirtualBox NAT Network</title>
 
@@ -63,51 +64,31 @@ if (!doNotTrack) {
     <time>23 Sep 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="introduction">Introduction</h1>
-
+    <h1 id="introduction">Introduction</h1>
 <p>I often needs to ssh to the VM which is installed on e.g. a Windows machines
 (or a macbook) from another host. In this case NAT network is enough.</p>
-
 <p>NAT basically hide the VM behind the host, but allows to access the server via
 NAT. For the world outside the host, it only knows the IP address of host. I
 will need to ssh to VM, I just ssh to the host which will do the port forward
 to VM</p>
-
 <pre><code>another host (30.0.0.2)  &lt;-&gt; host (30.0.0.125) &lt;-&gt; VM (10.0.2.5)
-</code></pre>
-
-<p>In the NAT network, it will configure the port forwarding: 30.0.0.125:22 to
+</code></pre><p>In the NAT network, it will configure the port forwarding: 30.0.0.125:22 to
 10.0.2.5:22.</p>
-
 <p>I will just need to <code>ssh pandy@30.0.0.125</code>.</p>
-
 <h1 id="how-to-set">How to set</h1>
-
 <h1 id="nat-network">NAT <em>network</em></h1>
-
 <p>Add a NAT <em>network</em>, from File -&gt; Preferences -&gt; Network -&gt; Click the &lsquo;add&rsquo;
 icon, just use the default configuration. Please do not change the setting of
 <code>port forwarding</code>. Click OK.</p>
-
 <p>The default NAT network is 10.0.2.0/24, Virtual Box will create 10.0.2.1 as
 gateway.</p>
-
 <h1 id="configure-adaptor-for-vm">Configure Adaptor for VM</h1>
-
 <p>Settings -&gt; Network -&gt; Attach to (Select NAT netowkr), Name (NatNetwork which
 is the name configurared in the previous step).</p>
-
 <h1 id="configurare-ip-in-vm">Configurare IP in VM</h1>
-
 <p>Below is for Ubuntu 18.04.</p>
-
 <pre><code>sudo vim /etc/netplan/50-cloud-init.yaml
-</code></pre>
-
-<p>Configure the adaptor:</p>
-
+</code></pre><p>Configure the adaptor:</p>
 <pre><code># This file is generated from information provided by
 # the datasource.  Changes to it will not persist across an instance.
 # To disable cloud-init's network configuration capabilities, write a file
@@ -122,7 +103,6 @@ network:
             nameservers:
                 addresses: [10.0.2.1]
 </code></pre>
-
   </div>
 </div>
 

@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Using Cscope to U-Boot Source Code (Improved)</title>
 
@@ -63,87 +64,47 @@ if (!doNotTrack) {
     <time>26 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="disadvantage-of-make-cscope">Disadvantage of <code>make cscope</code></h2>
-
+    <h2 id="disadvantage-of-make-cscope">Disadvantage of <code>make cscope</code></h2>
 <p>In the <a href="../cscope_for_linux_kernel_or_uboot">post</a>, we uses the infrastructure
 by u-boot or Linux makefile to build the cscope database. But the disadvantage
 of that approach is that there are duplicated files for the same functions, so
 it is difficult the find a single path for the specific build.</p>
-
 <p>E.g. in the current build</p>
-
 <pre><code>pandy@ubuntu:~/u-boot-2018.09$ cat cscope.files | wc -l
 5342
-</code></pre>
-
-<p>The database includes 5K files.</p>
-
+</code></pre><p>The database includes 5K files.</p>
 <h2 id="improvement">Improvement</h2>
-
 <p>The approach is to limit the files to the ones used in the real build. We use
 the utility <code>readelf</code> to list all the files.</p>
-
 <pre><code>readelf --string-dump=.debug_str u-boot | sed -n '/\/\|\.c/{s/.*\]  //p}' &gt; cscope.files
-</code></pre>
-
-<p>This will create a list of files which is used in the compilation and included
+</code></pre><p>This will create a list of files which is used in the compilation and included
 in the elf file.</p>
-
 <p>Then use following command to create cscope database:</p>
-
 <pre><code>cscope -bqk
-</code></pre>
-
-<p>The advantage of this method is that this method includes only files which are
+</code></pre><p>The advantage of this method is that this method includes only files which are
 used in actual compilation.</p>
-
 <h2 id="header-files">Header files</h2>
-
 <p>The problem of this method is that it does not include header files. In order
 to overcome this issue, I need to find the all header files used in the
 compilation.</p>
-
 <p>gcc has an option <code>-H</code>, which will print all used header files used in
 compilation.</p>
-
 <p>In u-boot, environment var <code>KCFLAGS</code> could be used to specify customized
 option. Add following environment var:</p>
-
 <pre><code>export KCFLAGS=-H
-</code></pre>
-
-<p>Prepare for a clean build:</p>
-
+</code></pre><p>Prepare for a clean build:</p>
 <pre><code>make clean
-</code></pre>
-
-<p>Capture all printing:</p>
-
+</code></pre><p>Capture all printing:</p>
 <pre><code>make &gt; headers.txt 2&gt;&amp;1
-</code></pre>
-
-<p>Filter out all header files:</p>
-
+</code></pre><p>Filter out all header files:</p>
 <pre><code>cat headers.txt  | sed -n 's/.* \(.*\.h\)/\1/p' | sort | uniq &gt; headers_filted_uniq.txt
-</code></pre>
-
-<p>Create cscope.files as usualy:</p>
-
+</code></pre><p>Create cscope.files as usualy:</p>
 <pre><code>readelf --string-dump=.debug_str u-boot | sed -n '/\/\|\.c/{s/.*\]  //p}' &gt; cscope.files
-</code></pre>
-
-<p>Then add all header files:</p>
-
+</code></pre><p>Then add all header files:</p>
 <pre><code>cat headers_filted_uniq.txt &gt;&gt; cscope.files
-</code></pre>
-
-<p>Finally create cscope database:</p>
-
+</code></pre><p>Finally create cscope database:</p>
 <pre><code>cscope -bqk
 </code></pre>
-
   </div>
 </div>
 

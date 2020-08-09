@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>goodix gt9xx android driver.</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>goodix gt9xx android driver.</h1>
+  <div class="blog-post-subheader">
+    <time>07 Apr 2020</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>The Android Linux driver was published here:</p>
+<p><a href="https://github.com/goodix/gt9xx_driver_android">https://github.com/goodix/gt9xx_driver_android</a></p>
+<p>After reading the code, it is found that when <code>irq-gpios</code> is not set, the code
+will be working in polling mode. However when I tried to port it to Android
+9.0. The code crashes.</p>
+<pre><code>kernel/kernel/locking/rtmutex.c:1536: (discriminator 9) [&lt;ffffff8008b538a8&gt;] rt_mutex_trylock+0x30/0xb8
+kernel/drivers/i2c/i2c-core.c:2343: [&lt;ffffff80086b1a98&gt;] i2c_transfer+0x40/0x94
+kernel/drivers/input/touchscreen/gt9xx/gt9xx.c:97: [&lt;ffffff800868da2c&gt;] gtp_i2c_read+0xf4/0x1a8
+kernel/drivers/input/touchscreen/gt9xx/gt9xx.c:355: [&lt;ffffff800868e198&gt;] gtp_get_points+0x84/0x284
+kernel/drivers/input/touchscreen/gt9xx/gt9xx.c:569: [&lt;ffffff800868e540&gt;] gtp_work_func+0x1a8/0x5ec
+kernel/include/linux/hrtimer.h:393: [&lt;ffffff800868e99c&gt;] gtp_timer_handler+0x18/0x40
+kernel/kernel/time/hrtimer.c:1261: [&lt;ffffff800810965c&gt;] __hrtimer_run_queues+0x138/0x350
+kernel/kernel/time/hrtimer.c:1362: [&lt;ffffff8008109da8&gt;] hrtimer_interrupt+0xa0/0x1b0
+kernel/drivers/clocksource/arm_arch_timer.c:150: [&lt;ffffff80087a5610&gt;] arch_timer_handler_virt+0x28/0x3c
+kernel/kernel/irq/chip.c:761: [&lt;ffffff80080f99c4&gt;] handle_percpu_devid_irq+0x7c/0x1d0
+kernel/kernel/irq/irqdesc.c:352: [&lt;ffffff80080f53dc&gt;] generic_handle_irq+0x18/0x2c
+kernel/kernel/irq/irqdesc.c:388: [&lt;ffffff80080f5710&gt;] __handle_domain_irq+0xa8/0xac
+kernel/drivers/irqchip/irq-gic.c:352: [&lt;ffffff8008080f24&gt;] gic_handle_irq+0x64/0xa0
+
+</code></pre><p>Above indicates that the gtp_work_func() could not work in interrupt context.
+Hence it is believed that the interrupt mode of this driver does not work as
+well.</p>
+<h1 id="fix-the-problem">Fix the problem</h1>
+<p>To fix the problem, the gtp_work_func has to be moved to non-interrupt context.
+The first idea is to use the work queue. The original driver, uses <code>hrtimer</code>
+(high resolution timer) to trigger timer, which for me, however it does not
+make sense, as the I2C reading is not have to be that accurate in terms of
+timing. We could simply uses delayed work queue to replace the <code>hrtimer</code>
+solution.</p>
+<p>The fix is put at:</p>
+<p><a href="https://github.com/pandysong/gt9xx_driver_android">https://github.com/pandysong/gt9xx_driver_android</a></p>
+<h1 id="improvement">Improvement</h1>
+<p>Further improvement were also done</p>
+<ul>
+<li>Make the interrupt mode working as well (not tested, as I have only polling
+mode test bed)</li>
+<li>Fix some compilation error.</li>
+<li>Add dts setting <code>goodix,mirror-x</code> <code>goodix,mirror-y</code> to allow mirroring the
+position.</li>
+</ul>
+<h1 id="tbd">TBD</h1>
+<p>Further improvement could be done in the future:</p>
+<ul>
+<li>improve document (allowing polling mode, add mirror-x and mirror-y dts</li>
+</ul>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

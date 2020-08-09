@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Read Source Code with Active Lines Highlighted</title>
 
@@ -63,96 +64,58 @@ if (!doNotTrack) {
     <time>28 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="cons-of-cscope-database">cons of cscope database</h2>
-
+    <h2 id="cons-of-cscope-database">cons of cscope database</h2>
 <p>In <a href="../cscope_for_linux_kernel_or_uboot">cscope_for_linux_kernel_or_uboot</a> and
 <a href="cscope_u-boot_improved">cscope_u-boot_improved</a>, it was discussed how to scope
 the files to the ones actually used.</p>
-
 <p>But that is not perfact: in the production code like u-boot there are many
 macros, in an active file which is used in compilation some are active but some
 are not. When we are reading the code, unless we are debugging in a debugger we
 do not immediately know which part of code is active (generatting machine
 code), and which part of code is inactive.</p>
-
 <p>This document intends to resolve this issue in a simple way.</p>
-
 <h2 id="objdump">objdump</h2>
-
 <p>objdump could dump the line numbers and corresponding assemble code. We could
 them only get the filename</p>
-
 <pre><code>aarch64-linux-gnu-objdump -d -l &lt;elf_file&gt; | sed -n &quot;s/\(.*\.[chS]\):\([0-9]*\).*/\1:\2/p&quot; 
-</code></pre>
-
-<p>This will filter out all file names with .c or .S extension suffixed with
-&lsquo;:<linenumber>&lsquo;</p>
-
+</code></pre><p>This will filter out all file names with .c or .S extension suffixed with
+&lsquo;:<!-- raw HTML omitted -->&rsquo;</p>
 <h2 id="how-to-highlight-in-the-source-code">how to highlight in the source code</h2>
-
 <p>In the
 <a href="https://lardcave.net/text/Highlighting%20arbitrary%20lines%20in%20Vim.html">post</a>,
 we know how to highlight multiple lines. We may need to create a database from
 which the highlight would be made.</p>
-
 <p>There is another
 <a href="https://stackoverflow.com/questions/13675019/vim-highlight-lines-using-line-number-on-external-file">hint</a></p>
-
 <p>The basic idea is to define a new color group:</p>
-
 <pre><code>:highlight activelines ctermbg=darkred guibg=darkred
-</code></pre>
-
-<p>Then you could add line matching to this group, vim will automatically
+</code></pre><p>Then you could add line matching to this group, vim will automatically
 highlight for you:</p>
-
 <pre><code>:match activelines /\%7l\|\%10l\|\%15l/
-</code></pre>
-
-<p>Or we could lowlight the inactive code</p>
-
+</code></pre><p>Or we could lowlight the inactive code</p>
 <pre><code>:highlight inactivelines ctermfg=lightgray guibg=lightgray
 :match activelines /\%11l\|\%12l\|\%13l/
-</code></pre>
-
-<h2 id="vim-plugin-highlight-vim">vim plugin <code>highlight.vim</code></h2>
-
+</code></pre><h2 id="vim-plugin-highlightvim">vim plugin <code>highlight.vim</code></h2>
 <p>For the purpose of highlighting the active lines, a
 <a href="https://github.com/pandysong/highlight.vim">plugin</a> is created after having
 done above research.</p>
-
 <p>For using this plugin, a database could be created, as discussed above, we will
 create a list from tool chain:</p>
-
 <pre><code>aarch64-linux-gnu-objdump -d -l &lt;elf_file&gt; | sed -n &quot;s/\(.*\.[chS]\):\([0-9]*\).*/\1:\2/p&quot;  &gt; lines.txt
-</code></pre>
-
-<p>Then use the tool provided by plugin to convert to the database needed:</p>
-
+</code></pre><p>Then use the tool provided by plugin to convert to the database needed:</p>
 <pre><code>python3 tools/gen.py /home/pandy/u-boot-2018.09 ../u-boot-2018.09/lines.txt \
 &gt; ../u-boot-2018.09/active_lines.txt
-</code></pre>
-
-<p>Now in the vim (with the current path in u-boot directory), you could load the
+</code></pre><p>Now in the vim (with the current path in u-boot directory), you could load the
 database:</p>
-
 <pre><code>:HighlightAdd active_lines.txt
-</code></pre>
-
-<p>The vim looks like after open an active file:</p>
-
-<p><img src="https://pandysong.github.io/blog/img/vim-activelines-screen.png" alt="screen" /></p>
-
+</code></pre><p>The vim looks like after open an active file:</p>
+<p><img src="https://pandysong.github.io/blog/img/vim-activelines-screen.png" alt="screen"></p>
 <p>It is found that following code is not compiled:</p>
-
 <pre><code>#ifdef COUNTER_FREQUENCY
 	ldr	x0, =COUNTER_FREQUENCY
 	msr	cntfrq_el0, x0			/* Initialize CNTFRQ */
 #endif
 </code></pre>
-
   </div>
 </div>
 

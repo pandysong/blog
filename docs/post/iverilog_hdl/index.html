@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>open source verilog emulation tool</title>
 
@@ -63,104 +64,80 @@ if (!doNotTrack) {
     <time>29 Mar 2020</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="introduction">Introduction</h1>
-
+    <h1 id="introduction">Introduction</h1>
 <p>FPGA is an interesting topic. Products with different market proposition are
 on the market. Xilinx&rsquo;s product ranks in high performance while Lattice is on
 lower cost. Verilog is a HDL (Hardware Description Language). This document
 describe step to use <a href="https://github.com/steveicarus/iverilog.git">iverilog</a>
 on my Mac book.</p>
-
 <h1 id="build-and-install">Build and Install</h1>
-
 <p>The steps is written in details on <a href="https://github.com/steveicarus/iverilog.git">https://github.com/steveicarus/iverilog.git</a>.
 Please note that it needs the new version of Bison as mentioned &ldquo;It has been
 reported that bison 2.3 on MacOS generates broken code, but bison 3.0.4 works.&rdquo;</p>
-
 <p>I was just using brew to install the latest bison, please note that at end of
 bison installation, following is suggest to use the brew installed version
 instead of osx default one.</p>
-
 <pre><code>echo 'export PATH=&quot;/usr/local/opt/bison/bin:$PATH&quot;' &gt;&gt; ~/.zshrc 
-</code></pre>
-
-<p>The above command might be different for <code>bash</code>, as it is for zsh.</p>
-
+</code></pre><p>The above command might be different for <code>bash</code>, as it is for zsh.</p>
 <h1 id="an-example">An example</h1>
-
 <p>The following example is copied from the examples directory:
 examples/xram16x1.v and some var name are replaced for easy understanding.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-verilog" data-lang="verilog">
+<span style="color:#75715e">// defines a 16x1 ram module
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">module</span> ram16x1 (out, data, index, assign_flag, wclk);
+     <span style="color:#66d9ef">output</span> out;
+     <span style="color:#66d9ef">input</span> data;
+     <span style="color:#66d9ef">input</span> [<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] index;
+     <span style="color:#66d9ef">input</span> assign_flag;
+     <span style="color:#66d9ef">input</span> wclk;
 
-<pre><code class="language-verilog">
-// defines a 16x1 ram module
-module ram16x1 (out, data, index, assign_flag, wclk);
-     output out;
-     input data;
-     input [3:0] index;
-     input assign_flag;
-     input wclk;
+     <span style="color:#66d9ef">reg</span> mem[<span style="color:#ae81ff">15</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>];
 
-     reg mem[15:0];
+     <span style="color:#66d9ef">assign</span> out <span style="color:#f92672">=</span> mem[index];
+     <span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> wclk) <span style="color:#66d9ef">if</span> (assign_flag) mem[index] <span style="color:#f92672">=</span> data;
 
-     assign out = mem[index];
-     always @(posedge wclk) if (assign_flag) mem[index] = data;
+ <span style="color:#66d9ef">endmodule</span> <span style="color:#75715e">/* ram16x1 */</span>
 
- endmodule /* ram16x1 */
-
-// the toplevel emulation module
-module main;
-    wire out;
-    reg data;
-    reg [3:0] index;
-    reg assign_flag, wclk;
+<span style="color:#75715e">// the toplevel emulation module
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">module</span> main;
+    <span style="color:#66d9ef">wire</span> out;
+    <span style="color:#66d9ef">reg</span> data;
+    <span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] index;
+    <span style="color:#66d9ef">reg</span> assign_flag, wclk;
 
     ram16x1 r1 (out, data, index, assign_flag, wclk);
 
-    initial begin
-    $dumpfile(&quot;show_vcd.vcd&quot;);
-    $dumpvars(1, main.r1);
-    wclk = 0;
-    assign_flag = 1;
-    for (index = 0 ; index &lt; 4'hf ;  index = index + 1) begin
-        data = index[0];
-        #1 wclk = 1; //the data is written to ram on positve edge
-        #1 wclk = 0;
-        $display(&quot;r1[%x] == %b&quot;, index, out);
-    end
+    <span style="color:#66d9ef">initial</span> <span style="color:#66d9ef">begin</span>
+    $dumpfile(<span style="color:#e6db74">&#34;show_vcd.vcd&#34;</span>);
+    $dumpvars(<span style="color:#ae81ff">1</span>, main.r1);
+    wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    assign_flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">for</span> (index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4&#39;hf</span> ;  index <span style="color:#f92672">=</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">begin</span>
+        data <span style="color:#f92672">=</span> index[<span style="color:#ae81ff">0</span>];
+        #<span style="color:#ae81ff">1</span> wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">//the data is written to ram on positve edge
+</span><span style="color:#75715e"></span>        #<span style="color:#ae81ff">1</span> wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        $display(<span style="color:#e6db74">&#34;r1[%x] == %b&#34;</span>, index, out);
+    <span style="color:#66d9ef">end</span>
 
-    for (index = 0 ; index &lt; 4'hf ;  index = index + 1)
-        #1 if (out !== index[0]) begin
-            $display(&quot;FAILED -- mem[%h] !== %b&quot;, index, index[0]);
+    <span style="color:#66d9ef">for</span> (index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4&#39;hf</span> ;  index <span style="color:#f92672">=</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+        #<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> (out <span style="color:#f92672">!==</span> index[<span style="color:#ae81ff">0</span>]) <span style="color:#66d9ef">begin</span>
+            $display(<span style="color:#e6db74">&#34;FAILED -- mem[%h] !== %b&#34;</span>, index, index[<span style="color:#ae81ff">0</span>]);
             $finish;
-        end
+        <span style="color:#66d9ef">end</span>
 
-        $display(&quot;PASSED&quot;);
-    end
-endmodule /* main */
+        $display(<span style="color:#e6db74">&#34;PASSED&#34;</span>);
+    <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">endmodule</span> <span style="color:#75715e">/* main */</span>
 
-</code></pre>
-
-<p>The commands started with <code>$</code> are for emulation only. $dumpfile and $dumpvars
+</code></pre></div><p>The commands started with <code>$</code> are for emulation only. $dumpfile and $dumpvars
 are for dump all data to e.g. <code>show_vcd.vcd</code>.</p>
-
 <h1 id="compile">compile</h1>
-
 <pre><code>iverylog -oxram16x1 xram16x1.v
-</code></pre>
-
-<p>A copy could be fetched from <a href="https://github.com/pandysong/iverilog_xram16x1.git">here</a></p>
-
+</code></pre><p>A copy could be fetched from <a href="https://github.com/pandysong/iverilog_xram16x1.git">here</a></p>
 <p>Where a Makefile is added, so a simple <code>make</code> could suffice.</p>
-
 <h1 id="run">run</h1>
-
 <pre><code>./xram16x1
-</code></pre>
-
-<p>The output:</p>
-
+</code></pre><p>The output:</p>
 <pre><code>VCD info: dumpfile show_vcd.vcd opened for output.
 r1[0] == 0
 r1[1] == 1
@@ -178,28 +155,15 @@ r1[c] == 0
 r1[d] == 1
 r1[e] == 0
 PASSED
-</code></pre>
-
-<p>The above printing is corresponding to the code:</p>
-
+</code></pre><p>The above printing is corresponding to the code:</p>
 <pre><code>$display(&quot;r1[%x] == %b&quot;, index, out);
-</code></pre>
-
-<h1 id="open-the-data">open the data</h1>
-
+</code></pre><h1 id="open-the-data">open the data</h1>
 <p>To run <code>xram16x1</code>, it also generates &ldquo;show_vcd.vcd&rdquo; file.</p>
-
 <p>using gtkwave command to show:</p>
-
 <pre><code>gtkwave show_vcd.vcd
-</code></pre>
-
-<p>The tool could shows all the logics during emulation:</p>
-
-<p><img src="https://pandysong.github.io/blog/img/gtkwave_xram16x1.png" alt="gtkwave" /></p>
-
+</code></pre><p>The tool could shows all the logics during emulation:</p>
+<p><img src="https://pandysong.github.io/blog/img/gtkwave_xram16x1.png" alt="gtkwave"></p>
 <p>Some explanation on the above figure:</p>
-
 <ul>
 <li>index[3:0] is the index to access the ram</li>
 <li>data is the 1 bit data get out of ram</li>
@@ -208,7 +172,6 @@ ram</li>
 <li>the reading of ram, does not need an wclk, so in the second part to read the
 memory, wclk is not altered.</li>
 </ul>
-
 <p>BTW, I am not sure what &ldquo;rect square&rdquo; means in the figure.</p>
 
   </div>

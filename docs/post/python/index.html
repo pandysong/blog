@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Understanding `yield` in Python</title>
 
@@ -63,61 +64,35 @@ if (!doNotTrack) {
     <time>12 Apr 2017</time>
   </div>
   <div class="blog-post-content">
-    
+    <h1 id="understanding-yield-in-python">understanding yield in python</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gen</span>():
+    s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;init string&#34;</span>
+    <span style="color:#66d9ef">while</span> True:
+        s <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> s
+        s <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34; processed&#34;</span>
 
-<h1 id="understanding-yield-in-python">understanding yield in python</h1>
-
-<pre><code class="language-python">def gen():
-    s = &quot;init string&quot;
-    while True:
-        s = yield s
-        s += &quot; processed&quot;
-
-c= gen()
-print(next(c))
-print(format(c.send(&quot;hello&quot;)))
-</code></pre>
-
-<p>The above has following output</p>
-
-<pre><code class="language-bash">init string
+c<span style="color:#f92672">=</span> gen()
+<span style="color:#66d9ef">print</span>(next(c))
+<span style="color:#66d9ef">print</span>(format(c<span style="color:#f92672">.</span>send(<span style="color:#e6db74">&#34;hello&#34;</span>)))
+</code></pre></div><p>The above has following output</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">init string
 hello processed
-</code></pre>
-
-<p>when next&copy; is called, the gen function runs until line :</p>
-
-<pre><code class="language-python">s = yield s
-</code></pre>
-
-<p>However since it does not send anything (using next()),
+</code></pre></div><p>when next(c) is called, the gen function runs until line :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">s <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> s
+</code></pre></div><p>However since it does not send anything (using next()),
 the gen() function only runs the right part of the statement:</p>
-
-<pre><code class="language-python">yield s
-</code></pre>
-
-<p>Now when c.send(&ldquo;hello&rdquo;) is called, it send &ldquo;hello&rdquo; to gen(),
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">yield</span> s
+</code></pre></div><p>Now when c.send(&ldquo;hello&rdquo;) is called, it send &ldquo;hello&rdquo; to gen(),
 and gen() starts to run and s get assiged so at the same line</p>
-
 <pre><code>s = yield s
-</code></pre>
-
-<p>s is now &ldquo;hello&rdquo;, but c.send(&ldquo;hello&rdquo;) will need gen() to run until the next yield.
+</code></pre><p>s is now &ldquo;hello&rdquo;, but c.send(&ldquo;hello&rdquo;) will need gen() to run until the next yield.
 In this case, gen() continue runs:</p>
-
-<pre><code class="language-python">s += &quot;processed&quot;
-</code></pre>
-
-<p>s now becomes &ldquo;hello processed&rdquo;</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">s <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;processed&#34;</span>
+</code></pre></div><p>s now becomes &ldquo;hello processed&rdquo;</p>
 <p>it continues to run until get the next statement which has yield:</p>
-
-<pre><code class="language-python">s = yield s
-</code></pre>
-
-<p>Now the right part of statement is executed, and and c.send(&ldquo;hello&rdquo;) returns the &ldquo;hello processed&rdquo;.</p>
-
-<h1 id="a-name-setup-requirement-a-setup-py-vs-requirements-txt"><a name="setup_requirement"></a> setup.py vs requirements.txt</h1>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">s <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> s
+</code></pre></div><p>Now the right part of statement is executed, and and c.send(&ldquo;hello&rdquo;) returns the &ldquo;hello processed&rdquo;.</p>
+<h1 id="a-namesetup_requirementa-setuppy-vs-requirementstxt"><!-- raw HTML omitted --><!-- raw HTML omitted --> setup.py vs requirements.txt</h1>
 <p>Very good and clear document:
 <a href="https://caremad.io/posts/2013/07/setup-vs-requirement/">https://caremad.io/posts/2013/07/setup-vs-requirement/</a></p>
 

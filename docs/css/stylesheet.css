@@ -1,5 +1,5 @@
 body {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Zilla Slab', serif;
     margin: auto;
     max-width: 50em;
 }
@@ -81,6 +81,11 @@ pre {
 footer  {
   text-align: center;
 }
+
+.navbar-nav {
+  font-family: 'Ubuntu Mono', monospace;
+}
+
 img{
     max-width: 100%;
     height: auto;

@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Vim tips quickfix</title>
 
@@ -63,38 +64,24 @@ if (!doNotTrack) {
     <time>12 Jan 2020</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="creat-text-recognized-by-quickfix">creat text recognized by quickfix</h1>
-
+    <h1 id="creat-text-recognized-by-quickfix">creat text recognized by quickfix</h1>
 <p>using following command in vim to copy the text to clipboard:</p>
-
 <pre><code>let @@=expand(&quot;%:p&quot;).&quot;:&quot;.line(&quot;.&quot;).&quot;: &quot;.expand(&quot;&lt;cword&gt;&quot;) 
 </code></pre>
-
 <p>something like following will be yanked:</p>
-
 <pre><code>`/home/pandy/notes.md:24: finit_module`
 </code></pre>
-
 <p>You may want to save a list of lines to a file.</p>
-
 <h1 id="load-the-files-to-quick-fix-window">load the files to quick fix window</h1>
-
 <p>Open the file and then load the current file to quickfix window:
-    :cfile %</p>
-
+:cfile %</p>
 <p>then open the quickfix window:
-    :copen</p>
-
+:copen</p>
 <p>Now you could b.rowse in the quickfix window</p>
-
 <h1 id="this-works-also-for-the-compilation-output">This works also for the compilation output</h1>
-
 <p>You may yank the output from any other sources and open the compilation log and
-use &ldquo;:cfile %&rdquo; or directly use &ldquo;:cfile <to_your_file_path>&rdquo; to open it in
+use &ldquo;:cfile %&rdquo; or directly use &ldquo;:cfile &lt;to_your_file_path&gt;&rdquo; to open it in
 quickfix window.</p>
-
 <p>I also use it to make notes on the code, and use &ldquo;gF&rdquo; command to jump to the
 code or document.</p>
 

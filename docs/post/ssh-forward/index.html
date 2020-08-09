@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>SSH Agent How to</title>
 
@@ -63,31 +64,19 @@ if (!doNotTrack) {
     <time>26 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="step-1">Step 1</h2>
-
+    <h2 id="step-1">Step 1</h2>
 <p>Change config in ~/.ssh/config</p>
-
 <pre><code>host xxxx
     user your_prefered_user_name
     ForwardX11 yes
     ForwardX11Trusted yes
     ForwardAgent yes
-</code></pre>
-
-<h2 id="step-2">Step 2</h2>
-
+</code></pre><h2 id="step-2">Step 2</h2>
 <p>Add the key you would like to forward:</p>
-
 <pre><code>ssh-add ~/.ssh/id_rsa
-</code></pre>
-
-<p>Using commands to verify the key is added:</p>
-
+</code></pre><p>Using commands to verify the key is added:</p>
 <pre><code>ssh-add -l
 </code></pre>
-
   </div>
 </div>
 

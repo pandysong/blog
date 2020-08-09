@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>A small discussion on `char *` in C and C&#43;&#43;</title>
 
@@ -63,12 +64,8 @@ if (!doNotTrack) {
     <time>01 May 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="a-piece-of-code">A piece of code</h2>
-
+    <h2 id="a-piece-of-code">A piece of code</h2>
 <p>Look at following code:</p>
-
 <pre><code>#include &lt;stdio.h&gt;
 
 int main()
@@ -76,39 +73,23 @@ int main()
     char *s = &quot;hello world&quot;;
     puts(s);
 }
-</code></pre>
-
-<p>Note that puts is basically a <code>printf</code> like funtion but without <code>format</code>
+</code></pre><p>Note that puts is basically a <code>printf</code> like funtion but without <code>format</code>
 functinalities.</p>
-
 <p>Now using the following command to compile as a c program.</p>
-
 <pre><code>gcc puts_test.c -o puts_test_c
-</code></pre>
-
-<p>There are no errors emitted.</p>
-
+</code></pre><p>There are no errors emitted.</p>
 <p>However if we compile as C++ program:</p>
-
 <pre><code>g++ -std=c++14 -o puts_test puts_test.cpp
 puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
     char *s = &quot;hello world&quot;;
               ^
 1 warning generated.
-</code></pre>
-
-<p>It complains.</p>
-
+</code></pre><p>It complains.</p>
 <h2 id="how-to-fix">How to fix</h2>
-
 <p>Using <code>const char *</code> instead of <code>char *</code>.</p>
-
 <p>It is just an simple example how C++ improves the type safe.</p>
-
 <h2 id="a-bit-more">a bit more</h2>
-
 <p>To make the C++ program more with C++ style:</p>
-
 <pre><code>#include &lt;cstdio&gt;
 
 int main()
@@ -117,7 +98,6 @@ int main()
     std::puts(s);
 }
 </code></pre>
-
   </div>
 </div>
 

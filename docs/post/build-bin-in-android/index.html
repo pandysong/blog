@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Build developer tools on Android</title>
 
@@ -63,37 +64,26 @@ if (!doNotTrack) {
     <time>14 Mar 2020</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="introduction">Introduction</h1>
-
+    <h1 id="introduction">Introduction</h1>
 <p>In Android development environment, source code is organized by modules. It is
 same for the tool binaries. Some tools are not build or installed by default,
 especially those for debug purpose.</p>
-
 <h1 id="androiddrivertools">AndroidDriverTools</h1>
-
 <p>The developer&rsquo;s tools such as this one mentioned in below command are not with
 the usual SDK.</p>
-
 <p>Here is the step to download and build on your build server:</p>
-
-<pre><code class="language-bash">cd ~/&lt;your working directory&gt;/
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ~/&lt;your working directory&gt;/
 git clone https://github.com/MeekJeen/AndroidDriverTools.git
 cd AndroidDriverTools/i2c-tools
 source ../../../../build/envsetup.sh
 mm
-</code></pre>
-
-<p>Then on your PC, install it to android device:</p>
-
-<pre><code class="language-bash">
+</code></pre></div><p>Then on your PC, install it to android device:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
 scp -r fuyong:rk3128_working/out/target/product/rk3128_box/system/xbin ./
 adb root
 adb remount
 adb push xbin/i2c* /system/xbin/
-</code></pre>
-
+</code></pre></div>
   </div>
 </div>
 

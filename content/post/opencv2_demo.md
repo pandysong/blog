@@ -1,3 +1,9 @@
+---
+date: 2019-04-24
+title: OpenCV on OSX
+weight: 10
+---
+
 # Introduction
 
 This document describes how to build a simple opencv project in macos. It is

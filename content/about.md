@@ -21,7 +21,7 @@ I was working in a big telco equipment manufacturer when I started my career.
 I switched to a silicon company which provide chips and solutions for
 wireless/voice/IoT products. I am lucky to have different roles in this
 company, as a software team leader/manager, and then as a technical sales and
-account manager. The sales and AM roles were quite different with the pure
+account manager. The sales and AM roles were quite different from the pure
 technical roles. That needs me to have much more complicated human to human
 communications with a totally different set of skills, which I gained a lot
 during the work.

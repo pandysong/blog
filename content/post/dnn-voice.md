@@ -1,3 +1,10 @@
+---
+date: 2019-04-26
+title: DNN and Voice processing Reference
+weight: 10
+---
+
+
 # voice improvement
 
 https://www.youtube.com/watch?v=zstghz0fWsg

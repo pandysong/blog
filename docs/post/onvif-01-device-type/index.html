@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Onvif Device Type</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Onvif Device Type</h1>
+  <div class="blog-post-subheader">
+    <time>24 Apr 2018</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>Following are all copied from <a href="https://www.onvif.org/">https://www.onvif.org/</a></p>
+<h1 id="nvt-network-video-transmitter">NVT (Network Video Transmitter)</h1>
+<pre><code>
+A Network Video Transmitter (NVT) is an ONVIF device that sends media data over
+an IP network to a client. For example, an NVT may be an IP network camera or
+an encoder device. 
+
+</code></pre><p>An NVT implements the following services to provide its core functionality:</p>
+<ul>
+<li><em>Device service</em> enables an NVT to provide device management functionality
+such as device capabilities, system and network settings, security settings
+and firmware upgrade. <!-- raw HTML omitted --></li>
+<li><em>Event service</em> enables an NVT to send events to clients. <!-- raw HTML omitted --> Media service enables an NVT to stream media data to clients.
+Media data includes video, audio, video analytics and other metadata. <!-- raw HTML omitted --></li>
+<li><em>Device IO service</em> enables an NVT to support physical inputs and outputs.
+<!-- raw HTML omitted --> An NVT can also implement the following
+services to provide extended functionality:</li>
+<li><em>PTZ service</em> enables an NVT to provide PTZ control if the device is a PTZ
+camera. <!-- raw HTML omitted --></li>
+<li><em>Imaging service</em> enables an NVT to provide configuration of image settings
+which affect the visual appearance of the video, for example, exposure time,
+gain and white balance, focus control. <!-- raw HTML omitted --></li>
+<li><em>Video Analytics service</em> enables an NVT to provide video analytics
+functionality. <!-- raw HTML omitted --></li>
+</ul>
+<p>Beyond this, an NVT can also include additional ONVIF services, for example the
+Recording service if support for local storage is required</p>
+<h1 id="nvd-network-video-display">NVD (Network Video Display)</h1>
+<pre><code>A Network Video Display (NVD) is an ONVIF device that receives media data over
+an IP network and outputs it. For example, an NVD may be an IP network video
+monitor which displays video and outputs audio. 
+</code></pre><p>An NVD implements the following services to provide its core functionality:</p>
+<ul>
+<li><em>Device service</em> enables an NVD to provide device management functionality
+such as device capabilities, system and network settings, security settings
+and firmware upgrade.</li>
+<li><em>Event service</em> enables an NVD to send events to clients.</li>
+<li><em>Device IO service</em> enables an NVD to support physical inputs and outputs.</li>
+<li><em>Display service</em> provides functions to enable a client to control and
+configure display devices.  The service introduces panes, each of which
+occupies an area of the physical display.</li>
+<li><em>Receiver service</em> enables an NVD to receive media streams from a media
+source e.g. a Network Video Transmitter (NVT).</li>
+</ul>
+<h1 id="nvs-network-video-storage">NVS (Network Video Storage)</h1>
+<pre><code>A Network Video Storage (NVS) is an ONVIF device that records media and
+metadata received from a streaming device, such as an NVT, over an IP network
+to a permanent storage medium. The NVS also enables clients to review the
+stored data. For example, an NVS could be a network video recorder (NVR), a
+digital video recorder (DVR) or a camera with embedded storage. 
+</code></pre><ul>
+<li><em>Device service</em> enables an NVS to provide device management functionality
+such as device capabilities, system and network settings, security settings
+and firmware upgrade.</li>
+<li><em>Event service</em> enables an NVS to send events to clients.</li>
+<li><em>Receiver service</em> enables an NVS to receive media streams from a media
+source e.g. a Network Video Transmitter (NVT), to be recorded.</li>
+<li><em>Recording Control service</em> enables a client to manage recordings, and to
+configure the transfer of data from data sources to recordings. Managing
+recordings includes creation and deletion of recordings and tracks.</li>
+<li><em>Recording Search service</em> enables a client to find information about the
+recordings on the storage device, for example to construct a “timeline” view,
+and to find data of interest within a set of recordings. The latter is achieved
+by searching for events that are included in the metadata track recording.</li>
+<li><em>Replay Control service</em> enables a client to play back recorded data,
+including video, audio and metadata. Functions are provided to start and stop
+playback and to change speed and direction of the replayed stream. It also
+enables a client to download data from the storage device so that export
+functionality can be provided.</li>
+</ul>
+<h1 id="nva-network-video-analytics-">NVA (Network Video Analytics )</h1>
+<pre><code>
+A Network Video Analytics (NVA) device is an ONVIF device that performs
+analysis on media data and meta data received from from an IP streaming device.
+For example, an NVA may be an analytics server device that receives and
+analyses live data from a Network Video Transmitter to generate events, or
+analyses recorded data from a Network Video Storage device, to perform forensic
+searches. Evaluations may involve more than one media stream or metadata
+enhanced media stream at a time. 
+
+</code></pre><p>An NVA implements the following services to provide its core functionality:</p>
+<ul>
+<li><em>Device service</em> enables an NVA to provide device management functionality such
+as device capabilities, system and network settings, security settings and
+firmware upgrade.</li>
+<li><em>Event service</em> enables an NVA to send events to clients.</li>
+<li><em>Video Analytics service</em> enables a client to configure the video analytic
+algorithms of the NVA.</li>
+<li><em>Video Analytics Device service</em> enables a client to configure NVA
+functionality, assign input streams and analytics to be performed as well as
+control analytics processes and parameter.</li>
+<li><em>Receiver service</em> enables an NVA to receive media streams from a media source
+e.g. a Network Video Transmitter (NVT).</li>
+</ul>
+<h1 id="detailed-service-definition">detailed service definition</h1>
+<p>Refer to the <a href="https://www.onvif.org/specs/DocMap-2.3.html">link</a></p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

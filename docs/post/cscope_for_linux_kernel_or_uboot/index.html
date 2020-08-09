@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Using Cscope to read Linux Souce Code or U-Boot Source Code</title>
 
@@ -63,34 +64,20 @@ if (!doNotTrack) {
     <time>24 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="create-scope-data-for-linux-kernel-or-u-boot">create scope data for Linux Kernel or u-boot</h1>
-
+    <h1 id="create-scope-data-for-linux-kernel-or-u-boot">create scope data for Linux Kernel or u-boot</h1>
 <p>Follow the usual instructions on how to build Linux kernel or u-boot until the
 step which does the real <code>make</code>, at this stage you could create scope data by
 typing:</p>
-
 <pre><code>make cscope
-</code></pre>
-
-<p>This will create scope.out, which could be used in vim:</p>
-
+</code></pre><p>This will create scope.out, which could be used in vim:</p>
 <pre><code>cs add scope.out
-</code></pre>
-
-<p>Then you could use the command defined in the following section to search the
+</code></pre><p>Then you could use the command defined in the following section to search the
 database and jump around.</p>
-
 <h1 id="cscope-setup">cscope setup</h1>
-
 <p>This is generic for all cscope for any projects other than Linux Kernel or
 u-boot.</p>
-
 <p>I likes to use <code>cabbrev</code> command:</p>
-
 <p>Add following lines into your <em>.vimrc</em></p>
-
 <pre><code>cabbrev fs :cs find s &lt;cword&gt;
 cabbrev fg :cs find g &lt;cword&gt;
 cabbrev fd :cs find d &lt;cword&gt;
@@ -99,10 +86,7 @@ cabbrev ft :cs find t &lt;cword&gt;
 cabbrev fe :cs find e &lt;cword&gt;
 cabbrev ff :cs find f &lt;cword&gt;
 cabbrev fi :cs find i &lt;cword&gt;
-</code></pre>
-
-<p>The meaning for each command is as follows (copied from vim helper):</p>
-
+</code></pre><p>The meaning for each command is as follows (copied from vim helper):</p>
 <pre><code>0 or s: Find this C symbol
 1 or g: Find this definition
 2 or d: Find functions called by this function
@@ -112,40 +96,23 @@ cabbrev fi :cs find i &lt;cword&gt;
 7 or f: Find this file
 8 or i: Find files #including this file
 9 or a: Find places where this symbol is assigned a value
-</code></pre>
-
-<p>If you do not want to do such mapping by default, you may save to an text file
+</code></pre><p>If you do not want to do such mapping by default, you may save to an text file
 say <code>~/cscopecmd.txt</code>, then each time you want to use these command, you may
 <code>so ~/cscopecmd.txt</code> to set up.</p>
-
 <p>After setting up, when you type <code>:fs</code> followed by space, the command will be
-expanded to <code>:cs find s &lt;cword&gt;</code>, you could then press <em><enter></em> or edit the
+expanded to <code>:cs find s &lt;cword&gt;</code>, you could then press <em><!-- raw HTML omitted --></em> or edit the
 command line as you want.</p>
-
 <h1 id="other-type-of-database">other type of database</h1>
-
 <p>In u-boot, other type of database like ctags or etags could be generated.</p>
-
 <p>Generate ctags database:</p>
-
 <pre><code>make tags
-</code></pre>
-
-<p>Or</p>
-
+</code></pre><p>Or</p>
 <pre><code>make ctags
-</code></pre>
-
-<p>Generate etags database:</p>
-
+</code></pre><p>Generate etags database:</p>
 <pre><code>make etags
-</code></pre>
-
-<p>In linux kernel source code, following target are available in Makefile:</p>
-
+</code></pre><p>In linux kernel source code, following target are available in Makefile:</p>
 <pre><code>tags TAGS cscope gtags
 </code></pre>
-
   </div>
 </div>
 

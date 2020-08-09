@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Linux Notes</title>
 
@@ -63,78 +64,43 @@ if (!doNotTrack) {
     <time>28 Mar 2013</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="basic-command">basic command</h1>
-
+    <h1 id="basic-command">basic command</h1>
 <h2 id="uname">uname</h2>
-
 <pre><code>$ uname -a
 Linux syd-svr-pes 4.16.9-1-ARCH #1 SMP PREEMPT Thu May 17 02:10:09 UTC 2018 x86_64 GNU/Linux
-</code></pre>
-
-<h2 id="driver-modules-lib-modules">driver modules <code>/lib/modules</code></h2>
-
+</code></pre><h2 id="driver-modules-libmodules">driver modules <code>/lib/modules</code></h2>
 <pre><code>cd /lib/modules
 
-</code></pre>
-
-<h2 id="lsmod">lsmod</h2>
-
+</code></pre><h2 id="lsmod">lsmod</h2>
 <pre><code>$ lsmod
 Module                  Size  Used by
 nf_conntrack_ipv4      16384  18
 ...
 ...
 ...
-</code></pre>
-
-<h2 id="let-tar-to-figure-out-the-compression-way">let tar to figure out the compression way</h2>
-
+</code></pre><h2 id="let-tar-to-figure-out-the-compression-way">let tar to figure out the compression way</h2>
 <pre><code>tar xf somefile.tar.xz
-</code></pre>
-
-<h2 id="more-is-old-utility-use-less-instead-of-more"><code>more</code> is old utility, use <code>less</code> instead of <code>more</code></h2>
-
+</code></pre><h2 id="more-is-old-utility-use-less-instead-of-more"><code>more</code> is old utility, use <code>less</code> instead of <code>more</code></h2>
 <p>Becuase <code>less</code> is a bit massive than <code>more</code>, some embedded system only have more.</p>
-
 <h2 id="compile-kernel">compile kernel</h2>
-
 <pre><code>make menuconfig
 make all
 make modules_install # install modules to /lib/modules/
 make install
-</code></pre>
-
-<h2 id="strace">strace</h2>
-
+</code></pre><h2 id="strace">strace</h2>
 <p>using strace to see the system call being called</p>
-
 <p><a href="https://www.youtube.com/watch?v=0IQlpFWTFbM">https://www.youtube.com/watch?v=0IQlpFWTFbM</a></p>
-
 <pre><code>strace &lt;your programe&gt;
-</code></pre>
-
-<p>strace could filter as well.</p>
-
+</code></pre><p>strace could filter as well.</p>
 <h2 id="perf-track-l1-cache-misses">perf, track L1 cache misses</h2>
-
 <h2 id="ftrace-tracing-kernel-functions">ftrace, tracing kernel functions</h2>
-
 <h2 id="proc">/proc</h2>
-
 <h3 id="recover-the-deleted-but-still-runing-exe-files">recover the deleted but still runing exe files</h3>
-
 <h3 id="get-the-cmdline">get the cmdLine</h3>
-
 <h3 id="get-fd-file-opened">get fd (file opened)</h3>
-
-<h2 id="https-livegrep-com"><a href="https://livegrep.com">https://livegrep.com</a></h2>
-
-<h2 id="http-eudyptula-challenge-org"><a href="http://eudyptula-challenge.org/">http://eudyptula-challenge.org/</a></h2>
-
+<h2 id="httpslivegrepcom"><a href="https://livegrep.com">https://livegrep.com</a></h2>
+<h2 id="httpeudyptula-challengeorg"><a href="http://eudyptula-challenge.org/">http://eudyptula-challenge.org/</a></h2>
 <h1 id="network">network</h1>
-
 <p><a href="https://www.slideshare.net/hugolu/the-linux-networking-architecture">https://www.slideshare.net/hugolu/the-linux-networking-architecture</a></p>
 
   </div>

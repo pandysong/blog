@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>.align assemble code</title>
 
@@ -63,45 +64,24 @@ if (!doNotTrack) {
     <time>26 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="introduction">Introduction</h2>
-
+    <h2 id="introduction">Introduction</h2>
 <p>Often we find following assemble code</p>
-
 <pre><code>.align &lt;n&gt;
-</code></pre>
-
-<p>Where n is an integer which could be e.g. 3, 5</p>
-
+</code></pre><p>Where n is an integer which could be e.g. 3, 5</p>
 <p>In this document, we will do some experiment for understanding this.</p>
-
 <h2 id="test-code">Test code</h2>
-
 <p>Create a file <code>a.S</code> with following content</p>
-
 <pre><code>mov x0,0xf5
 .align 3
 mov x0,0xf4
-</code></pre>
-
-<h2 id="compile">Compile</h2>
-
+</code></pre><h2 id="compile">Compile</h2>
 <p>Now using an arm cross compiler to compile above code</p>
-
 <pre><code>aarch64-linux-gnu-gcc -c a.S
-</code></pre>
-
-<p>This will generate an object file a.o</p>
-
+</code></pre><p>This will generate an object file a.o</p>
 <pre><code>pandy@ubuntu:~/temp/asm_test$ file a.o
 a.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), not stripped
-</code></pre>
-
-<h2 id="disassemble-the-code">Disassemble the code</h2>
-
+</code></pre><h2 id="disassemble-the-code">Disassemble the code</h2>
 <p>Let&rsquo;s check what is the generated code:</p>
-
 <pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
 
 a.o:     file format elf64-littleaarch64
@@ -113,21 +93,14 @@ Disassembly of section .text:
    0:   d2801ea0        mov     x0, #0xf5                       // #245
    4:   d503201f        nop
    8:   d2801e80        mov     x0, #0xf4                       // #244
-</code></pre>
-
-<p>It is found that after .align 3, the code is put to the alignment of 8, which
+</code></pre><p>It is found that after .align 3, the code is put to the alignment of 8, which
 happens to be <code>2^3</code>.</p>
-
 <h1 id="more-testing">More testing</h1>
-
 <p>Let&rsquo;s do some change:</p>
-
 <pre><code>mov x0,0xf5
 .align 5
 mov x0,0xf4
-</code></pre>
-
-<pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
+</code></pre><pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
 
 a.o:     file format elf64-littleaarch64
 
@@ -144,9 +117,7 @@ Disassembly of section .text:
   18:   d503201f        nop
   1c:   d503201f        nop
   20:   d2801e80        mov     x0, #0xf4                       // #244
-</code></pre>
-
-<p>0x20 happens to be 2^5.</p>
+</code></pre><p>0x20 happens to be 2^5.</p>
 
   </div>
 </div>

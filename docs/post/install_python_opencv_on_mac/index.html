@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Install OpenCV Python in Macos</title>
 
@@ -63,28 +64,20 @@ if (!doNotTrack) {
     <time>28 Apr 2018</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="install-opencv-python-in-macos">Install OpenCV Python in Macos</h1>
-
+    <h1 id="install-opencv-python-in-macos">Install OpenCV Python in Macos</h1>
 <p>There are several tutorial on the internet on how to insall Python OpenCV support.</p>
-
 <p>Here is the simplifiled guide (for Python 3)</p>
-
 <ul>
 <li>brew install opencv</li>
 <li>go to the virtual environment directory</li>
 <li>cd lib/python3.6/site-packages/</li>
 <li>ln -s /usr/local/opt/opencv/lib/python3.6/site-packages/cv2.cpython-36m-darwin.so cv2.so</li>
 </ul>
-
 <p>Done, and you could test in python</p>
-
-<pre><code class="language-python">&gt;&gt;&gt; import cv2
-&gt;&gt;&gt; print(cv2.__version__)
-3.4.0
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> cv2
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(cv2<span style="color:#f92672">.</span>__version__)
+<span style="color:#ae81ff">3.4</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span>
+</code></pre></div>
   </div>
 </div>
 

@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Font cannot be found when using pandoc to covert to pdf</title>
 
@@ -63,17 +64,10 @@ if (!doNotTrack) {
     <time>28 Dec 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="error">Error</h1>
-
+    <h1 id="error">Error</h1>
 <p>When running following command to convert a markdown to pdf:</p>
-
 <pre><code>pandoc  xyz.md -o xyz.pdf --pdf-engine=xelatex --template=./xyz_template.tex
-</code></pre>
-
-<p>I get following error.</p>
-
+</code></pre><p>I get following error.</p>
 <pre><code>kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT', contains '
 kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT', contains '
 Error producing PDF.
@@ -89,28 +83,16 @@ Error producing PDF.
 !...............................................
 
 l.21   \setCJKmainfont{文泉驿微米黑}
-</code></pre>
-
-<p>I am using following command  in xyz_template.tex</p>
-
+</code></pre><p>I am using following command  in xyz_template.tex</p>
 <pre><code>    \setCJKmainfont{文泉驿微米黑}  
-</code></pre>
-
-<h1 id="debugging">Debugging</h1>
-
+</code></pre><h1 id="debugging">Debugging</h1>
 <p>Using command fc-list to check if the font does exists</p>
-
 <pre><code>~/(master ✗) fc-list | grep 泉
 /Users/pandysong/Library/Fonts/WenQuanWeiMiHei-1.ttf: 文泉驿微米黑,文泉驛微米黑,WenQuanYi Micro Hei:style=Regular
-</code></pre>
-
-<h1 id="solution">Solution</h1>
-
+</code></pre><h1 id="solution">Solution</h1>
 <p>Replace with following english font name resolve the problem:</p>
-
 <pre><code>    \setCJKmainfont{WenQuanYi Micro Hei}  
 </code></pre>
-
   </div>
 </div>
 

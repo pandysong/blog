@@ -1,3 +1,10 @@
+---
+date: 2017-04-12
+title: Deep Learning, Pytorch
+weight: 10
+---
+
+
 # What is a CNN
 
 From my understanding, Convolutional neural network (ConvNets or CNNs) is

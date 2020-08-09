@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>notes when developing HDMI interface</title>
 
@@ -63,37 +64,27 @@ if (!doNotTrack) {
     <time>02 Jan 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<p>#Introduction</p>
-
+    <p>#Introduction</p>
 <p>HDMI is quite popular interface, the negotiation between the video source and
 vide sink is via EDID, which basically are blocks with 128bytes each block.</p>
-
 <h1 id="flexibility">Flexibility</h1>
-
 <p>The EDID is provided by the sink side via DDC (physically i2c interface) to the
 video source (e.g. a computer). The source will then decide which format,
 timing, resolution to send over HDMI signal cable.</p>
-
 <p>EDID has been evolving while the industry is moving forward. So the data
 structure in these blocks are not simple, hence it is tricky to edit it
 manually.</p>
-
 <p>There are
-[tools][<a href="https://www.analogway.com/emea/products/software-tools/aw-edid-editor/">https://www.analogway.com/emea/products/software-tools/aw-edid-editor/</a>]
+[tools][https://www.analogway.com/emea/products/software-tools/aw-edid-editor/]
 available which makes the life much easier.</p>
-
-<h1 id="video-formatting-timing-definition">Video formatting/timing definition</h1>
-
+<h1 id="video-formattingtiming-definition">Video formatting/timing definition</h1>
 <p>The most easy way to define a supported resolution is to do it in block 1
 where, there is a section &ldquo;Established Timing&rdquo;, which is the most popular ones
 marked in the EDID as bitmaps. And then you may find other timing in standard
 resolutions, which are popular as well. Then you could define detailed timing
 in &ldquo;Detailed Timing&rdquo;</p>
-
 <p>An more friendly and comprehensive document is
-[available][<a href="https://www.analogway.com/files/uploads/produit/download/en/edid-editor-white-paper.pdf">https://www.analogway.com/files/uploads/produit/download/en/edid-editor-white-paper.pdf</a>]</p>
+[available][https://www.analogway.com/files/uploads/produit/download/en/edid-editor-white-paper.pdf]</p>
 
   </div>
 </div>

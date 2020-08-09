@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Read u-boot aarch64 source code (part 2)</title>
 
@@ -63,15 +64,9 @@ if (!doNotTrack) {
     <time>27 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="introduction">Introduction</h2>
-
-<p><code>_main</code> function is defined in a file called <code>crt0_64.S</code>, which is <code>C-runtime
-startup Code for AArch64 U-Boot</code>.</p>
-
-<h2 id="crt0-64-s">crt0_64.S</h2>
-
+    <h2 id="introduction">Introduction</h2>
+<p><code>_main</code> function is defined in a file called <code>crt0_64.S</code>, which is <code>C-runtime startup Code for AArch64 U-Boot</code>.</p>
+<h2 id="crt0_64s">crt0_64.S</h2>
 <pre><code>/*
  * This file handles the target-independent stages of the U-Boot
  * start-up where a C runtime environment is needed. Its entry point
@@ -120,10 +115,7 @@ startup Code for AArch64 U-Boot</code>.</p>
  *
  * For more information see 'Board Initialisation Flow in README.
  */
-</code></pre>
-
-<p>In the top level README:</p>
-
+</code></pre><p>In the top level README:</p>
 <pre><code>Board Initialisation Flow:
 --------------------------
 
@@ -202,10 +194,7 @@ board_init_r():
 		done by selecting CONFIG_SPL_BOARD_INIT and then supplying a
 		spl_board_init() function containing this call
 	- loads U-Boot or (in falcon mode) Linux
-</code></pre>
-
-<h2 id="setup-c-runtime-for-board-init-f-0">setup C runtime for board_init_f(0)</h2>
-
+</code></pre><h2 id="setup-c-runtime-for-board_init_f0">setup C runtime for board_init_f(0)</h2>
 <pre><code>/*
  * Set up initial C runtime environment and call board_init_f(0).
  */
@@ -229,43 +218,26 @@ board_init_r():
 
 	mov	x0, #0
 	bl	board_init_f
-</code></pre>
-
-<p>Above code first set <code>x0</code> with an address where stack pointer (SP) will be
+</code></pre><p>Above code first set <code>x0</code> with an address where stack pointer (SP) will be
 pointed to. And then it will make the <code>x0</code> with 16 byte alignment and then set
 it to <code>sp</code> in the code:</p>
-
 <pre><code>	bic	sp, x0, #0xf	/* 16-byte alignment for ABI compliance */
-</code></pre>
-
-<p>Before calling <code>board_init_f_alloc_reserve</code>, it puts the value of stack pointer
+</code></pre><p>Before calling <code>board_init_f_alloc_reserve</code>, it puts the value of stack pointer
 to <code>x0</code> which is the first parameter for the calling function
 <code>board_init_f_alloc_reserve</code>.</p>
-
 <pre><code>	mov	x0, sp
-</code></pre>
-
-<p><code>board_init_f_alloc_reserve</code> reserve memory for <code>(struct global_data)</code> with 16
+</code></pre><p><code>board_init_f_alloc_reserve</code> reserve memory for <code>(struct global_data)</code> with 16
 bytes alignment. Note that actual reserving is done by put the return value to
 <code>sp</code>:</p>
-
 <pre><code>	mov	sp, x0
-</code></pre>
-
-<p>Before calling <code>board_init_f_init_reserve</code>, it saves the <code>x0</code> to <code>x18</code> the
+</code></pre><p>Before calling <code>board_init_f_init_reserve</code>, it saves the <code>x0</code> to <code>x18</code> the
 reason is that</p>
-
 <pre><code>	mov	x18, x0
-</code></pre>
-
-<p><code>x0</code> now point to the <code>(struct global_data)</code>, the function
+</code></pre><p><code>x0</code> now point to the <code>(struct global_data)</code>, the function
 <code>board_init_f_init_reserve</code>, zero out this structure.</p>
-
-<h3 id="board-init-f-alloc-reserve"><code>board_init_f_alloc_reserve</code></h3>
-
+<h3 id="board_init_f_alloc_reserve"><code>board_init_f_alloc_reserve</code></h3>
 <p>This function gets input of the top address of the memory and return the
 address after reserving the memory for <code>(struct global_data)</code>.</p>
-
 <pre><code>ulong board_init_f_alloc_reserve(ulong top)
 {
 	/* Reserve early malloc arena */
@@ -277,12 +249,8 @@ address after reserving the memory for <code>(struct global_data)</code>.</p>
 
 	return top;
 }
-</code></pre>
-
-<h3 id="board-init-f-init-reserve"><code>board_init_f_init_reserve</code></h3>
-
+</code></pre><h3 id="board_init_f_init_reserve"><code>board_init_f_init_reserve</code></h3>
 <p>The first parameter is always <code>x0</code>, it just zeros out the structure.</p>
-
 <pre><code>void board_init_f_init_reserve(ulong base)
 {
 	struct global_data *gd_ptr;
@@ -314,10 +282,7 @@ address after reserving the memory for <code>(struct global_data)</code>.</p>
 	base += CONFIG_VAL(SYS_MALLOC_F_LEN);
 #endif
 }
-</code></pre>
-
-<p>Now the memory layout is like this:</p>
-
+</code></pre><p>Now the memory layout is like this:</p>
 <pre><code>top memory ------------&gt; lower memory
 +-------------+--------------------+-------------------------+
 | malloc area | struct global_data |                         |
@@ -326,24 +291,16 @@ address after reserving the memory for <code>(struct global_data)</code>.</p>
               |                    |
               gd-&gt;malloc_base      Base
                                    sp (stack grow direction ---&gt; )
-</code></pre>
-
-<h3 id="calling-board-init-f">calling <code>board_init_f</code></h3>
-
+</code></pre><h3 id="calling-board_init_f">calling <code>board_init_f</code></h3>
 <pre><code>	mov	x0, #0
 	bl	board_init_f
-</code></pre>
-
-<p>In function <code>board_init_f()</code>, a list of functions (list in <code>init_sequence_f[]</code>)
+</code></pre><p>In function <code>board_init_f()</code>, a list of functions (list in <code>init_sequence_f[]</code>)
 is run, in which serial_init() is called and dram_init() is called. These two,
 I think is the most important ones.</p>
-
 <h3 id="relocation">relocation</h3>
-
 <p>In u-boot, there is a command shell which is called monitor. Following code
 relocate the monitor to the address defined in <code>gd-&gt;relocaddr</code>. The register
 <code>lr</code> stores the returning address when function <code>recloate_code</code> returns.</p>
-
 <pre><code>#if !defined(CONFIG_SPL_BUILD)
 /*
  * Set up intermediate environment (new sp and gd) and call
@@ -369,34 +326,23 @@ relocate the monitor to the address defined in <code>gd-&gt;relocaddr</code>. Th
 	b	relocate_code
 
 relocation_return:
-</code></pre>
-
-<p><code>lr</code> is now the new address, so from <code>relocation_return</code> and on, the code is on
+</code></pre><p><code>lr</code> is now the new address, so from <code>relocation_return</code> and on, the code is on
 new RAM address. The relocation code is in <code>arch/arm/lib/relocate_64.S</code>.</p>
-
 <p>We may need a new post on how the relocation is done in details. Will update
 this post when that is ready.</p>
-
 <h3 id="setup-full-environment">setup full environment</h3>
-
 <p>After relocation, the <code>(struct global_data)</code> gd and the code are all in DRAM
 instead of previously in SRAM (very limited in size). Now we have plenty of
 memory, and full c run time environment could be setup.</p>
-
 <pre><code>/*
  * Set up final (full) environment
  */
 	bl	c_runtime_cpu_setup		/* still call old routine */
-</code></pre>
-
-<p>The code <code>c_runtime_cpu_setup</code> is in <code>arm/cpu/armv8/start.S</code> which basically
+</code></pre><p>The code <code>c_runtime_cpu_setup</code> is in <code>arm/cpu/armv8/start.S</code> which basically
 setup the exception vector.</p>
-
 <h3 id="clear-bss">clear bss</h3>
-
 <p>After setting up full C run time environment, bss section is cleared so that
 all unutilized values becomes zeros.</p>
-
 <pre><code>/*
  * Clear BSS section
  */
@@ -406,21 +352,14 @@ clear_loop:
 	str	xzr, [x0], #8
 	cmp	x0, x1
 	b.lo	clear_loop
-</code></pre>
-
-<h3 id="call-board-init-r">call <code>board_init_r</code></h3>
-
+</code></pre><h3 id="call-board_init_r">call <code>board_init_r</code></h3>
 <p>Finally it calls <code>board_init_r</code> with two parameters, <code>x0</code> is with the new gd_t
 which is <code>struct global_data</code>, <code>x1</code> is the relocation address.</p>
-
 <pre><code>	/* call board_init_r(gd_t *id, ulong dest_addr) */
 	mov	x0, x18				/* gd_t */
 	ldr	x1, [x18, #GD_RELOCADDR]	/* dest_addr */
 	b	board_init_r			/* PC relative jump */
-</code></pre>
-
-<p>Function <code>board_init_r</code> calls a sequence of functions defined in following</p>
-
+</code></pre><p>Function <code>board_init_r</code> calls a sequence of functions defined in following</p>
 <pre><code>static init_fnc_t init_sequence_r[] = {
 static init_fnc_t init_sequence_r[] = {
 	initr_trace,
@@ -445,11 +384,8 @@ static init_fnc_t init_sequence_r[] = {
 	run_main_loop,
 };
 
-</code></pre>
-
-<p>Note that the last function is <code>run_main_loop</code>, hence function <code>board_init_r</code>
+</code></pre><p>Note that the last function is <code>run_main_loop</code>, hence function <code>board_init_r</code>
 never returns.</p>
-
 <p>Continue with <a href="../read_u-boot_aarch64_source_code_part3">part 3</a></p>
 
   </div>

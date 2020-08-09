@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Read u-boot source code (part 1)</title>
 
@@ -63,29 +64,18 @@ if (!doNotTrack) {
     <time>25 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="introduction">Introduction</h2>
-
+    <h2 id="introduction">Introduction</h2>
 <p>By utilizing the <code>make cscope</code> to create <code>cscope</code> database, I could browse a
 specific build without being confused by a lot of symbols with same names.
 This document describe very basic scenario on how to read the u-boot source
 code.</p>
-
-<h2 id="start-s">start.S</h2>
-
+<h2 id="starts">start.S</h2>
 <p>After loading the cscope.out, I could find search the starting point by the
 following command</p>
-
 <pre><code>cs find f start.S
-</code></pre>
-
-<p>This leads me to the file <code>arm/cpu/arm1136/start.S</code>.</p>
-
+</code></pre><p>This leads me to the file <code>arm/cpu/arm1136/start.S</code>.</p>
 <h3 id="svc32">SVC32</h3>
-
 <p>SVC32 mode is the mode with highest privilege.</p>
-
 <pre><code>reset:
 	/*
 	 * set the cpu to SVC32 mode
@@ -94,24 +84,17 @@ following command</p>
 	bic	r0,r0,#0x1f
 	orr	r0,r0,#0xd3
 	msr	cpsr,r0
-</code></pre>
-
-<p>From the ARM11 specification,
-<a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0360f/DDI0360F_arm11_mpcore_r2p0_trm.pdf">http://infocenter.arm.com/help/topic/com.arm.doc.ddi0360f/DDI0360F_arm11_mpcore_r2p0_trm.pdf</a>,
+</code></pre><p>From the ARM11 specification,
+<a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0360f/DDI0360F_arm11_mpcore_r2p0_trm.pdf,">http://infocenter.arm.com/help/topic/com.arm.doc.ddi0360f/DDI0360F_arm11_mpcore_r2p0_trm.pdf,</a>
 Section 2.9, we could learn that the register CPSR&rsquo;s bit 0 to bit 4 contains
 the processor operating mode.</p>
-
 <p>In Section 2.9.7, we learned that value <code>b10011</code> will set the processor to
 supervisor mode.</p>
-
-<p><img src="https://pandysong.github.io/blog/img/cpsr.png" alt="cpsr" /></p>
-
+<p><img src="https://pandysong.github.io/blog/img/cpsr.png" alt="cpsr"></p>
 <p><code>bic</code> (bit clear) clears the r0&rsquo;s bit 0 to bit 4. And <code>orr</code> instruction sets
 the bit <code>0b11010011</code>, apart from setting the mode to SVC mode, it also disables
 FIQ and IRQ.</p>
-
 <h3 id="flash-caches">flash caches</h3>
-
 <pre><code>cpu_init_crit:
 	/*
 	 * flush v4 I/D caches
@@ -119,17 +102,12 @@ FIQ and IRQ.</p>
 	mov	r0, #0
 	mcr	p15, 0, r0, c7, c7, 0	/* Invalidate I+D+BTB caches */
 	mcr	p15, 0, r0, c8, c7, 0	/* Invalidate Unified TLB */
-</code></pre>
-
-<p>The first instruction about &ldquo;Invalidate I+D+BTB caches&rdquo; could be understood
+</code></pre><p>The first instruction about &ldquo;Invalidate I+D+BTB caches&rdquo; could be understood
 from the following figure in &ldquo;ARM11 MPCore™ Processor Revision: r2p0 Technical
-Reference Manual&rdquo;: <img src="https://pandysong.github.io/blog/img/arm-cache-operation.png" alt="arm-cache-operation" /></p>
-
+Reference Manual&rdquo;: <img src="https://pandysong.github.io/blog/img/arm-cache-operation.png" alt="arm-cache-operation"></p>
 <p>The instruction about TLB could be understood from following figure:
-<img src="https://pandysong.github.io/blog/img/arm-invalidate-tlb.png" alt="arm-invalidate-tlb" /></p>
-
+<img src="https://pandysong.github.io/blog/img/arm-invalidate-tlb.png" alt="arm-invalidate-tlb"></p>
 <h3 id="disable-mmu-and-data-cache">disable MMU and data cache</h3>
-
 <pre><code>	/*
 	 * disable MMU stuff and caches
 	 */
@@ -140,20 +118,13 @@ Reference Manual&rdquo;: <img src="https://pandysong.github.io/blog/img/arm-cach
 	orr	r0, r0, #0x00001000	@ set bit 12 (I) I-Cache
 	mcr	p15, 0, r0, c1, c0, 0
 
-</code></pre>
-
-<p>According to following figure:</p>
-
-<p><img src="https://pandysong.github.io/blog/img/arm-read-write-register.png" alt="arm-read-write-register" /></p>
-
+</code></pre><p>According to following figure:</p>
+<p><img src="https://pandysong.github.io/blog/img/arm-read-write-register.png" alt="arm-read-write-register"></p>
 <p>The code first reads the control register to <code>r0</code>, then modifies the value of
 <code>r0</code> and writes it back to control register.</p>
-
-<p><img src="https://pandysong.github.io/blog/img/arm-control-register-format.png" alt="arm-control-register-format" /></p>
-
+<p><img src="https://pandysong.github.io/blog/img/arm-control-register-format.png" alt="arm-control-register-format"></p>
 <p>Detailed description are in following figures. The code first clears following
 bits:</p>
-
 <ul>
 <li>bit 13, which selects the low normal exception vectors which range is address range =
 0x00000000-0x0000001C.</li>
@@ -162,20 +133,15 @@ bits:</p>
 <li>bit 2:0 which is C , data cache disabled; A, strict alignment fault checking
 disabled; M, MMU disabled.</li>
 </ul>
-
 <p>The code set following bits:</p>
-
 <ul>
 <li>bit 1: strict alignment fault checking enabled</li>
 <li>bit 12:  instruction cache enabled</li>
 </ul>
-
 <p>The instruction cache is enabled in the code which looks not aligned with the
 comments &ldquo;instruction cache enabled&rdquo;.</p>
-
-<p><img src="https://pandysong.github.io/blog/img/arm-control-register-bit13.png" alt="arm-control-register-bit13" />
-<img src="https://pandysong.github.io/blog/img/arm-control-register-bit12-bit0.png" alt="arm-control-register-bit12-bit0" /></p>
-
+<p><img src="https://pandysong.github.io/blog/img/arm-control-register-bit13.png" alt="arm-control-register-bit13">
+<img src="https://pandysong.github.io/blog/img/arm-control-register-bit12-bit0.png" alt="arm-control-register-bit12-bit0"></p>
 <p>Continue with <a href="../read_u-boot_source_code_part2">part 2</a></p>
 
   </div>

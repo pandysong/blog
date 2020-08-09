@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Tmux how to update DISPLAY env vars</title>
 
@@ -63,53 +64,38 @@ if (!doNotTrack) {
     <time>28 Mar 2015</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="tmux-how-to-update-display-env-vars">tmux how to update DISPLAY env vars</h2>
-
+    <h2 id="tmux-how-to-update-display-env-vars">tmux how to update DISPLAY env vars</h2>
 <p>if tmux attached to an existing session by using</p>
-
-<pre><code class="language-bash">tmux attach-session -t your-session-name
-</code></pre>
-
-<p>The DISPLAY env var may still be the old value kept from when it was detached.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tmux attach-session -t your-session-name
+</code></pre></div><p>The DISPLAY env var may still be the old value kept from when it was detached.</p>
 <p>Following blog provides a solution</p>
-
 <p><a href="https://raimue.blog/2013/01/30/tmux-update-environment/">https://raimue.blog/2013/01/30/tmux-update-environment/</a></p>
-
 <p>It introduces a shell function:</p>
-
-<pre><code class="language-bash">function tmux() {
-    local tmux=$(type -fp tmux)
-    case &quot;$1&quot; in
-        update-environment|update-env|env-update)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">function</span> tmux<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    local tmux<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>type -fp tmux<span style="color:#66d9ef">)</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> in
+        update-environment|update-env|env-update<span style="color:#f92672">)</span>
             local v
-            while read v; do
-                if [[ $v == -* ]]; then
-                    unset ${v/#-/}
-                else
-                    # Add quotes around the argument
-                    v=${v/=/=\&quot;}
-                    v=${v/%/\&quot;}
+            <span style="color:#66d9ef">while</span> read v; <span style="color:#66d9ef">do</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $v <span style="color:#f92672">==</span> -* <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+                    unset <span style="color:#e6db74">${</span>v/#-/<span style="color:#e6db74">}</span>
+                <span style="color:#66d9ef">else</span>
+                    <span style="color:#75715e"># Add quotes around the argument</span>
+                    v<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>v/=/=<span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">}</span>
+                    v<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>v/%/<span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">}</span>
                     eval export $v
-                fi
-            done &lt; &lt;(tmux show-environment)
+                <span style="color:#66d9ef">fi</span>
+            <span style="color:#66d9ef">done</span> &lt; &lt;<span style="color:#f92672">(</span>tmux show-environment<span style="color:#f92672">)</span>
             ;;
-        *)
-            $tmux &quot;$@&quot;
+        *<span style="color:#f92672">)</span>
+            $tmux <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
             ;;
-    esac
-}
-</code></pre>
-
-<p>Save it to a file ~/.whatever_name_you_want.sh, and source it from ~/.bashrc.</p>
-
+    <span style="color:#66d9ef">esac</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Save it to a file ~/.whatever_name_you_want.sh, and source it from ~/.bashrc.</p>
 <p>Whenever you need to use X11 forard and found it does not work, try the following command to update the environment vars</p>
-
-<pre><code class="language-bash">tmux update-env
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tmux update-env
+</code></pre></div>
   </div>
 </div>
 

@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Virtualbox High CPU in Mac</title>
 
@@ -63,16 +64,10 @@ if (!doNotTrack) {
     <time>23 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="how-to-resolve">How to resolve</h1>
-
+    <h1 id="how-to-resolve">How to resolve</h1>
 <p>My problem resolved after following one of the solutions in:</p>
-
 <p><a href="https://www.virtualbox.org/ticket/18089?cversion=1&amp;cnum_hist=13">https://www.virtualbox.org/ticket/18089?cversion=1&amp;cnum_hist=13</a></p>
-
 <p>Which is</p>
-
 <pre><code>I just updated to mac OS 10.14.3 and to VirtualBox 5.2.24, and the problem
 recurred on a VM where it had been fine before. I had previously set this VM to
 use the null audio driver. The settings were:
@@ -87,7 +82,6 @@ I shut it down, unchecked the first box to disable audio entirely, restarted
 the VM, and CPU load is normal again.
 
 </code></pre>
-
   </div>
 </div>
 

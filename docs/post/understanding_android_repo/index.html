@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Understanding Android Repo</title>
 
@@ -63,32 +64,21 @@ if (!doNotTrack) {
     <time>25 Aug 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="introduction">Introduction</h2>
-
+    <h2 id="introduction">Introduction</h2>
 <p>In Android repo tool, after initializing, there exist following directory under
 <code>.repo</code>:</p>
-
 <p>project-objects
 projects</p>
-
 <p>How these are organized?</p>
-
 <p>Basically in projects, the layout is same as the one for the working directory,
 the project-objects layout is same as the files in the remote server.</p>
-
 <p>While in the working directory for each project, as usual for git repository,
 there is a <code>.git</code> directory, which basically has bunch of symbol link to
 project-objects and projects directory.</p>
-
 <h1 id="repo-sync">repo sync</h1>
-
 <p>Two steps, first one is git fetch:</p>
-
 <p>When doing fetching, it basically fetch the repository from remote and put
 it under directory <code>.repo/projects</code> and <code>.repo/project-objects</code></p>
-
 <p>Then doing git rebase to update the current working directory.</p>
 
   </div>

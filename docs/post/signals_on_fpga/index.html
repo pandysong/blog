@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>high speed signals on fpga</title>
 
@@ -63,26 +64,18 @@ if (!doNotTrack) {
     <time>26 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="hdmi-vs-mipi">HDMI vs MIPI</h1>
-
+    <h1 id="hdmi-vs-mipi">HDMI vs MIPI</h1>
 <p>Both seem the high speed signal, however it looks HDMI is more complex than
 MIPI CSI/DSI.</p>
-
 <p>HDMI have some competing IP provider. While for MIPI, there are some open
 source project which could encode and decode the MIPI signals. Without digging
 into the details, the reason behind that is the HDMI is machine to machine
 interface which could be more comprehensive while for MIPI, it is inter-chip
 interface, which is used to transfer the data reliably, without consider much
 from end user point of view.</p>
-
 <h1 id="mipi-csi-open-source-project">MIPI CSI Open source project</h1>
-
 <p>A nice project:</p>
-
 <p><a href="https://github.com/circuitvalley/mipi_csi_receiver_FPGA">https://github.com/circuitvalley/mipi_csi_receiver_FPGA</a></p>
-
 <p>Where the MIPI CSI-2 receiver implemented is provided.</p>
 
   </div>

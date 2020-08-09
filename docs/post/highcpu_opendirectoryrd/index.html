@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Mac OSX High CPU; process `opendirectoryrd`</title>
 
@@ -63,44 +64,25 @@ if (!doNotTrack) {
     <time>28 Mar 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h1 id="high-cpu-due-to-opendirectoryrd">High cpu due to opendirectoryrd</h1>
-
+    <h1 id="high-cpu-due-to-opendirectoryrd">High cpu due to opendirectoryrd</h1>
 <p>I found several links where people complaint about high cpu of the process &ldquo;opendirectoryrd&rdquo; in mac,
 which causes system busy and macbook becomes very hot.</p>
-
 <p>Here is the how I resolve MY problem.</p>
-
 <h2 id="find-the-problem-in-system-log">Find the problem in system log</h2>
-
 <p>I found following log repated many times in the system log:</p>
-
 <pre><code>com.apple.xpc.launchd[1] (com.avast.uninstall): Service only ran for 5 seconds. Pushing respawn out by 5 seconds.
-</code></pre>
-
-<p>How to open the system log?</p>
-
+</code></pre><p>How to open the system log?</p>
 <p>Open console.app and click tab <em>sytem.log</em></p>
-
 <p>You may also monitor the log by following command line:</p>
-
 <pre><code>tail -f /var/log/system.log
-</code></pre>
-
-<h2 id="analysis">Analysis</h2>
-
+</code></pre><h2 id="analysis">Analysis</h2>
 <p>It looks the the service is launched again and again, which keeps opendirectoryrd very busy.
 I am not sure why it is is uninstalling, but there is no avast in the sytem.
 It is possible the previously uninstallation was not clean.</p>
-
 <h2 id="how-to-resolve">How to resolve</h2>
-
 <p>So let&rsquo;s try to uninstall it agian.</p>
-
 <p>Download the installation program (the uninstallation program is included) from avast.
 When you click it, you could choose to uninstall the current one in the system.</p>
-
 <p>After uninstallation, reboot the mac and my mac comes back to <em>cool</em> state.</p>
 
   </div>

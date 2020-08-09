@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Run u-boot in qemu</title>
 
@@ -63,66 +64,37 @@ if (!doNotTrack) {
     <time>25 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="introduction">Introduction</h2>
-
+    <h2 id="introduction">Introduction</h2>
 <p>In u-boot source code doc/README.qemu-arm, it could be found that u-boot could
 run under qemu. This could help to understand or experiment u-boot without a
 real hardware.</p>
-
 <h2 id="how-to">How to</h2>
-
 <p>I am running this in a ubuntu virtual machine on my mac book.</p>
-
 <p>This is for running arm:</p>
-
 <pre><code>export CROSS_COMPILE=arm-linux-gnueabi-
 make qemu_arm_defconfig
 make cscope # This is optional
 make
-</code></pre>
-
-<p>For AArch64, replace CROSS_COMPILE with correct cross compiler and then:</p>
-
+</code></pre><p>For AArch64, replace CROSS_COMPILE with correct cross compiler and then:</p>
 <pre><code>export CROSS_COMPILE=aarch64-linux-gnu-
 make qemu_arm64_defconfig
 make
-</code></pre>
-
-<p>BTW, install the cross-compiler for aarch64:</p>
-
+</code></pre><p>BTW, install the cross-compiler for aarch64:</p>
 <pre><code>sudo apt-get install gcc-aarch64-linux-gnu
-</code></pre>
-
-<h2 id="run">Run:</h2>
-
+</code></pre><h2 id="run">Run:</h2>
 <p>I am running in a virtual machine by ssh to it</p>
-
 <pre><code>qemu-system-arm -curses -machine virt -bios u-boot.bin
-</code></pre>
-
-<p>I need <code>-curses</code>, otherwise it will complain:</p>
-
+</code></pre><p>I need <code>-curses</code>, otherwise it will complain:</p>
 <pre><code>Could not initialize SDL(No available video device) - exiting
-</code></pre>
-
-<p>For AArch64:</p>
-
+</code></pre><p>For AArch64:</p>
 <pre><code>qemu-system-aarch64 -curses -machine virt -cpu cortex-a57 -bios u-boot.bin
-</code></pre>
-
-<p>Press <code>Esc + 1</code> to go to the qemu monitor command line interface, you could type
+</code></pre><p>Press <code>Esc + 1</code> to go to the qemu monitor command line interface, you could type
 <code>help</code> to get all qemu command, e.g. <code>stop</code> to stop emulation:</p>
-
 <pre><code>compat_monitor0 console
 QEMU 2.11.1 monitor - type 'help' for more information
 (qemu)
 
-</code></pre>
-
-<p>Press <code>Esc + 2</code> to go to the u-boot interface.</p>
-
+</code></pre><p>Press <code>Esc + 2</code> to go to the u-boot interface.</p>
 <pre><code>serial0 console
 
 
@@ -143,17 +115,12 @@ No controllers found
 No ethernet found.
 No ethernet found.
 =&gt;
-</code></pre>
-
-<h1 id="qemu-version">QEMU version</h1>
-
+</code></pre><h1 id="qemu-version">QEMU version</h1>
 <p>This is tested on the following version:</p>
-
 <pre><code>pandy@ubuntu:~/u-boot-2018.09$ qemu-system-arm --version
 QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.8)
 Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
 </code></pre>
-
   </div>
 </div>
 

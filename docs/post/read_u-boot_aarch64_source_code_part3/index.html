@@ -7,7 +7,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
         <title>Read u-boot aarch64 source code (part 3)</title>
 
@@ -63,12 +64,8 @@ if (!doNotTrack) {
     <time>27 Apr 2019</time>
   </div>
   <div class="blog-post-content">
-    
-
-<h2 id="run-main-loop-void"><code>run_main_loop(void)</code></h2>
-
+    <h2 id="run_main_loopvoid"><code>run_main_loop(void)</code></h2>
 <p>This function calls <code>main_loop()</code>.</p>
-
 <pre><code>static int run_main_loop(void)
 {
 #ifdef CONFIG_SANDBOX
@@ -80,12 +77,8 @@ if (!doNotTrack) {
 	return 0;
 }
 
-</code></pre>
-
-<h2 id="main-loop-void"><code>main_loop(void)</code></h2>
-
+</code></pre><h2 id="main_loopvoid"><code>main_loop(void)</code></h2>
 <p>This is the place to receive command and execute it.</p>
-
 <pre><code>/* We come here after U-Boot is initialised and ready to process commands */
 void main_loop(void)
 {
@@ -115,7 +108,6 @@ void main_loop(void)
 	panic(&quot;No CLI available&quot;);
 }
 </code></pre>
-
   </div>
 </div>
 
