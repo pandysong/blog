@@ -6,7 +6,7 @@ weight: 10
 
 # Introduction
 
-This document recalls how a crash dump is traced back in souce code.
+This document recalls how a crash dump is traced back in source code.
 
 # Issue
 
