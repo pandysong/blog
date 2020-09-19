@@ -41,7 +41,7 @@ well.
 To fix the problem, the gtp_work_func has to be moved to non-interrupt context.
 The first idea is to use the work queue. The original driver, uses `hrtimer`
 (high resolution timer) to trigger timer, which for me, however it does not
-make sense, as the I2C reading is not have to be that accurate in terms of
+make sense, as the I2C reading does not have to be that accurate in terms of
 timing. We could simply uses delayed work queue to replace the `hrtimer`
 solution.
 
