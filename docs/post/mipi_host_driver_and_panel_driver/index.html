@@ -74,11 +74,11 @@ notes to understand from one perspective.</p>
 <p>What is the host? The host basically means the SOC itself. The MIPI Host driver
 is in e.g.:</p>
 <pre><code>drivers/gpu/drm/rockchip/dw-mipi-dsi.c  
-</code></pre><p>It will controls the registers in SOC in order to connect to a panel.</p>
+</code></pre><p>It controls the registers in SOC in order to connect to a panel.</p>
 <h2 id="mipi-panel-driver">MIPI Panel Driver</h2>
 <p>What is the panel? It basically means the Panel, which could be controlled BY
 SoC via communication channels, for example in case of MIPI DSI, the host could
-control the panel via D0 vis DSI commands.</p>
+control the panel by DSI commands via D0.</p>
 <h2 id="connector">Connector</h2>
 <p>A connector is an aggregate <code>concept</code>. The separation of <code>Host driver</code> and
 <code>Panel driver</code> is for decoupling the two logic parts. However it might be
@@ -91,7 +91,7 @@ is done via callbacks/registrations. Specifically, it is done via <code>componen
 <p>Refer to
 <a href="https://www.kernel.org/doc/html/latest/driver-api/component.html">link</a> for
 the details of concept of <code>component</code>:</p>
-<p>In short, component allows to aggregate drivers into an aggregated drivers, in
+<p>In short, component allows to aggregate drivers into an aggregated driver. In
 our case, it helps to aggregate the MIPI DSI host driver and sub-dev panel
 driver.</p>
 <p>In a bit more details, the host driver register its self as a component, once

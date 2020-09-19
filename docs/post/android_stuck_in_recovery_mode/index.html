@@ -69,11 +69,11 @@ if (!doNotTrack) {
 <h1 id="issue">Issue</h1>
 <p>The issue is that the system is stuck in Recovery mode, after we have created
 an image for RK3368.</p>
-<p>The appendix shows the full log for the problem. When the how update.img is
-flashed to eMMC, the first time the system is always going to recovery mode.
-This is indicated by the initial value in misc.img and u-boot will read it and
-found that it is first up booting and it will use the kernel and resource from
-recovery.img.</p>
+<p>The appendix shows the full log for the problem. When the update.img is flashed
+to eMMC, the first time the system is boot up it always goes to recovery mode
+(which is right). This is indicated by the initial value in misc.img and
+u-boot will read it and found that it is first up booting and it will use the
+kernel and resource from recovery.img.</p>
 <p>The task of recovery mode is to initialize some partition and wipe off all the
 data or format the partition.</p>
 <h1 id="clue-1">clue #1</h1>
@@ -109,18 +109,18 @@ GPT part: 17, name:              frp, start:0x898800, size:0x400
 GPT part: 18, name:         userdata, start:0x898c00, size:0x31a53df
 </code></pre><p>The next clue is</p>
 <pre><code>[    1.462714] mmc0: error -5 whilst initialising MMC card
-</code></pre><p>The problem is now that the eMMC driver is not successfully initializing the
-device.</p>
-<p>A lot of googling does not find any clue, and it is strange that u-boot could
-do it correctly:</p>
+</code></pre><p>OK. now the problem is now that the eMMC driver is not successfully
+initializing the device.</p>
+<p>A lot of googling on the internet does not indicate any further clue.</p>
+<p>But it is strange that u-boot could do it correctly: it could tell from the log:</p>
 <pre><code>dwmmc@ff0f0000: 0
 MMC Device 1 not found
 no mmc device at slot 1
 switch to partitions #0, OK
 mmc0(part 0) is current device
 </code></pre><p>While the kernel failed to do that.</p>
-<p>The device driver would be different for u-boot and kernel. After browsing the
-code, it is found that in the following code:</p>
+<p>It is possible taht the device driver would be different for u-boot and kernel.
+After browsing the code, it is found that in the following code:</p>
 <pre><code>drivers/mmc/core/host.c
 </code></pre><p>There are many different options for the eMMC dts settings:</p>
 <pre><code>if (of_property_read_bool(np, &quot;cap-sd-highspeed&quot;))
@@ -169,9 +169,10 @@ if (of_property_read_bool(np, &quot;supports-sd&quot;))
 if (of_property_read_bool(np, &quot;supports-sdio&quot;))
     host-&gt;restrict_caps |= RESTRICT_CARD_TYPE_SDIO;
 if (of_property_read_bool(np, &quot;supports-emmc&quot;))
-</code></pre><h1 id="clue-3">Clue 3</h1>
+</code></pre><p>Is it possible that some of above options are not set correctly?</p>
+<h1 id="clue-3">Clue 3</h1>
 <p>After reading the spec of eMMC <code>THGAMRG8T13BAIL</code>,</p>
-<p>Following description get my attention:</p>
+<p>Following description gets my attention:</p>
 <pre><code>High Interface speed HS400 (according to JEDEC 5.x)
 </code></pre><h1 id="solution">Solution</h1>
 <p>The DTS setting of eMCC was using &ldquo;mmc-hs200-1_8v&rdquo;. I tried &ldquo;mmc-hs499-1_8v&rdquo;

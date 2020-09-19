@@ -55,7 +55,7 @@ main board Main components and connectors on the front side:  the main chip, ANY
       
       <guid>https://pandysong.github.io/blog/post/linux_gpiod_active-low_property/</guid>
       <description>Introduction How do you understand this line of code?
-gpiod_direction_output(p-&amp;gt;reset_gpio, 1); If document is not read, it might be understood as driving the reset_gpio to high. But it is not the case.
+gpiod_direction_output(p-&amp;gt;reset_gpio, 1); If document is not read, it might be understood as driving the reset_gpio to high which, however, is not the case.
 The active-low property Please refer to document Documentation/gpio/consumer.txt, The active-low property section explains that 1 means logic active, while 0 means logic de-active. What turns our on the physical GPIO depends on the DTS setting:
 If the GPIO is set as GPIO_ACTIVE_LOW, then 1 will drive to GPIO to low.</description>
     </item>
@@ -113,7 +113,7 @@ Issue 01-18 09:00:20.529 1707 1707 F libc : Fatal signal 11 (SIGSEGV), code 1 (S
       <guid>https://pandysong.github.io/blog/post/android_stuck_in_recovery_mode/</guid>
       <description>Introduction This note records the journey to resolve an boot up issue.
 Issue The issue is that the system is stuck in Recovery mode, after we have created an image for RK3368.
-The appendix shows the full log for the problem. When the how update.img is flashed to eMMC, the first time the system is always going to recovery mode. This is indicated by the initial value in misc.img and u-boot will read it and found that it is first up booting and it will use the kernel and resource from recovery.</description>
+The appendix shows the full log for the problem. When the update.img is flashed to eMMC, the first time the system is boot up it always goes to recovery mode (which is right). This is indicated by the initial value in misc.</description>
     </item>
     
     <item>
@@ -142,9 +142,9 @@ Hence a simple circuit is needed to allow triggering high to low interrupt in bo
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pandysong.github.io/blog/post/regmap/</guid>
-      <description>Why regmap In Linux kernel, if we will need to access I2C or SPI, we usually use the e.g. struct i2c_client to access the bus directly. Common target to access the I2C device is to access the registers, by either reading or writing.
-regmap basically add another abstraction layer on top of struct i2c_client to make it easy to read and write registers.
-User just using struct i2c_client and struct regmap_config to construct a struct regmap, and then could use that to read and write register or only update masked bits in the register using regmap_update_bits.</description>
+      <description>Why regmap In Linux kernel, if we will need to access I2C or SPI, we usually use the e.g. struct i2c_client to access the bus directly. Common target to access the I2C device is to access the registers, for either reading or writing.
+regmap basically adds another abstraction layer on top of struct i2c_client to make it easy to read or write registers.
+User could just use struct i2c_client and struct regmap_config to construct a struct regmap, and then use that to read and write register (or only update masked bits in the register using regmap_update_bits).</description>
     </item>
     
     <item>
@@ -154,8 +154,7 @@ User just using struct i2c_client and struct regmap_config to construct a struct
       
       <guid>https://pandysong.github.io/blog/post/do-not-put-probe-on-clock-signal/</guid>
       <description>Introduction Probe is nice to debug the signals. I have recently use oscilloscope and portable logic analyzer to debug an issue on port camera driver on Rockchip rk3128.
-Story It takes me a while to make the signal looks right to be compatible to rk3128 CIF interface which is a YUV422 with VSYNC, HSYNC and clock with additional 8 bit parallel interface. Everything seems right with my skills exhausted.
-After one day debugging, I feel that it is possible that probe is distorting the signal.</description>
+Story It takes me a while to make the signal looks right to be compatible to RK3128 CIF interface. CIF interface in RK3128 is a YUV422 interface, It has signals of VSYNC, HSYNC and clock, plus additional 8 bit parallel data interface.</description>
     </item>
     
     <item>
@@ -199,10 +198,8 @@ Block  The EDID is compromised of one or more 128bytes-blocks. The first one is 
       <guid>https://pandysong.github.io/blog/post/vim_tips_quickfix/</guid>
       <description>creat text recognized by quickfix using following command in vim to copy the text to clipboard:
 let @@=expand(&amp;quot;%:p&amp;quot;).&amp;quot;:&amp;quot;.line(&amp;quot;.&amp;quot;).&amp;quot;: &amp;quot;.expand(&amp;quot;&amp;lt;cword&amp;gt;&amp;quot;)  something like following will be yanked:
-`/home/pandy/notes.md:24: finit_module`  You may want to save a list of lines to a file.
-load the files to quick fix window Open the file and then load the current file to quickfix window: :cfile %
-then open the quickfix window: :copen
-Now you could b.</description>
+`/home/pandy/notes.md:24: finit_module`  load the files to quick fix window You may want to save a list of lines like that to a file (for recording the key points of the program logic).
+Open the file and then load the current file to quickfix window: :cfile %</description>
     </item>
     
     <item>
@@ -232,7 +229,7 @@ stty erase ^H where to input ^H, you will type ctrl+v and then &amp;lsquo;delete
       <pubDate>Sat, 05 Oct 2019 00:00:00 +0000</pubDate>
       
       <guid>https://pandysong.github.io/blog/post/vim_repeat_last_yank_command/</guid>
-      <description>how to set cpoptions+=y So for example if we type &amp;ldquo;Ayy, to append the current line to the register a, if we now go to next line which we want to append, you could just type dot command.
+      <description>how to set cpoptions+=y So for example if we type Ayy, to append the current line to the register a, if we now go to next line which we want to append, you could just type dot command.
 how to append all matches to register :g/some pattern here/yank A yank to register a, but since it is A, so it means append to register A.</description>
     </item>
     
@@ -295,7 +292,7 @@ system/tools/aidl/docs/aidl-cpp.md </description>
       
       <guid>https://pandysong.github.io/blog/post/understanding_android_fence/</guid>
       <description>Introduction There are a lot of articles discussing about Fence mechanism in Android. But I could not find a simple explanation.
-What Problem Fence try to resolve? Problem 1: Producer pass buffer to consumer before consumer could use the buffer In Android, there is an object called GraphicBuffer, which is passed in between different kind of producuers and consumers. When a producer pass a GraphicBuffer to a consumer, It is possible that the producer is still doing some job on that buffer in background, because the producer may have told GPU to render the buffer.</description>
+What Problem Fence try to resolve? Problem 1: Producer pass buffer to consumer before consumer could use the buffer In Android, there is an object called GraphicBuffer, which is passed in between different kind of producuers and consumers. When a producer pass a GraphicBuffer to a consumer, it is possible that the producer is still doing some job on that buffer in background, e.</description>
     </item>
     
     <item>
@@ -385,7 +382,7 @@ g++ -std=c++14 -o puts_test puts_test.cpp puts_test.cpp:5:15: warning: ISO C++11
       
       <guid>https://pandysong.github.io/blog/post/read_source_code_with_active_line_highlighted/</guid>
       <description>cons of cscope database In cscope_for_linux_kernel_or_uboot and cscope_u-boot_improved, it was discussed how to scope the files to the ones actually used.
-But that is not perfact: in the production code like u-boot there are many macros, in an active file which is used in compilation some are active but some are not. When we are reading the code, unless we are debugging in a debugger we do not immediately know which part of code is active (generatting machine code), and which part of code is inactive.</description>
+But that is not perfact: in the production code like u-boot there are many macros, in an active file which is used in compilation some lines are active (compiled) but some are not (not under any macro). When we are reading the code, unless we are debugging in a debugger we do not immediately know which part of code is active (generatting machine code), and which part of code is inactive.</description>
     </item>
     
     <item>
@@ -397,7 +394,7 @@ But that is not perfact: in the production code like u-boot there are many macro
       <description>An example Following define a sign with name piet:
 sign define piet text=. linehl=Search texthl=Search Note that linehl=&amp;lt;groupname&amp;gt; is used to highlight the whole line. We may define a new group using following command
 :highlight &amp;lt;groupname&amp;gt; ctermbg=darkred guibg=darkred Then using the command :sign place to put a sign
-:exe &amp;quot;:sign place 2 line=104 name=piet file=&amp;quot; . expand(&amp;quot;%:p&amp;quot;) Conclusion It is possible to use this feature in the plugin. However I am not sure how I could use the feature without the sign character in the beginning of a line which is a bit annoying.</description>
+:exe &amp;quot;:sign place 2 line=104 name=piet file=&amp;quot; . expand(&amp;quot;%:p&amp;quot;) Conclusion It is possible to use this feature in the plugin. However I am not sure how I could use the feature without the sign character in the beginning of a line, which is a bit annoying.</description>
     </item>
     
     <item>

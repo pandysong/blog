@@ -71,19 +71,20 @@ if (!doNotTrack) {
 <p>something like following will be yanked:</p>
 <pre><code>`/home/pandy/notes.md:24: finit_module`
 </code></pre>
-<p>You may want to save a list of lines to a file.</p>
 <h1 id="load-the-files-to-quick-fix-window">load the files to quick fix window</h1>
+<p>You may want to save a list of lines like that to a file (for recording the key
+points of the program logic).</p>
 <p>Open the file and then load the current file to quickfix window:
 :cfile %</p>
 <p>then open the quickfix window:
 :copen</p>
-<p>Now you could b.rowse in the quickfix window</p>
+<p>Now you could browse in the quickfix window and jump to the lines recorded.</p>
 <h1 id="this-works-also-for-the-compilation-output">This works also for the compilation output</h1>
 <p>You may yank the output from any other sources and open the compilation log and
 use &ldquo;:cfile %&rdquo; or directly use &ldquo;:cfile &lt;to_your_file_path&gt;&rdquo; to open it in
 quickfix window.</p>
-<p>I also use it to make notes on the code, and use &ldquo;gF&rdquo; command to jump to the
-code or document.</p>
+<p>Without quick fix window, one could use &ldquo;gF&rdquo; command to jump to the code or
+document.</p>
 
   </div>
 </div>

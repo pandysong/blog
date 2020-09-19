@@ -68,12 +68,12 @@ if (!doNotTrack) {
 <p>How do you understand this line of code?</p>
 <pre><code>gpiod_direction_output(p-&gt;reset_gpio, 1);
 </code></pre><p>If document is not read, it might be understood as driving the reset_gpio to
-high. But it is not the case.</p>
+high which, however, is not the case.</p>
 <h1 id="the-active-low-property">The active-low property</h1>
 <p>Please refer to document <code>Documentation/gpio/consumer.txt</code>, <code>The active-low property</code> section explains that 1 means logic active, while 0 means logic
 de-active. What turns our on the physical GPIO depends on the DTS setting:</p>
 <p>If the GPIO is set as <code>GPIO_ACTIVE_LOW</code>, then <code>1</code> will drive to GPIO to low.
-If the GPIO is set as <code>GPIO_ACTIVE_HIGH, then </code>1` will drive to GPIO to HIGH.</p>
+If the GPIO is set as <code>GPIO_ACTIVE_HIGH</code>, then <code>1</code> will drive to GPIO to HIGH.</p>
 <h1 id="suggestions">Suggestions</h1>
 <p>It is not obvious for the reader to understand the code and it is very
 confusing. Why does not the author define an macro?</p>

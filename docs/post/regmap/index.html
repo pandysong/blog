@@ -67,13 +67,13 @@ if (!doNotTrack) {
     <h1 id="why-regmap">Why <code>regmap</code></h1>
 <p>In Linux kernel, if we will need to access I2C or SPI, we usually use the
 e.g. <code>struct i2c_client</code> to access the bus directly. Common target to access
-the I2C device is to access the registers, by either reading or writing.</p>
-<p><code>regmap</code> basically add another abstraction layer on top of <code>struct i2c_client</code>
-to make it easy to read and write registers.</p>
-<p>User just using <code>struct i2c_client</code> and <code>struct regmap_config</code> to construct a
-<code>struct regmap</code>, and then could use that to read and write register or only
-update masked bits in the register using <code>regmap_update_bits</code>. All the common
-logic is configured in this regmap_config.</p>
+the I2C device is to access the registers, for either reading or writing.</p>
+<p><code>regmap</code> basically adds another abstraction layer on top of <code>struct i2c_client</code>
+to make it easy to read or write registers.</p>
+<p>User could just use <code>struct i2c_client</code> and <code>struct regmap_config</code> to construct
+a <code>struct regmap</code>, and then use that to read and write register (or only update
+masked bits in the register using <code>regmap_update_bits</code>). All the common logic
+is configured in this regmap_config.</p>
 <p>Following section is from:
 <a href="https://opensourceforu.com/2017/01/regmap-reducing-redundancy-linux-code/">https://opensourceforu.com/2017/01/regmap-reducing-redundancy-linux-code/</a></p>
 <h1 id="struct-regmap_config">struct regmap_config</h1>

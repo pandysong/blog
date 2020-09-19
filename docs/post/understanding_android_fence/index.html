@@ -71,10 +71,11 @@ could not find a simple explanation.</p>
 <h3 id="problem-1-producer-pass-buffer-to-consumer-before-consumer-could-use-the-buffer">Problem 1: Producer pass buffer to consumer before consumer could use the buffer</h3>
 <p>In Android, there is an object called <code>GraphicBuffer</code>, which is passed in
 between different kind of <code>producuers</code> and <code>consumers</code>. When a <code>producer</code> pass
-a <code>GraphicBuffer</code> to a <code>consumer</code>, It is possible that the <code>producer</code> is still
-doing some job on that buffer in background, because the producer may have told
-GPU to render the buffer. For performance consideration, CPU could not wait for
-GPU to finish the job before hand over the buffer to <code>consumer</code>.</p>
+a <code>GraphicBuffer</code> to a <code>consumer</code>, it is possible that the <code>producer</code> is still
+doing some job on that buffer in background, e.g. because the producer may have
+told GPU to render the buffer (but CPU has done the job). For performance
+consideration, CPU could not wait for GPU to finish the job before hand over
+the buffer to <code>consumer</code>.</p>
 <p>Fence was invented to allow to pass the ownership before the buffer is ready to
 be consumed.</p>
 <h3 id="problem-2-the-producer-would-dequeue-the-buffer-before-it-could-overwrite-the-buffer">Problem 2: The Producer would dequeue the buffer before it could overwrite the buffer</h3>

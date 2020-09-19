@@ -69,14 +69,14 @@ if (!doNotTrack) {
 <a href="cscope_u-boot_improved">cscope_u-boot_improved</a>, it was discussed how to scope
 the files to the ones actually used.</p>
 <p>But that is not perfact: in the production code like u-boot there are many
-macros, in an active file which is used in compilation some are active but some
-are not. When we are reading the code, unless we are debugging in a debugger we
-do not immediately know which part of code is active (generatting machine
-code), and which part of code is inactive.</p>
+macros, in an active file which is used in compilation some lines are active
+(compiled) but some are not (not under any macro). When we are reading the code,
+unless we are debugging in a debugger we do not immediately know which part of
+code is active (generatting machine code), and which part of code is inactive.</p>
 <p>This document intends to resolve this issue in a simple way.</p>
 <h2 id="objdump">objdump</h2>
 <p>objdump could dump the line numbers and corresponding assemble code. We could
-them only get the filename</p>
+then only get the filename:</p>
 <pre><code>aarch64-linux-gnu-objdump -d -l &lt;elf_file&gt; | sed -n &quot;s/\(.*\.[chS]\):\([0-9]*\).*/\1:\2/p&quot; 
 </code></pre><p>This will filter out all file names with .c or .S extension suffixed with
 &lsquo;:<!-- raw HTML omitted -->&rsquo;</p>
@@ -99,7 +99,7 @@ highlight for you:</p>
 <p>For the purpose of highlighting the active lines, a
 <a href="https://github.com/pandysong/highlight.vim">plugin</a> is created after having
 done above research.</p>
-<p>For using this plugin, a database could be created, as discussed above, we will
+<p>For using this plugin, a database could be created. As discussed above, we will
 create a list from tool chain:</p>
 <pre><code>aarch64-linux-gnu-objdump -d -l &lt;elf_file&gt; | sed -n &quot;s/\(.*\.[chS]\):\([0-9]*\).*/\1:\2/p&quot;  &gt; lines.txt
 </code></pre><p>Then use the tool provided by plugin to convert to the database needed:</p>
@@ -108,9 +108,9 @@ create a list from tool chain:</p>
 </code></pre><p>Now in the vim (with the current path in u-boot directory), you could load the
 database:</p>
 <pre><code>:HighlightAdd active_lines.txt
-</code></pre><p>The vim looks like after open an active file:</p>
+</code></pre><p>The vim looks like below image after open an active file:</p>
 <p><img src="https://pandysong.github.io/blog/img/vim-activelines-screen.png" alt="screen"></p>
-<p>It is found that following code is not compiled:</p>
+<p>E.g. it is found that following code is not compiled:</p>
 <pre><code>#ifdef COUNTER_FREQUENCY
 	ldr	x0, =COUNTER_FREQUENCY
 	msr	cntfrq_el0, x0			/* Initialize CNTFRQ */

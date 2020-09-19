@@ -85,9 +85,11 @@ puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string lit
               ^
 1 warning generated.
 </code></pre><p>It complains.</p>
+<p>This is just an simple example how C++ improves the type safe: <code>char *s</code> is
+mutable, however a string literal is not: we could not simple assign a literal
+to a mutable variable.</p>
 <h2 id="how-to-fix">How to fix</h2>
 <p>Using <code>const char *</code> instead of <code>char *</code>.</p>
-<p>It is just an simple example how C++ improves the type safe.</p>
 <h2 id="a-bit-more">a bit more</h2>
 <p>To make the C++ program more with C++ style:</p>
 <pre><code>#include &lt;cstdio&gt;
