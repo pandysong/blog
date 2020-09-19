@@ -19,7 +19,7 @@ circuit using transistor.
 
 A simple circuit is designed:
 
-~[reed switch](reed_switch_circuit_01.png)
+![reed switch](/img/reed_switch_circuit_01.png)
 
 
 Here the 1Ohm resistor is the reed switch in the state of closing. we could see
@@ -27,7 +27,7 @@ that on the collector pin of NPN transistor, the voltage is high.
 
 Now when we open the reed switch:
 
-~[reed switch open](reed_switch_circuit_02.png)
+![reed switch open](/img/reed_switch_circuit_02.png)
 
 The collector pin voltage is low
 

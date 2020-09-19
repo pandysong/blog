@@ -22,14 +22,14 @@ is in e.g.:
 drivers/gpu/drm/rockchip/dw-mipi-dsi.c  
 ```
 
-It will controls the registers in SOC in order to connect to a panel.
+It controls the registers in SOC in order to connect to a panel.
 
 
 ## MIPI Panel Driver
 
 What is the panel? It basically means the Panel, which could be controlled BY
 SoC via communication channels, for example in case of MIPI DSI, the host could
-control the panel via D0 vis DSI commands.
+control the panel by DSI commands via D0.
 
 ## Connector
 
@@ -48,7 +48,7 @@ Refer to
 [link](https://www.kernel.org/doc/html/latest/driver-api/component.html) for
 the details of concept of `component`:
 
-In short, component allows to aggregate drivers into an aggregated drivers, in
+In short, component allows to aggregate drivers into an aggregated driver. In
 our case, it helps to aggregate the MIPI DSI host driver and sub-dev panel
 driver.
 
@@ -67,7 +67,6 @@ the cover of `component` helper system.
 ### probing of host driver
 
 During probe of MIPI DSI Host driver, following component (ops) is registered:
-
 
 ```
 ret = component_add(dev, &dw_mipi_dsi_ops);
@@ -101,6 +100,7 @@ drivers/gpu/drm/drm_panel.c
 ```
 
 ### probing of panel driver
+
 Refer to following source code for for the calling of `drm_panel_add` by the
 panel driver:
 

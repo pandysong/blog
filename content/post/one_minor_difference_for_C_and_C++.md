@@ -43,11 +43,13 @@ puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string lit
 
 It complains. 
 
+This is just an simple example how C++ improves the type safe: `char *s` is
+mutable, however a string literal is not: we could not simple assign a literal
+to a mutable variable.
+
 ## How to fix
 
 Using `const char *` instead of `char *`.
-
-It is just an simple example how C++ improves the type safe.
 
 ## a bit more
 

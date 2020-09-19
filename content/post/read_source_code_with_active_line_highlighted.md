@@ -11,17 +11,17 @@ In [cscope_for_linux_kernel_or_uboot](../cscope_for_linux_kernel_or_uboot) and
 the files to the ones actually used.
 
 But that is not perfact: in the production code like u-boot there are many
-macros, in an active file which is used in compilation some are active but some
-are not. When we are reading the code, unless we are debugging in a debugger we
-do not immediately know which part of code is active (generatting machine
-code), and which part of code is inactive.
+macros, in an active file which is used in compilation some lines are active
+(compiled) but some are not (not under any macro). When we are reading the code,
+unless we are debugging in a debugger we do not immediately know which part of
+code is active (generatting machine code), and which part of code is inactive.
 
 This document intends to resolve this issue in a simple way.
 
 ## objdump
 
 objdump could dump the line numbers and corresponding assemble code. We could
-them only get the filename 
+then only get the filename:
 
 ```
 aarch64-linux-gnu-objdump -d -l <elf_file> | sed -n "s/\(.*\.[chS]\):\([0-9]*\).*/\1:\2/p" 
@@ -66,7 +66,7 @@ For the purpose of highlighting the active lines, a
 [plugin](https://github.com/pandysong/highlight.vim) is created after having
 done above research.
 
-For using this plugin, a database could be created, as discussed above, we will
+For using this plugin, a database could be created. As discussed above, we will
 create a list from tool chain:
 
 ```
@@ -86,11 +86,11 @@ database:
 :HighlightAdd active_lines.txt
 ```
 
-The vim looks like after open an active file:
+The vim looks like below image after open an active file:
 
 ![screen](/img/vim-activelines-screen.png)
 
-It is found that following code is not compiled:
+E.g. it is found that following code is not compiled:
 
 ```
 #ifdef COUNTER_FREQUENCY

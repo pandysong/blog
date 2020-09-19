@@ -32,4 +32,4 @@ Then using the command `:sign place` to put a sign
 It is possible to use this feature in the
 [plugin](https://github.com/pandysong/highlight.vim). However I am not sure
 how I could use the feature without the sign character in the beginning of a
-line which is a bit annoying.
+line, which is a bit annoying.

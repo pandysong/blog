@@ -8,15 +8,15 @@ weight: 10
 
 In Linux kernel, if we will need to access I2C or SPI, we usually use the
 e.g. `struct i2c_client` to access the bus directly. Common target to access
-the I2C device is to access the registers, by either reading or writing.
+the I2C device is to access the registers, for either reading or writing.
 
-`regmap` basically add another abstraction layer on top of `struct i2c_client`
-to make it easy to read and write registers.
+`regmap` basically adds another abstraction layer on top of `struct i2c_client`
+to make it easy to read or write registers.
 
-User just using `struct i2c_client` and `struct regmap_config` to construct a
-`struct regmap`, and then could use that to read and write register or only
-update masked bits in the register using `regmap_update_bits`. All the common
-logic is configured in this regmap_config.
+User could just use `struct i2c_client` and `struct regmap_config` to construct
+a `struct regmap`, and then use that to read and write register (or only update
+masked bits in the register using `regmap_update_bits`). All the common logic
+is configured in this regmap_config.
 
 Following section is from:
 https://opensourceforu.com/2017/01/regmap-reducing-redundancy-linux-code/

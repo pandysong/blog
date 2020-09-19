@@ -15,10 +15,11 @@ could not find a simple explanation.
 
 In Android, there is an object called `GraphicBuffer`, which is passed in
 between different kind of `producuers` and `consumers`. When a `producer` pass
-a `GraphicBuffer` to a `consumer`, It is possible that the `producer` is still
-doing some job on that buffer in background, because the producer may have told
-GPU to render the buffer. For performance consideration, CPU could not wait for
-GPU to finish the job before hand over the buffer to `consumer`. 
+a `GraphicBuffer` to a `consumer`, it is possible that the `producer` is still
+doing some job on that buffer in background, e.g. because the producer may have
+told GPU to render the buffer (but CPU has done the job). For performance
+consideration, CPU could not wait for GPU to finish the job before hand over
+the buffer to `consumer`. 
 
 Fence was invented to allow to pass the ownership before the buffer is ready to
 be consumed.
@@ -63,4 +64,3 @@ status_t ConsumerBase::acquireBufferLocked(BufferItem *item,
 ```
 
 Above code acquire a buffer from buffer queue and save the fence 
-

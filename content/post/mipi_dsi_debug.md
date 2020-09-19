@@ -10,7 +10,7 @@ The MIPI DSI panel does not work, it is totally black, showing nothing.
 
 # The logic under the hood
 
-Refer to  the [document](mipi_host_driver_and_panel_driver) for how it works in
+Refer to  the [document]({{< ref mipi_host_driver_and_panel_driver.md >}}) for how it works in
 the MIPI DSI host driver and panel driver.
 
 After adding a printing in the `connector` callback functions, it is found that

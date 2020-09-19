@@ -10,7 +10,7 @@ weight: 10
 set cpoptions+=y
 ```
 
-So for example if we type "Ayy, to append the current line to the register a,
+So for example if we type `Ayy`, to append the current line to the register a,
 if we now go to next line which we want to append, you could just type dot
 command.
 

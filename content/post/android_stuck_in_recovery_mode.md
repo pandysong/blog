@@ -13,11 +13,11 @@ This note records the journey to resolve an boot up issue.
 The issue is that the system is stuck in Recovery mode, after we have created
 an image for RK3368.
 
-The appendix shows the full log for the problem. When the how update.img is
-flashed to eMMC, the first time the system is always going to recovery mode.
-This is indicated by the initial value in misc.img and u-boot will read it and
-found that it is first up booting and it will use the kernel and resource from
-recovery.img.
+The appendix shows the full log for the problem. When the update.img is flashed
+to eMMC, the first time the system is boot up it always goes to recovery mode
+(which is right). This is indicated by the initial value in misc.img and
+u-boot will read it and found that it is first up booting and it will use the
+kernel and resource from recovery.img.
 
 The task of recovery mode is to initialize some partition and wipe off all the
 data or format the partition.
@@ -67,17 +67,18 @@ GPT part: 17, name:              frp, start:0x898800, size:0x400
 GPT part: 18, name:         userdata, start:0x898c00, size:0x31a53df
 ```
 
-The next clue is 
+The next clue is
 
 ```
 [    1.462714] mmc0: error -5 whilst initialising MMC card
 ```
 
-The problem is now that the eMMC driver is not successfully initializing the
-device.
+OK. now the problem is now that the eMMC driver is not successfully
+initializing the device.
 
-A lot of googling does not find any clue, and it is strange that u-boot could
-do it correctly:
+A lot of googling on the internet does not indicate any further clue.
+
+But it is strange that u-boot could do it correctly: it could tell from the log:
 
 ```
 dwmmc@ff0f0000: 0
@@ -89,8 +90,8 @@ mmc0(part 0) is current device
 
 While the kernel failed to do that.
 
-The device driver would be different for u-boot and kernel. After browsing the
-code, it is found that in the following code:
+It is possible taht the device driver would be different for u-boot and kernel.
+After browsing the code, it is found that in the following code:
 
 ```
 drivers/mmc/core/host.c
@@ -147,11 +148,13 @@ if (of_property_read_bool(np, "supports-sdio"))
 if (of_property_read_bool(np, "supports-emmc"))
 ```
 
+Is it possible that some of above options are not set correctly?
+
 # Clue 3
 
-After reading the spec of eMMC `THGAMRG8T13BAIL`, 
+After reading the spec of eMMC `THGAMRG8T13BAIL`,
 
-Following description get my attention:
+Following description gets my attention:
 
 ```
 High Interface speed HS400 (according to JEDEC 5.x)
@@ -162,8 +165,7 @@ High Interface speed HS400 (according to JEDEC 5.x)
 The DTS setting of eMCC was using "mmc-hs200-1_8v". I tried "mmc-hs499-1_8v"
 with failure and tried "mmc-hs400-1_2v" with success.
 
-
-# Appendix 
+# Appendix
 
 
 ```
