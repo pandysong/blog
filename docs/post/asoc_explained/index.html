@@ -76,7 +76,7 @@ explained it in details.</p>
 </li>
 <li>
 <p>Widget</p>
-<p>Each codec might be different. For example, a I2S PA, which recevies I2S data
+<p>Each codec might be different. For example, a I2S PA, which receives I2S data
 from I2S bus and playback to a speaker. This PA (represented as a Codec) could
 have multiple internal knob where e.g. Volume could be adjusted or where it
 could be digitally muted.</p>
@@ -89,27 +89,27 @@ to the codec.</p>
 <p>Route</p>
 <p>There might be multiple widgets in the same codec. And audio could have
 multiple different paths in the same codec. Or audio could have multiple
-possible paths in the machines. <code>Route</code> add some constrains on how the aduio
+possible paths in the machines. <code>Route</code> add some constrains on how the audio
 could be flowed in between widgets.</p>
 </li>
 </ul>
 <h1 id="three-important-logical-parts">Three Important Logical Parts</h1>
 <h2 id="codec-driver">Codec Driver</h2>
-<p>A codec driver represents a type of codec which is indepedent from a SoC,
-which means it is portable from one SoC to another and could be resued.</p>
+<p>A codec driver represents a type of codec which is independent from a SoC,
+which means it is portable from one SoC to another and could be reused.</p>
 <h2 id="soc-driver-platform-driver">SoC Driver (Platform Driver)</h2>
 <p>A SoC driver is coupled with a SoC. So this part could not be ported from one
 platform to another.</p>
 <h2 id="machine-driver-gluing-codecs-and-soc">Machine Driver (gluing Codecs and SoC)</h2>
 <p>A Machines driver glues codecs and the soc to form a complete Sound Card to
-upper layer. A generic implementation of a machina driver is simple-audio-card.</p>
+upper layer. A generic implementation of a machine driver is simple-audio-card.</p>
 <p>How the gluing is actually done?</p>
 <p>Refer to:</p>
 <pre><code>devicetree/bindings/sound/simple-card.txt
 </code></pre><p>For example, this device tree of a simple-audio-card, glue the following two
 parts</p>
 <ul>
-<li>the CPU part (SoC dirver): rcar_sound</li>
+<li>the CPU part (SoC driver): rcar_sound</li>
 <li>The Codec Part (Codec Driver): ak4643</li>
 </ul>
 <pre><code>    sndcpu: simple-audio-card,cpu {
@@ -123,12 +123,12 @@ parts</p>
 </code></pre><h1 id="high-level-process">High Level Process</h1>
 <p>For ALSA, the high level interface is the sound card. When High Level Software
 instructs to play, it will need to find the correct path from DAI to the
-speaker, and turn on the widget on that path so that aduio data could flow
+speaker, and turn on the widget on that path so that audio data could flow
 through the path to speaker.</p>
 <h1 id="fixed-name-of-widget">Fixed Name of Widget</h1>
 <p>In following core code:</p>
 <pre><code>kernel/sound/soc/soc-core.c
-</code></pre><p>Following fixed name widget is defined as well-knonw widget</p>
+</code></pre><p>Following fixed name widget is defined as well-known widget</p>
 <pre><code>static const struct snd_soc_dapm_widget simple_widgets[] = {
       SND_SOC_DAPM_MIC(&quot;Microphone&quot;, NULL),
       SND_SOC_DAPM_LINE(&quot;Line&quot;, NULL),

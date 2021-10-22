@@ -16,7 +16,7 @@ explained it in details.
 
 - Widget
 
-  Each codec might be different. For example, a I2S PA, which recevies I2S data
+  Each codec might be different. For example, a I2S PA, which receives I2S data
 from I2S bus and playback to a speaker. This PA (represented as a Codec) could
 have multiple internal knob where e.g. Volume could be adjusted or where it
 could be digitally muted. 
@@ -30,15 +30,15 @@ to the codec.
 
   There might be multiple widgets in the same codec. And audio could have
 multiple different paths in the same codec. Or audio could have multiple
-possible paths in the machines. `Route` add some constrains on how the aduio
+possible paths in the machines. `Route` add some constrains on how the audio
 could be flowed in between widgets.
 
 # Three Important Logical Parts
 
 ## Codec Driver
 
- A codec driver represents a type of codec which is indepedent from a SoC,
-which means it is portable from one SoC to another and could be resued.
+ A codec driver represents a type of codec which is independent from a SoC,
+which means it is portable from one SoC to another and could be reused.
 
 ## SoC Driver (Platform Driver)
 
@@ -48,7 +48,7 @@ platform to another.
 ## Machine Driver (gluing Codecs and SoC)
 
 A Machines driver glues codecs and the soc to form a complete Sound Card to
-upper layer. A generic implementation of a machina driver is simple-audio-card.
+upper layer. A generic implementation of a machine driver is simple-audio-card.
 
 How the gluing is actually done?
 
@@ -61,7 +61,7 @@ devicetree/bindings/sound/simple-card.txt
 For example, this device tree of a simple-audio-card, glue the following two
 parts
 
-- the CPU part (SoC dirver): rcar_sound
+- the CPU part (SoC driver): rcar_sound
 - The Codec Part (Codec Driver): ak4643
 
 ```
@@ -79,10 +79,8 @@ parts
 
 For ALSA, the high level interface is the sound card. When High Level Software
 instructs to play, it will need to find the correct path from DAI to the
-speaker, and turn on the widget on that path so that aduio data could flow
+speaker, and turn on the widget on that path so that audio data could flow
 through the path to speaker.
-
-
 
 
 # Fixed Name of Widget
@@ -93,7 +91,7 @@ In following core code:
 kernel/sound/soc/soc-core.c
 ```
 
-Following fixed name widget is defined as well-knonw widget
+Following fixed name widget is defined as well-known widget
 
 ```
 static const struct snd_soc_dapm_widget simple_widgets[] = {
