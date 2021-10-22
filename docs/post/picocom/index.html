@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>The journey to eventually find picocom</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>The journey to eventually find picocom</h1>
+  <div class="blog-post-subheader">
+    <time>10 Oct 2020</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="the-journey">The journey</h1>
+<p>I am finding that <code>minicom</code> and <code>screen</code> fail to work with baud rate higher
+than 230400.</p>
+<p>After have done a lot of search and reading the minicom source code, it is
+found that in termios.h the maximum baud rate is 230400.</p>
+<p>So the limitation comes from the underlying system level termios. This is
+defined by Apple. I am not sure how to change that system configuration. I
+assume we have to recompile everything in the system.</p>
+<h1 id="hacking">Hacking</h1>
+<p>Some discussion indicates that there is a hacking around this termios. First it
+will feed some fake baud rate to the defined structure and then when setting a
+real baud rate to the underlying driver, it will replace with the real baud
+rate.</p>
+<p>I was wandering if I could hack minicom as well to do that.</p>
+<h1 id="searching">Searching</h1>
+<p>I am not sure how to do that until I find that discussion and fixes on picom
+project on github:</p>
+<p><a href="https://github.com/npat-efault/picocom/pull/62/commits/a502f76e5daac08fa2e670084295073e68a5dbc8">https://github.com/npat-efault/picocom/pull/62/commits/a502f76e5daac08fa2e670084295073e68a5dbc8</a></p>
+<p>So why not use picocom directly?</p>
+<p>The custom baudrate on Macos is enabled by default on Intel Macos.</p>
+<p>How to use:</p>
+<pre><code>./picocom /dev/tty.usbserial-00001014C -b 1500000
+</code></pre><p>to quit</p>
+<pre><code>ctrl-a ctrl-x
+</code></pre><p>How to build:</p>
+<pre><code>git clone https://github.com/npat-efault/picocom.git
+cd picocom
+make
+</code></pre><p>That&rsquo;s it. You could copy around and use it directly.</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2021 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

@@ -79,7 +79,7 @@ source ../../../../build/envsetup.sh
 mm
 </code></pre></div><p>Then on your PC, install it to android device:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
-scp -r fuyong:rk3128_working/out/target/product/rk3128_box/system/xbin ./
+scp -r &lt;server_name_or_ip&gt;:&lt;your_sdk_path&gt;/out/target/product/rk3128_box/system/xbin ./
 adb root
 adb remount
 adb push xbin/i2c* /system/xbin/
@@ -90,7 +90,7 @@ adb push xbin/i2c* /system/xbin/
       <footer>
         <hr>
         <small>
-          &copy; 2020 Pandy Song.
+          &copy; 2021 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>

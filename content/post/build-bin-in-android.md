@@ -28,7 +28,7 @@ mm
 Then on your PC, install it to android device:
 ```bash
 
-scp -r fuyong:rk3128_working/out/target/product/rk3128_box/system/xbin ./
+scp -r <server_name_or_ip>:<your_sdk_path>/out/target/product/rk3128_box/system/xbin ./
 adb root
 adb remount
 adb push xbin/i2c* /system/xbin/

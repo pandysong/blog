@@ -6,7 +6,157 @@
     <description>Recent content on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ALSA Soc (ASoC) Driver Explained</title>
+      <link>https://pandysong.github.io/blog/post/asoc_explained/</link>
+      <pubDate>Sun, 19 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/asoc_explained/</guid>
+      <description>Terminology   DAI (Digital Audio Interface)
+This interface is the one between SoC and Codec. This has to be abstracted so that the concept could be used both on SoC and Codec driver and could be matched if they are connected on the same I2S interface. How is the matching done in the high level? In short, it is done in Machine Driver. We will explained it in details.</description>
+    </item>
+    
+    <item>
+      <title>Access SMB server from Mac Terminal</title>
+      <link>https://pandysong.github.io/blog/post/access_win10_smb_from_terminal/</link>
+      <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/access_win10_smb_from_terminal/</guid>
+      <description>could not ls or copy file to the server /Volumes/releases ls ls: .: Operation not permitted We however could copy files to server on Mac finder application.
+Solution  I had the same problem and it was fixed by granting »Full disk access« to Terminal in System preferences -&amp;gt; Security &amp;amp; Privacy -&amp;gt; Privacy and restarting Terminal. Click the lock at the bottom left of the window in case the options are greyed out.</description>
+    </item>
+    
+    <item>
+      <title>Bass Reflex Speaker Enclosure</title>
+      <link>https://pandysong.github.io/blog/post/bass_reflex_speaker_enclosure/</link>
+      <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/bass_reflex_speaker_enclosure/</guid>
+      <description>Introduction This is the notes on reading LPRNet.
+Quoting  This is probably the most common enclosure in use today. It was used in very early speaker systems, but it was basically a &#39;trial-and-error&#39; design until the loudspeaker parameters were properly quantified by Neville Thiele and Richard Small. This allowed mathematical calculation of the enclosure and port sizes, and it was then possible to design a system, build it, and have it perform as expected.</description>
+    </item>
+    
+    <item>
+      <title>Install Ubuntu 16.04 on old 32bit Intel Atom Machine</title>
+      <link>https://pandysong.github.io/blog/post/ubuntu_32bit/</link>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/ubuntu_32bit/</guid>
+      <description>Issue 1: Graphic Issue The same one as &amp;ldquo;https://askubuntu.com/questions/881608/ubuntu-16-10-with-multiple-graphics-issues-on-atom-intel&amp;quot;
+The solution mentioned in the post actually works:
+sudo apt-get install tasksel sudo tasksel Select Xubunut-Deskop and then OK, it will install new desktop applications.
+Once reboot, it should work.
+When Login Graphic freeze One could use &amp;ldquo;Ctrl+Alt+Fn&amp;rdquo; to switch to console mode, so that changes to the system could be done.
+For example to change the grub configuration:
+sudo vim /etc/default/grub show the graphic device and driver lspci -k | grep -EA3 &#39;VGA|3D|Display&#39; </description>
+    </item>
+    
+    <item>
+      <title>Acoustic Testing and Issue Fixing</title>
+      <link>https://pandysong.github.io/blog/post/acoustic_testing/</link>
+      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/acoustic_testing/</guid>
+      <description>SpeakerResponseTesting https://www.diyaudioandvideo.com/Tutorial/SpeakerResponseTesting/
+I don&#39;t see anything in any of these tests that would warrant any additional modifications to the crossover. Given this is an off-the-shelf speaker that is to be expected. Here are some things to look for in speaker testing: A large drop (~20dB) at a crossover point would indicate that the drivers are canceling each other out. Try reversing polarity (swap + &amp;amp; -) on one of the drivers to see if the dip goes away.</description>
+    </item>
+    
+    <item>
+      <title>LPRNet</title>
+      <link>https://pandysong.github.io/blog/post/lprnet/</link>
+      <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/lprnet/</guid>
+      <description>#Introduction
+This is the notes on reading LPRNet.
+  the input image is preprocessed by the Spatial Transformer Layer The original LocNet (see the Table 1) architecture was used to estimate optimal transformation parameters.  </description>
+    </item>
+    
+    <item>
+      <title>Sound Card Driver</title>
+      <link>https://pandysong.github.io/blog/post/i2s_sound_dai/</link>
+      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/i2s_sound_dai/</guid>
+      <description>Introduction Concepts DAI DAI is a Digital Audio Interface. So a I2S on the Soc is a DAI and a Codec is a DAI. There are drivers for I2S. While there are seperate driver for those codecs. So how those DAIs are bound together to form a complete sound card device for upper layer?
+It is very similar with MIPI driver where thers is a host driver and panel driver. The I2S driver is in the same postion of Host Driver while Codec driver is of panel driver.</description>
+    </item>
+    
+    <item>
+      <title>The journey to eventually find picocom</title>
+      <link>https://pandysong.github.io/blog/post/picocom/</link>
+      <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/picocom/</guid>
+      <description>The journey I am finding that minicom and screen fail to work with baud rate higher than 230400.
+After have done a lot of search and reading the minicom source code, it is found that in termios.h the maximum baud rate is 230400.
+So the limitation comes from the underlying system level termios. This is defined by Apple. I am not sure how to change that system configuration. I assume we have to recompile everything in the system.</description>
+    </item>
+    
+    <item>
+      <title>Why Class-D has high efficiency</title>
+      <link>https://pandysong.github.io/blog/post/audio-class-d/</link>
+      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/audio-class-d/</guid>
+      <description>Introduction This notes try to explain why class-D amplifier has high efficiency.
+Other type of amplifier An amplifier could be made from a voltage divider. When the current flows through a resistor, heat would be generated. Not all current is running through the speaker.
+Why Class-D is different The Class-D amplifier basically generates a train of rectangular pulse. The pulse is applied directly on a speaker, there is no resistor in play.</description>
+    </item>
+    
+    <item>
+      <title>Why decimation but not only downsampling?</title>
+      <link>https://pandysong.github.io/blog/post/decimation/</link>
+      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/decimation/</guid>
+      <description>Introduction The statement in https://dspguru.com/dsp/faqs/multirate/decimation/ well explains why we need decimations:
+In most cases, though, you’ll end up lowpass-filtering your signal prior to downsampling, in order to enforce the Nyquist criteria at the post-decimation rate. For example, suppose you have a signal sampled at a rate of 30 kHz, whose highest frequency component is 10 kHz (which is less than the Nyquist frequency of 15 kHz). If you wish to reduce the sampling rate by a factor of three to 10 kHz, you must ensure that you have no components greater than 5 kHz, which is the Nyquist frequency for the reduced rate.</description>
+    </item>
+    
+    <item>
+      <title>LFFD (A Light and Fast Face Detector for Edge Devices)</title>
+      <link>https://pandysong.github.io/blog/post/dl_lffd/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/dl_lffd/</guid>
+      <description>LFFD Reference:  LFFD  </description>
+    </item>
+    
+    <item>
+      <title>RetinaFace, Single-stage Dense Face Localisation in the Wild</title>
+      <link>https://pandysong.github.io/blog/post/dl_retina_face/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/dl_retina_face/</guid>
+      <description>SSD The performance of SSD is much better than YOLO (2016).
+Key Points Prediction on top of Feature Map Say if for a specific convolutional layer, the feature map is &amp;ldquo;m x n x p&amp;rdquo;, SSD will use 3 x 3 x p to do convolution with the feature map and get the prediction values.
+n classes of Object, plus background So there is n + 1 classes. That means for a specific prediction bounding box, there are n + 1 confidence values.</description>
+    </item>
+    
+    <item>
+      <title>SSD (Single Shot MultiBox Detector)</title>
+      <link>https://pandysong.github.io/blog/post/dl_ssd_explained/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/dl_ssd_explained/</guid>
+      <description>SSD The performance of SSD is much better than YOLO (2016).
+Key Points Prediction on top of Feature Map Say if for a specific convolutional layer, the feature map is &amp;ldquo;m x n x p&amp;rdquo;, SSD will use 3 x 3 x p to do convolution with the feature map and get the prediction values.
+n classes of Object, plus background So there is n + 1 classes. That means for a specific prediction bounding box, there are n + 1 confidence values.</description>
+    </item>
+    
+    <item>
+      <title>Intuitive Explanation of NMS Algorithm (non-maximum suppression)</title>
+      <link>https://pandysong.github.io/blog/post/nms-algorithm-non-maximum-suppression/</link>
+      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/nms-algorithm-non-maximum-suppression/</guid>
+      <description>Introduction For object detection deep learning algorithm, the deep network output usually are a list of bounding boxes. Each box contains the coordination&amp;rsquo;s as well as confidence for a specific type of object.
+A lot of blogs exists for the detailed explanation of NMS algorithm. This blog try to make it more understandable but not that accurate.
+What problem NMS try to resolve? The problem of the output bounding boxes are:</description>
+    </item>
+    
     <item>
       <title>new way to init array in C lang</title>
       <link>https://pandysong.github.io/blog/post/lang_c_array_init/</link>
@@ -283,6 +433,15 @@ uses addr2line Following command will print the line number for the specific add
       <description>Introduction In Android, in between Java space and normal Linux User space (written in C++), the popular communication interface is called Binder. Two processes in Linux user space could also use Binder to communicate. aidl_generator is the tool to generate the client and server stubs for Binder interface.
 Detail Explanations. The code and document is in the Android source code tree:
 system/tools/aidl/docs/aidl-cpp.md </description>
+    </item>
+    
+    <item>
+      <title>Favourite YouTube Channel</title>
+      <link>https://pandysong.github.io/blog/post/youtube_list/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/youtube_list/</guid>
+      <description>A list  Make RF Design really easy: https://www.youtube.com/watch?v=TnRn3Kn_aXg&amp;amp;t=2226s Note the comments below the video are also informative.    His repeated advice to refer to the manufacturer’s datasheets is very useful. Manufacturers have done the hard work for you and provide you with proven designs. This is done to make their product easier to use and when their product is easier to use, you’re more likely to implement it into your design instead of something from one of their competitors.</description>
     </item>
     
     <item>
@@ -853,6 +1012,16 @@ solution Here is my solution which passes the unit tests.
     </item>
     
     <item>
+      <title>Closure notes</title>
+      <link>https://pandysong.github.io/blog/post/tiny_ml/</link>
+      <pubDate>Thu, 28 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/tiny_ml/</guid>
+      <description>Introduction This includes some notes when learning TinyML.
+License Place Recgotinon  LPRNet  </description>
+    </item>
+    
+    <item>
       <title>flutter - Library not loaded - /usr/local/opt/openssl/lib/libssl.1.0.0.dylib</title>
       <link>https://pandysong.github.io/blog/post/library-not-loaded-usr-local-opt-openssl-lib-libssl.1.0.0.dylib/</link>
       <pubDate>Thu, 28 Sep 2017 00:00:00 +0000</pubDate>
@@ -1038,6 +1207,49 @@ Convert Types To convert a data item from one type to another, we can use the sy
       
       <guid>https://pandysong.github.io/blog/post/books/</guid>
       <description>C book Algorithms\ in\ C\ [Sedgewick\ 1990-01-01]</description>
+    </item>
+    
+    <item>
+      <title>Platform Driver</title>
+      <link>https://pandysong.github.io/blog/post/platform_driver/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/platform_driver/</guid>
+      <description>What is a Platform Device? in Kernel document kernel/Documentation/i2c/instantiating-devices:
+  Unlike PCI or USB devices, I2C devices are not enumerated at the hardware level (at run time). Instead, the software must know (at compile time) which devices are connected on each I2C bus segment. So USB and PCI are not platform devices.
+  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://pandysong.github.io/blog/post/emi/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/emi/</guid>
+      <description>单独的地层 如果已经有“地”层，那么包地起不到什么作用
+http://www.sigcon.com/Pubs/news/15_02.htm
+反而保持一定的距离是有用的
+双倍间距： https://www.protoexpress.com/blog/7-pcb-design-tips-solve-emi-emc-issues/
+模拟地和数字地之间必须提供两倍宽度。
+差分信号的D-和D+之间保持平行 （倾斜匹配）。这些走线的长度必须相同。这些差分信 号在布线时彼此应足够靠近，以抑制共模噪声。 • 差分信号之间的间距必须小于等于一倍宽度。 • 任何差分对与任何其他信号之间的间距必须超过两倍宽度。 • 在差分对与其他信号之间可提供额外的地。 翻译： http://murata.eetrend.com/article/2020-08/1003726.html
+传输线阻抗匹配 时钟信号的阻抗如果不匹配的话，反射会比较大，导致辐射增大。
+https://www.ti.com/lit/an/scaa031/scaa031.pdf?ts=1620014601050
+我们可否用
+在这个文章中：
+https://www.nxp.com/docs/zh/application-note/AN4941.pdf
+也提到的端接电阻的重要性
+关于展频的科普文章 差分信号的一些误区 https://www.huaweicloud.com/articles/4bdfb91eeae7845088ac4bbfa9114ec3.html
+正确的观点：
+ 匹配线长比保持等距重要  EMI失败案例分析 https://scholarsmine.mst.edu/cgi/viewcontent.cgi?article=2997&amp;amp;context=doctoral_dissertations</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://pandysong.github.io/blog/post/fdti_not_working/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/fdti_not_working/</guid>
+      <description>https://aloriumtech.com/how-to-fix-ftdi-driver-issue-on-mac-and-macos/</description>
     </item>
     
   </channel>

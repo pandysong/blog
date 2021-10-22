@@ -3,6 +3,76 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://pandysong.github.io/blog/post/asoc_explained/</loc>
+    <lastmod>2021-09-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/access_win10_smb_from_terminal/</loc>
+    <lastmod>2021-04-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/bass_reflex_speaker_enclosure/</loc>
+    <lastmod>2021-03-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/ubuntu_32bit/</loc>
+    <lastmod>2021-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/acoustic_testing/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/lprnet/</loc>
+    <lastmod>2020-11-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/i2s_sound_dai/</loc>
+    <lastmod>2020-11-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/picocom/</loc>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/audio-class-d/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/decimation/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/dl_lffd/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/dl_retina_face/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/dl_ssd_explained/</loc>
+    <lastmod>2020-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/nms-algorithm-non-maximum-suppression/</loc>
+    <lastmod>2020-09-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pandysong.github.io/blog/post/lang_c_array_init/</loc>
     <lastmod>2020-07-12T00:00:00+00:00</lastmod>
   </url>
@@ -129,6 +199,11 @@
   
   <url>
     <loc>https://pandysong.github.io/blog/post/android_aidl/</loc>
+    <lastmod>2019-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/youtube_list/</loc>
     <lastmod>2019-09-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -383,6 +458,11 @@
   </url>
   
   <url>
+    <loc>https://pandysong.github.io/blog/post/tiny_ml/</loc>
+    <lastmod>2017-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pandysong.github.io/blog/post/library-not-loaded-usr-local-opt-openssl-lib-libssl.1.0.0.dylib/</loc>
     <lastmod>2017-09-28T00:00:00+00:00</lastmod>
   </url>
@@ -468,13 +548,25 @@
   </url>
   
   <url>
+    <loc>https://pandysong.github.io/blog/post/platform_driver/</loc>
+  </url>
+  
+  <url>
     <loc>https://pandysong.github.io/blog/</loc>
-    <lastmod>2020-07-12T00:00:00+00:00</lastmod>
+    <lastmod>2021-09-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://pandysong.github.io/blog/post/</loc>
-    <lastmod>2020-07-12T00:00:00+00:00</lastmod>
+    <lastmod>2021-09-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/emi/</loc>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/fdti_not_working/</loc>
   </url>
   
   <url>

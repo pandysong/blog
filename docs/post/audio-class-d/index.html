@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Why Class-D has high efficiency</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Why Class-D has high efficiency</h1>
+  <div class="blog-post-subheader">
+    <time>22 Sep 2020</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>This notes try to explain why class-D amplifier has high efficiency.</p>
+<h1 id="other-type-of-amplifier">Other type of amplifier</h1>
+<p>An amplifier could be made from a voltage divider. When the current flows
+through a resistor, heat would be generated. Not all current is running through
+the speaker.</p>
+<h1 id="why-class-d-is-different">Why Class-D is different</h1>
+<p>The Class-D amplifier basically generates a train of rectangular pulse. The
+pulse is applied directly on a speaker, there is no resistor in play. That is
+to say when the switch is &ldquo;on&rdquo;, all current is flowing through the speaker,
+when it is &ldquo;off&rdquo;, there is no flow running through it. So theoretically, it has
+efficiency of 100%.</p>
+<h1 id="class-d-is-not-a-digital-amplifier">Class-D is not a digital amplifier</h1>
+<p>Although it could be done digitally using timer to generate modulated PWM.</p>
+<h1 id="how-to-select-a-correct-speaker">How to select a correct speaker?</h1>
+<p>Refer to <a href="https://statics.cirrus.com/pubs/appNote/WAN0200_1.pdf">https://statics.cirrus.com/pubs/appNote/WAN0200_1.pdf</a></p>
+<h1 id="class-d-amplifier-80">Class-D amplifier 80%</h1>
+<p>If the power supply of BTL is a, the output amplitude would be 2a. RMS of a sine wave would be a. So the output power would be <code>a^2/4ohm</code> in case of 4ohm speaker.</p>
+<h1 id="tips-to-measure-the-dissipated-energy">Tips to measure the dissipated energy</h1>
+<blockquote>
+<blockquote>
+<p>The suitability of the loudspeaker should also be verified by measuring the
+power consumption of the amplifier, under quiescent signal conditions, with
+the loudspeaker connected and again with the loudspeaker disconnected. The
+difference between these two measurements can be interpreted to be
+equivalent to the power dissipated by the loudspeaker in filtering the Class
+D switching energy.</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Having calculated the high frequency switching energy dissipation, the
+suitability of the loudspeaker should then be considered in two ways:</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Firstly, it should be verified that power rating of the loudspeaker is
+sufficient to handle the maximum audio power level and the Class D switching
+energy combined. (For example, if the application is required to deliver 1W
+of audio, and the Class D switching dissipation is 200mW, then the
+loudspeaker’s power rating must be at least 1200mW.)</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Secondly, designers should consider whether the level of Class D switching
+power dissipation is acceptable in terms of the overall system efficiency
+and, where applicable, the anticipated battery endurance: if the power
+efficiency is unacceptable, then it may be possible to select an alternative
+loudspeaker which offers more efficient filter characteristics.</p>
+</blockquote>
+</blockquote>
+<h1 id="references">References</h1>
+<ul>
+<li>How to Measure THD+N for Class-D Amplifier</li>
+</ul>
+<p><a href="https://e2echina.ti.com/cfs-file/__key/telligent-evolution-components-attachments/00-42-01-00-00-16-05-38/RC-Filter-Box-For-Class_2D00_D-Output-Power-and-THD_2B00_N-Measurement.pdf">https://e2echina.ti.com/cfs-file/__key/telligent-evolution-components-attachments/00-42-01-00-00-16-05-38/RC-Filter-Box-For-Class_2D00_D-Output-Power-and-THD_2B00_N-Measurement.pdf</a></p>
+<ul>
+<li>Design an RC Filter</li>
+</ul>
+<p><a href="https://www.ti.com/lit/an/slyt198/slyt198.pdf?ts=1600686394731&amp;ref_url=https%253A%252F%252Fwww.google.com%252F">https://www.ti.com/lit/an/slyt198/slyt198.pdf?ts=1600686394731&amp;ref_url=https%253A%252F%252Fwww.google.com%252F</a></p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2021 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

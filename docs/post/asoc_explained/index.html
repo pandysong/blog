@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>ALSA Soc (ASoC) Driver Explained</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>ALSA Soc (ASoC) Driver Explained</h1>
+  <div class="blog-post-subheader">
+    <time>19 Sep 2021</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="terminology">Terminology</h1>
+<ul>
+<li>
+<p>DAI (Digital Audio Interface)</p>
+<p>This interface is the one between SoC and Codec. This has to be abstracted so
+that the concept could be used both on SoC and Codec driver and could be
+matched if they are connected on the same I2S interface. How is the matching
+done in the high level? In short, it is done in Machine Driver. We will
+explained it in details.</p>
+</li>
+<li>
+<p>Widget</p>
+<p>Each codec might be different. For example, a I2S PA, which recevies I2S data
+from I2S bus and playback to a speaker. This PA (represented as a Codec) could
+have multiple internal knob where e.g. Volume could be adjusted or where it
+could be digitally muted.</p>
+<p>Another important reason to have widget is to control the power to minimal
+needed level, using DAPM. A list of widget could be defined using helper macro
+e.g. SND_SOC_DAPM_AIF_IN to define a widget which is a Audio Interface as Input
+to the codec.</p>
+</li>
+<li>
+<p>Route</p>
+<p>There might be multiple widgets in the same codec. And audio could have
+multiple different paths in the same codec. Or audio could have multiple
+possible paths in the machines. <code>Route</code> add some constrains on how the aduio
+could be flowed in between widgets.</p>
+</li>
+</ul>
+<h1 id="three-important-logical-parts">Three Important Logical Parts</h1>
+<h2 id="codec-driver">Codec Driver</h2>
+<p>A codec driver represents a type of codec which is indepedent from a SoC,
+which means it is portable from one SoC to another and could be resued.</p>
+<h2 id="soc-driver-platform-driver">SoC Driver (Platform Driver)</h2>
+<p>A SoC driver is coupled with a SoC. So this part could not be ported from one
+platform to another.</p>
+<h2 id="machine-driver-gluing-codecs-and-soc">Machine Driver (gluing Codecs and SoC)</h2>
+<p>A Machines driver glues codecs and the soc to form a complete Sound Card to
+upper layer. A generic implementation of a machina driver is simple-audio-card.</p>
+<p>How the gluing is actually done?</p>
+<p>Refer to:</p>
+<pre><code>devicetree/bindings/sound/simple-card.txt
+</code></pre><p>For example, this device tree of a simple-audio-card, glue the following two
+parts</p>
+<ul>
+<li>the CPU part (SoC dirver): rcar_sound</li>
+<li>The Codec Part (Codec Driver): ak4643</li>
+</ul>
+<pre><code>    sndcpu: simple-audio-card,cpu {
+        sound-dai = &lt;&amp;rcar_sound&gt;;
+    };
+
+    sndcodec: simple-audio-card,codec {
+        sound-dai = &lt;&amp;ak4643&gt;;
+        system-clock-frequency = &lt;11289600&gt;;
+    };
+</code></pre><h1 id="high-level-process">High Level Process</h1>
+<p>For ALSA, the high level interface is the sound card. When High Level Software
+instructs to play, it will need to find the correct path from DAI to the
+speaker, and turn on the widget on that path so that aduio data could flow
+through the path to speaker.</p>
+<h1 id="fixed-name-of-widget">Fixed Name of Widget</h1>
+<p>In following core code:</p>
+<pre><code>kernel/sound/soc/soc-core.c
+</code></pre><p>Following fixed name widget is defined as well-knonw widget</p>
+<pre><code>static const struct snd_soc_dapm_widget simple_widgets[] = {
+      SND_SOC_DAPM_MIC(&quot;Microphone&quot;, NULL),
+      SND_SOC_DAPM_LINE(&quot;Line&quot;, NULL),
+      SND_SOC_DAPM_HP(&quot;Headphone&quot;, NULL),
+      SND_SOC_DAPM_SPK(&quot;Speaker&quot;, NULL),
+  };
+</code></pre><pre><code>struct snd_soc_dapm_widget {
+      enum snd_soc_dapm_type id;
+      const char *name;       /* widget name */
+      const char *sname;  /* stream name */
+      struct list_head list;
+      struct snd_soc_dapm_context *dapm;
+
+      void *priv;             /* widget specific data */
+      struct regulator *regulator;        /* attached regulator */
+      struct pinctrl *pinctrl;        /* attached pinctrl */
+      const struct snd_soc_pcm_stream *params; /* params for dai links */
+      unsigned int num_params; /* number of params for dai links */
+      unsigned int params_select; /* currently selected param for dai link */
+</code></pre><h2 id="widgettxt-document">widget.txt Document</h2>
+<p>The document in widget.txt explain it as well. The &ldquo;template-wname&rdquo; is the
+template widget name. This allows to define a user-supplied-name to the widget.</p>
+<pre><code>Widgets:
+
+This mainly specifies audio off-codec DAPM widgets.
+
+Each entry is a pair of strings in DT:
+
+    &quot;template-wname&quot;, &quot;user-supplied-wname&quot;
+
+The &quot;template-wname&quot; being the template widget name and currently includes:
+&quot;Microphone&quot;, &quot;Line&quot;, &quot;Headphone&quot; and &quot;Speaker&quot;.
+
+The &quot;user-supplied-wname&quot; being the user specified widget name.
+
+For instance:
+    simple-audio-widgets =
+        &quot;Microphone&quot;, &quot;Microphone Jack&quot;,
+        &quot;Line&quot;, &quot;Line In Jack&quot;,
+        &quot;Line&quot;, &quot;Line Out Jack&quot;,
+        &quot;Headphone&quot;, &quot;Headphone Jack&quot;,
+        &quot;Speaker&quot;, &quot;Speaker External&quot;;
+</code></pre>
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2021 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+
