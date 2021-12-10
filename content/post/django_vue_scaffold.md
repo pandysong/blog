@@ -90,7 +90,7 @@ http://127.0.0.1:8000/
 
 You could check from your browser that it works
 
-![django_127_0_0_1.png](django works in browser)
+![django works in browser](/img/django_127_0_0_1.png)
 
 ## freeze the packages
 
@@ -121,7 +121,7 @@ Your application is running here: http://localhost:8080
 Open your browser, following figure should be displayed:
 
 
-![vue_127_0_0_1.png](vue running locally)
+![vue running locally](/img/vue_127_0_0_1.png)
 
 
 # Add Restful api call to Vue application
