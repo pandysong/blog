@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>mmcv, from config to model</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>mmcv, from config to model</h1>
+  <div class="blog-post-subheader">
+    <time>22 Nov 2021</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>This describes how the config file in mmcv is converted to models in mmcv</p>
+<h1 id="build_from_cfg">build_from_cfg</h1>
+<pre><code>mmcv/utils/registry.py:9: build_from_cfg
+
+def build_from_cfg(cfg, registry, default_args=None):
+...
+
+    args = cfg.copy()
+
+    obj_type = args.pop('type')
+
+    return obj_cls(**args)
+
+</code></pre><p>This function converts a config dictionary to a model.</p>
+<p>This function popes the type from the directory and pass the rest of dict to
+the class defined by the &lsquo;type&rsquo; string.</p>
+<p>For example:</p>
+<p>In following config</p>
+<pre><code>model = dict(
+    type='GlidingVertex',
+    pretrained='torchvision://resnet50',
+    backbone=dict(
+...
+</code></pre><p>type &lsquo;GlidingVertex&rsquo; is the classname, The rest of the parameters are passed to
+the constructor of the class:</p>
+<pre><code>class GlidingVertex(OBBTwoStageDetector):
+
+    def __init__(self,
+                 backbone,
+                 rpn_head,
+                 roi_head,
+                 train_cfg,
+                 test_cfg,
+                 neck=None,
+                 pretrained=None):
+        super(GlidingVertex, self).__init__(
+            backbone=backbone,
+            neck=neck,
+            rpn_head=rpn_head,
+            roi_head=roi_head,
+            train_cfg=train_cfg,
+            test_cfg=test_cfg,
+            pretrained=pretrained)
+</code></pre><p>Each parameter is defined in the dict of the config.</p>
+<p>The dict converting to keyword argument could be demonstrated by following
+sample python code:</p>
+<pre><code>params = dict(
+    id=567,
+    name=&quot;123&quot;,
+    hello=3)
+
+
+def func_test(name, id):
+    print(name, id)
+
+
+func_test(**params)
+</code></pre><h1 id="same-with-building-backbone-and-other-type">same with building backbone and other &lsquo;type&rsquo;</h1>
+<pre><code>    backbone=dict(
+        type='ResNet',
+        depth=50,
+        num_stages=4,
+        out_indices=(0, 1, 2, 3),
+        frozen_stages=1,
+        norm_cfg=dict(type='BN', requires_grad=True),
+        norm_eval=True,
+        style='pytorch'),
+</code></pre><p>This is corresponding to</p>
+<pre><code>OBBDetection/mmdet/models/backbones/resnet.py:337
+</code></pre><p>where parameters are defined</p>
+<pre><code>    Args:
+        depth (int): Depth of resnet, from {18, 34, 50, 101, 152}.
+        stem_channels (int): Number of stem channels. Default: 64.
+        base_channels (int): Number of base channels of res layer. Default: 64.
+        in_channels (int): Number of input image channels. Default: 3.
+        num_stages (int): Resnet stages. Default: 4.
+        strides (Sequence[int]): Strides of the first block of each stage.
+        dilations (Sequence[int]): Dilation of each stage.
+        out_indices (Sequence[int]): Output from which stages.
+        style (str): `pytorch` or `caffe`. If set to &quot;pytorch&quot;, the stride-two
+            layer is the 3x3 conv layer, otherwise the stride-two layer is
+            the first 1x1 conv layer.
+        deep_stem (bool): Replace 7x7 conv in input stem with 3 3x3 conv
+        avg_down (bool): Use AvgPool instead of stride conv when
+            downsampling in the bottleneck.
+        frozen_stages (int): Stages to be frozen (stop grad and set eval mode).
+            -1 means not freezing any parameters.
+        norm_cfg (dict): Dictionary to construct and config norm layer.
+        norm_eval (bool): Whether to set norm layers to eval mode, namely,
+            freeze running stats (mean and var). Note: Effect on Batch Norm
+            and its variants only.
+        plugins (list[dict]): List of plugins for stages, each dict contains:
+
+            - cfg (dict, required): Cfg dict to build plugin.
+            - position (str, required): Position inside block to insert
+              plugin, options are 'after_conv1', 'after_conv2', 'after_conv3'.
+            - stages (tuple[bool], optional): Stages to apply plugin, length
+              should be same as 'num_stages'.
+        with_cp (bool): Use checkpoint or not. Using checkpoint will save some
+            memory while slowing down the training speed.
+        zero_init_residual (bool): Whether to use zero init for last norm layer
+            in resblocks to let them behave as identity.
+
+    Example:
+        &gt;&gt;&gt; from mmdet.models import ResNet
+        &gt;&gt;&gt; import torch
+        &gt;&gt;&gt; self = ResNet(depth=18)
+        &gt;&gt;&gt; self.eval()
+        &gt;&gt;&gt; inputs = torch.rand(1, 3, 32, 32)
+        &gt;&gt;&gt; level_outputs = self.forward(inputs)
+        &gt;&gt;&gt; for level_out in level_outputs:
+        ...     print(tuple(level_out.shape))
+        (1, 64, 8, 8)
+        (1, 128, 4, 4)
+        (1, 256, 2, 2)
+        (1, 512, 1, 1)
+</code></pre><h1 id="off-cause-same-with-fpn-type">off cause same with &lsquo;FPN&rsquo; type</h1>
+<p>FPN is Feature Pyramid Net. Insteading of get features from Image Pyramid, it
+gets feature pyramid from a single image.</p>
+<pre><code>class FPN(nn.Module):
+    &quot;&quot;&quot;
+    Feature Pyramid Network.
+
+    This is an implementation of - Feature Pyramid Networks for Object
+    Detection (https://arxiv.org/abs/1612.03144)
+
+    Args:
+        in_channels (List[int]): Number of input channels per scale.
+        out_channels (int): Number of output channels (used at each scale)
+        num_outs (int): Number of output scales.
+        start_level (int): Index of the start input backbone level used to
+            build the feature pyramid. Default: 0.
+        end_level (int): Index of the end input backbone level (exclusive) to
+            build the feature pyramid. Default: -1, which means the last level.
+        add_extra_convs (bool | str): If bool, it decides whether to add conv
+            layers on top of the original feature maps. Default to False.
+            If True, its actual mode is specified by `extra_convs_on_inputs`.
+            If str, it specifies the source feature map of the extra convs.
+            Only the following options are allowed
+
+            - 'on_input': Last feat map of neck inputs (i.e. backbone feature).
+            - 'on_lateral':  Last feature map after lateral convs.
+            - 'on_output': The last output feature map after fpn convs.
+        extra_convs_on_inputs (bool, deprecated): Whether to apply extra convs
+            on the original feature from the backbone. If True,
+            it is equivalent to `add_extra_convs='on_input'`. If False, it is
+            equivalent to set `add_extra_convs='on_output'`. Default to True.
+        relu_before_extra_convs (bool): Whether to apply relu before the extra
+            conv. Default: False.
+        no_norm_on_lateral (bool): Whether to apply norm on lateral.
+            Default: False.
+        conv_cfg (dict): Config dict for convolution layer. Default: None.
+        norm_cfg (dict): Config dict for normalization layer. Default: None.
+        act_cfg (str): Config dict for activation layer in ConvModule.
+            Default: None.
+        upsample_cfg (dict): Config dict for interpolate layer.
+            Default: `dict(mode='nearest')`
+
+    Example:
+        &gt;&gt;&gt; import torch
+        &gt;&gt;&gt; in_channels = [2, 3, 5, 7]
+        &gt;&gt;&gt; scales = [340, 170, 84, 43]
+        &gt;&gt;&gt; inputs = [torch.rand(1, c, s, s)
+        ...           for c, s in zip(in_channels, scales)]
+        &gt;&gt;&gt; self = FPN(in_channels, 11, len(in_channels)).eval()
+        &gt;&gt;&gt; outputs = self.forward(inputs)
+        &gt;&gt;&gt; for i in range(len(outputs)):
+        ...     print(f'outputs[{i}].shape = {outputs[i].shape}')
+        outputs[0].shape = torch.Size([1, 11, 340, 340])
+        outputs[1].shape = torch.Size([1, 11, 170, 170])
+        outputs[2].shape = torch.Size([1, 11, 84, 84])
+        outputs[3].shape = torch.Size([1, 11, 43, 43])
+    &quot;&quot;&quot;
+</code></pre>
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2021 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

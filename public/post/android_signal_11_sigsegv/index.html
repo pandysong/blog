@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 1720 (android.hardwar), pid 1720 (android.hardwar)</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 1720 (android.hardwar), pid 1720 (android.hardwar)</h1>
+  <div class="blog-post-subheader">
+    <time>04 Apr 2020</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>This document recalls how a crash dump is traced back in source code.</p>
+<h1 id="issue">Issue</h1>
+<pre><code>01-18 09:00:20.529  1707  1707 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 1707 (android.hardwar), pid 1707 (android.hardwar)
+01-18 09:00:20.562  1710  1710 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone
+01-18 09:00:20.563   482   482 I /system/bin/tombstoned: received crash request for pid 1707
+01-18 09:00:20.563  1710  1710 I crash_dump64: performing dump of process 1707 (target tid = 1707)
+01-18 09:00:20.565  1710  1710 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+01-18 09:00:20.566  1710  1710 F DEBUG   : Build fingerprint: 'rockchip/rk3368/rk3368:9/PQ2A.190205.003/pandy03311514:userdebug/test-keys'
+01-18 09:00:20.566  1710  1710 F DEBUG   : Revision: '0'
+01-18 09:00:20.566  1710  1710 F DEBUG   : ABI: 'arm64'
+01-18 09:00:20.566  1710  1710 F DEBUG   : pid: 1707, tid: 1707, name: android.hardwar  &gt;&gt;&gt; /vendor/bin/hw/android.hardware.power@1.0-service &lt;&lt;&lt;
+01-18 09:00:20.566  1710  1710 F DEBUG   : signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0
+01-18 09:00:20.566  1710  1710 F DEBUG   : Cause: null pointer dereference
+01-18 09:00:20.566  1710  1710 F DEBUG   :     x0  0000000000000000  x1  0000000000000000  x2  000000000000000a  x3  0000000000000003
+01-18 09:00:20.566  1710  1710 F DEBUG   :     x4  0000000000000000  x5  8080000000000000  x6  feff4b4047716476  x7  7f7f7f7f7f7f7f7f
+01-18 09:00:20.566  1710  1710 F DEBUG   :     x8  0101010101010101  x9  0000000000000000  x10 0000000000000020  x11 0000007639199e8b
+01-18 09:00:20.566  1710  1710 F DEBUG   :     x12 0000007639199e8c  x13 0000000000000000  x14 0000000000000000  x15 ffffffffffffffff
+01-18 09:00:20.566  1710  1710 F DEBUG   :     x16 0000007639c310e0  x17 0000007639b60290  x18 0000000000000000  x19 000000000000000a
+01-18 09:00:20.566  1710  1710 F DEBUG   :     x20 0000000000000000  x21 00000076391b9140  x22 0000007feb3d0db8  x23 0000007639215380
+01-18 09:00:20.566  1710  1710 F DEBUG   :     x24 000000763a0dd5e0  x25 0000007639215380  x26 0000007639215380  x27 0000007feb3d0d89
+01-18 09:00:20.566  1710  1710 F DEBUG   :     x28 0000000000000001  x29 0000007feb3d0a50
+01-18 09:00:20.567  1710  1710 F DEBUG   :     sp  0000007feb3d0a30  lr  0000007639b89b44  pc  0000007639b602a0
+01-18 09:00:20.576  1710  1710 F DEBUG   : 
+01-18 09:00:20.576  1710  1710 F DEBUG   : backtrace:
+01-18 09:00:20.576  1710  1710 F DEBUG   :     #00 pc 000000000001e2a0  /system/lib64/libc.so (strlen+16)
+01-18 09:00:20.576  1710  1710 F DEBUG   :     #01 pc 0000000000047b40  /system/lib64/libc.so (__strcpy_chk+32)
+01-18 09:00:20.576  1710  1710 F DEBUG   :     #02 pc 00000000000009cc  /vendor/lib64/hw/power.rk3368.so (rk_power_init+180)
+01-18 09:00:20.576  1710  1710 F DEBUG   :     #03 pc 0000000000003348  /vendor/lib64/hw/android.hardware.power@1.0-impl.so (HIDL_FETCH_IPower+240)
+01-18 09:00:20.576  1710  1710 F DEBUG   :     #04 pc 0000000000030980  /system/lib64/vndk-sp-28/libhidltransport.so (_ZZN7android8hardware25PassthroughServiceManager3getERKNS0_11hidl_stringES4_ENKUlPvRKNSt3__112basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEESE_E_clES5_SE_SE_+96)
+01-18 09:00:20.577  1710  1710 F DEBUG   :     #05 pc 000000000002cda4  /system/lib64/vndk-sp-28/libhidltransport.so (android::hardware::PassthroughServiceManager::openLibs(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;, std::__1::function&lt;bool (void*, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;)&gt; const&amp;)+788)
+01-18 09:00:20.577  1710  1710 F DEBUG   :     #06 pc 000000000002f120  /system/lib64/vndk-sp-28/libhidltransport.so (android::hardware::PassthroughServiceManager::get(android::hardware::hidl_string const&amp;, android::hardware::hidl_string const&amp;)+96)
+01-18 09:00:20.577  1710  1710 F DEBUG   :     #07 pc 000000000002dfc4  /system/lib64/vndk-sp-28/libhidltransport.so (android::hardware::details::getRawServiceInternal(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;, bool, bool)+1364)
+01-18 09:00:20.577  1710  1710 F DEBUG   :     #08 pc 000000000000f70c  /system/lib64/vndk-28/android.hardware.power@1.0.so (_ZN7android8hardware7details18getServiceInternalINS0_5power4V1_09BpHwPowerENS4_6IPowerEvvEENS_2spIT0_EERKNSt3__112basic_stringIcNSA_11char_traitsIcEENSA_9allocatorIcEEEEbb+204)
+01-18 09:00:20.577  1710  1710 F DEBUG   :     #09 pc 0000000000000b3c  /vendor/bin/hw/android.hardware.power@1.0-service
+01-18 09:00:20.577  1710  1710 F DEBUG   :     #10 pc 0000000000000aa4  /vendor/bin/hw/android.hardware.power@1.0-service
+01-18 09:00:20.577  1710  1710 F DEBUG   :     #11 pc 00000000000ab570  /system/lib64/libc.so (__libc_init+88)
+</code></pre><h1 id="backtrace-the-code">backtrace the code</h1>
+<p>Using the little tool in <a href="https://github.com/pandysong/crashdump:">https://github.com/pandysong/crashdump:</a></p>
+<p>Following code backtrace is got:</p>
+<pre><code>/proc/self/cwd/bionic/libc/arch-arm64/generic/bionic/strlen.S:102:  pc 000000000001e2a0  /system/lib64/libc.so (strlen+16)
+bionic/libc/bionic/fortify.cpp:475:  pc 0000000000047b40  /system/lib64/libc.so (__strcpy_chk+32)
+out/soong/.intermediates/bionic/libc/libc.llndk/android_arm64_armv8-a_cortex-a53_vendor_shared/gen/include/bits/fortify/string.h:93:  pc 00000000000009cc  /vendor/lib64/hw/power.rk3368.so (rk_power_init+180)
+hardware/interfaces/power/1.0/default/Power.cpp:34:  pc 0000000000003348  /vendor/lib64/hw/android.hardware.power@1.0-impl.so (HIDL_FETCH_IPower+240)
+system/libhidl/transport/ServiceManagement.cpp:380:  pc 0000000000030980  /system/lib64/vndk-sp-28/libhidltransport.so (_ZZN7android8hardware25PassthroughServiceManager3getERKNS0_11hidl_stringES4_ENKUlPvRKNSt3__112basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEESE_E_clES5_SE_SE_+96)
+external/libcxx/include/functional:1916:  pc 000000000002cda4  /system/lib64/vndk-sp-28/libhidltransport.so (android::hardware::PassthroughServiceManager::openLibs(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;, std::__1::function&lt;bool (void*, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;)&gt; const&amp;)+788)
+system/libhidl/transport/ServiceManagement.cpp:368:  pc 000000000002f120  /system/lib64/vndk-sp-28/libhidltransport.so (android::hardware::PassthroughServiceManager::get(android::hardware::hidl_string const&amp;, android::hardware::hidl_string const&amp;)+96)
+system/libhidl/transport/ServiceManagement.cpp:750:  pc 000000000002dfc4  /system/lib64/vndk-sp-28/libhidltransport.so (android::hardware::details::getRawServiceInternal(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt;&gt; const&amp;, bool, bool)+1364)
+system/libhidl/transport/include/hidl/HidlTransportSupport.h:156:  pc 000000000000f70c  /system/lib64/vndk-28/android.hardware.power@1.0.so (_ZN7android8hardware7details18getServiceInternalINS0_5power4V1_09BpHwPowerENS4_6IPowerEvvEENS_2spIT0_EERKNSt3__112basic_stringIcNSA_11char_traitsIcEENSA_9allocatorIcEEEEbb+204)
+bionic/libc/bionic/libc_init_dynamic.cpp:129:  pc 00000000000ab570  /system/lib64/libc.so (__libc_init+88)
+</code></pre>
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

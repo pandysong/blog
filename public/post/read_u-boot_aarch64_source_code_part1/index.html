@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Read u-boot aarch64 source code (part 1)</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Read u-boot aarch64 source code (part 1)</h1>
+  <div class="blog-post-subheader">
+    <time>27 Apr 2019</time>
+  </div>
+  <div class="blog-post-content">
+    <h2 id="introduction">Introduction</h2>
+<p>In previous <a href="../read_u-boot_source_code_part1">code walking through</a>, we uses
+<code>make cscope</code> which is not quite convenient. In this tutorial, we used the new
+method to create cscope database mentioned in
+<a href="../cscope_u-boot_improved">cscope_u-boot_improved</a>.</p>
+<h2 id="starts">start.S</h2>
+<p>After loading the cscope.out, I could find the starting point by the following
+command:</p>
+<pre><code>cs find f start.S
+</code></pre><p>This leads me to the file <code>arm/cpu/armv8/start.S</code>.</p>
+<h2 id="content-values">content values</h2>
+<p>The first instruction is to jump to function <code>reset</code>, just after the branch
+instruction it defines some global variables and _TEXT_BASE is 64bit address
+which is defined during linking.</p>
+<pre><code>#else
+	b	reset
+#endif
+
+	.align 3
+
+.globl	_TEXT_BASE
+_TEXT_BASE:
+	.quad	CONFIG_SYS_TEXT_BASE
+
+</code></pre><p>Then it defines some variables according to the linker script (refer to
+u-boot.lds). <code>_end_ofs</code> is the offset of <code>_end</code>,  <code>_bss_start_ofs</code> is the
+offset of start address of bss section. and <code>_bss_end_ofs</code> is the offset of end
+address of bss section.</p>
+<pre><code>/*
+ * These are defined in the linker script.
+ */
+.globl	_end_ofs
+_end_ofs:
+	.quad	_end - _start
+
+.globl	_bss_start_ofs
+_bss_start_ofs:
+	.quad	__bss_start - _start
+
+.globl	_bss_end_ofs
+_bss_end_ofs:
+	.quad	__bss_end - _start
+</code></pre><h2 id="reset-function">reset function</h2>
+<p>The reset function jumps to a function <code>save_boot_params</code>.</p>
+<pre><code>reset:
+	/* Allow the board to save important registers */
+	b	save_boot_params
+.globl	save_boot_params_ret
+save_boot_params_ret:
+</code></pre><p>From <code>save_boot_params</code>, it jumps back to <code>save_boot_params_ret</code>.</p>
+<h2 id="config_position_independent">CONFIG_POSITION_INDEPENDENT</h2>
+<p>This part of code relocate the address <code>_TEXT_BASE</code>, which is defined when
+linking, to the real run time address <code>_start</code>.</p>
+<pre><code>#if CONFIG_POSITION_INDEPENDENT
+	/*
+	 * Fix .rela.dyn relocations. This allows U-Boot to be loaded to and
+	 * executed at a different address than it was linked at.
+	 */
+pie_fixup:
+	adr	x0, _start		/* x0 &lt;- Runtime value of _start */
+	ldr	x1, _TEXT_BASE		/* x1 &lt;- Linked value of _start */
+	sub	x9, x0, x1		/* x9 &lt;- Run-vs-link offset */
+	adr	x2, __rel_dyn_start	/* x2 &lt;- Runtime &amp;__rel_dyn_start */
+	adr	x3, __rel_dyn_end	/* x3 &lt;- Runtime &amp;__rel_dyn_end */
+pie_fix_loop:
+	ldp	x0, x1, [x2], #16	/* (x0, x1) &lt;- (Link location, fixup) */
+	ldr	x4, [x2], #8		/* x4 &lt;- addend */
+	cmp	w1, #1027		/* relative fixup? */
+	bne	pie_skip_reloc
+	/* relative fix: store addend plus offset at dest location */
+	add	x0, x0, x9
+	add	x4, x4, x9
+	str	x4, [x0]
+pie_skip_reloc:
+	cmp	x2, x3
+	b.lo	pie_fix_loop
+pie_fixup_done:
+#endif
+</code></pre><p>For the details of implementation, we may need another post to discuss.</p>
+<h2 id="other-functionalities">other functionalities</h2>
+<p>The rest of files are:</p>
+<ul>
+<li>disable MMU, data cache, instruction cache,</li>
+<li>call <code>apply_core_errata</code></li>
+<li>call <code>lowlevel_init</code></li>
+</ul>
+<h2 id="end-of-starts">end of start.S</h2>
+<pre><code>master_cpu:
+    bl  _main
+</code></pre><p>Continue with <a href="../read_u-boot_aarch64_source_code_part2">part 2</a></p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

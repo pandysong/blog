@@ -1,0 +1,1035 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Pandy&#39;s Blog</title>
+    <link>https://pandysong.github.io/blog/post/</link>
+    <description>Recent content in Posts on Pandy&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>new way to init array in C lang</title>
+      <link>https://pandysong.github.io/blog/post/lang_c_array_init/</link>
+      <pubDate>Sun, 12 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/lang_c_array_init/</guid>
+      <description>Introduction This note introduces a way to initiliaze an item in an array by its index.
+Using index to init specific item in an array #include &amp;lt;stdio.h&amp;gt; enum { TYPE_1, TYPE_2, TYPE_3, }; static int array[] = { [TYPE_1] = 1, [TYPE_3] = 4, }; int main() { printf(&amp;#34;hello world %d %d\n&amp;#34;, array[1], array[2]); } This is usefuly to insert a new enum type, say if I will change to</description>
+    </item>
+    
+    <item>
+      <title>auditory masking of noise</title>
+      <link>https://pandysong.github.io/blog/post/auditory_masking_of_noise/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/auditory_masking_of_noise/</guid>
+      <description>Introduction This note records some interesting points about acoustic.
+Nature of Human hearing An good explanation of human hearing nature in the paper:
+ Give a pure tone with a certain frequency and intensity, for a normal listener there is a masking threshold function associated with this tone such that if noise is added to the tone and the power spectrum of the noise is strictly below the masking threshold at all frequencies, that noise will be inaudible, i.</description>
+    </item>
+    
+    <item>
+      <title>low cost IPC tear down</title>
+      <link>https://pandysong.github.io/blog/post/low_cost_ipc_tear_down/</link>
+      <pubDate>Thu, 23 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/low_cost_ipc_tear_down/</guid>
+      <description>Low cost IPC It happened that we have an broken IPC:
+main board Main components and connectors on the front side:  the main chip, ANYKA [AK3918EN080][https://www.anyka.com/en/productInfo.aspx?id=105], which is a highly integrated SoC with ARM9 processor, camera interface with ISP and with integrated DDR2 and H.264 encoder. AJ1816, the 8MB Flash The common ground to LED light source board. Lens Mounting Screw 1 Lens Mounting Screw 2 Connected to Lens (Auto Focus?</description>
+    </item>
+    
+    <item>
+      <title>How to send a Break over serial on Mac</title>
+      <link>https://pandysong.github.io/blog/post/mac_send_break_over_serial/</link>
+      <pubDate>Tue, 21 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/mac_send_break_over_serial/</guid>
+      <description>How to send a Break over serial on Mac man screen Shows following:
+ C-a b C-a C-b (break) Send a break to window. </description>
+    </item>
+    
+    <item>
+      <title>active-low property in Linux GPIO driver</title>
+      <link>https://pandysong.github.io/blog/post/linux_gpiod_active-low_property/</link>
+      <pubDate>Tue, 07 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/linux_gpiod_active-low_property/</guid>
+      <description>Introduction How do you understand this line of code?
+gpiod_direction_output(p-&amp;gt;reset_gpio, 1); If document is not read, it might be understood as driving the reset_gpio to high which, however, is not the case.
+The active-low property Please refer to document Documentation/gpio/consumer.txt, The active-low property section explains that 1 means logic active, while 0 means logic de-active. What turns our on the physical GPIO depends on the DTS setting:
+If the GPIO is set as GPIO_ACTIVE_LOW, then 1 will drive to GPIO to low.</description>
+    </item>
+    
+    <item>
+      <title>goodix gt9xx android driver.</title>
+      <link>https://pandysong.github.io/blog/post/goodix_gt9xx_android_driver/</link>
+      <pubDate>Tue, 07 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/goodix_gt9xx_android_driver/</guid>
+      <description>Introduction The Android Linux driver was published here:
+https://github.com/goodix/gt9xx_driver_android
+After reading the code, it is found that when irq-gpios is not set, the code will be working in polling mode. However when I tried to port it to Android 9.0. The code crashes.
+kernel/kernel/locking/rtmutex.c:1536: (discriminator 9) [&amp;lt;ffffff8008b538a8&amp;gt;] rt_mutex_trylock+0x30/0xb8 kernel/drivers/i2c/i2c-core.c:2343: [&amp;lt;ffffff80086b1a98&amp;gt;] i2c_transfer+0x40/0x94 kernel/drivers/input/touchscreen/gt9xx/gt9xx.c:97: [&amp;lt;ffffff800868da2c&amp;gt;] gtp_i2c_read+0xf4/0x1a8 kernel/drivers/input/touchscreen/gt9xx/gt9xx.c:355: [&amp;lt;ffffff800868e198&amp;gt;] gtp_get_points+0x84/0x284 kernel/drivers/input/touchscreen/gt9xx/gt9xx.c:569: [&amp;lt;ffffff800868e540&amp;gt;] gtp_work_func+0x1a8/0x5ec kernel/include/linux/hrtimer.h:393: [&amp;lt;ffffff800868e99c&amp;gt;] gtp_timer_handler+0x18/0x40 kernel/kernel/time/hrtimer.c:1261: [&amp;lt;ffffff800810965c&amp;gt;] __hrtimer_run_queues+0x138/0x350 kernel/kernel/time/hrtimer.c:1362: [&amp;lt;ffffff8008109da8&amp;gt;] hrtimer_interrupt+0xa0/0x1b0 kernel/drivers/clocksource/arm_arch_timer.c:150: [&amp;lt;ffffff80087a5610&amp;gt;] arch_timer_handler_virt+0x28/0x3c kernel/kernel/irq/chip.</description>
+    </item>
+    
+    <item>
+      <title>MIPI DSI panel debugging</title>
+      <link>https://pandysong.github.io/blog/post/mipi_dsi_debug/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/mipi_dsi_debug/</guid>
+      <description>Issue The MIPI DSI panel does not work, it is totally black, showing nothing.
+The logic under the hood Refer to the document for how it works in the MIPI DSI host driver and panel driver.
+After adding a printing in the connector callback functions, it is found that following function is not called during booting up.
+void dw_mipi_dsi_encoder_enable(struct drm_encoder *encoder) But it is called every late:
+[ 43.284590] encoder: dw_mipi_dsi_encoder_enable: debuga start [ 43.</description>
+    </item>
+    
+    <item>
+      <title>MIPI host driver and panel driver</title>
+      <link>https://pandysong.github.io/blog/post/mipi_host_driver_and_panel_driver/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/mipi_host_driver_and_panel_driver/</guid>
+      <description>Introduction The relationship of host driver and panel driver is introduced here. The design is a very good example of a design pattern: aggregation or facade. Declaimer: this document is not a complete reference document for the drivers, but just a notes to understand from one perspective.
+Concepts MIPI DSI Host Driver What is the host? The host basically means the SOC itself. The MIPI Host driver is in e.g.:</description>
+    </item>
+    
+    <item>
+      <title>Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 1720 (android.hardwar), pid 1720 (android.hardwar)</title>
+      <link>https://pandysong.github.io/blog/post/android_signal_11_sigsegv/</link>
+      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/android_signal_11_sigsegv/</guid>
+      <description>Introduction This document recalls how a crash dump is traced back in source code.
+Issue 01-18 09:00:20.529 1707 1707 F libc : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 1707 (android.hardwar), pid 1707 (android.hardwar) 01-18 09:00:20.562 1710 1710 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone 01-18 09:00:20.563 482 482 I /system/bin/tombstoned: received crash request for pid 1707 01-18 09:00:20.563 1710 1710 I crash_dump64: performing dump of process 1707 (target tid = 1707) 01-18 09:00:20.</description>
+    </item>
+    
+    <item>
+      <title>Android stuck in Recovery mode</title>
+      <link>https://pandysong.github.io/blog/post/android_stuck_in_recovery_mode/</link>
+      <pubDate>Thu, 02 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/android_stuck_in_recovery_mode/</guid>
+      <description>Introduction This note records the journey to resolve an boot up issue.
+Issue The issue is that the system is stuck in Recovery mode, after we have created an image for RK3368.
+The appendix shows the full log for the problem. When the how update.img is flashed to eMMC, the first time the system is always going to recovery mode. This is indicated by the initial value in misc.img and u-boot will read it and found that it is first up booting and it will use the kernel and resource from recovery.</description>
+    </item>
+    
+    <item>
+      <title>open source verilog emulation tool</title>
+      <link>https://pandysong.github.io/blog/post/iverilog_hdl/</link>
+      <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/iverilog_hdl/</guid>
+      <description>Introduction FPGA is an interesting topic. Products with different market proposition are on the market. Xilinx&amp;rsquo;s product ranks in high performance while Lattice is on lower cost. Verilog is a HDL (Hardware Description Language). This document describe step to use iverilog on my Mac book.
+Build and Install The steps is written in details on https://github.com/steveicarus/iverilog.git. Please note that it needs the new version of Bison as mentioned &amp;ldquo;It has been reported that bison 2.</description>
+    </item>
+    
+    <item>
+      <title>simple circuit for reed switch to wake up MCU</title>
+      <link>https://pandysong.github.io/blog/post/simple_circuit_for_reed_switch_wake_up/</link>
+      <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/simple_circuit_for_reed_switch_wake_up/</guid>
+      <description>Introduction The reed switch is used in detecting if the door is closed or opened. However the MCU (and maybe for almost all MCU) I used, only accpets the high to low transaction external interrupt for waking up the MCU.
+Hence a simple circuit is needed to allow triggering high to low interrupt in both door closing and door opening. This is basically a form or NOT logic circuit using transistor.</description>
+    </item>
+    
+    <item>
+      <title>Linux Kernel, regmap</title>
+      <link>https://pandysong.github.io/blog/post/regmap/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/regmap/</guid>
+      <description>Why regmap In Linux kernel, if we will need to access I2C or SPI, we usually use the e.g. struct i2c_client to access the bus directly. Common target to access the I2C device is to access the registers, by either reading or writing.
+regmap basically add another abstraction layer on top of struct i2c_client to make it easy to read and write registers.
+User just using struct i2c_client and struct regmap_config to construct a struct regmap, and then could use that to read and write register or only update masked bits in the register using regmap_update_bits.</description>
+    </item>
+    
+    <item>
+      <title>Experiences of &#34;DO NOT PUT PROBE ON CLOCK Signal&#34;</title>
+      <link>https://pandysong.github.io/blog/post/do-not-put-probe-on-clock-signal/</link>
+      <pubDate>Thu, 19 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/do-not-put-probe-on-clock-signal/</guid>
+      <description>Introduction Probe is nice to debug the signals. I have recently use oscilloscope and portable logic analyzer to debug an issue on port camera driver on Rockchip rk3128.
+Story It takes me a while to make the signal looks right to be compatible to rk3128 CIF interface which is a YUV422 with VSYNC, HSYNC and clock with additional 8 bit parallel interface. Everything seems right with my skills exhausted.
+After one day debugging, I feel that it is possible that probe is distorting the signal.</description>
+    </item>
+    
+    <item>
+      <title>Build developer tools on Android</title>
+      <link>https://pandysong.github.io/blog/post/build-bin-in-android/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/build-bin-in-android/</guid>
+      <description>Introduction In Android development environment, source code is organized by modules. It is same for the tool binaries. Some tools are not build or installed by default, especially those for debug purpose.
+AndroidDriverTools The developer&amp;rsquo;s tools such as this one mentioned in below command are not with the usual SDK.
+Here is the step to download and build on your build server:
+cd ~/&amp;lt;your working directory&amp;gt;/ git clone https://github.com/MeekJeen/AndroidDriverTools.git cd AndroidDriverTools/i2c-tools source .</description>
+    </item>
+    
+    <item>
+      <title>Internet ADB on Android</title>
+      <link>https://pandysong.github.io/blog/post/internet-adb/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/internet-adb/</guid>
+      <description>Introduction ADB could be connected wirelessly, other than connecting via USB cable. This could be usefull sometime.
+How to  Enable developer&amp;rsquo;s menu on the android device Enable &amp;ldquo;Internet Adb&amp;rdquo; in the developer&amp;rsquo;s menu then on your computer: adb connect :5555 here 5555 is the default port then you could use adb command as usual for example &amp;ldquo;adb shell&amp;rdquo;  </description>
+    </item>
+    
+    <item>
+      <title>EDID</title>
+      <link>https://pandysong.github.io/blog/post/edid/</link>
+      <pubDate>Wed, 04 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/edid/</guid>
+      <description>Introduction A brief introduction/notes for EDID format when reading the document of &amp;ldquo;E-EDID Standard.pdf&amp;rdquo; V1.3.
+The notes is laid out by explaining on an example
+Block  The EDID is compromised of one or more 128bytes-blocks. The first one is mandatory. Others are not. each block ends up with a checksum byte.  0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x32, 0x8d, 0xc5, 0x07, 0x01, 0x00, 0x00, 0x00, 0x2e, 0x14, 0x01, 0x03, 0x80, 0x59, 0x32, 0x78, 0x0a, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x21, 0x08, 0x80, 0x71, 0x40, 0x81, 0x00, 0x81, 0x40, 0x81, 0x80, 0x95, 0x00, 0xa9, 0xc0, 0xa9, 0x40, 0xd1, 0xc0, 0x01, 0x1d, 0x00, 0x72, 0x51, 0xd0, 0x1e, 0x20, 0x6e, 0x28, 0x55, 0x00, 0xc4, 0x8e, 0x21, 0x00, 0x00, 0x1e, 0x66, 0x21, 0x50, 0xb0, 0x51, 0x00, 0x1b, 0x30, 0x40, 0x70, 0x36, 0x00, 0xa0, 0x5a, 0x00, 0x00, 0x00, 0x1e, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18, 0x4b, 0x1a, 0x51, 0x17, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfc, 0x00, 0x4c, 0x4f, 0x4e, 0x54, 0x49, 0x55, 0x4d, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x01, 0x57, 0x02, 0x03, 0x2f, 0xc1, 0x48, 0x84, 0x13, 0x03, 0x12, 0x02, 0x11, 0x10, 0x1f, 0x23, 0x09, 0x07, 0x07, 0x83, 0x01, 0x00, 0x00, 0x02, 0x00, 0x0f, 0xe3, 0x05, 0x03, 0x01, 0x72, 0x03, 0x0c, 0x00, 0x40, 0x00, 0x80, 0x1e, 0x20, 0xd0, 0x08, 0x01, 0x40, 0x07, 0x3f, 0x40, 0x50, 0x90, 0xa0, 0x01, 0x1d, 0x00, 0xbc, 0x52, 0xd0, 0x1e, 0x20, 0xb8, 0x28, 0x55, 0x40, 0xc4, 0x8e, 0x21, 0x00, 0x00, 0x1e, 0x66, 0x21, 0x56, 0xaa, 0x51, 0x00, 0x1e, 0x30, 0x46, 0x8f, 0x33, 0x00, 0xc4, 0x8e, 0x21, 0x00, 0x00, 0x1e, 0x20, 0x1c, 0x56, 0x86, 0x50, 0x00, 0x20, 0x30, 0x0e, 0x38, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1e, 0x0e, 0x1f, 0x00, 0x80, 0x51, 0x00, 0x1e, 0x30, 0x40, 0x80, 0x37, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xef The second block begins with 0x02, which means it is a block of &amp;ldquo;Additional timing date type 2&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>Vim tips quickfix</title>
+      <link>https://pandysong.github.io/blog/post/vim_tips_quickfix/</link>
+      <pubDate>Sun, 12 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_tips_quickfix/</guid>
+      <description>creat text recognized by quickfix using following command in vim to copy the text to clipboard:
+let @@=expand(&amp;quot;%:p&amp;quot;).&amp;quot;:&amp;quot;.line(&amp;quot;.&amp;quot;).&amp;quot;: &amp;quot;.expand(&amp;quot;&amp;lt;cword&amp;gt;&amp;quot;)  something like following will be yanked:
+`/home/pandy/notes.md:24: finit_module`  You may want to save a list of lines to a file.
+load the files to quick fix window Open the file and then load the current file to quickfix window: :cfile %
+then open the quickfix window: :copen
+Now you could b.</description>
+    </item>
+    
+    <item>
+      <title>Font cannot be found when using pandoc to covert to pdf</title>
+      <link>https://pandysong.github.io/blog/post/pandoc_found_cannot_be_found/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/pandoc_found_cannot_be_found/</guid>
+      <description>Error When running following command to convert a markdown to pdf:
+pandoc xyz.md -o xyz.pdf --pdf-engine=xelatex --template=./xyz_template.tex I get following error.
+kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&#39;, contains &#39; kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&#39;, contains &#39; Error producing PDF. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ! ! fontspec error: &amp;quot;font-not-found&amp;quot; ! ! The font &amp;quot;文泉驿微米黑&amp;quot; cannot be found. ! ! See the fontspec documentation for further information. ! ! For immediate help type H &amp;lt;return&amp;gt;. !............................................... l.21 \setCJKmainfont{文泉驿微米黑} I am using following command in xyz_template.</description>
+    </item>
+    
+    <item>
+      <title>^? shows when pressing &#34;delete&#34; key in Mac</title>
+      <link>https://pandysong.github.io/blog/post/vim_ctrl_question_mark_issue/</link>
+      <pubDate>Sat, 05 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_ctrl_question_mark_issue/</guid>
+      <description>Instead of performing &amp;ldquo;del&amp;rdquo; operation, it shows the ^? characters. The solution is to put following line in .bash_profile.
+stty erase ^H where to input ^H, you will type ctrl+v and then &amp;lsquo;delete&amp;rsquo;.</description>
+    </item>
+    
+    <item>
+      <title>how to append all matches to register</title>
+      <link>https://pandysong.github.io/blog/post/vim_repeat_last_yank_command/</link>
+      <pubDate>Sat, 05 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_repeat_last_yank_command/</guid>
+      <description>how to set cpoptions+=y So for example if we type &amp;ldquo;Ayy, to append the current line to the register a, if we now go to next line which we want to append, you could just type dot command.
+how to append all matches to register :g/some pattern here/yank A yank to register a, but since it is A, so it means append to register A.</description>
+    </item>
+    
+    <item>
+      <title>Android update read-only file system</title>
+      <link>https://pandysong.github.io/blog/post/android_update_bin/</link>
+      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/android_update_bin/</guid>
+      <description>Introduction During development, from time to time, we have to update part of the system by using adb push command, but sometimes the file is in the read-only part:
+remote couldn&#39;t create file: Read-only file system using the following command to remount as with read and write previlige.
+adb root adb shell mount -o rw,remount -t auto / </description>
+    </item>
+    
+    <item>
+      <title>VirtualBox NAT Network</title>
+      <link>https://pandysong.github.io/blog/post/virtual_box_nat_network/</link>
+      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/virtual_box_nat_network/</guid>
+      <description>Introduction I often needs to ssh to the VM which is installed on e.g. a Windows machines (or a macbook) from another host. In this case NAT network is enough.
+NAT basically hide the VM behind the host, but allows to access the server via NAT. For the world outside the host, it only knows the IP address of host. I will need to ssh to VM, I just ssh to the host which will do the port forward to VM</description>
+    </item>
+    
+    <item>
+      <title>addr2line</title>
+      <link>https://pandysong.github.io/blog/post/addr2line/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/addr2line/</guid>
+      <description>Introduction When following back trace is seen, how to debug it?
+[ 4.877849] [&amp;lt;c05f563c&amp;gt;] (sensor_probe+0x314/0xcfc) from [&amp;lt;c05fe870&amp;gt;] (i2c_device_probe+0xa8/0xd4) [ 4.886672] [&amp;lt;c05fe870&amp;gt;] (i2c_device_probe+0xa8/0xd4) from [&amp;lt;c0355550&amp;gt;] (really_probe+0xa8/0x20c) [ 4.895403] [&amp;lt;c0355550&amp;gt;] (really_probe+0xa8/0x20c) from [&amp;lt;c03557ac&amp;gt;] (driver_probe_device+0x30/0x48) [ 4.904395] [&amp;lt;c03557ac&amp;gt;] (driver_probe_device+0x30/0x48) from [&amp;lt;c0355824&amp;gt;] (__driver_attach+0x60/0x84) [ 4.913558] [&amp;lt;c0355824&amp;gt;] (__driver_attach+0x60/0x84) from [&amp;lt;c0353fec&amp;gt;] (bus_for_each_dev+0x50/0x90) [ 4.922459] [&amp;lt;c0353fec&amp;gt;] (bus_for_each_dev+0x50/0x90) from [&amp;lt;c0354da0&amp;gt;] (bus_add_driver+0xac/0x20c) The problem here is how to find the line number according to the address
+uses addr2line Following command will print the line number for the specific address:</description>
+    </item>
+    
+    <item>
+      <title>agent-proxy</title>
+      <link>https://pandysong.github.io/blog/post/agent-proxy/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/agent-proxy/</guid>
+      <description>agent-proxy This is a simple, small proxy which was intended for use with kgdb, or gdbserver type connections where you want to share a text console and a debug session. The idea is that you use the agent-proxy to connect to a serial port directly or to a remote terminal server.  repo https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git mkdir -p /temp/kdmx_is_not_hard cd /temp/kdmx_is_not_hard git clone git://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git cd kdmx make ./kdmx -n -p &amp;quot;/dev/ttyxxxx&amp;quot; -s /temp/kdmx_ports &amp;amp; cu --nostop -l $(cat /temp/kdmx_ports_trm) # when debugging $(CROSS_ARCH)-gdb /path/to/vmlinux -ex &amp;quot;target remote $(cat /temp/kdmx_ports_gdb)&amp;quot; BTW: install gdb on mac http://tomszilagyi.</description>
+    </item>
+    
+    <item>
+      <title>Android aidl code generator</title>
+      <link>https://pandysong.github.io/blog/post/android_aidl/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/android_aidl/</guid>
+      <description>Introduction In Android, in between Java space and normal Linux User space (written in C++), the popular communication interface is called Binder. Two processes in Linux user space could also use Binder to communicate. aidl_generator is the tool to generate the client and server stubs for Binder interface.
+Detail Explanations. The code and document is in the Android source code tree:
+system/tools/aidl/docs/aidl-cpp.md </description>
+    </item>
+    
+    <item>
+      <title>Understanding Android Fence Mechanism</title>
+      <link>https://pandysong.github.io/blog/post/understanding_android_fence/</link>
+      <pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/understanding_android_fence/</guid>
+      <description>Introduction There are a lot of articles discussing about Fence mechanism in Android. But I could not find a simple explanation.
+What Problem Fence try to resolve? Problem 1: Producer pass buffer to consumer before consumer could use the buffer In Android, there is an object called GraphicBuffer, which is passed in between different kind of producuers and consumers. When a producer pass a GraphicBuffer to a consumer, It is possible that the producer is still doing some job on that buffer in background, because the producer may have told GPU to render the buffer.</description>
+    </item>
+    
+    <item>
+      <title>Compile the optee_os</title>
+      <link>https://pandysong.github.io/blog/post/optee_os_init/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/optee_os_init/</guid>
+      <description>Get the source code git clone https://github.com/OP-TEE/optee_os.git How to Compile The code must be compiled with cross-compiler, I have an quad-A7 SDK from Rockchip.
+CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make The default PLATFORM would be vexpress, in order to select a platform:
+PLATFORM=rockchip CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make A complete list of platform could be found in core/arch/arm.
+PSCI (Power State Coordination Interface) One of the secure firmware is to start/stop/suspend additional cores. PSCI is the interface defined by Linux and implemented by underlying vendor specific firmware to power on or power off or suspend the additional cores</description>
+    </item>
+    
+    <item>
+      <title>Understanding Android Repo</title>
+      <link>https://pandysong.github.io/blog/post/understanding_android_repo/</link>
+      <pubDate>Sun, 25 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/understanding_android_repo/</guid>
+      <description>Introduction In Android repo tool, after initializing, there exist following directory under .repo:
+project-objects projects
+How these are organized?
+Basically in projects, the layout is same as the one for the working directory, the project-objects layout is same as the files in the remote server.
+While in the working directory for each project, as usual for git repository, there is a .git directory, which basically has bunch of symbol link to project-objects and projects directory.</description>
+    </item>
+    
+    <item>
+      <title>reading device tree source (dts) file using folded feature in vim</title>
+      <link>https://pandysong.github.io/blog/post/vim-folded-feature-on-dts/</link>
+      <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim-folded-feature-on-dts/</guid>
+      <description>Introduction I am the heavy user of vim and like the folded feature very much. I wanted to use the feature in device tree source file (dts) but it looks it does not support by default. Vim support folded feature for popular languages like C or Python or JavaScript, however it looks not working for dts. I search around on internet and could not find the plugin for dts folder.</description>
+    </item>
+    
+    <item>
+      <title>using wget to download all files</title>
+      <link>https://pandysong.github.io/blog/post/using_wget_to_download/</link>
+      <pubDate>Fri, 26 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/using_wget_to_download/</guid>
+      <description>how to  wget -r -l1 -A.pdf -A.DSN target_web.com/target_url -r means recursive -l1 means recursive depth is 1, &amp;lsquo;-l0&amp;rsquo; means indefinitely</description>
+    </item>
+    
+    <item>
+      <title>Reading Paper in Kindle (converting multi-colums pdf to single column pdf)</title>
+      <link>https://pandysong.github.io/blog/post/reading_paper_in_kindle/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/reading_paper_in_kindle/</guid>
+      <description>The Tool The tool could be found here
+Download it and put it in a path
+How to For the text based pdf file
+k2pdfopt &amp;lt;put_pdf_file_path_here&amp;gt; -ui- -as -om 0.1,0.1,0.1,0.1 To play around the command line options in k2pdfopt, simple type k2pdfopt</description>
+    </item>
+    
+    <item>
+      <title>Understanding How GAN works</title>
+      <link>https://pandysong.github.io/blog/post/understanding_gan/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/understanding_gan/</guid>
+      <description>GAN (Generative Adversarial Network) There are two Models in GAN: - G: Generator and - D: Discriminator
+Train Loss Function The generator will generate some Fake data to cheat Discriminator, the loss function is designed such that the probability to succeed to cheat D is high.
+While for D, there are two inputs, one is the real data, which D should think it is Real, while for input any data generated from G (no matter how real when human will look at) D should always regards it as Fake.</description>
+    </item>
+    
+    <item>
+      <title>A small discussion on `char *` in C and C&#43;&#43;</title>
+      <link>https://pandysong.github.io/blog/post/one_minor_difference_for_c_and_c&#43;&#43;/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/one_minor_difference_for_c_and_c&#43;&#43;/</guid>
+      <description>A piece of code Look at following code:
+#include &amp;lt;stdio.h&amp;gt; int main() { char *s = &amp;quot;hello world&amp;quot;; puts(s); } Note that puts is basically a printf like funtion but without format functinalities.
+Now using the following command to compile as a c program.
+gcc puts_test.c -o puts_test_c There are no errors emitted.
+However if we compile as C++ program:
+g++ -std=c++14 -o puts_test puts_test.cpp puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string literal to &#39;char *&#39; [-Wwritable-strings] char *s = &amp;quot;hello world&amp;quot;; ^ 1 warning generated.</description>
+    </item>
+    
+    <item>
+      <title>Read Source Code with Active Lines Highlighted</title>
+      <link>https://pandysong.github.io/blog/post/read_source_code_with_active_line_highlighted/</link>
+      <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_source_code_with_active_line_highlighted/</guid>
+      <description>cons of cscope database In cscope_for_linux_kernel_or_uboot and cscope_u-boot_improved, it was discussed how to scope the files to the ones actually used.
+But that is not perfact: in the production code like u-boot there are many macros, in an active file which is used in compilation some are active but some are not. When we are reading the code, unless we are debugging in a debugger we do not immediately know which part of code is active (generatting machine code), and which part of code is inactive.</description>
+    </item>
+    
+    <item>
+      <title>vim&#39;s `sign` feature</title>
+      <link>https://pandysong.github.io/blog/post/vim_sign_highlight/</link>
+      <pubDate>Sun, 28 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_sign_highlight/</guid>
+      <description>An example Following define a sign with name piet:
+sign define piet text=. linehl=Search texthl=Search Note that linehl=&amp;lt;groupname&amp;gt; is used to highlight the whole line. We may define a new group using following command
+:highlight &amp;lt;groupname&amp;gt; ctermbg=darkred guibg=darkred Then using the command :sign place to put a sign
+:exe &amp;quot;:sign place 2 line=104 name=piet file=&amp;quot; . expand(&amp;quot;%:p&amp;quot;) Conclusion It is possible to use this feature in the plugin. However I am not sure how I could use the feature without the sign character in the beginning of a line which is a bit annoying.</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot aarch64 source code (part 1)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part1/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part1/</guid>
+      <description>Introduction In previous code walking through, we uses make cscope which is not quite convenient. In this tutorial, we used the new method to create cscope database mentioned in cscope_u-boot_improved.
+start.S After loading the cscope.out, I could find the starting point by the following command:
+cs find f start.S This leads me to the file arm/cpu/armv8/start.S.
+content values The first instruction is to jump to function reset, just after the branch instruction it defines some global variables and _TEXT_BASE is 64bit address which is defined during linking.</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot aarch64 source code (part 2)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part2/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part2/</guid>
+      <description>Introduction _main function is defined in a file called crt0_64.S, which is C-runtime startup Code for AArch64 U-Boot.
+crt0_64.S /* * This file handles the target-independent stages of the U-Boot * start-up where a C runtime environment is needed. Its entry point * is _main and is branched into from the target&#39;s start.S file. * * _main execution sequence is: * * 1. Set up initial environment for calling board_init_f(). * This environment only provides a stack and a place to store * the GD (&#39;global data&#39;) structure, both located in some readily * available RAM (SRAM, locked cache.</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot aarch64 source code (part 3)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part3/</link>
+      <pubDate>Sat, 27 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part3/</guid>
+      <description>run_main_loop(void) This function calls main_loop().
+static int run_main_loop(void) { #ifdef CONFIG_SANDBOX sandbox_main_loop_init(); #endif /* main_loop() can return to retry autoboot, if so just run it again */ for (;;) main_loop(); return 0; } main_loop(void) This is the place to receive command and execute it.
+/* We come here after U-Boot is initialised and ready to process commands */ void main_loop(void) { const char *s; bootstage_mark_name(BOOTSTAGE_ID_MAIN_LOOP, &amp;quot;main_loop&amp;quot;); #ifdef CONFIG_VERSION_VARIABLE env_set(&amp;quot;ver&amp;quot;, version_string); /* set version variable */ #endif /* CONFIG_VERSION_VARIABLE */ cli_init(); run_preboot_environment_command(); #if defined(CONFIG_UPDATE_TFTP) update_tftp(0UL, NULL, NULL); #endif /* CONFIG_UPDATE_TFTP */ s = bootdelay_process(); if (cli_process_fdt(&amp;amp;s)) cli_secure_boot_cmd(s); autoboot_command(s); cli_loop(); panic(&amp;quot;No CLI available&amp;quot;); } </description>
+    </item>
+    
+    <item>
+      <title>.align assemble code</title>
+      <link>https://pandysong.github.io/blog/post/about_align_assemble_code/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/about_align_assemble_code/</guid>
+      <description>Introduction Often we find following assemble code
+.align &amp;lt;n&amp;gt; Where n is an integer which could be e.g. 3, 5
+In this document, we will do some experiment for understanding this.
+Test code Create a file a.S with following content
+mov x0,0xf5 .align 3 mov x0,0xf4 Compile Now using an arm cross compiler to compile above code
+aarch64-linux-gnu-gcc -c a.S This will generate an object file a.o
+pandy@ubuntu:~/temp/asm_test$ file a.o a.</description>
+    </item>
+    
+    <item>
+      <title>.quad assemble code</title>
+      <link>https://pandysong.github.io/blog/post/about_quad_assemble_code/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/about_quad_assemble_code/</guid>
+      <description>Introduction The .quad directive is used to define 64 bit numeric value(s). In similar way how .byte directive works. In this document, we will do some experiment for understanding .quad.
+Test code Create a file a.S with following content
+.globl _start _start: mov x0,0xf5 .quad 0x123456789ABCDEF0,2,3 .align 5 mov x0,0xf4 Compile Now using an arm cross compiler to compile above code
+aarch64-linux-gnu-gcc -c a.S This will generate an object file a.</description>
+    </item>
+    
+    <item>
+      <title>DNN and Voice processing Reference</title>
+      <link>https://pandysong.github.io/blog/post/dnn-voice/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/dnn-voice/</guid>
+      <description>voice improvement https://www.youtube.com/watch?v=zstghz0fWsg
+https://www.analyticsvidhya.com/blog/2018/01/10-audio-processing-projects-applications/
+http://www.utdallas.edu/~mirsamadi/files/mirsamadi_se_is16.pdf
+https://github.com/eesungkim/Speech_Enhancement_DNN_NMF
+Speach Enhancement GAN (Generative Adversarial Network) https://arxiv.org/abs/1703.09452</description>
+    </item>
+    
+    <item>
+      <title>Extend Display without Video Cable</title>
+      <link>https://pandysong.github.io/blog/post/extended_display_without_video_cable/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/extended_display_without_video_cable/</guid>
+      <description>Introduction I need an extended display to show more code. These code exits on remote server or on my local laptop. Usually if I would need an extended display, I would need a cable like HDMI to connect to another display device.
+I do not like this as first of all these cable is not lightweight, and make a mess on your neat table, second laptop would become very hot if it needs to driver additional display.</description>
+    </item>
+    
+    <item>
+      <title>high speed signals on fpga</title>
+      <link>https://pandysong.github.io/blog/post/signals_on_fpga/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/signals_on_fpga/</guid>
+      <description>HDMI vs MIPI Both seem the high speed signal, however it looks HDMI is more complex than MIPI CSI/DSI.
+HDMI have some competing IP provider. While for MIPI, there are some open source project which could encode and decode the MIPI signals. Without digging into the details, the reason behind that is the HDMI is machine to machine interface which could be more comprehensive while for MIPI, it is inter-chip interface, which is used to transfer the data reliably, without consider much from end user point of view.</description>
+    </item>
+    
+    <item>
+      <title>rkdeveloptool on mac</title>
+      <link>https://pandysong.github.io/blog/post/rkdeveloptool_on_mac/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/rkdeveloptool_on_mac/</guid>
+      <description>Refer to https://docs.96rocks.com/rock960/start/installos/tools/macos/</description>
+    </item>
+    
+    <item>
+      <title>SSH Agent How to</title>
+      <link>https://pandysong.github.io/blog/post/ssh-forward/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/ssh-forward/</guid>
+      <description>Step 1 Change config in ~/.ssh/config
+host xxxx user your_prefered_user_name ForwardX11 yes ForwardX11Trusted yes ForwardAgent yes Step 2 Add the key you would like to forward:
+ssh-add ~/.ssh/id_rsa Using commands to verify the key is added:
+ssh-add -l </description>
+    </item>
+    
+    <item>
+      <title>Using Cscope to U-Boot Source Code (Improved)</title>
+      <link>https://pandysong.github.io/blog/post/cscope_u-boot_improved/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/cscope_u-boot_improved/</guid>
+      <description>Disadvantage of make cscope In the post, we uses the infrastructure by u-boot or Linux makefile to build the cscope database. But the disadvantage of that approach is that there are duplicated files for the same functions, so it is difficult the find a single path for the specific build.
+E.g. in the current build
+pandy@ubuntu:~/u-boot-2018.09$ cat cscope.files | wc -l 5342 The database includes 5K files.
+Improvement The approach is to limit the files to the ones used in the real build.</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot source code (part 1)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_source_code_part1/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_source_code_part1/</guid>
+      <description>Introduction By utilizing the make cscope to create cscope database, I could browse a specific build without being confused by a lot of symbols with same names. This document describe very basic scenario on how to read the u-boot source code.
+start.S After loading the cscope.out, I could find search the starting point by the following command
+cs find f start.S This leads me to the file arm/cpu/arm1136/start.S.
+SVC32 SVC32 mode is the mode with highest privilege.</description>
+    </item>
+    
+    <item>
+      <title>Read u-boot source code (part 2)</title>
+      <link>https://pandysong.github.io/blog/post/read_u-boot_source_code_part2/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/read_u-boot_source_code_part2/</guid>
+      <description>disable MMU and data cache #ifndef CONFIG_SKIP_LOWLEVEL_INIT_ONLY /* * Jump to board specific initialization... The Mask ROM will have already initialized * basic memory. Go here to bump up clock rate and handle wake up conditions. */ mov	ip, lr	/* persevere link reg across call */ bl	lowlevel_init	/* go setup pll,mux,memory */ mov	lr, ip	/* restore link */ #endif mov	pc, lr	/* back to my caller */ Register lr save the return address of the function call, before calling lowlevel_init, restore it to lr after that.</description>
+    </item>
+    
+    <item>
+      <title>Run u-boot in qemu</title>
+      <link>https://pandysong.github.io/blog/post/run_u-boot_in_qemu/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/run_u-boot_in_qemu/</guid>
+      <description>Introduction In u-boot source code doc/README.qemu-arm, it could be found that u-boot could run under qemu. This could help to understand or experiment u-boot without a real hardware.
+How to I am running this in a ubuntu virtual machine on my mac book.
+This is for running arm:
+export CROSS_COMPILE=arm-linux-gnueabi- make qemu_arm_defconfig make cscope # This is optional make For AArch64, replace CROSS_COMPILE with correct cross compiler and then:
+export CROSS_COMPILE=aarch64-linux-gnu- make qemu_arm64_defconfig make BTW, install the cross-compiler for aarch64:</description>
+    </item>
+    
+    <item>
+      <title>OpenCV on OSX</title>
+      <link>https://pandysong.github.io/blog/post/opencv2_demo/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/opencv2_demo/</guid>
+      <description>Introduction This document describes how to build a simple opencv project in macos. It is done all in command lines.
+install the minimum set of xcode xcode-select --install install python3 This is needed to run opencv4.
+brew install python3 brew switch python &amp;lt;the version you have installed&amp;gt; test if python3 works
+python3 install opencv brew install opencv@2 pkg-config check if $PKG_CONFIG is configured:
+echo $PKG_CONFIG If not set it
+export PKG_CONFIG=/usr/local/lib/pkgconfig/ This is a tool to setup the path parameters when using command line to build.</description>
+    </item>
+    
+    <item>
+      <title>Using Cscope to read Linux Souce Code or U-Boot Source Code</title>
+      <link>https://pandysong.github.io/blog/post/cscope_for_linux_kernel_or_uboot/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/cscope_for_linux_kernel_or_uboot/</guid>
+      <description>create scope data for Linux Kernel or u-boot Follow the usual instructions on how to build Linux kernel or u-boot until the step which does the real make, at this stage you could create scope data by typing:
+make cscope This will create scope.out, which could be used in vim:
+cs add scope.out Then you could use the command defined in the following section to search the database and jump around.</description>
+    </item>
+    
+    <item>
+      <title>Virtualbox High CPU in Mac</title>
+      <link>https://pandysong.github.io/blog/post/virtualbox_high_cpu_in_mac/</link>
+      <pubDate>Tue, 23 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/virtualbox_high_cpu_in_mac/</guid>
+      <description>How to resolve My problem resolved after following one of the solutions in:
+https://www.virtualbox.org/ticket/18089?cversion=1&amp;amp;cnum_hist=13
+Which is
+I just updated to mac OS 10.14.3 and to VirtualBox 5.2.24, and the problem recurred on a VM where it had been fine before. I had previously set this VM to use the null audio driver. The settings were: Audio Enabled Null Audio Driver ICH AC97 Audio Output Enabled Audio Input Enabled I shut it down, unchecked the first box to disable audio entirely, restarted the VM, and CPU load is normal again.</description>
+    </item>
+    
+    <item>
+      <title>MMU One to One mapping</title>
+      <link>https://pandysong.github.io/blog/post/mmu_one_to_one_map/</link>
+      <pubDate>Sun, 14 Apr 2019 15:00:46 +0800</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/mmu_one_to_one_map/</guid>
+      <description>Introduction What is the purpse of one to one mapping when using MMU? If we have the same physical address with virtual address, why bother to do memory mapping?
+MMU Functionalities Refer to following paragraph in post. In short, the MMU not only provide the memory address mapping, but also provide memory protection for example, set the memory page to read-only or write-only or allowing execution.
+The MMU does much more than mapping a virtual address space to a physical address space of different size.</description>
+    </item>
+    
+    <item>
+      <title>MMU One to One mapping</title>
+      <link>https://pandysong.github.io/blog/post/xquartz_x11_clipboard_sync/</link>
+      <pubDate>Sun, 14 Apr 2019 15:00:46 +0800</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/xquartz_x11_clipboard_sync/</guid>
+      <description>Introduction If you believe everything was setup to enalble the synchronization of clipboard between remote ssh session and local mac, try to toggle &amp;ldquo;Enable syncing&amp;rdquo; in the Clipboard tab of the XQuartz Preferences.
+Refer to https://github.com/XQuartz/xquartz-old-tickets/blob/master/ticket/519.md</description>
+    </item>
+    
+    <item>
+      <title>Replace Toyota RAV4 Font Brake</title>
+      <link>https://pandysong.github.io/blog/post/rav-brake-replacement/</link>
+      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/rav-brake-replacement/</guid>
+      <description>The manual on how to replace front brake</description>
+    </item>
+    
+    <item>
+      <title>Replace Toyota RAV4 Oil Filter</title>
+      <link>https://pandysong.github.io/blog/post/rav-oil-filter-replacement/</link>
+      <pubDate>Fri, 12 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/rav-oil-filter-replacement/</guid>
+      <description>The Engine module of my RAV4 is 3ZR-FAE, which needs 4.2 Liters of engine oil.
+The part number used:
+Oil Filter: 04152 37010 , $22.41 Smug Plug: 90430 12031, $1.98 Oil Filer Tool: 09228 06501 $236.83  The manual on how to remove old filter and install new filter:</description>
+    </item>
+    
+    <item>
+      <title>Mac OSX High CPU; process `opendirectoryrd`</title>
+      <link>https://pandysong.github.io/blog/post/highcpu_opendirectoryrd/</link>
+      <pubDate>Thu, 28 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/highcpu_opendirectoryrd/</guid>
+      <description>High cpu due to opendirectoryrd I found several links where people complaint about high cpu of the process &amp;ldquo;opendirectoryrd&amp;rdquo; in mac, which causes system busy and macbook becomes very hot.
+Here is the how I resolve MY problem.
+Find the problem in system log I found following log repated many times in the system log:
+com.apple.xpc.launchd[1] (com.avast.uninstall): Service only ran for 5 seconds. Pushing respawn out by 5 seconds. How to open the system log?</description>
+    </item>
+    
+    <item>
+      <title>Play with tinycorelinux</title>
+      <link>https://pandysong.github.io/blog/post/tiny-core-linux-vm/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/tiny-core-linux-vm/</guid>
+      <description>The problem My issue is that I got some binary from 3rd party which is a 32bit Linux executive. However I am using Mac, and I do not want to install a big virtual machine on my Mac for this tiny little Linux tools.
+I found a project in Github called noah and tried but not be able to make it run on my Mac.
+At the end of the day, I found tinycorelinux.</description>
+    </item>
+    
+    <item>
+      <title>Install ssh public key</title>
+      <link>https://pandysong.github.io/blog/post/ssh/</link>
+      <pubDate>Fri, 04 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/ssh/</guid>
+      <description>convient command ssh-copy-id This could be used to install the public key to remote server. Instead of manually copy the public manupilate .ssh/authorized_keys</description>
+    </item>
+    
+    <item>
+      <title>Signing a binary in one step or in two steps</title>
+      <link>https://pandysong.github.io/blog/post/sign/</link>
+      <pubDate>Thu, 03 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/sign/</guid>
+      <description>Sign a binary in one step Generate digest and then sign it to get the signature in one step:
+openssl dgst -sha256 -sign ${PRIVATE_KEY} -out ${INPUT_FILE}.sig ${INPUT_FILE}  Two steps Sometimes it is not convenient or not possible to provide a complete binary for other party to sign. Two steps could be used so that one party could only provide digest of the binary for other party to sign.
+ generate digest Digest is generated by the party who owns the input file.</description>
+    </item>
+    
+    <item>
+      <title>Array of pointer to array in C</title>
+      <link>https://pandysong.github.io/blog/post/array_of_pointer_to_array/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/array_of_pointer_to_array/</guid>
+      <description>Introduction Following code demonstrates how to initialize an array of pointer to an int array.
+#include &amp;lt;stdio.h&amp;gt; int main() { int *cmd[] = { (int []){0x1, 0x2, 0x3}, (int []){0x4, 0x5, 0x6, 0x7}, }; printf(&amp;quot;%d %d\n&amp;quot;, cmd[0][1], cmd[1][2]); } See the differences with the following code?
+#include &amp;lt;stdio.h&amp;gt; int main() { int cmd[2][4] = { {0x1, 0x2, 0x3}, {0x4, 0x5, 0x6, 0x7}, }; printf(&amp;quot;%d %d\n&amp;quot;, cmd[0][1], cmd[1][2]); } It is two dimensions array initialization.</description>
+    </item>
+    
+    <item>
+      <title>Infor about Xilinx</title>
+      <link>https://pandysong.github.io/blog/post/xilinx/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/xilinx/</guid>
+      <description>WiKi Page Xilinx BOOT.bin generation https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841976/Prepare+boot+image
+building DTB https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842279/Build+Device+Tree+Blob
+The place to search for Q&amp;amp;A https://china.xilinx.com/support.html</description>
+    </item>
+    
+    <item>
+      <title>notes when developing HDMI interface</title>
+      <link>https://pandysong.github.io/blog/post/hdmi-edid-notes/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/hdmi-edid-notes/</guid>
+      <description>#Introduction
+HDMI is quite popular interface, the negotiation between the video source and vide sink is via EDID, which basically are blocks with 128bytes each block.
+Flexibility The EDID is provided by the sink side via DDC (physically i2c interface) to the video source (e.g. a computer). The source will then decide which format, timing, resolution to send over HDMI signal cable.
+EDID has been evolving while the industry is moving forward.</description>
+    </item>
+    
+    <item>
+      <title>Golang notes</title>
+      <link>https://pandysong.github.io/blog/post/golang_notes/</link>
+      <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/golang_notes/</guid>
+      <description>Language Spec: https://golang.org/ref/spec
+Package: https://golang.org/pkg/
+Must watch 1 Go Concurrency Patterns (slides) : https://www.youtube.com/watch?v=f6kdp27TYZs
+goroutines important: goroutines are not threads. They are cheap, it&amp;rsquo;s practical to have thousands, even hundreds of thousands of goroutines
+channels channel sending and receving are synchronized operations
+Channels are first-class types
+shared memory do not communicate via shared memory using channels instead
+using another goroutine to get the value to other two channels and feed to one channels So that the two channels are not necessarily synchronized</description>
+    </item>
+    
+    <item>
+      <title>Install OpenCV Python in Macos</title>
+      <link>https://pandysong.github.io/blog/post/install_python_opencv_on_mac/</link>
+      <pubDate>Sat, 28 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/install_python_opencv_on_mac/</guid>
+      <description>Install OpenCV Python in Macos There are several tutorial on the internet on how to insall Python OpenCV support.
+Here is the simplifiled guide (for Python 3)
+ brew install opencv go to the virtual environment directory cd lib/python3.6/site-packages/ ln -s /usr/local/opt/opencv/lib/python3.6/site-packages/cv2.cpython-36m-darwin.so cv2.so  Done, and you could test in python
+&amp;gt;&amp;gt;&amp;gt; import cv2 &amp;gt;&amp;gt;&amp;gt; print(cv2.__version__) 3.4.0 </description>
+    </item>
+    
+    <item>
+      <title>Onvif Device Type</title>
+      <link>https://pandysong.github.io/blog/post/onvif-01-device-type/</link>
+      <pubDate>Tue, 24 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/onvif-01-device-type/</guid>
+      <description>Introduction Following are all copied from https://www.onvif.org/
+NVT (Network Video Transmitter)  A Network Video Transmitter (NVT) is an ONVIF device that sends media data over an IP network to a client. For example, an NVT may be an IP network camera or an encoder device. An NVT implements the following services to provide its core functionality:
+ Device service enables an NVT to provide device management functionality such as device capabilities, system and network settings, security settings and firmware upgrade.</description>
+    </item>
+    
+    <item>
+      <title>ONVIF NVA</title>
+      <link>https://pandysong.github.io/blog/post/onvif-02-nva/</link>
+      <pubDate>Tue, 24 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/onvif-02-nva/</guid>
+      <description>Introduction NVA defines following interfaces:
+ Analytics config: config how the analytics could be done on the device Scene description (Mandatory): describe the analytic output, e.g. where the object is and when, either static or dynamic. Rule config (optional): Rules Analytics Engine needs the rule config.  Analytics Config A video analytics configuration can be attached to a Media Profile if the ONVIF Media Service is present. In that case the video analytics configuration becomes connected to a specific video source.</description>
+    </item>
+    
+    <item>
+      <title>Notes about Virtualbox</title>
+      <link>https://pandysong.github.io/blog/post/virtualbox/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/virtualbox/</guid>
+      <description>Virtual Box DHCP Server not working I installed a mini Ubuntu Linux guest, however the host-only network interface could not get appropriate ip address from dhcp server
+$ VBoxManage list dhcpservers NetworkName: HostInterfaceNetworking-vboxnet0 IP: 192.168.56.100 NetworkMask: 255.255.255.0 lowerIPAddress: 192.168.56.101 upperIPAddress: 192.168.56.254 Enabled: No It looks the dhcp server is not enabled, alought it looks enabled from GUI
+$ VBoxManage dhcpserver modify --netname HostInterfaceNetworking-vboxnet0 --enable $ VBoxManage list dhcpservers NetworkName: HostInterfaceNetworking-vboxnet0 IP: 192.</description>
+    </item>
+    
+    <item>
+      <title>C, C&#43;&#43; and Python</title>
+      <link>https://pandysong.github.io/blog/post/cc&#43;&#43;python/</link>
+      <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/cc&#43;&#43;python/</guid>
+      <description>Introduction There are lot of articles on the internet about the differences between different language. However, to do peer to peer comparison sometime does not make sense, as the language (especially new language)is designed has its own market proposition.
+I personally used mostly these three languages, and here to highlight merely according to my personal experiences.
+C ``` C is a general-purpose, high-level language that was originally developed by Dennis M.</description>
+    </item>
+    
+    <item>
+      <title>Haskell notes</title>
+      <link>https://pandysong.github.io/blog/post/haskell/</link>
+      <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/haskell/</guid>
+      <description>courses https://www.seas.upenn.edu/~cis194/fall16/
+Exercies 1 import CodeWorld import Data.Fixed trafficController :: Double -&amp;gt; Picture trafficController t | s &amp;lt; 3 = trafficLight Green | s &amp;lt; 4 = trafficLight Amber | s &amp;lt; 6 = trafficLight Red | s &amp;lt; 7 = trafficLight RedAmber where s = mod&amp;#39; t 7 botCircle c = colored c (translated 0 (-2.5) (solidCircle 1)) midCircle c = colored c (translated 0 0 (solidCircle 1)) topCircle c = colored c (translated 0 2.</description>
+    </item>
+    
+    <item>
+      <title>What is cross-entropy</title>
+      <link>https://pandysong.github.io/blog/post/cross-entropy/</link>
+      <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/cross-entropy/</guid>
+      <description>cross-entropy When reading tensorflow document, it reminds that this post could explain cross-entropy well.
+http://colah.github.io/posts/2015-09-Visual-Information/
+ So, why should you care about cross-entropy? Well, cross-entropy gives us a way to express how different two probability distributions are.
+ </description>
+    </item>
+    
+    <item>
+      <title>Using external file explorer with vim</title>
+      <link>https://pandysong.github.io/blog/post/vim_and_external_file_manager/</link>
+      <pubDate>Wed, 14 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_and_external_file_manager/</guid>
+      <description>using external file explorer http://midnight-commander.org/
+Then config it to use external editor vim
+For open all files in one vim, one may open a vim server
+vim --servername server_name_here then open in other location
+vim --servername server_name_here --remote file_name_here One can get all lines:
+vim --servername server_name_here --remote-expr &amp;quot;getline(1,&#39;$&#39;)&amp;quot; One can issue commands:
+vim --servername server_name_here --remote-send &amp;quot;&amp;lt;ESC&amp;gt;&amp;quot; Through &amp;ndash;remote-expr and &amp;ndash;remote-send, one could almost totally control the vim server.</description>
+    </item>
+    
+    <item>
+      <title>Using markdown to draft diagram</title>
+      <link>https://pandysong.github.io/blog/post/using_markdown_on_diagram/</link>
+      <pubDate>Wed, 14 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/using_markdown_on_diagram/</guid>
+      <description>markdown extension https://support.typora.io/Draw-Diagrams-With-Markdown/</description>
+    </item>
+    
+    <item>
+      <title>Closure notes</title>
+      <link>https://pandysong.github.io/blog/post/4clojure-60/</link>
+      <pubDate>Thu, 28 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/4clojure-60/</guid>
+      <description>Introduction The problem in following pages got attention. http://www.4clojure.com/problem/60#prob-title
+solution Here is my solution which passes the unit tests.
+(fn myreduce ([f coll] (when-let [s (seq coll)] (myreduce f (first s) (rest s)))) ([f v coll] (lazy-seq (cons v (when-let [s (seq coll)] (myreduce f (f v (first s)) (rest s))))))) </description>
+    </item>
+    
+    <item>
+      <title>flutter - Library not loaded - /usr/local/opt/openssl/lib/libssl.1.0.0.dylib</title>
+      <link>https://pandysong.github.io/blog/post/library-not-loaded-usr-local-opt-openssl-lib-libssl.1.0.0.dylib/</link>
+      <pubDate>Thu, 28 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/library-not-loaded-usr-local-opt-openssl-lib-libssl.1.0.0.dylib/</guid>
+      <description>resolve the installation issue Using flutter doctor to check:
+~ flutter doctor Doctor summary (to see all details, run flutter doctor -v): [✓] Flutter (Channel stable, v1.12.13+hotfix.9, on Mac OS X 10.15.4 19E287, locale zh-Hans-CN) [!] Android toolchain - develop for Android devices ✗ Unable to locate Android SDK. Install Android Studio from: https://developer.android.com/studio/index.html On first launch it will assist you in installing the Android SDK components. (or visit https://flutter.dev/setup/#android-setup for detailed instructions).</description>
+    </item>
+    
+    <item>
+      <title>Where to define golang interface</title>
+      <link>https://pandysong.github.io/blog/post/correct_place_to_define_interface_golang/</link>
+      <pubDate>Mon, 22 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/correct_place_to_define_interface_golang/</guid>
+      <description>where to define golang interface https://github.com/golang/go/wiki/CodeReviewComments#interfaces
+Go interfaces generally belong in the package that uses values of the interface type, not the package that implements those values. The implementing package should return concrete (usually pointer or struct) types: that way, new methods can be added to implementations without requiring extensive refactoring.</description>
+    </item>
+    
+    <item>
+      <title>Deep Learning, Pytorch</title>
+      <link>https://pandysong.github.io/blog/post/pytorch_and_cnn/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/pytorch_and_cnn/</guid>
+      <description>What is a CNN From my understanding, Convolutional neural network (ConvNets or CNNs) is basically a neural network where Convolution is used to extract features and neural network is used to do the classification.
+A typical CNN using several layers of convolution (including ReLU and Pooling) to extract features and then flat the output to vectors as inputs to the FC (Full connected network) which is basically the average neural network.</description>
+    </item>
+    
+    <item>
+      <title>Https Proxy Server in Python</title>
+      <link>https://pandysong.github.io/blog/post/simple_proxy_server_in_python/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/simple_proxy_server_in_python/</guid>
+      <description>https proxy server Sometime you may need a simple proxy server to workaround the network limitation.
+https server using https://github.com/qwj/python-proxy
+On windows:
+   pproxy.exe -i http+socks://:8123
+   On Client
+$ pip install &amp;ndash;proxy https://serveraddress:8123 &amp;ndash;user flake8</description>
+    </item>
+    
+    <item>
+      <title>Understanding `yield` in Python</title>
+      <link>https://pandysong.github.io/blog/post/python/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/python/</guid>
+      <description>understanding yield in python def gen(): s = &amp;#34;init string&amp;#34; while True: s = yield s s += &amp;#34; processed&amp;#34; c= gen() print(next(c)) print(format(c.send(&amp;#34;hello&amp;#34;))) The above has following output
+init string hello processed when next(c) is called, the gen function runs until line :
+s = yield s However since it does not send anything (using next()), the gen() function only runs the right part of the statement:
+yield s Now when c.</description>
+    </item>
+    
+    <item>
+      <title>Vim tips</title>
+      <link>https://pandysong.github.io/blog/post/vim_tips/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_tips/</guid>
+      <description>using macro and normal mode command https://medium.com/a-tiny-piece-of-vim/perform-vim-normal-mode-moves-using-the-command-line-730d21d9d19
+view log in vim One may consider to use plugin &amp;ldquo;vim-scripts/LogViewer&amp;rdquo;
+V vs v V to select whole line
+copy the internal command output to buffer This is the workaround:
+:redir @+&amp;gt; :set guifont? :redir END Now in the reigster &amp;ldquo;+, it is the output of set guifont?. we can not using &amp;ldquo;+p to paste the register content to buffer.
+Excellent Lint Plugin It works out of box as long as the lint tool is available in the system.</description>
+    </item>
+    
+    <item>
+      <title>Vim Plugin for Python Code Folding</title>
+      <link>https://pandysong.github.io/blog/post/vim_python_code_fold/</link>
+      <pubDate>Tue, 12 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_python_code_fold/</guid>
+      <description>Vim Plugin for Python Code Folding https://github.com/tmhedberg/SimpylFold</description>
+    </item>
+    
+    <item>
+      <title>Javascript Notes</title>
+      <link>https://pandysong.github.io/blog/post/javascript/</link>
+      <pubDate>Mon, 28 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/javascript/</guid>
+      <description>books starter book Easy to follow free book:
+https://www.syncfusion.com/ebooks/javascript</description>
+    </item>
+    
+    <item>
+      <title>Some thoughts about a programming language</title>
+      <link>https://pandysong.github.io/blog/post/programing_language_thoughts/</link>
+      <pubDate>Sun, 13 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/programing_language_thoughts/</guid>
+      <description>Programming language Reflect (On reading golang reflect) Reflect is not good, I feel like it tries to climb over a wall which was built by golang own. The best is not to build the wall at all.
+Type safety (On reading some c code enfocing type safety)
+Type safety is good to resolve part of the programing problems (which some people think is critical to have not to introducing a subtle bugs which is difficut to debug, which I do not think), but it ignores that we have a lot more other problems which could introduce bugs, &amp;ldquo;type safe&amp;rdquo; loses great flexibility to resolve those other problems.</description>
+    </item>
+    
+    <item>
+      <title>Understanding `yield` in Python</title>
+      <link>https://pandysong.github.io/blog/post/python_project_list/</link>
+      <pubDate>Thu, 03 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/python_project_list/</guid>
+      <description>Python Project List https://github.com/checkcheckzz/python-github-projects
+https://awesome-python.com/</description>
+    </item>
+    
+    <item>
+      <title>Golang goroutine</title>
+      <link>https://pandysong.github.io/blog/post/golang_goroutine/</link>
+      <pubDate>Wed, 17 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/golang_goroutine/</guid>
+      <description>golang goroutine goroutine has advantages on correntcy which could make the application flow streamlized. But people may forget another important factor that goroutine is stateful. So if you are make a statemachine or something similar, it might be code of smell, probably it could be optimized off.</description>
+    </item>
+    
+    <item>
+      <title>Tmux how to update DISPLAY env vars</title>
+      <link>https://pandysong.github.io/blog/post/tmux_display_env/</link>
+      <pubDate>Sat, 28 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/tmux_display_env/</guid>
+      <description>tmux how to update DISPLAY env vars if tmux attached to an existing session by using
+tmux attach-session -t your-session-name The DISPLAY env var may still be the old value kept from when it was detached.
+Following blog provides a solution
+https://raimue.blog/2013/01/30/tmux-update-environment/
+It introduces a shell function:
+function tmux() { local tmux=$(type -fp tmux) case &amp;#34;$1&amp;#34; in update-environment|update-env|env-update) local v while read v; do if [[ $v == -* ]]; then unset ${v/#-/} else # Add quotes around the argument v=${v/=/=\&amp;#34;} v=${v/%/\&amp;#34;} eval export $v fi done &amp;lt; &amp;lt;(tmux show-environment) ;; *) $tmux &amp;#34;$@&amp;#34; ;; esac } Save it to a file ~/.</description>
+    </item>
+    
+    <item>
+      <title>X11 forwarding</title>
+      <link>https://pandysong.github.io/blog/post/x11_forwarding/</link>
+      <pubDate>Sat, 28 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/x11_forwarding/</guid>
+      <description>X11 forwarding How X11 forwarding works (in High Level) This blog explains clearly in high level how it works.
+http://alexteichman.com/octo/blog/2014/01/01/x11-forwarding-and-terminal-multiplexers/</description>
+    </item>
+    
+    <item>
+      <title>Bash notes</title>
+      <link>https://pandysong.github.io/blog/post/bash_notes/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/bash_notes/</guid>
+      <description>Commands
+  set -o vi to set the vi editing mode
+  clear screen ESC to enter vi editing mode CTRL-L
+  put # at the begning of line to put that line to history file
+  CTRL-U to erase whole line
+  CTRL-S to stop sending the typing characters and buffer them, CTRL-Q to resume and send the buffered keys
+  CTRL-D to terminate the inputs</description>
+    </item>
+    
+    <item>
+      <title>Python Notes</title>
+      <link>https://pandysong.github.io/blog/post/programming_in_python3/</link>
+      <pubDate>Fri, 28 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/programming_in_python3/</guid>
+      <description>Key Points This describes the key points when reading the book programming in Python 3.
+get help use help (function name) in Python shell.
+Data Types In Python, both str and the basic numeric types such as int are immutable. That is, once set, their value cannot be changed.
+Convert Types To convert a data item from one type to another, we can use the syntax type (item). For example</description>
+    </item>
+    
+    <item>
+      <title>Linux Notes</title>
+      <link>https://pandysong.github.io/blog/post/linux_kernel_notes/</link>
+      <pubDate>Thu, 28 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/linux_kernel_notes/</guid>
+      <description>basic command uname $ uname -a Linux syd-svr-pes 4.16.9-1-ARCH #1 SMP PREEMPT Thu May 17 02:10:09 UTC 2018 x86_64 GNU/Linux driver modules /lib/modules cd /lib/modules lsmod $ lsmod Module Size Used by nf_conntrack_ipv4 16384 18 ... ... ... let tar to figure out the compression way tar xf somefile.tar.xz more is old utility, use less instead of more Becuase less is a bit massive than more, some embedded system only have more.</description>
+    </item>
+    
+    <item>
+      <title>Some books</title>
+      <link>https://pandysong.github.io/blog/post/books/</link>
+      <pubDate>Fri, 28 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/books/</guid>
+      <description>C book Algorithms\ in\ C\ [Sedgewick\ 1990-01-01]</description>
+    </item>
+    
+  </channel>
+</rss>

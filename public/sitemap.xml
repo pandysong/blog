@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/lang_c_array_init/</loc>
+    <lastmod>2020-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/auditory_masking_of_noise/</loc>
+    <lastmod>2020-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/low_cost_ipc_tear_down/</loc>
+    <lastmod>2020-04-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/mac_send_break_over_serial/</loc>
+    <lastmod>2020-04-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/linux_gpiod_active-low_property/</loc>
+    <lastmod>2020-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/goodix_gt9xx_android_driver/</loc>
+    <lastmod>2020-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/mipi_dsi_debug/</loc>
+    <lastmod>2020-04-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/mipi_host_driver_and_panel_driver/</loc>
+    <lastmod>2020-04-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/android_signal_11_sigsegv/</loc>
+    <lastmod>2020-04-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/android_stuck_in_recovery_mode/</loc>
+    <lastmod>2020-04-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/iverilog_hdl/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/simple_circuit_for_reed_switch_wake_up/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/regmap/</loc>
+    <lastmod>2020-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/do-not-put-probe-on-clock-signal/</loc>
+    <lastmod>2020-03-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/build-bin-in-android/</loc>
+    <lastmod>2020-03-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/internet-adb/</loc>
+    <lastmod>2020-03-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/edid/</loc>
+    <lastmod>2020-03-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/vim_tips_quickfix/</loc>
+    <lastmod>2020-01-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/pandoc_found_cannot_be_found/</loc>
+    <lastmod>2019-12-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/vim_ctrl_question_mark_issue/</loc>
+    <lastmod>2019-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/vim_repeat_last_yank_command/</loc>
+    <lastmod>2019-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/android_update_bin/</loc>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/virtual_box_nat_network/</loc>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/addr2line/</loc>
+    <lastmod>2019-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/agent-proxy/</loc>
+    <lastmod>2019-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/android_aidl/</loc>
+    <lastmod>2019-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/understanding_android_fence/</loc>
+    <lastmod>2019-09-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/optee_os_init/</loc>
+    <lastmod>2019-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/understanding_android_repo/</loc>
+    <lastmod>2019-08-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/vim-folded-feature-on-dts/</loc>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/using_wget_to_download/</loc>
+    <lastmod>2019-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/reading_paper_in_kindle/</loc>
+    <lastmod>2019-07-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/understanding_gan/</loc>
+    <lastmod>2019-07-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/one_minor_difference_for_c_and_c&#43;&#43;/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/read_source_code_with_active_line_highlighted/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/vim_sign_highlight/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part1/</loc>
+    <lastmod>2019-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part2/</loc>
+    <lastmod>2019-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part3/</loc>
+    <lastmod>2019-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/about_align_assemble_code/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/about_quad_assemble_code/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/dnn-voice/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/extended_display_without_video_cable/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/signals_on_fpga/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/rkdeveloptool_on_mac/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/ssh-forward/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/cscope_u-boot_improved/</loc>
+    <lastmod>2019-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/read_u-boot_source_code_part1/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/read_u-boot_source_code_part2/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/run_u-boot_in_qemu/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/opencv2_demo/</loc>
+    <lastmod>2019-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/cscope_for_linux_kernel_or_uboot/</loc>
+    <lastmod>2019-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/virtualbox_high_cpu_in_mac/</loc>
+    <lastmod>2019-04-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/mmu_one_to_one_map/</loc>
+    <lastmod>2019-04-14T15:00:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/xquartz_x11_clipboard_sync/</loc>
+    <lastmod>2019-04-14T15:00:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/rav-brake-replacement/</loc>
+    <lastmod>2019-04-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/about/</loc>
+    <lastmod>2019-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/rav-oil-filter-replacement/</loc>
+    <lastmod>2019-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/highcpu_opendirectoryrd/</loc>
+    <lastmod>2019-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/tiny-core-linux-vm/</loc>
+    <lastmod>2019-01-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/ssh/</loc>
+    <lastmod>2019-01-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/sign/</loc>
+    <lastmod>2019-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/array_of_pointer_to_array/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/xilinx/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/hdmi-edid-notes/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/golang_notes/</loc>
+    <lastmod>2018-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/install_python_opencv_on_mac/</loc>
+    <lastmod>2018-04-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/onvif-01-device-type/</loc>
+    <lastmod>2018-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/onvif-02-nva/</loc>
+    <lastmod>2018-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/virtualbox/</loc>
+    <lastmod>2018-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/cc&#43;&#43;python/</loc>
+    <lastmod>2018-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/haskell/</loc>
+    <lastmod>2018-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/cross-entropy/</loc>
+    <lastmod>2018-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/vim_and_external_file_manager/</loc>
+    <lastmod>2018-02-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/using_markdown_on_diagram/</loc>
+    <lastmod>2018-02-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/4clojure-60/</loc>
+    <lastmod>2017-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/library-not-loaded-usr-local-opt-openssl-lib-libssl.1.0.0.dylib/</loc>
+    <lastmod>2017-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/correct_place_to_define_interface_golang/</loc>
+    <lastmod>2017-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/pytorch_and_cnn/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/simple_proxy_server_in_python/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/python/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/vim_tips/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/vim_python_code_fold/</loc>
+    <lastmod>2016-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/javascript/</loc>
+    <lastmod>2016-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/programing_language_thoughts/</loc>
+    <lastmod>2016-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/python_project_list/</loc>
+    <lastmod>2016-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/golang_goroutine/</loc>
+    <lastmod>2016-02-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/tmux_display_env/</loc>
+    <lastmod>2015-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/x11_forwarding/</loc>
+    <lastmod>2015-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/bash_notes/</loc>
+    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/programming_in_python3/</loc>
+    <lastmod>2014-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/linux_kernel_notes/</loc>
+    <lastmod>2013-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/books/</loc>
+    <lastmod>2012-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/</loc>
+    <lastmod>2020-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/</loc>
+    <lastmod>2020-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/tags/</loc>
+  </url>
+  
+</urlset>

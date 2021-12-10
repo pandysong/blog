@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Understanding Android Fence Mechanism</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Understanding Android Fence Mechanism</h1>
+  <div class="blog-post-subheader">
+    <time>14 Sep 2019</time>
+  </div>
+  <div class="blog-post-content">
+    <h2 id="introduction">Introduction</h2>
+<p>There are a lot of articles discussing about Fence mechanism in Android. But I
+could not find a simple explanation.</p>
+<h2 id="what-problem-fence-try-to-resolve">What Problem Fence try to resolve?</h2>
+<h3 id="problem-1-producer-pass-buffer-to-consumer-before-consumer-could-use-the-buffer">Problem 1: Producer pass buffer to consumer before consumer could use the buffer</h3>
+<p>In Android, there is an object called <code>GraphicBuffer</code>, which is passed in
+between different kind of <code>producuers</code> and <code>consumers</code>. When a <code>producer</code> pass
+a <code>GraphicBuffer</code> to a <code>consumer</code>, It is possible that the <code>producer</code> is still
+doing some job on that buffer in background, because the producer may have told
+GPU to render the buffer. For performance consideration, CPU could not wait for
+GPU to finish the job before hand over the buffer to <code>consumer</code>.</p>
+<p>Fence was invented to allow to pass the ownership before the buffer is ready to
+be consumed.</p>
+<h3 id="problem-2-the-producer-would-dequeue-the-buffer-before-it-could-overwrite-the-buffer">Problem 2: The Producer would dequeue the buffer before it could overwrite the buffer</h3>
+<p>The same problem exists when the consumer finishes using the buffer by
+releasing a buffer to buffer queue, but there are some background jobs ongoing
+which is using the buffer. The producer could dequeue the buffer but have to
+wait for the fence to be signaled before it could actually overwritten the
+buffer.</p>
+<p>See following description in <em>frameworks/native/include/gui/ConsumerBase.h</em></p>
+<pre><code>        // mFence is a fence which will signal when the buffer associated with
+        // this buffer slot is no longer being used by the consumer and can be
+        // overwritten. The buffer can be dequeued before the fence signals;
+        // the producer is responsible for delaying writes until it signals.
+        sp&lt;Fence&gt; mFence;
+</code></pre><h2 id="how-it-works">How it works</h2>
+<p>When a consumer <code>acquireBuffer()</code>, it will also copy/get the fence that in the
+future it could wait on.</p>
+<pre><code>
+status_t ConsumerBase::acquireBufferLocked(BufferItem *item,
+        nsecs_t presentWhen, uint64_t maxFrameNumber) {
+...
+
+    status_t err = mConsumer-&gt;acquireBuffer(item, presentWhen, maxFrameNumber);
+...
+
+    mSlots[item-&gt;mSlot].mFence = item-&gt;mFence;
+...
+}
+
+</code></pre><p>Above code acquire a buffer from buffer queue and save the fence</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

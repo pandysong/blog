@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>.align assemble code</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>.align assemble code</h1>
+  <div class="blog-post-subheader">
+    <time>26 Apr 2019</time>
+  </div>
+  <div class="blog-post-content">
+    <h2 id="introduction">Introduction</h2>
+<p>Often we find following assemble code</p>
+<pre><code>.align &lt;n&gt;
+</code></pre><p>Where n is an integer which could be e.g. 3, 5</p>
+<p>In this document, we will do some experiment for understanding this.</p>
+<h2 id="test-code">Test code</h2>
+<p>Create a file <code>a.S</code> with following content</p>
+<pre><code>mov x0,0xf5
+.align 3
+mov x0,0xf4
+</code></pre><h2 id="compile">Compile</h2>
+<p>Now using an arm cross compiler to compile above code</p>
+<pre><code>aarch64-linux-gnu-gcc -c a.S
+</code></pre><p>This will generate an object file a.o</p>
+<pre><code>pandy@ubuntu:~/temp/asm_test$ file a.o
+a.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), not stripped
+</code></pre><h2 id="disassemble-the-code">Disassemble the code</h2>
+<p>Let&rsquo;s check what is the generated code:</p>
+<pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
+
+a.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 &lt;.text&gt;:
+   0:   d2801ea0        mov     x0, #0xf5                       // #245
+   4:   d503201f        nop
+   8:   d2801e80        mov     x0, #0xf4                       // #244
+</code></pre><p>It is found that after .align 3, the code is put to the alignment of 8, which
+happens to be <code>2^3</code>.</p>
+<h1 id="more-testing">More testing</h1>
+<p>Let&rsquo;s do some change:</p>
+<pre><code>mov x0,0xf5
+.align 5
+mov x0,0xf4
+</code></pre><pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
+
+a.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 &lt;.text&gt;:
+   0:   d2801ea0        mov     x0, #0xf5                       // #245
+   4:   d503201f        nop
+   8:   d503201f        nop
+   c:   d503201f        nop
+  10:   d503201f        nop
+  14:   d503201f        nop
+  18:   d503201f        nop
+  1c:   d503201f        nop
+  20:   d2801e80        mov     x0, #0xf4                       // #244
+</code></pre><p>0x20 happens to be 2^5.</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

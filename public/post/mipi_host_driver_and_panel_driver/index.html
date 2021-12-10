@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>MIPI host driver and panel driver</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>MIPI host driver and panel driver</h1>
+  <div class="blog-post-subheader">
+    <time>05 Apr 2020</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>The relationship of host driver and panel driver is introduced here. The design
+is a very good example of a design pattern: aggregation or facade. Declaimer:
+this document is not a complete reference document for the drivers, but just a
+notes to understand from one perspective.</p>
+<h1 id="concepts">Concepts</h1>
+<h2 id="mipi-dsi-host-driver">MIPI DSI Host Driver</h2>
+<p>What is the host? The host basically means the SOC itself. The MIPI Host driver
+is in e.g.:</p>
+<pre><code>drivers/gpu/drm/rockchip/dw-mipi-dsi.c  
+</code></pre><p>It controls the registers in SOC in order to connect to a panel.</p>
+<h2 id="mipi-panel-driver">MIPI Panel Driver</h2>
+<p>What is the panel? It basically means the Panel, which could be controlled BY
+SoC via communication channels, for example in case of MIPI DSI, the host could
+control the panel by DSI commands via D0.</p>
+<h2 id="connector">Connector</h2>
+<p>A connector is an aggregate <code>concept</code>. The separation of <code>Host driver</code> and
+<code>Panel driver</code> is for decoupling the two logic parts. However it might be
+confusing for the client of host driver and panel driver, as the client just
+how to <code>show</code> or <code>display</code>. A <code>connector</code> is an aggregation of two logical
+parts and expose only one interface to the client.</p>
+<h1 id="how-these-two-drivers-are-bound-together">How these two drivers are bound together</h1>
+<p>So how these two driver interact with each other? This is no magic here, it
+is done via callbacks/registrations. Specifically, it is done via <code>component</code>.</p>
+<p>Refer to
+<a href="https://www.kernel.org/doc/html/latest/driver-api/component.html">link</a> for
+the details of concept of <code>component</code>:</p>
+<p>In short, component allows to aggregate drivers into an aggregated driver. In
+our case, it helps to aggregate the MIPI DSI host driver and sub-dev panel
+driver.</p>
+<p>In a bit more details, the host driver register its self as a component, once
+it is done, the <code>bind</code> callback will be called by the <code>component</code> system. In
+this <code>bind</code> callback, the host driver will try to do the binding with its
+panel driver.</p>
+<h2 id="more-details">More details</h2>
+<p>The design of <code>component</code> is quite simple but powerful. It allows the host
+driver and panel driver to become more static, but move the dynamic part under
+the cover of <code>component</code> helper system.</p>
+<h3 id="probing-of-host-driver">probing of host driver</h3>
+<p>During probe of MIPI DSI Host driver, following component (ops) is registered:</p>
+<pre><code>ret = component_add(dev, &amp;dw_mipi_dsi_ops);
+</code></pre><p>The host DSI ops has two callback functions: <code>bind</code> and <code>unbind</code>.</p>
+<pre><code>static const struct component_ops dw_mipi_dsi_ops = {
+    .bind   = dw_mipi_dsi_bind,
+    .unbind = dw_mipi_dsi_unbind,
+};
+</code></pre><h3 id="component-calling-bind-callback">Component calling <code>bind</code> callback</h3>
+<p>In this binding function it will check if the panel driver is available. If
+not, it will return <code>EPROBE_DEFER</code> to indicate the <code>component</code> system that
+&lsquo;please call me later&rsquo;. The component system will call it again a bit later.</p>
+<p>Following function is called to check if the panel is available:</p>
+<pre><code>dsi-&gt;panel = of_drm_find_panel(dsi-&gt;client);
+</code></pre><p><code>of_drm_find_panel</code> is a helper function to check if the panel is already added
+by function <code>drm_panel_add</code>, which is called by panel driver during probing.</p>
+<p>Refer to:</p>
+<pre><code>drivers/gpu/drm/drm_panel.c 
+</code></pre><h3 id="probing-of-panel-driver">probing of panel driver</h3>
+<p>Refer to following source code for for the calling of <code>drm_panel_add</code> by the
+panel driver:</p>
+<pre><code>drivers/gpu/drm/panel/panel-simple.c
+</code></pre><h3 id="continuing-of-probing-of-host-driver">continuing of probing of Host driver</h3>
+<p>Once the host driver (in binding function) find the correct panel, it will
+continue its logic, it will other factors and it may tell to be called later
+again by return <code>-EPROBE_DEFER</code>.</p>
+<p>Refer to a specific host driver:</p>
+<pre><code>drivers/gpu/drm/rockchip/dw-mipi-dsi.c
+</code></pre><h3 id="connector-1"><code>connector</code></h3>
+<h4 id="get_modes"><code>get_modes</code></h4>
+<p>As we understand earlier, <code>connector</code> will expose some functions. One of them
+is <code>get_modes</code> function, as shown in below:</p>
+<pre><code>static const struct drm_connector_helper_funcs
+dw_mipi_dsi_connector_helper_funcs = {
+    .get_modes = dw_mipi_dsi_connector_get_modes,
+    .best_encoder = dw_mipi_dsi_connector_best_encoder,
+};
+</code></pre><p>It will call the panel&rsquo;s driver&rsquo;s function eventually:</p>
+<pre><code>int panel_simple_get_modes(struct drm_panel *panel)
+</code></pre><h5 id="encoder"><code>encoder</code></h5>
+<p>Another part of a <code>connector</code> is the encoder, the encoder has several callbacks
+to be used by the client:</p>
+<pre><code>static const struct drm_encoder_helper_funcs
+dw_mipi_dsi_encoder_helper_funcs = {
+    .loader_protect = dw_mipi_dsi_encoder_loader_protect,
+    .mode_set = dw_mipi_dsi_encoder_mode_set,
+    .enable = dw_mipi_dsi_encoder_enable,
+    .disable = dw_mipi_dsi_encoder_disable,
+    .atomic_check = dw_mipi_dsi_encoder_atomic_check,
+};
+</code></pre><h1 id="initialization-steps">Initialization Steps</h1>
+<ul>
+<li>DSI Encoder Enabled (Set the Lane/Clock)</li>
+<li>Set the VoP routing to DSI</li>
+<li>Set the DSI to command mode</li>
+<li>Toggle Panel&rsquo;s Reset pin and Enable pin to activate panel (for receiving commands)</li>
+<li>After some delay, send init-sequence commands</li>
+<li>Set the DSI to video mode (so DSI could output video packets)</li>
+<li>Enable Panel&rsquo;s backlight</li>
+</ul>
+<h1 id="summary">Summary</h1>
+<p>The <code>aggregation</code> design patten allows logic separation of host driver and
+panel driver. While <code>facade</code> design patten allows an unified interface to the
+client.</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

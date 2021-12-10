@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>flutter - Library not loaded - /usr/local/opt/openssl/lib/libssl.1.0.0.dylib</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>flutter - Library not loaded - /usr/local/opt/openssl/lib/libssl.1.0.0.dylib</h1>
+  <div class="blog-post-subheader">
+    <time>28 Sep 2017</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="resolve-the-installation-issue">resolve the installation issue</h1>
+<p>Using <code>flutter doctor</code> to check:</p>
+<pre><code>~ flutter doctor
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, v1.12.13+hotfix.9, on Mac OS X 10.15.4 19E287, locale zh-Hans-CN)
+[!] Android toolchain - develop for Android devices
+    ✗ Unable to locate Android SDK.
+      Install Android Studio from: https://developer.android.com/studio/index.html
+      On first launch it will assist you in installing the Android SDK components.
+      (or visit https://flutter.dev/setup/#android-setup for detailed instructions).
+      If the Android SDK has been installed to a custom location, set ANDROID_HOME to that location.
+      You may also want to add it to your PATH environment variable.
+
+    ✗ No valid Android SDK platforms found in /usr/local/Caskroom/android-platform-tools/29.0.2/platforms. Directory was empty.
+[!] Xcode - develop for iOS and macOS (Xcode 11.4.1)
+    ✗ CocoaPods not installed.
+        CocoaPods is used to retrieve the iOS and macOS platform side's plugin code that responds to your plugin usage on the Dart side.
+        Without CocoaPods, plugins will not work on iOS or macOS.
+        For more info, see https://flutter.dev/platform-plugins
+      To install:
+        sudo gem install cocoapods
+[!] Android Studio (not installed)
+[!] Connected device
+    ! No devices available
+
+! Doctor found issues in 4 categories.
+</code></pre><p>It looks we have to install CocoaPods:</p>
+<pre><code>~ sudo gem install cocoapods
+Password:
+ERROR:  Loading command: install (LoadError)
+        dlopen(/usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/x86_64-darwin17/openssl.bundle, 9): Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib
+  Referenced from: /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/x86_64-darwin17/openssl.bundle
+  Reason: image not found - /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/x86_64-darwin17/openssl.bundle
+ERROR:  While executing gem ... (NoMethodError)
+    undefined method `invoke_with_build_args' for nil:NilClass
+``
+
+
+The reason is that the openssl version is already 1.1, while `gem install`
+needs the openssl version 1.0:
+
+</code></pre><p>~ brew info openssl
+<a href="mailto:openssl@1.1">openssl@1.1</a>: stable 1.1.1f (bottled) [keg-only]
+Cryptography and SSL/TLS Toolkit
+<a href="https://openssl.org/">https://openssl.org/</a>
+/usr/local/Cellar/openssl@1.1/1.1.1d (7,983 files, 17.9MB)
+Poured from bottle on 2020-03-15 at 18:48:17
+From: <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/openssl@1.1.rb">https://github.com/Homebrew/homebrew-core/blob/master/Formula/openssl@1.1.rb</a>
+==&gt; Caveats
+A CA file has been bootstrapped using certificates from the system
+keychain. To add additional certificates, place .pem files in
+/usr/local/etc/openssl@1.1/certs</p>
+<p>and run
+/usr/local/opt/openssl@1.1/bin/c_rehash</p>
+<p><a href="mailto:openssl@1.1">openssl@1.1</a> is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides LibreSSL.</p>
+<p>==&gt; Analytics
+install: 793,390 (30 days), 1,631,668 (90 days), 4,466,643 (365 days)
+install-on-request: 122,631 (30 days), 230,827 (90 days), 625,229 (365 days)
+build-error: 0 (30 days)</p>
+<pre><code>
+Check the available version installed by brew:
+
+</code></pre><p>~ ls -al /usr/local/Cellar/openssl*
+/usr/local/Cellar/openssl:
+total 0
+drwxr-xr-x    7 pandysong  staff   224  9 14  2018 .
+drwxrwxr-x  182 pandysong  admin  5824  4 20 23:32 ..
+drwxr-xr-x   13 pandysong  admin   416  9 17  2017 1.0.2l
+drwxr-xr-x   13 pandysong  admin   416  1  6  2018 1.0.2n
+drwxr-xr-x   13 pandysong  admin   416  6 10  2018 1.0.2o_1
+drwxr-xr-x   13 pandysong  staff   416  8 10  2018 1.0.2o_2
+drwxr-xr-x   13 pandysong  staff   416  9 14  2018 1.0.2p</p>
+<p>/usr/local/Cellar/openssl@1.1:
+total 0
+drwxr-xr-x    3 pandysong  staff    96  3 15 19:03 .
+drwxrwxr-x  182 pandysong  admin  5824  4 20 23:32 ..
+drwxr-xr-x   14 pandysong  staff   448  3 15 18:48 1.1.1d</p>
+<pre><code>
+
+Swich to version 1.0:
+</code></pre><p>~ brew switch openssl 1.0.2p
+Cleaning /usr/local/Cellar/openssl/1.0.2o_1
+Cleaning /usr/local/Cellar/openssl/1.0.2n
+Cleaning /usr/local/Cellar/openssl/1.0.2p
+Cleaning /usr/local/Cellar/openssl/1.0.2l
+Cleaning /usr/local/Cellar/openssl/1.0.2o_2
+Opt link created for /usr/local/Cellar/openssl/1.0.2p</p>
+<pre><code>
+Now we could use gem to install CocoaPods:
+
+</code></pre><p>~ sudo gem install cocoapods
+Fetching: thread_safe-0.3.6.gem (100%)
+Successfully installed thread_safe-0.3.6
+Fetching: tzinfo-1.2.7.gem (100%)
+Successfully installed tzinfo-1.2.7
+Fetching: activesupport-4.2.11.1.gem (100%)
+Successfully installed activesupport-4.2.11.1
+Fetching: nap-1.1.0.gem (100%)
+Successfully installed nap-1.1.0
+Fetching: fuzzy_match-2.0.4.gem (100%)
+Successfully installed fuzzy_match-2.0.4
+Fetching: httpclient-2.8.3.gem (100%)
+Successfully installed httpclient-2.8.3
+Fetching: algoliasearch-1.27.1.gem (100%)
+Successfully installed algoliasearch-1.27.1
+Fetching: ethon-0.12.0.gem (100%)
+Successfully installed ethon-0.12.0
+Fetching: typhoeus-1.3.1.gem (100%)
+Successfully installed typhoeus-1.3.1
+Fetching: netrc-0.11.0.gem (100%)
+Successfully installed netrc-0.11.0
+Fetching: cocoapods-core-1.9.1.gem (100%)
+Successfully installed cocoapods-core-1.9.1
+Fetching: claide-1.0.3.gem (100%)
+Successfully installed claide-1.0.3
+Fetching: cocoapods-deintegrate-1.0.4.gem (100%)
+Successfully installed cocoapods-deintegrate-1.0.4
+Fetching: cocoapods-downloader-1.3.0.gem (100%)
+Successfully installed cocoapods-downloader-1.3.0
+Fetching: cocoapods-plugins-1.0.0.gem (100%)
+Successfully installed cocoapods-plugins-1.0.0
+Fetching: cocoapods-search-1.0.0.gem (100%)
+Successfully installed cocoapods-search-1.0.0
+Fetching: cocoapods-stats-1.1.0.gem (100%)
+Successfully installed cocoapods-stats-1.1.0
+Fetching: cocoapods-trunk-1.4.1.gem (100%)
+Successfully installed cocoapods-trunk-1.4.1
+Fetching: cocoapods-try-1.2.0.gem (100%)
+Successfully installed cocoapods-try-1.2.0
+Fetching: molinillo-0.6.6.gem (100%)
+Successfully installed molinillo-0.6.6
+Fetching: atomos-0.1.3.gem (100%)
+Successfully installed atomos-0.1.3
+Fetching: CFPropertyList-3.0.2.gem (100%)
+Successfully installed CFPropertyList-3.0.2
+Fetching: colored2-3.1.2.gem (100%)
+Successfully installed colored2-3.1.2
+Fetching: nanaimo-0.2.6.gem (100%)
+Successfully installed nanaimo-0.2.6
+Fetching: xcodeproj-1.16.0.gem (100%)
+Successfully installed xcodeproj-1.16.0
+Fetching: escape-0.0.4.gem (100%)
+Successfully installed escape-0.0.4
+Fetching: fourflusher-2.3.1.gem (100%)
+Successfully installed fourflusher-2.3.1
+Fetching: gh_inspector-1.1.3.gem (100%)
+Successfully installed gh_inspector-1.1.3
+Fetching: ruby-macho-1.4.0.gem (100%)
+Successfully installed ruby-macho-1.4.0
+Fetching: cocoapods-1.9.1.gem (100%)
+Successfully installed cocoapods-1.9.1
+Parsing documentation for thread_safe-0.3.6
+Installing ri documentation for thread_safe-0.3.6
+Parsing documentation for tzinfo-1.2.7
+Installing ri documentation for tzinfo-1.2.7
+Parsing documentation for activesupport-4.2.11.1
+Installing ri documentation for activesupport-4.2.11.1
+Parsing documentation for nap-1.1.0
+Installing ri documentation for nap-1.1.0
+Parsing documentation for fuzzy_match-2.0.4
+Installing ri documentation for fuzzy_match-2.0.4
+Parsing documentation for httpclient-2.8.3
+Installing ri documentation for httpclient-2.8.3
+Parsing documentation for algoliasearch-1.27.1
+Installing ri documentation for algoliasearch-1.27.1
+Parsing documentation for ethon-0.12.0
+Installing ri documentation for ethon-0.12.0
+Parsing documentation for typhoeus-1.3.1
+Installing ri documentation for typhoeus-1.3.1
+Parsing documentation for netrc-0.11.0
+Installing ri documentation for netrc-0.11.0
+Parsing documentation for cocoapods-core-1.9.1
+Installing ri documentation for cocoapods-core-1.9.1
+Parsing documentation for claide-1.0.3
+Installing ri documentation for claide-1.0.3
+Parsing documentation for cocoapods-deintegrate-1.0.4
+Installing ri documentation for cocoapods-deintegrate-1.0.4
+Parsing documentation for cocoapods-downloader-1.3.0
+Installing ri documentation for cocoapods-downloader-1.3.0
+Parsing documentation for cocoapods-plugins-1.0.0
+Installing ri documentation for cocoapods-plugins-1.0.0
+Parsing documentation for cocoapods-search-1.0.0
+Installing ri documentation for cocoapods-search-1.0.0
+Parsing documentation for cocoapods-stats-1.1.0
+Installing ri documentation for cocoapods-stats-1.1.0
+Parsing documentation for cocoapods-trunk-1.4.1
+Installing ri documentation for cocoapods-trunk-1.4.1
+Parsing documentation for cocoapods-try-1.2.0
+Installing ri documentation for cocoapods-try-1.2.0
+Parsing documentation for molinillo-0.6.6
+Installing ri documentation for molinillo-0.6.6
+Parsing documentation for atomos-0.1.3
+Installing ri documentation for atomos-0.1.3
+Parsing documentation for CFPropertyList-3.0.2
+Installing ri documentation for CFPropertyList-3.0.2
+Parsing documentation for colored2-3.1.2
+Installing ri documentation for colored2-3.1.2
+Parsing documentation for nanaimo-0.2.6
+Installing ri documentation for nanaimo-0.2.6
+Parsing documentation for xcodeproj-1.16.0
+Installing ri documentation for xcodeproj-1.16.0
+Parsing documentation for escape-0.0.4
+Installing ri documentation for escape-0.0.4
+Parsing documentation for fourflusher-2.3.1
+Installing ri documentation for fourflusher-2.3.1
+Parsing documentation for gh_inspector-1.1.3
+Installing ri documentation for gh_inspector-1.1.3
+Parsing documentation for ruby-macho-1.4.0
+Installing ri documentation for ruby-macho-1.4.0
+Parsing documentation for cocoapods-1.9.1
+Installing ri documentation for cocoapods-1.9.1
+Done installing documentation for thread_safe, tzinfo, activesupport, nap, fuzzy_match, httpclient, algoliasearch, ethon, typhoeus, netrc, cocoapods-core, claide, cocoapods-deintegrate, cocoapods-downloader, cocoapods-plugins, cocoapods-search, cocoapods-stats, cocoapods-trunk, cocoapods-try, molinillo, atomos, CFPropertyList, colored2, nanaimo, xcodeproj, escape, fourflusher, gh_inspector, ruby-macho, cocoapods after 32 seconds
+30 gems installed</p>
+<pre><code></code></pre>
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

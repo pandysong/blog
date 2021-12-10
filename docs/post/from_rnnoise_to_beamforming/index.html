@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>some thoughts form rnnoise to beamforming</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>some thoughts form rnnoise to beamforming</h1>
+  <div class="blog-post-subheader">
+    <time>22 Oct 2021</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="rnnoise">RNNoise</h1>
+<p>RNNoise is a RNN network based noise reduction method, which performs quite
+well on suppressing environment noises. The idea behind is: adjust the
+frequency bin (frequency interval is NOT equally spaced) gain to suppress the
+noise parts of bins dynamically.</p>
+<h2 id="in-details">In details</h2>
+<p><img src="https://pandysong.github.io/blog/img/rnnoise.png" alt="rnnoise.png"></p>
+<p>In the diagram above, the most important part is the RNN to esitmate the gain
+which should be applied to the frequency bin to remove the noise.</p>
+<p>The logic behind is that RNN could be used to classify if the frame is noise or
+not, if it is total noise, it applies full attenuation; if it contains partial
+noise, it applies a little attenuation.</p>
+<h1 id="nonlinear-beamforming">Nonlinear beamforming</h1>
+<p>WebRTC released a beamforming algorithm implementation based on ref[2]. In the
+summary it saids:</p>
+<pre><code>
+Provided are methods and systems for spatially selecting acoustic sources using
+a post-processor that consists of a selection of one postfilter from a set of
+postfilters, or a cascade of postfilters, where each postfilter is optimal for
+a particular scenario. Each postfilter individually is based on optimizing the
+gain for each time-frequency bin based on knowledge of (i) a spatial covariance
+matrix for the desired Source, (ii) a spatial covariance matrix for the
+interfering Sources, and (iii) microphone signals in Some neighborhood of the
+current time-frequency bin. 
+
+</code></pre><p>That is to say it has a desired source which is represented by a spatial
+covariance matrix.</p>
+<h2 id="increased-nr-of-mic-is-not-always-helping">increased nr of mic is not always helping</h2>
+<pre><code>
+The lack of robustness in many existing beam forming approaches is generally
+most severe for straightforward optimal procedures such as, for example, the
+minimum variance distortionless response (MVDR) method or the related
+multichannel Wiener filter. In such cases, the low robustness is a direct
+consequence of exploiting the design criteria more effectively. While some more
+recent approaches reduce beam former robustness problems by explicitly
+accounting for the uncertainty in location of the desired and interfering
+Sources, these existing systems gen erally require a large number of
+microphones for good performance. 
+
+</code></pre><p>The robustness of MVDR is not as good as we expected.</p>
+<h1 id="some-thoughts">Some thoughts</h1>
+<p>In webrtc beamforming algorithm, it uses conventional method to design a set of
+postfilter with predefined gain. Probably we could use RNN on the feature map
+of microphone signals to estimate the gain which should be applied to remove
+the unwanted noise/voice.</p>
+<p>To reduce the complexity, we could use the spectrum spacing scheme in RNNoise:</p>
+<pre><code>We choose to divide the spectrum into the same approximation of the Bark scale
+[12] as the Opus codec [13] uses.
+</code></pre><p>Which is total 22 bands.</p>
+<p>The gain is estimated based of the multiple microphone feature input.</p>
+<h2 id="network-input">Network input</h2>
+<p>The input of the network is the micrphone signal features and the stearing
+directon of voice. The output is the gain of total 22 bands.</p>
+<h1 id="references">References</h1>
+<p>[1] <a href="https://jmvalin.ca/papers/rnnoise_mmsp2018.pdf">https://jmvalin.ca/papers/rnnoise_mmsp2018.pdf</a>
+[2] <a href="https://patentimages.storage.googleapis.com/ff/00/38/20745bddbee117/US9502021.pdf">https://patentimages.storage.googleapis.com/ff/00/38/20745bddbee117/US9502021.pdf</a></p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2021 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

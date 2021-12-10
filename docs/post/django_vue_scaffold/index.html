@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Creating Django and Vue Scaffold</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Creating Django and Vue Scaffold</h1>
+  <div class="blog-post-subheader">
+    <time>09 Dec 2021</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>This describe how we could create an application Scaffold to use Vue at the
+frontend and use Django on the backend. Both Vue and Django support hot-reload
+so that both could be developed in parallel.</p>
+<p>The template could be found in this <a href="https://github.com/pandysong/django_vue_scaffold">repo</a>.</p>
+<h1 id="creating-django-project">Creating Django project</h1>
+<p>This is just following the Django tutorial, so if you are familar with it, just
+do what you normally do.</p>
+<h2 id="create-an-virtual-env">create an virtual env</h2>
+<p>Creating a virtual environment is not a must, however in order to isolate the
+environment, it is recommended to do so. You might want to use pipenv or other
+tools.</p>
+<pre><code>mkdir django_vue_scaffold
+cd django_vue_scaffold
+mkdir .venv
+python3 -m venv .venv
+</code></pre><p>And activate the venv:</p>
+<pre><code>source .venv/bin/activate
+</code></pre><p>The command line looks like</p>
+<pre><code>(.venv) ~/project/django_vue_scaffold
+</code></pre><h2 id="install-django-on-this-venv">Install Django on this venv</h2>
+<pre><code>python3 -m pip install django
+</code></pre><h2 id="start-a-django-project">Start a Django Project</h2>
+<pre><code>
+django-admin startproject django_vue_scaffold .
+</code></pre><p>now the project looks like:</p>
+<pre><code>(.venv) ~/project/django_vue_scaffold ls -1
+django_vue_scaffold
+manage.py
+</code></pre><h2 id="create-django-app-api">create Django app &lsquo;api&rsquo;</h2>
+<pre><code>django-admin startapp api
+</code></pre><h2 id="django-migrate-the-database">Django migrate the database</h2>
+<pre><code>python3 manage.py migrate
+</code></pre><h2 id="now-run-the-server">Now run the server</h2>
+<pre><code>python3 manage.py runserver
+</code></pre><p>This should run a web server on</p>
+<pre><code>http://127.0.0.1:8000/
+</code></pre><p>You could check from your browser that it works</p>
+<p>![django_127_0_0_1.png](django works in browser)</p>
+<h2 id="freeze-the-packages">freeze the packages</h2>
+<p>So that you could install all the required packages:</p>
+<pre><code>python3 -m pip freeze &gt; requirements.txt
+</code></pre><h1 id="creating-vue-frontend">Creating Vue frontend</h1>
+<pre><code>vue init webpack frontend
+</code></pre><p>After answering a couple of questions, the vue command line will create the vue
+project at the <code>frontend</code> directory.</p>
+<p>Try to run the development environment in vue:</p>
+<pre><code>DONE  Compiled successfully in 5897ms
+
+Your application is running here: http://localhost:8080
+</code></pre><p>Open your browser, following figure should be displayed:</p>
+<p>![vue_127_0_0_1.png](vue running locally)</p>
+<h1 id="add-restful-api-call-to-vue-application">Add Restful api call to Vue application</h1>
+<p>Here we use axios to make request to the backend:</p>
+<pre><code>npm install --save axios
+</code></pre><p>Then add the axios call in frontend:</p>
+<p>Details could be found on the repo: <a href="mailto:git@github.com">git@github.com</a>:pandysong/django_vue_scaffold.git</p>
+<p>Following code just add a form the HelloWorld component and when clicked, it
+send an post request via axios:</p>
+<pre><code>diff --git a/frontend/src/components/HelloWorld.vue b/frontend/src/components/HelloWorld.vue
+index 1c19f2a..4399e0a 100644
+--- a/frontend/src/components/HelloWorld.vue
++++ b/frontend/src/components/HelloWorld.vue
+@@ -1,7 +1,14 @@
+ &lt;template&gt;
+   &lt;div class=&quot;hello&quot;&gt;
+-    &lt;h1&gt;{{ msg }}&lt;/h1&gt;
+     &lt;h2&gt;Essential Links&lt;/h2&gt;
++
++      &lt;form&gt;
++        &lt;input type=&quot;file&quot; name=&quot;file&quot; @change=&quot;handleFile&quot;&gt;
++        &lt;div class=&quot;submit&quot;&gt;
++        &lt;button type=&quot;submit&quot; @click=&quot;submitFile&quot;&gt;submit&lt;/button&gt;
++        &lt;/div&gt;
++      &lt;/form&gt;
++
+     &lt;ul&gt;
+       &lt;li&gt;
+         &lt;a
+@@ -84,11 +91,55 @@
+ &lt;/template&gt;
+ 
+ &lt;script&gt;
++import axios from 'axios'
++
++axios.defaults.xsrfHeaderName = 'X-CSRFToken'
++axios.defaults.xsrfCookieName = 'csrftoken'
++axios.defaults.withCredentials = true
++
+ export default {
+   name: 'HelloWorld',
+-  data () {
+-    return {
+-      msg: 'Welcome to Your Vue.js App'
++  data: () =&gt; ({
++    file: ''
++  }),
++  components: {
++  },
++  methods: {
++    submitFile () {
++      // send a GET request to backend and get teh csrftoken from cookie
++      // we will cover it more in the backend parts
++      fetch('http://localhost:8080/api/csrf')
++
++      // The csrftoken is embedded in the cookie
++      const csrfToken = this.getCookie('csrftoken')
++      // console.log(csrfToken)
++      let formData = new FormData()
++      formData.append('file', this.file)
++      console.log('&gt;&gt; formData &gt;&gt; ', formData)
++
++      // You should have a server side REST API
++      axios.post('http://localhost:8000/api/upload',
++        formData, {
++          headers: {
++            'Content-Type': 'multipart/form-data',
++            'X-CSRFToken': csrfToken
++          }
++        })
++        .then(function () {
++          console.log('SUCCESS!!')
++        })
++        .catch(function () {
++          console.log('FAILURE!!')
++        })
++    },
++    handleFile (event) {
++      this.file = event.target.files[0]
++      console.log('&gt;&gt;&gt;&gt; 1st element in files array &gt;&gt;&gt;&gt; ', this.file)
++    },
++    getCookie (name) {
++      var value = '; ' + document.cookie
++      var parts = value.split('; ' + name + '=')
++      if (parts.length === 2) return parts.pop().split(';').shift()
+     }
+   }
+ }
+</code></pre><h1 id="add-restful-handling-at-the-backend">Add Restful handling at the backend</h1>
+<p>Notes for the following code</p>
+<ul>
+<li>
+<p>it adds two api under &lsquo;api&rsquo;</p>
+<ul>
+<li>csrf: to get the csrf token via the GET request.</li>
+<li>upload: actually Post the data to, CORS (Cross-origin resource sharing)
+means here we have two origin one is localhost:8080 (running frontend)
+and another one 127.0.0.1:8000, two origin is interacting with each
+other. In order to tackle security issue, we have to pass a csrf token
+when posting data (which is sensitive) to server.</li>
+</ul>
+</li>
+</ul>
+<pre><code>diff --git a/api/urls.py b/api/urls.py
+new file mode 100644
+index 0000000..678ecf7
+--- /dev/null
++++ b/api/urls.py
+@@ -0,0 +1,8 @@
++from django.urls import path
++
++from . import views
++
++urlpatterns = [
++    path('upload', views.handle_upload, name='api-upload'),
++    path('csrf', views.get_csrf, name='api-csrf'),
++]
+diff --git a/api/views.py b/api/views.py
+index 91ea44a..f5d90b6 100644
+--- a/api/views.py
++++ b/api/views.py
+@@ -1,3 +1,27 @@
+ from django.shortcuts import render
++from django.shortcuts import render
++from django.views.decorators.http import require_http_methods
++from django.http import HttpResponse, JsonResponse
++from django.views.decorators.csrf import ensure_csrf_cookie
++from django.middleware import csrf
+ 
+ # Create your views here.
++
++
++@require_http_methods([&quot;POST&quot;, &quot;OPTIONS&quot;])
++def handle_upload(request):
++    # I can assume now that only GET or POST requests make it this far
++    # ...
++    response = HttpResponse()
++    return response
++
++
++@ensure_csrf_cookie
++def get_csrf(request):
++    ''' return csrf cookie
++        to the client so that client could POST to server
++        using the token
++    '''
++    response = JsonResponse({'detail': 'CSRF cookie set'})
++    response['X-CSRFToken'] = csrf.get_token(request)
++    return response
+diff --git a/django_vue_scaffold/settings.py b/django_vue_scaffold/settings.py
+index c48e0c2..c5c686f 100644
+--- a/django_vue_scaffold/settings.py
++++ b/django_vue_scaffold/settings.py
+@@ -37,6 +37,7 @@ INSTALLED_APPS = [
+     'django.contrib.sessions',
+     'django.contrib.messages',
+     'django.contrib.staticfiles',
++    'api',
+ ]
+ 
+ MIDDLEWARE = [
+diff --git a/django_vue_scaffold/urls.py b/django_vue_scaffold/urls.py
+index f894bc4..5ec9c2e 100644
+--- a/django_vue_scaffold/urls.py
++++ b/django_vue_scaffold/urls.py
+@@ -14,8 +14,10 @@ Including another URLconf
+     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+ &quot;&quot;&quot;
+ from django.contrib import admin
+-from django.urls import path
++from django.urls import path, include
+ 
+ urlpatterns = [
+     path('admin/', admin.site.urls),
++    path('api/', include('api.urls')),
++
+ ]
+</code></pre><p>Besides above changes, we have to add corsheaders  to the middleware:</p>
+<pre><code>diff --git a/django_vue_scaffold/settings.py b/django_vue_scaffold/settings.py
+index c5c686f..e0adb1f 100644
+--- a/django_vue_scaffold/settings.py
++++ b/django_vue_scaffold/settings.py
+@@ -37,12 +37,14 @@ INSTALLED_APPS = [
+     'django.contrib.sessions',
+     'django.contrib.messages',
+     'django.contrib.staticfiles',
++    'corsheaders',
+     'api',
+ ]
+ 
+ MIDDLEWARE = [
+     'django.middleware.security.SecurityMiddleware',
+     'django.contrib.sessions.middleware.SessionMiddleware',
++    'corsheaders.middleware.CorsMiddleware',
+     'django.middleware.common.CommonMiddleware',
+     'django.middleware.csrf.CsrfViewMiddleware',
+     'django.contrib.auth.middleware.AuthenticationMiddleware',
+@@ -50,6 +52,17 @@ MIDDLEWARE = [
+     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+ ]
+ 
++CORS_ALLOW_CREDENTIALS = True
++CORS_ORIGIN_WHITELIST = (
++    'http://127.0.0.1:8080',
++    'http://localhost:8080',
++)
++
++CSRF_TRUSTED_ORIGINS = [
++    'http://127.0.0.1:8080',
++    'http://localhost:8080',
++]
++
+ ROOT_URLCONF = 'django_vue_scaffold.urls'
+ 
+ TEMPLATES = [
+</code></pre><p>We also need to install the middleware via pip:</p>
+<pre><code>python3 -m pip install django-cors-headers
+</code></pre><h1 id="done">Done</h1>
+<p>Now you could post an file to backend and backend will return the file size by
+json message and frontend will display it just below the form.</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2021 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

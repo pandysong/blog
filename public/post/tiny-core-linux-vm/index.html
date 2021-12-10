@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Play with tinycorelinux</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Play with tinycorelinux</h1>
+  <div class="blog-post-subheader">
+    <time>06 Jan 2019</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="the-problem">The problem</h1>
+<p>My issue is that I got some binary from 3rd party which is a 32bit Linux
+executive. However I am using Mac, and I do not want to install a big virtual
+machine on my Mac for this tiny little Linux tools.</p>
+<p>I found a project in Github called <code>noah</code> and tried but not be able to make it
+run on my Mac.</p>
+<p>At the end of the day, I found <code>tinycorelinux</code>.</p>
+<h1 id="run-on-virtual-box">run on virtual-box</h1>
+<p>Download following ISO file.</p>
+<p><a href="http://tinycorelinux.net/9.x/x86/release/Core-9.0.iso">http://tinycorelinux.net/9.x/x86/release/Core-9.0.iso</a></p>
+<p>A little bit knowledge bout tinycorelinux, it is merely a Linux runs in RAM, so
+this ISO is the only file needed to run the Linux.</p>
+<p>When create a VM, it needs tens of mega bytes of memory. It gives it to 256M. At
+the first, I do not bother to create a VDI at all, as mentioned earlier, it does
+not need a disk.</p>
+<h1 id="run-the-linux-binary-in-tiny-core-linux">run the Linux binary in tiny core Linux</h1>
+<p>Network is setup to access the host</p>
+<pre><code>wget http://$HOST_IP:8000/thebianry
+</code></pre><p>For above command to work, in the host we need to setup a simple http server.</p>
+<p>Run following command where you have you <code>thebinary</code></p>
+<pre><code>python3 -m http.server
+</code></pre><h1 id="remember-to-chmod">remember to chmod</h1>
+<pre><code>chmod +x thebinary
+</code></pre><h2 id="error-no-such-file">error &lsquo;no such file&rsquo;</h2>
+<p>Make sure the file exists, otherwise it is possible that you are running a 32bit
+binary in a 64bit Linux.</p>
+<h1 id="persistence-of-extensions">persistence of extensions</h1>
+<p>tiny core Linux support to make the extensions install persistent by put a boot
+parameter.</p>
+<p>In case of micro-core:</p>
+<pre><code>mc tce=/dev/sda1
+</code></pre><p>Note that this could be done only once. But before doing that, we should format
+and make a file system on it.</p>
+<p>Do it in three steps:</p>
+<ul>
+<li>From <code>VirtualBox</code>, create a Virtual Disk Image (sda1)</li>
+<li>in tiny core Linux, using <code>cfdisk</code> or <code>fdisk</code> to create partitions, reboot to go
+to next step.</li>
+</ul>
+<pre><code>cfdisk /dev/sda
+</code></pre><ul>
+<li>in tiny core Linux, using mkfs.ext3 to create a file system on the partition.</li>
+</ul>
+<pre><code>
+# create host-only adaptor
+
+In virtual box it is possible to set up second virtual network adaptor to allow
+host to connect to VM and vice verse.
+
+Do it in two steps:
+
+- VirtualBox-&gt; File  -&gt; Host Network Manager -&gt; Create , This will create a
+  virtual network adaptor
+- Now, int the guest  settings, Network -&gt; Adapter2 -&gt; Enable Network Adaptor -&gt;
+  Attached to -&gt; Host-only Adaapter -&gt; Name -&gt; vboxnet0
+
+
+# run ssh server
+
+</code></pre><p>tce-load -wi openssh
+sudo /usr/local/etc/init.d/openssh start</p>
+<pre><code>
+# connect from host to guest via ssh
+
+</code></pre><p>ssh <a href="mailto:username@192.168.56.101">username@192.168.56.101</a></p>
+<pre><code>
+Chagne the username and ip address accordingly.
+
+# dns issue
+
+After host-only adaptor is enabled the guest nds might not work
+
+checkot following file 
+</code></pre><p>/etc/resolv.conf</p>
+<pre><code>
+To see if following line exists
+
+</code></pre><p>nameserver 192.168.0.1</p>
+<pre><code></code></pre>
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

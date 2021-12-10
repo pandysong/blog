@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Python Notes</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Python Notes</h1>
+  <div class="blog-post-subheader">
+    <time>28 Mar 2014</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="key-points">Key Points</h1>
+<p>This describes the key points when reading the book <code>programming in Python 3</code>.</p>
+<h2 id="get-help">get help</h2>
+<p>use <code>help (function name)</code> in Python shell.</p>
+<h2 id="data-types">Data Types</h2>
+<p>In Python, both <code>str</code> and the basic numeric types such as int are immutable. That is, once set,
+their value cannot be changed.</p>
+<h2 id="convert-types">Convert Types</h2>
+<p>To convert a data item from one type to another, we can use the syntax <code>type (item)</code>. For example</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt;&gt;&gt; int<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;45&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#ae81ff">45</span>
+</code></pre></div><h2 id="object-reference">Object Reference</h2>
+<p>Python does not have variables as such, but instead has object references.</p>
+<h2 id="tuple-vs-list"><code>tuple</code> vs list</h2>
+<p>tuple is immutable while list is mutable.</p>
+<h2 id="tuple">tuple</h2>
+<p>tuple:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>&ldquo;Denmark&rdquo; , &ldquo;Finland&rdquo;
+(&lsquo;Denmark&rsquo;, &lsquo;Findland&rsquo;)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>If we have a one-item tuple and want to use parentheses, we must still use the comma for example (1,)</p>
+<h2 id="len">len()</h2>
+<p>Tuples, lists and strings are &ldquo;sized&rdquo;</p>
+<h2 id="logical-operations">logical operations</h2>
+<h3 id="the-identity-operator-is">The identity operator <code>is</code></h3>
+<p><code>is</code> <code>is not</code> is to check if the reference are for same address.</p>
+<p>The most common use case for <code>is</code> is to compare a data item with the build-in null object, <code>None</code>.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>a = &ldquo;Something&rdquo;
+b = None
+a is not None, b is None
+(True, True)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="comparison-operators">Comparison Operators</h3>
+<p>One particularly nice feature of Python&rsquo;s comparison operator is that they can be chained. For
+example:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>a=9
+0 &lt;= a &lt;= 10
+True</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="membership-operator">membership operator</h3>
+<p>For strings, lists and tuples, we can test for membership using the <code>in</code> operator and for
+non-membership, using the <code>not in</code> operator. For example:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>p = (4, &ldquo;frog&rdquo;, 0,-33,9,2)
+2 in p
+True</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="logical-operators">Logical Operators</h3>
+<p><code>and</code> <code>or</code> <code>not</code></p>
+<h4 id="and-or-return-the-operand-that-determined-the-result-unless-it-is-in-a-boolean-context"><code>and</code> <code>or</code> return the operand that determined the result unless it is in a Boolean context</h4>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>five=5
+two=2
+five and two
+2
+two and five
+5
+zero =0
+five and zero and two
+0</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>It means it returns the last operand on which it could determine the result</p>
+<h4 id="not-always-return-a-boolean-result"><code>not</code> always return a Boolean result</h4>
+<h2 id="control-flow-statements">Control Flow Statements</h2>
+<h3 id="suite"><code>suite</code></h3>
+<p>A sequence of one or more statements is called suite. Keyword <code>pass</code> is a statement that does nothing
+and can be used where a suite is required.</p>
+<h3 id="if-elif-else"><code>if</code> <code>elif</code> <code>else</code></h3>
+<pre><code>if boolean_expression1:
+    suite1
+elif boolean_expression2:
+    suite2
+...
+else:
+    else_suite
+</code></pre><p>colon<code>:</code> is part of syntax and be used where a suite is to follow.</p>
+<h3 id="while"><code>while</code></h3>
+<pre><code>while boolean_expression:
+    suite
+</code></pre><h3 id="for"><code>for</code></h3>
+<pre><code>for variable in iterable:
+    suite
+</code></pre><h3 id="basic-exception-handling">basic exception handling</h3>
+<pre><code>try:
+    try_suite
+except exception1 as variable1:
+    exception_suite1
+except exception2 as variable2:
+    exception_suite2
+</code></pre><h2 id="arithmetic-operators">Arithmetic Operators</h2>
+<h3 id="-division-operator-produces-a-floating-point-value"><code>/</code> division operator produces a floating point value</h3>
+<h3 id="-truncating-division-operator"><code>//</code> truncating division operator</h3>
+<h3 id="a--8-is-fast-than-a--a--8"><code>a += 8</code> is fast than <code>a = a + 8</code></h3>
+<p>Since int is immutable, what happens is that operation is performed and an object holding the result
+is created, and then the target object reference is re-bound to refer to the result object.</p>
+<h3 id="-and--are-overloaded-for-both-strings-and-list">&lsquo;+=&rsquo; and &lsquo;+&rsquo; are overloaded for both strings and list</h3>
+<p>Since strings are immutable, &lsquo;+=&rsquo; would mean create a new string and re-bound the reference to the
+new created object.</p>
+<p>list is mutable, hence <code>+=</code> does not involve rebinding.</p>
+<h3 id="truth-value-testing">Truth Value Testing</h3>
+<p>Any object can be tested for truth value, for use in an <code>if</code> or <code>while</code> condition or as operand of the
+Boolean operations below.</p>
+<p>By default, an object is considered true unless its class defines either a <strong>bool</strong>() method that
+returns False or a <strong>len</strong>() method that returns zero, when called with the object. [1] Here are
+most of the built-in objects considered false:</p>
+<pre><code>constants defined to be false: None and False.
+zero of any numeric type: 0, 0.0, 0j, Decimal(0), Fraction(0, 1)
+empty sequences and collections: '', (), [], {}, set(), range(0)
+</code></pre>
+<p>Operations and built-in functions that have a Boolean result always return 0 or False for false and
+1 or True for true, unless otherwise stated. (Important exception: the Boolean operations or and
+always return one of their operands.)</p>
+<h3 id="right-hand-operator-for-the-list--operator-must-be-an-iterable">right-hand operator for the list += operator must be an iterable</h3>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>seeds
+[&lsquo;sesame&rsquo;, &lsquo;sunflower&rsquo;, 5]
+seeds += &ldquo;this is tets&rdquo;
+[&lsquo;sesame&rsquo;, &lsquo;sunflower&rsquo;, 5, &rsquo;t', &lsquo;h&rsquo;, &lsquo;i&rsquo;, &rsquo;s', ' &lsquo;, &lsquo;i&rsquo;, &rsquo;s&rsquo;, ' &lsquo;, &rsquo;t&rsquo;, &lsquo;e&rsquo;, &rsquo;t', &rsquo;s']</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>The correct way to append a string as an item</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>seeds += [&ldquo;this is tets&rdquo;]</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="functions-def-is-a-statement-that-works-in-a-similar-way-to-the-assignment-operator">functions: def is a statement that works in a similar way to the assignment operator</h2>
+<pre><code>def functionName(arguments):
+    suite
+</code></pre><p>When def is executed a function object is created and an object reference with the specified name
+is created and set to the function object. Since functions are objects, they can be stored
+in collection data types and passed as arguments to other functions.</p>
+<h3 id="function-return-value">function return value</h3>
+<p>the return value is by default <code>None</code>.</p>
+<h2 id="indent">Indent</h2>
+<p>Python statements normally occupy a single line, but they can span multiple lines if they are a
+parenthesized expression, a list, set, or dictionary literal, a function call argument list, or a
+multi line statement, where every end-of-line character except the last is escaped by preceding it
+with a backslash (). In all these cases any number of lines can be spanned and indentation does not
+matter for the second and subsequent lines.</p>
+<h2 id="exception-seen-often">Exception Seen often</h2>
+<ul>
+<li>TypeError</li>
+<li>IndexError</li>
+<li>ValueError</li>
+</ul>
+<h1 id="data-types-1">Data Types</h1>
+<h2 id="chinese-greek-characters-are-allowed-for-identifier">chinese, greek characters are allowed for identifier</h2>
+<h2 id="the-size-of-integer-is-limited-only-by-the-machines-memory">the size of integer is limited only by the machine&rsquo;s memory.</h2>
+<h2 id="hex-bin-oct-to-convert-number-to-string"><code>hex</code> <code>bin</code> <code>oct</code> to convert number to string</h2>
+<h2 id="ints-base-to-convert-string-to-number">`int(s, base) to convert string to number</h2>
+<h2 id="intbit_length-returns-the-number-of-bits-required">int.bit_length() returns the number of bits required</h2>
+<h2 id="true-and-false-are-two-buit-in-boolean-objects">True and False are two buit-in Boolean objects</h2>
+<p>bool() will return False default value</p>
+<p>One could use is False to test the built in objects, but usually we use it in boolean context with or without <code>not</code></p>
+<h2 id="three-floating-point-types-float-is-actually-in-double-ints-with-scale-decimaldecimal">Three Floating Point Types: float (is actually in double), ints (with scale), decimal.Decimal</h2>
+<p>decimal.Decimal is much slower than the floats, but because of their accuracy, decimal.Decimal numbers are suitable for financial calculations.</p>
+<p>decimial.Decimals are of fixed precision they can be used only with the other decimal.Decimals and with ints.</p>
+<h2 id="floathex-floatfromhex-convert-to-and-from-hex-string">float.hex(), float.fromhex() convert to and from hex string</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#ae81ff">3.25</span><span style="color:#f92672">.</span>hex()
+<span style="color:#e6db74">&#39;0x1.a000000000000p+1&#39;</span>
+</code></pre></div><h1 id="str-data-type-str">str data type <code>str</code></h1>
+<h2 id="triple-quoted-string-some-string-some-string-could-include-new-line">triple quoted string &ldquo;&ldquo;&ldquo;some string&rdquo;&rdquo;&rdquo; &lsquo;&lsquo;&lsquo;some string&rsquo;&rsquo;&rsquo; could include new line</h2>
+<p>escaping the new line using <code>\</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;&#34;&#34;line one
+</span><span style="color:#e6db74">... line two</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74">... linet three&#34;&#34;&#34;</span>)
+line one
+line twolinet three
+</code></pre></div><h2 id="raw-string">raw string</h2>
+<p>quoted or triple quoted strings whose first quote is preceded by the letter <code>r</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> phone2 <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>comple(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;~((?:[(]\d+[)]?\s*\d+(?:-\d+)?$&#34;</span>)
+</code></pre></div><h2 id="c-ctyle-long-string-must-use-parentheses">c ctyle long string, must use parentheses</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> s<span style="color:#f92672">=</span> (<span style="color:#e6db74">&#34;Line one&#34;</span>
+<span style="color:#e6db74">&#34;line one continue&#34;</span>)
+</code></pre></div><h2 id="negative-index-seq-1-alwasy-gives-us-the-last-character">negative index seq[-1] alwasy gives us the last character</h2>
+<h2 id="string-slice-operation">string slice operation</h2>
+<p>seq[start]
+seq[start:end]
+seq[start:end:step]</p>
+<h2 id="what-is-the-convenient-way-to-revert-the-string">What is the convenient way to revert the string?</h2>
+<p>striding is most often used with sequence types other than strings, but there is one context in which it is used for strings:</p>
+<p>seq[::-1]</p>
+<p>there is a built-in <code>reversed()</code> function</p>
+<p>But seq[::-1] is more concise</p>
+<h2 id="-and--is-overloaded-fro-str-mean-replication"><code>*</code> and <code>*=</code> is overloaded fro <code>str</code>, mean replication</h2>
+<h2 id="split-a-string-to-lines-on-line-terminators-strip-the-terminators-unless-f-is-true">split a string to lines on line terminators, strip the terminators unless f is true</h2>
+<pre><code>s.splitlines(f)
+</code></pre><h2 id="spartition-and-srpartition-return-three-strings">s.partition() and <code>s.rpartition()</code> return three strings</h2>
+<h2 id="can-we-assume-that-a-string-can-be-converted-to-an-integer-when-isdigit-returns-ture">can we assume that a string can be converted to an integer when <code>isdigit()</code> returns <code>Ture</code>?</h2>
+<p>No, because as is###() method works on Unicode character.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\N{circled digit two}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>isdigit()
+True
+</code></pre></div><h2 id="strip-function-could-strip-any-leading-or-trailing-character">strip() function could strip any leading or trailing character</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#34;{[(this is a string needed}}}))&#34;</span><span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#34;{}[]()&#34;</span>)
+</code></pre></div><h2 id="strformat"><code>str.format()</code></h2>
+<p>Read page 78</p>
+<h3 id="using-locals">using locals()</h3>
+<p>This built-in function to return a dictionary whose keys are local var names and values the local var values</p>
+<h3 id="mapping-unpacking-operator-">mapping unpacking operator &ldquo;**&rdquo;</h3>
+<p>**locals() does following:</p>
+<p><code>locals()</code> return a dictionary, &ldquo;**&rdquo; operator applies to a mapping (such as a dictionary) to produce a
+key-value list which is <code>suitable for passing to a function</code></p>
+<p>Note that if we want to pass more than one argument to <code>str.format()</code>, only the last one can use the mapping unpacking.</p>
+<h3 id="representational-form-vs-string-form">representational form vs string form</h3>
+<pre><code>The replacement field:
+{field_name}
+{field_name!conversion}
+{field_name!format_specification}
+{field_name!conversion:format_specification}
+</code></pre><p>Conversion: &rsquo;s' to force string form, &lsquo;r&rsquo; to force representation form, &lsquo;a&rsquo; to force representational form but only using ASCII</p>
+<h3 id="the-powerful-of-strformat-is-that-the-format_specifier-could-use-variable">the powerful of str.format is that the format_specifier could use variable</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> s<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;the sword of truth&#34;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span><span style="color:#e6db74">&#34;{0:.{1}}&#34;</span><span style="color:#f92672">.</span>format(s,<span style="color:#ae81ff">12</span>)
+<span style="color:#e6db74">&#39;the sword of&#39;</span>
+</code></pre></div><p>Refer to Page 84 for more details</p>
+<h2 id="unicodeencodeerror-exception">UnicodeEncodeError exception</h2>
+<h2 id="utf-8-is-default-for-xml-and-many-web-pages-java-uses-utf-16-and-python-represents-unicode-using-either-utf-16-or-utf-32">UTF-8 is default for XML and many web pages. Java uses UTF-16 and Python represents Unicode using either UTF-16 or UTF-32</h2>
+<h2 id="py-files-uses-utf-8">.py files uses UTF-8</h2>
+<h2 id="the-complement-of-strencode-is-bytesdecode">The complement of str.encode() is bytes.decode()</h2>
+<h2 id="pythonic-way-to-find-the-first-element-on-a-list-using-next">Pythonic way to find the first element on a list using <code>next</code></h2>
+<p>Find the index of first element with condition on element
+next((i for i, x in enumerate(lst) if [condition on x]), [default value])</p>
+<p>Help on built-in function next in module builtin:</p>
+<pre><code>next(iterator[, default])
+</code></pre><p>Return the next item from the iterator. If default is given and the iterator
+is exhausted, it is returned instead of raising StopIteration.</p>
+<h1 id="collection-data-types">Collection Data Types</h1>
+<h2 id="sequence-types-definition">Sequence Types Definition</h2>
+<p>A <code>sequence</code> type is one that supports</p>
+<ul>
+<li>member ship operation (in)</li>
+<li>the size function ( len())</li>
+<li>and is iterable</li>
+</ul>
+<p>Five built-in sequence types:</p>
+<ul>
+<li>bytearray</li>
+<li>bytes</li>
+<li>list</li>
+<li>str</li>
+<li>tuple</li>
+</ul>
+<h1 id="tuples">Tuples</h1>
+<h2 id="parentheses">parentheses</h2>
+<h3 id="not-needed-on-the-left-hand-side-of-a-binary-operator">not needed on the left hand side of a binary operator</h3>
+<pre><code>a, b = (1,2)
+
+for x,y in ....:
+	print(x,y)
+</code></pre><h3 id="not-needed-on-the-right-handle-side-of-a-unary-statement">not needed on the right handle side of a unary statement</h3>
+<pre><code>del a,b 
+
+def f(x):
+	return x, x ** 2
+</code></pre><h2 id="swap-value-using-unpacking">swap value using unpacking</h2>
+<p>When we have sequence on the right-hand side of an assignment and we have a
+tuple on the left-hand side, we say that the right-hand side has been upacked.</p>
+<p>we could use this to swap two values</p>
+<p>a, b = (b, a)</p>
+<p>on the right hand side parentheses are not needed strictly speaking</p>
+<h2 id="named-tuples">Named Tuples</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> collections
+<span style="color:#f92672">&gt;&gt;&gt;</span> Sale <span style="color:#f92672">=</span> collections<span style="color:#f92672">.</span>namedtuple(<span style="color:#e6db74">&#34;Sale&#34;</span>, <span style="color:#e6db74">&#34;Product customerid data quantity price&#34;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> sales<span style="color:#f92672">=</span>[]
+<span style="color:#f92672">&gt;&gt;&gt;</span> sales<span style="color:#f92672">.</span>append(Sale(<span style="color:#ae81ff">432</span>, <span style="color:#ae81ff">921</span>, <span style="color:#e6db74">&#34;2008-9-12&#34;</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7.99</span>))
+<span style="color:#f92672">&gt;&gt;&gt;</span> sales
+[Sale(Product<span style="color:#f92672">=</span><span style="color:#ae81ff">432</span>, customerid<span style="color:#f92672">=</span><span style="color:#ae81ff">921</span>, data<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;2008-9-12&#39;</span>, quantity<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, price<span style="color:#f92672">=</span><span style="color:#ae81ff">7.99</span>)]
+</code></pre></div><h1 id="lists">Lists</h1>
+<h2 id="sequence-unpacking-for-any-type-of-sequence">sequence unpacking for any type of sequence</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> first, <span style="color:#f92672">*</span>center, last <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> first, center, last
+(<span style="color:#ae81ff">1</span>, [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">5</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">*</span>directory, executable <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/usr/local/bin/gvim&#34;</span><span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;/&#34;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> directory, executable
+([<span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#e6db74">&#39;usr&#39;</span>, <span style="color:#e6db74">&#39;local&#39;</span>, <span style="color:#e6db74">&#39;bin&#39;</span>], <span style="color:#e6db74">&#39;gvim&#39;</span>)
+
+
+here star (<span style="color:#f92672">*</span>) <span style="color:#f92672">is</span> the unpacking operator, the expression <span style="color:#f92672">*</span> reset <span style="color:#f92672">is</span> called <span style="color:#e6db74">`starred expressions`</span>
+</code></pre></div><h2 id="sequence-unpacking-for-function-parameters">sequence unpacking for function parameters</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> prd(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>)
+<span style="color:#ae81ff">6</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> prd(<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>))
+<span style="color:#ae81ff">6</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> L<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> prd(<span style="color:#f92672">*</span>L)
+<span style="color:#ae81ff">24</span>
+</code></pre></div><h2 id="rangen-return-an-object-which-is-iterable-and-produce-01n-1">range(n) return an object which is iterable and produce 0,1,&hellip;,n-1</h2>
+<p>Note that range() returns an object it is iterable which is not iterator</p>
+<p>Refer to</p>
+<p><a href="https://stackoverflow.com/questions/21803830/why-is-the-range-object-not-an-iterator">https://stackoverflow.com/questions/21803830/why-is-the-range-object-not-an-iterator</a></p>
+<h2 id="iterable-vs-iterator">iterable vs iterator</h2>
+<p>An <code>iterable</code> is an object which has <strong>iter()</strong> function and could return an iterator.
+While an iterator is a stateful object which knows how to get the next referenes in the object.</p>
+<p>range() is an iterable but not an iterator. to have an iterator need to convert to iterable using
+iter()</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> i<span style="color:#f92672">=</span>iter(range(<span style="color:#ae81ff">5</span>))
+<span style="color:#f92672">&gt;&gt;&gt;</span> next(i)
+<span style="color:#ae81ff">0</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> next(i)
+<span style="color:#ae81ff">1</span>
+</code></pre></div><p>This is the help of list(), it accepts <code>iterable</code> (note that iterorator is always iterable)
+class list(object)
+|  list() -&gt; new empty list
+|  list(iterable) -&gt; new list initialized from iterable&rsquo;s items</p>
+<p>Which means list() accepts both iterable and iterator</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> i<span style="color:#f92672">=</span>range(<span style="color:#ae81ff">5</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> list(i)
+[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> list(iter(i))
+[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+</code></pre></div><h2 id="insert-items-using-slicing-operator">insert items using slicing operator</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> a[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>[<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> a[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>[<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+</code></pre></div><p>In above case, it delete two items and insert three items</p>
+<h2 id="listpopindex-to-remove-and-return-the-value-in-index">list.pop(index) to remove and return the value in index</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">.</span>pop(<span style="color:#ae81ff">2</span>)
+<span style="color:#ae81ff">8</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+</code></pre></div><h2 id="sorted-is-built-in-function-like-reversed">sorted() is built-in function like reversed()</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> sorted(a):
+<span style="color:#f92672">...</span>     <span style="color:#66d9ef">print</span>(n)
+<span style="color:#f92672">...</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">4</span>
+</code></pre></div><h2 id="list-comprehensions">list comprehensions</h2>
+<p>[expression for item in iterable if condition]
+[expression for item in iterable for item2 in iterable2 &hellip; if condition]</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> [ i <span style="color:#f92672">+</span> j <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>) <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>) <span style="color:#66d9ef">if</span> i <span style="color:#f92672">!=</span>j]
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> [ i <span style="color:#f92672">+</span> j <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>) <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>) <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span>j]
+[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> [ i <span style="color:#f92672">+</span> j <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>) <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>) <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;</span> j]
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+</code></pre></div><h1 id="set">Set</h1>
+<h2 id="immutable-data-types-are-hash-able-since-their-values-cannot-be-changed-so-could-be-added-to-a-set">immutable data types are hash-able since their values cannot be changed so could be added to a set</h2>
+<p>So float, frozenset, int, str and tuple could be added to a set</p>
+<h2 id="mutable-data-type-cannot-be-added-to-a-set">mutable data type cannot be added to a set</h2>
+<h2 id="empty-set-must-be-created-using-set-but-not--which-is-used-to-create-empty-dictionary">empty set must be created using set(), but not {} which is used to create empty dictionary</h2>
+<h2 id="set-operator-----differences--symmetric-difference">set operator &amp;, |, - (differences), ^ (Symmetric Difference)</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> set(<span style="color:#e6db74">&#34;pecan&#34;</span>) <span style="color:#f92672">|</span> set (<span style="color:#e6db74">&#34;pie&#34;</span>)
+{<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;p&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>}
+<span style="color:#f92672">&gt;&gt;&gt;</span> set(<span style="color:#e6db74">&#34;pecan&#34;</span>) <span style="color:#f92672">&amp;</span> set (<span style="color:#e6db74">&#34;pie&#34;</span>)
+{<span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;p&#39;</span>}
+<span style="color:#f92672">&gt;&gt;&gt;</span> set(<span style="color:#e6db74">&#34;pecan&#34;</span>) <span style="color:#f92672">-</span> set (<span style="color:#e6db74">&#34;pie&#34;</span>)
+{<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>}
+<span style="color:#f92672">&gt;&gt;&gt;</span> set(<span style="color:#e6db74">&#34;pecan&#34;</span>) <span style="color:#f92672">^</span> set (<span style="color:#e6db74">&#34;pie&#34;</span>)
+{<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>}
+</code></pre></div><h2 id="common-use-case-for-set-fast-membership-testing">common use case for set: fast membership testing</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">if</span> len(sys<span style="color:#f92672">.</span>argv) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">in</span> {<span style="color:#e6db74">&#34;-h&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>}
+</code></pre></div><h2 id="set-comprehensions">Set Comprehensions</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">8</span>}
+<span style="color:#f92672">&gt;&gt;&gt;</span> {x<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> a}
+{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+</code></pre></div><h1 id="frozenset-created-by-using-frozenset">frozenset created by using frozenset()</h1>
+<h1 id="mapping-types">Mapping Types</h1>
+<ul>
+<li>dict()</li>
+<li>defaultdict()</li>
+<li>collections.OrderedDict()  (introduced in Python 3.1)</li>
+</ul>
+<p>dictionary&rsquo;s key must be hash-able</p>
+<h2 id="construct-dict-using-different-method">construct dict using different method</h2>
+<h3 id="using-sequence-type-like-tuple-and-list">using sequence type like tuple and list</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> dict(((<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#ae81ff">1948</span>),))
+{<span style="color:#e6db74">&#39;id&#39;</span>: <span style="color:#ae81ff">1948</span>}
+<span style="color:#f92672">&gt;&gt;&gt;</span> dict([(<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#ae81ff">1948</span>),])
+{<span style="color:#e6db74">&#39;id&#39;</span>: <span style="color:#ae81ff">1948</span>}
+</code></pre></div><h3 id="using-function-keyword-parameters">using function keyword parameters</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> dict(id<span style="color:#f92672">=</span><span style="color:#ae81ff">1948</span>)
+{<span style="color:#e6db74">&#39;id&#39;</span>: <span style="color:#ae81ff">1948</span>}
+<span style="color:#f92672">&gt;&gt;&gt;</span> dict(id<span style="color:#f92672">=</span><span style="color:#ae81ff">1948</span>,name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Washer&#34;</span>)
+{<span style="color:#e6db74">&#39;id&#39;</span>: <span style="color:#ae81ff">1948</span>, <span style="color:#e6db74">&#39;name&#39;</span>: <span style="color:#e6db74">&#39;Washer&#39;</span>}
+</code></pre></div><h3 id="using-dictionary-liberal">using dictionary liberal</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> {<span style="color:#e6db74">&#34;id&#34;</span>:<span style="color:#ae81ff">1948</span>,<span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;Washer&#34;</span>}
+{<span style="color:#e6db74">&#39;id&#39;</span>: <span style="color:#ae81ff">1948</span>, <span style="color:#e6db74">&#39;name&#39;</span>: <span style="color:#e6db74">&#39;Washer&#39;</span>}
+</code></pre></div><h3 id="using-zip-function">using zip() function</h3>
+<p>zip() function takes one more more iteratables and returns an interator that returns tuple.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> dict(zip((<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>),(<span style="color:#ae81ff">1982</span>,<span style="color:#e6db74">&#34;Washer&#34;</span>)))
+{<span style="color:#e6db74">&#39;id&#39;</span>: <span style="color:#ae81ff">1982</span>, <span style="color:#e6db74">&#39;name&#39;</span>: <span style="color:#e6db74">&#39;Washer&#39;</span>}
+</code></pre></div><h2 id="add-items-to-dictionary">add items to dictionary</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x[<span style="color:#e6db74">&#34;X&#34;</span>] <span style="color:#f92672">=</span><span style="color:#ae81ff">59</span>
+</code></pre></div><h2 id="delete-items-from-dictionary">delete items from dictionary</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">del</span> x[<span style="color:#e6db74">&#34;X&#34;</span>]
+</code></pre></div><p>Exception raised if no item exists for key &ldquo;X&rdquo;</p>
+<h2 id="dictitems-dictkeys-and-dictvalues-methods-all-return-dictionary-views">dict.items() dict.keys() and dict.values() methods all return <code>dictionary views</code></h2>
+<p>A dictionary view is effectively a read-only <code>iterable</code> object that appears to hold the dictionary&rsquo;s
+items or keys or values</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> d<span style="color:#f92672">=</span>dict(zip((<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;name&#34;</span>),(<span style="color:#ae81ff">1982</span>,<span style="color:#e6db74">&#34;Washer&#34;</span>)))
+<span style="color:#f92672">&gt;&gt;&gt;</span> { (key<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;h&#34;</span>, value) <span style="color:#66d9ef">for</span> key,value <span style="color:#f92672">in</span> d<span style="color:#f92672">.</span>items() <span style="color:#66d9ef">if</span> key<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;i&#34;</span>)  }
+{(<span style="color:#e6db74">&#39;idh&#39;</span>, <span style="color:#ae81ff">1982</span>)}
+</code></pre></div><h2 id="file-object-is-an-iterator">file object is an iterator</h2>
+<p>So if we would like to process the text line by line:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> open(filename):
+    process(line)
+</code></pre></div><h2 id="dictionary-comprehensions">Dictionary Comprehensions</h2>
+<p>{keyexpression: valueexpression for key, value in iterable}
+{keyexpression: valueexpression for key, value in iterable if condition}</p>
+<h3 id="get-the-file-sizes-in-the-current-directory">get the file sizes in the current directory</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> file_sizes<span style="color:#f92672">=</span>{name: os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>getsize(name) <span style="color:#66d9ef">for</span> name <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(<span style="color:#e6db74">&#34;.&#34;</span>) <span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isfile(name)}
+</code></pre></div><h2 id="default-dictionary-vs-dictionary">Default Dictionary vs Dictionary</h2>
+<p>Default Dictionary creates a default value using <code>factory function</code> if a nonexistent key is used to
+access the dictionary</p>
+<h3 id="factory-functions">factory functions</h3>
+<p>All of Python&rsquo;s built-in data types can be used as factory functions for example data type <code>str</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> collections
+<span style="color:#f92672">&gt;&gt;&gt;</span> words <span style="color:#f92672">=</span> collections<span style="color:#f92672">.</span>defaultdict(int)
+<span style="color:#f92672">&gt;&gt;&gt;</span> words[<span style="color:#e6db74">&#34;abc&#34;</span>]
+<span style="color:#ae81ff">0</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> words[<span style="color:#e6db74">&#34;abc&#34;</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> words[<span style="color:#e6db74">&#34;abc&#34;</span>]
+<span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> words[<span style="color:#e6db74">&#34;abcd&#34;</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> words[<span style="color:#e6db74">&#34;abcd&#34;</span>]
+<span style="color:#ae81ff">1</span>
+</code></pre></div><h1 id="iterating-and-copying-collections">Iterating and Copying Collections</h1>
+<h2 id="iterators">iterators</h2>
+<h3 id="all-any-len-min-max">all(), any(), len(), min(), max()</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> x<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> all(x), any(x), len(x), min(x), max(x), sum(x)
+(True, True, <span style="color:#ae81ff">4</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">+=</span> [<span style="color:#ae81ff">0</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> all(x), any(x), len(x), min(x), max(x), sum(x)
+(False, True, <span style="color:#ae81ff">5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>)
+</code></pre></div><h3 id="list-tuple-accepts-iterators">list() tuple() accepts iterators</h3>
+<h4 id="create-a-list-or-tuple-of-successive-integers">create a list or tuple of successive integers</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> list(range(<span style="color:#ae81ff">5</span>)), list(range(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">14</span>)), tuple(range(<span style="color:#ae81ff">10</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">11</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>))
+([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], [<span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">13</span>], (<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>))
+</code></pre></div><h3 id="an-iterable-can-be-unpacked-using--operator">an <code>iterable</code> can be unpacked using * operator</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate</span>(a,b,c,d):
+<span style="color:#f92672">...</span>     <span style="color:#66d9ef">return</span> a<span style="color:#f92672">*</span>b<span style="color:#f92672">*</span>c<span style="color:#f92672">*</span>d
+<span style="color:#f92672">&gt;&gt;&gt;</span> t<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> calculate(<span style="color:#f92672">*</span>t)
+<span style="color:#ae81ff">24</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> calculate(<span style="color:#f92672">*</span>range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span>))
+<span style="color:#ae81ff">24</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> calculate(<span style="color:#f92672">*</span>range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#ae81ff">105</span>
+</code></pre></div><h3 id="randomchoice-vs-randomsample">random.choice() vs random.sample()</h3>
+<p>random.sample() function will product up to the specified number of items from the iterable it is
+given with no repeats</p>
+<h3 id="reversed-returns-an-iterator-vs-sorted-returns-a-list">reversed() returns an iterator VS sorted() returns a list</h3>
+<h3 id="sortedx-keyabs">sorted(x, key=abs)</h3>
+<p>When a key function is passed it is called once for every item in the list to create a decorated
+list, then the decorated list is sorted and the sorted list without the decoration is returned as
+result</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> sorted(a)
+[<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> sorted(a,key<span style="color:#f92672">=</span>abs)
+[<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> x<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;Sloop&#34;</span>,<span style="color:#e6db74">&#34;Yawl&#34;</span>,<span style="color:#e6db74">&#34;Cutter&#34;</span>, <span style="color:#e6db74">&#34;schooner&#34;</span>, <span style="color:#e6db74">&#34;ketch&#34;</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> sorted(x, key<span style="color:#f92672">=</span>str<span style="color:#f92672">.</span>lower)
+[<span style="color:#e6db74">&#39;Cutter&#39;</span>, <span style="color:#e6db74">&#39;ketch&#39;</span>, <span style="color:#e6db74">&#39;schooner&#39;</span>, <span style="color:#e6db74">&#39;Sloop&#39;</span>, <span style="color:#e6db74">&#39;Yawl&#39;</span>]
+</code></pre></div><p>The key function could also used to convert the type</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> sorted([<span style="color:#e6db74">&#34;1.3&#34;</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">7.5</span>,<span style="color:#e6db74">&#34;5&#34;</span>,<span style="color:#ae81ff">4</span>])
+Traceback (most recent call last):
+  File <span style="color:#e6db74">&#34;&lt;stdin&gt;&#34;</span>, line <span style="color:#ae81ff">1</span>, <span style="color:#f92672">in</span> <span style="color:#f92672">&lt;</span>module<span style="color:#f92672">&gt;</span>
+<span style="color:#a6e22e">TypeError</span>: <span style="color:#e6db74">&#39;&lt;&#39;</span> <span style="color:#f92672">not</span> supported between instances of <span style="color:#e6db74">&#39;float&#39;</span> <span style="color:#f92672">and</span> <span style="color:#e6db74">&#39;str&#39;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> sorted([<span style="color:#e6db74">&#34;1.3&#34;</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">7.5</span>,<span style="color:#e6db74">&#34;5&#34;</span>,<span style="color:#ae81ff">4</span>], key<span style="color:#f92672">=</span>float)
+[<span style="color:#f92672">-</span><span style="color:#ae81ff">7.5</span>, <span style="color:#e6db74">&#39;1.3&#39;</span>, <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#39;5&#39;</span>]
+</code></pre></div><p>'</p>
+<h2 id="copy-shallow-copy-and-deepcopy">copy (shallow copy) and deepcopy</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> b<span style="color:#f92672">=</span>a
+<span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">+=</span>[<span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> b
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+</code></pre></div><p>Using slice to do shallow copy</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> b<span style="color:#f92672">=</span>a[:]
+<span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">+=</span>[<span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> b
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+</code></pre></div><p>using copy.deepcopy() to do deep copy</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> copy
+<span style="color:#f92672">&gt;&gt;&gt;</span> x<span style="color:#f92672">=</span>[<span style="color:#ae81ff">53</span>,<span style="color:#ae81ff">66</span>,[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#e6db74">&#34;c&#34;</span>]]
+<span style="color:#f92672">&gt;&gt;&gt;</span> y<span style="color:#f92672">=</span>copy<span style="color:#f92672">.</span>deepcopy(x)
+<span style="color:#f92672">&gt;&gt;&gt;</span> y[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">40</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> x[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;q&#34;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> x,y
+([<span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">66</span>, [<span style="color:#e6db74">&#39;q&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>]], [<span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">40</span>, [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>]])
+</code></pre></div><h2 id="dict-shallow-copy">dict shallow copy</h2>
+<p>using dict.copy()</p>
+<p>additionally any copyable object can be copied using functions from the copy module</p>
+<p>using copy.copy performing shallow copy and copy.deepcopy() performing deep copy.</p>
+<h1 id="control-structures-and-loops">Control Structures and Loops</h1>
+<h2 id="expression-1-if-boolean_expression-else-expression-2">expression-1 if boolean_expression else expression-2</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> count<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{0} file{1}&#34;</span><span style="color:#f92672">.</span>format( count <span style="color:#66d9ef">if</span> count <span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;no&#34;</span>, <span style="color:#e6db74">&#34;s&#34;</span> <span style="color:#66d9ef">if</span> count <span style="color:#f92672">!=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>))
+no files
+<span style="color:#f92672">&gt;&gt;&gt;</span> count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{0} file{1}&#34;</span><span style="color:#f92672">.</span>format( count <span style="color:#66d9ef">if</span> count <span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;no&#34;</span>, <span style="color:#e6db74">&#34;s&#34;</span> <span style="color:#66d9ef">if</span> count <span style="color:#f92672">!=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>))
+<span style="color:#ae81ff">1</span> file
+<span style="color:#f92672">&gt;&gt;&gt;</span> count<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{0} file{1}&#34;</span><span style="color:#f92672">.</span>format( count <span style="color:#66d9ef">if</span> count <span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;no&#34;</span>, <span style="color:#e6db74">&#34;s&#34;</span> <span style="color:#66d9ef">if</span> count <span style="color:#f92672">!=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>))
+<span style="color:#ae81ff">2</span> files
+</code></pre></div><h2 id="while-loops">while Loops</h2>
+<pre><code>while boolean_expression:
+    while_suite
+else:
+    else_suite
+</code></pre><p><code>else_suite</code> is not executed if loop is <code>break</code> or exception raised or a <code>return</code> is called.</p>
+<h2 id="for-loops">for Loops</h2>
+<pre><code>for expresss in iterable:
+    for_suite
+else:
+    else_suite
+</code></pre><h1 id="exception">Exception</h1>
+<h2 id="raising-exception">Raising Exception</h2>
+<p>raise exception(args)
+raise exception(args) from original_exception
+raise</p>
+<p>when <code>raise</code> is used, it will reraise the currently active exception and if there isn&rsquo;t one it will
+raise a TypeError</p>
+<h2 id="custom-exceptions">Custom Exceptions</h2>
+<h3 id="how-to-define">how to define</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">exceptionName</span>(baseException): <span style="color:#66d9ef">pass</span>
+</code></pre></div><h3 id="useful-case-for-custom-exception-break-out-of-deeply-nested-loops">Useful case for custom exception, break out of deeply nested loops</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FoundException</span>(<span style="color:#a6e22e">Exception</span>): <span style="color:#66d9ef">pass</span>
+
+<span style="color:#66d9ef">try</span>:
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">.......</span>:
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">.......</span>:
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">......</span>:
+                <span style="color:#66d9ef">if</span> item <span style="color:#f92672">==</span> target:
+                    <span style="color:#66d9ef">raise</span> FoundException
+<span style="color:#66d9ef">except</span> FoundException:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;found&#34;</span>)
+<span style="color:#66d9ef">else</span>
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;not found&#34;</span>)
+</code></pre></div><h3 id="another-useful-case-in-page-169-to-use-exception-to-control-the-flow">Another useful case in page 169 to use exception to control the flow</h3>
+<p>In summary, we have two layer of try/except.</p>
+<p>Inner exception handling need to capture the exception and do something and it will re-raise the
+exception to outer exception handler (for changing the flow), the outer handler just <code>pass</code>.</p>
+<p>In this way, Exception could be utilized to control the flow flexibly.</p>
+<h1 id="custom-functions">Custom Functions</h1>
+<ul>
+<li>
+<p>global functions
+global functions could be accessed from other modules</p>
+</li>
+<li>
+<p>local functions
+local functions ( also called nested functions) are functions that are defined inside other functions.</p>
+</li>
+<li>
+<p>lambda functions
+lambda functions are expressions so they can be created at their point of use</p>
+</li>
+<li>
+<p>methods
+Methods are functions that are associated with a particular data type</p>
+</li>
+</ul>
+<h2 id="function-parameter-default-value">function parameter default value</h2>
+<h3 id="define-function-with-default-value">define function with default value</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">some_function</span>(param1, param2<span style="color:#f92672">=</span>string<span style="color:#f92672">.</span>ascii_letters)
+    <span style="color:#66d9ef">pass</span>
+</code></pre></div><h3 id="default-value-are-assigned-when-function-is-defined-in-def">default value are assigned when function is defined in &lsquo;def&rsquo;</h3>
+<h2 id="names">Names</h2>
+<h3 id="naming-scheme">Naming Scheme</h3>
+<ul>
+<li>UPPERCASE for constants</li>
+<li>TitleCase for classes</li>
+<li>camelCase for GUI</li>
+<li>lowercase or lowercase_with_underscore for everything else</li>
+</ul>
+<h3 id="the-name-should-describe-its-meaning-not-the-type-amount_due-rather-than-money">the name should describe its meaning not the type (amount_due rather than money)</h3>
+<h3 id="the-function-name-should-say-what-they-do-or-what-they-return-but-never-how-they-do">the function name should say what they do or what they return but never how they do</h3>
+<pre><code>def find(l, s, i=0):                #BAD
+def linear_search(l, s, i=0)        #BAD
+def first_idnex_of(sorted_name_list, name, start=0)       #GOOD
+</code></pre><h2 id="docstrings">Docstrings</h2>
+<p>A string comes immediately after the def line</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">shorten</span>(text, length<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>, indicator<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;...&#34;</span>):
+    <span style="color:#e6db74">&#34;&#34;&#34;Returns text or a truncated copy with the indicator added
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    text is any string; length is the maximum lenght of the returned
+</span><span style="color:#e6db74">    string (including any indicator); indicator is the string added at
+</span><span style="color:#e6db74">    the end to indicate the text has been shorteded
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &gt;&gt;&gt; shorten(&#34;Second Variety&#34;)
+</span><span style="color:#e6db74">    `Second Variety`
+</span><span style="color:#e6db74">    &gt;&gt;&gt; shorten(&#34;Radio Free Albemuth&#34;, 10, &#34;*&#34;)
+</span><span style="color:#e6db74">    &#39;Radio Fre*&#39;
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">if</span> len(text) <span style="color:#f92672">&gt;</span> length:
+        text <span style="color:#f92672">=</span> text[:lenght <span style="color:#f92672">-</span>len(indicator)] <span style="color:#f92672">+</span> indicator
+    <span style="color:#66d9ef">return</span> text
+</code></pre></div><h2 id="using-unpacking-operator-in-function-parameter-list">using unpacking operator in function parameter list</h2>
+<p>This is useful when we want to create functions that can take a variable number of positional
+arguments.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">product</span>(<span style="color:#f92672">*</span>args)
+    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> arg <span style="color:#f92672">in</span> args:
+        result <span style="color:#f92672">*=</span> arg
+    <span style="color:#66d9ef">return</span> result
+</code></pre></div><h2 id="if--is-used-in-parameter-it-does-not-allow-the-positional-parameter-after-">if * is used in parameter, it does not allow the positional parameter after *</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">heron</span>(a, b, c, <span style="color:#f92672">*</span>, units<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;square meters&#34;</span>):
+    s <span style="color:#f92672">=</span> (a <span style="color:#f92672">+</span>b <span style="color:#f92672">+</span> c)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+    area <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>sqrt( s <span style="color:#f92672">*</span> (s <span style="color:#f92672">-</span>a) <span style="color:#f92672">*</span> (s<span style="color:#f92672">-</span>b <span style="color:#f92672">*</span> (s<span style="color:#f92672">-</span>c)))
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;{} {}&#34;</span><span style="color:#f92672">.</span>format(area, units)
+
+heron2(<span style="color:#ae81ff">25</span>,<span style="color:#ae81ff">24</span>,<span style="color:#ae81ff">7</span> <span style="color:#e6db74">&#34;sq. inches&#34;</span>)    <span style="color:#75715e">#WRONG! raises TypeError</span>
+</code></pre></div><h2 id="mapping-unpacking-operator--1">mapping unpacking operator (**)</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">options <span style="color:#f92672">=</span> dict(pater<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;A4&#34;</span>, color<span style="color:#f92672">=</span>Ture)
+print_setup(<span style="color:#f92672">**</span>options)
+</code></pre></div><p>If options contains a key for which there is no corresponding parameter, a TypeError is raised.</p>
+<h2 id="using--in-function-parameter-allows-many-keyword-arguments">using (**) in function parameter allows many keyword arguments</h2>
+<p>This is similar like * in function which allows many positional arguments</p>
+<p>We can of cause accept both a variable number of positional arguments and a variable number of
+keyword arguments</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_args</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kyargs):
+    <span style="color:#f92672">...</span>
+</code></pre></div><h2 id="print">print()</h2>
+<p>Help on built-in function print in module builtin:</p>
+<p>print(&hellip;)
+print(value, &hellip;, sep=' &lsquo;, end='\n&rsquo;, file=sys.stdout, flush=False)</p>
+<pre><code>Prints the values to a stream, or to sys.stdout by default.
+Optional keyword arguments:
+file:  a file-like object (stream); defaults to the current sys.stdout.
+sep:   string inserted between values, default a space.
+end:   string appended after the last value, default a newline.
+flush: whether to forcibly flush the stream.
+</code></pre>
+<p>(END)</p>
+<p>so a way to print a list using unpacking</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#f92672">*</span>a, sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;*&#34;</span>)
+<span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">3</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#f92672">*</span>a, sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; -- &#34;</span>)
+<span style="color:#ae81ff">1</span> <span style="color:#f92672">--</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">--</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">--</span> <span style="color:#ae81ff">4</span>
+</code></pre></div><h1 id="lambda-fucntions-syntax">Lambda Fucntions Syntax</h1>
+<p>lambda parameters: expression</p>
+<h2 id="used-to-sort">used to sort()</h2>
+<p>lambda functions are often used as the key function for the built-in sorted() and list.sort() method</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> elements <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">11</span>), (<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>)]
+<span style="color:#f92672">&gt;&gt;&gt;</span> elements<span style="color:#f92672">.</span>sort(key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> x: x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">1</span>])
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(elements)
+[(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">11</span>)]
+</code></pre></div><h3 id="used-on-">used on ``</h3>
+<p>minus_one_dict = collections.defaultdict(lambda: -1)</p>
+<h1 id="assertions">Assertions</h1>
+<p>Syntax:</p>
+<pre><code>assert boolean_expression, optional_expression
+
+assert are designed from developers, not end-users
+</code></pre><p>#Misc</p>
+<h2 id="get-datetime">Get datetime</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> datetime
+<span style="color:#f92672">&gt;&gt;&gt;</span> datetime<span style="color:#f92672">.</span>date<span style="color:#f92672">.</span>today()
+datetime<span style="color:#f92672">.</span>date(<span style="color:#ae81ff">2018</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> datetime<span style="color:#f92672">.</span>date<span style="color:#f92672">.</span>today()<span style="color:#f92672">.</span>year
+<span style="color:#ae81ff">2018</span>
+</code></pre></div><h2 id="using-locals-to-update-dictionary-vs-to-use-in-strformat">using locals() to update dictionary vs to use in str.format()</h2>
+<p>using in str.format() is generally safe because only the keys named in the format string are used,
+with any others harmlessly ignored, but this is not the case for updating the dictionary.</p>
+<h2 id="using-input-to-prompt-a-message-and-get-input-from-console">using input() to prompt a message and get input from console</h2>
+<p>Help on built-in function input in module builtins:</p>
+<p>input(prompt=None, /)
+Read a string from standard input.  The trailing newline is stripped.</p>
+<pre><code>The prompt string, if given, is printed to standard output without a
+trailing newline before reading input.
+
+If the user hits EOF (*nix: Ctrl-D, Windows: Ctrl-Z+Return), raise EOFError.
+On *nix systems, readline is used if available.
+</code></pre>
+<h2 id="global-variable-is-best-to-be-used-for-constants"><code>global</code> variable is best to be used for constants</h2>
+<h1 id="modules">Modules</h1>
+<h2 id="modules-and-packages">Modules and Packages</h2>
+<h3 id="not-all-modules-have-associated-py-file">Not all modules have associated .py file</h3>
+<p>For example, the <code>sys</code> module is built into Python, and some other modules are written in other
+languages (most commonly, C)</p>
+<h3 id="import-syntax">import syntax</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> importable
+<span style="color:#f92672">import</span> importable1<span style="color:#f92672">,</span> importable2<span style="color:#f92672">,</span> <span style="color:#f92672">....</span>, importableN
+<span style="color:#f92672">import</span> importable <span style="color:#f92672">as</span> prefered_name
+</code></pre></div><p>other syntax:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> importable <span style="color:#f92672">import</span> object <span style="color:#66d9ef">as</span> prefered_name
+<span style="color:#f92672">from</span> importable <span style="color:#f92672">import</span> object1, object2, <span style="color:#f92672">...</span>, objectN
+<span style="color:#f92672">from</span> importable <span style="color:#f92672">import</span> (object1, object2, <span style="color:#f92672">.....</span>,objectN)
+<span style="color:#f92672">from</span> importable <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</code></pre></div><p>These may cause name conflicts.</p>
+<h4 id="third-syntax-import-everything-that-is-not-private">third syntax import everything that is not private</h4>
+<p>means import everything expect for those whose name begin with a leading underscore, or, if the
+module has a global <strong>all</strong> variable that holds a list of names, that all the objects named in the
+<strong>all</strong> variable are imported</p>
+<h3 id="naming-convention-for-custom-module-using-uppercase-for-the-first-letter">naming convention for custom module: using uppercase for the first letter</h3>
+<p>As all standard library module filenames are lowercase.</p>
+<h3 id="python-has-no-cycle-import-problem">python has no cycle import problem</h3>
+<h2 id="byte-code-compiled-code">byte-code compiled code</h2>
+<p>.pyo ( optimized byte-code) -&gt; .pyc (non-optimized byte-code) -&gt; .py (to compiles a byte-code
+compiled version)</p>
+<p>When python is installed, the standard library modules are usually byte-code compiled as part of
+installation process.</p>
+<h2 id="packages">Packages</h2>
+<p>A package is simply a directory that contains a set of module and a file called <strong>init</strong>.py</p>
+<h2 id="doctest">doctest</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;&#34;&#34;This module provides several math functions
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&gt;&gt;&gt; myadd(1,2)
+</span><span style="color:#e6db74">3
+</span><span style="color:#e6db74">&gt;&gt;&gt; myminus(3,2)
+</span><span style="color:#e6db74">1
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">myadd</span>(a,b):
+    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">myminus</span>(a,b):
+    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">-</span>b
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    <span style="color:#f92672">import</span> doctest
+    doctest<span style="color:#f92672">.</span>testmod()
+</code></pre></div><h1 id="misc">Misc</h1>
+<h2 id="the-way-to-create-platform-dependent-function">the way to create platform dependent function</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">if</span> sys<span style="color:#f92672">.</span>platform<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;win&#34;</span>):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clear_screen</span>():
+        <span style="color:#f92672">....</span>
+<span style="color:#66d9ef">else</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clear_screen</span>():
+        <span style="color:#f92672">...</span>
+clear_screen<span style="color:#f92672">.</span>__doc__ <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;Clears the scrren using the underlying window system&#39;s clear screen </span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74">command&#34;&#34;&#34;</span>
+</code></pre></div><p>This could dynamically creates the function when the module is imported</p>
+<h1 id="pythons-standard-library">Python&rsquo;s Standard Library</h1>
+<h2 id="string-handling">string handling</h2>
+<h3 id="struct-module-provides-functions-for-packing-and-unpacking-numbers-booleans-strings"><code>struct</code> module provides functions for packing and unpacking numbers, Booleans, strings</h3>
+<p>To and from bytes objects using their binary representations. This can be useful when handling data
+to be sent to or received from low level libraries written in C.</p>
+<h3 id="string-modules"><code>string</code> modules</h3>
+<h3 id="difflib-could-produce-output-both-in-standard-diff-formats-and-in-html"><code>difflib</code> could produce output both in standard <code>diff</code> formats and in HTML</h3>
+<h3 id="pythons-most-powerful-string-handling-is-the-re">Python&rsquo;s most powerful string handling is the <code>re</code></h3>
+<h3 id="iostringio"><code>io.StringIO</code></h3>
+<p>string-like object that behaves like in-memory text file. Convenient if we want to use the same code
+that writes to a file to write to a string.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> io
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;line one&#34;</span>)
+line one
+<span style="color:#f92672">&gt;&gt;&gt;</span> iostr <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>StringIO()
+<span style="color:#f92672">&gt;&gt;&gt;</span> sys<span style="color:#f92672">.</span>stdout <span style="color:#f92672">=</span> iostr
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;line one&#34;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;line two&#34;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> sys<span style="color:#f92672">.</span>stdout <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>__stdout__
+<span style="color:#f92672">&gt;&gt;&gt;</span> iostr<span style="color:#f92672">.</span>getvalue()
+<span style="color:#e6db74">&#39;line one</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">line two</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
+</code></pre></div><h2 id="command-line-programming-docopt">command-line programming <code>docopt</code></h2>
+<h2 id="times-and-dates">times and dates</h2>
+<p>Refer to page 216</p>
+<h2 id="bisect-module">bisect module</h2>
+<p>It provides functions for searching sorted sequences such as sorted lists, and for iterating items
+while preserving the sort order.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>]  <span style="color:#75715e"># a is sorted</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> i <span style="color:#f92672">=</span> bisect<span style="color:#f92672">.</span>bisect_left(a,<span style="color:#ae81ff">3</span>) <span style="color:#75715e">#find the place to insert</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> a[i:i] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>] <span style="color:#75715e"># insert. the result is that a is still sorted</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>]
+</code></pre></div><h2 id="heapq-module-provides-functions-for-turning-a-sequence-such-as-a-list-into-a-heap">heapq module provides functions for turning a sequence such as a list into a heap</h2>
+<p>a heap is where the first item (at index position 0) is always the smallest item, and for inserting
+and removing items while keeping the sequence as heap. Note that a heap does not guarantee that the
+data is sorted, a (ascending) sorted data structure ensure that the first item is smallest item but
+not vice verse.</p>
+<p>It uses the same data struct of list
+Heaps are list for which a[k] &lt;= a[2<em>k+1] and a[k] &lt;= a[2</em>k+2] for
+all k, counting elements from 0. &raquo;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> h<span style="color:#f92672">=</span>[]
+<span style="color:#f92672">&gt;&gt;&gt;</span> heapq<span style="color:#f92672">.</span>heappush(a,<span style="color:#ae81ff">10</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> heapq<span style="color:#f92672">.</span>heappush(a,<span style="color:#ae81ff">9</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> heapq<span style="color:#f92672">.</span>heappush(a,<span style="color:#ae81ff">11</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">11</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> h<span style="color:#f92672">=</span>[]
+<span style="color:#f92672">&gt;&gt;&gt;</span> heapq<span style="color:#f92672">.</span>heappush(h,<span style="color:#ae81ff">11</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> heapq<span style="color:#f92672">.</span>heappush(h,<span style="color:#ae81ff">12</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> heapq<span style="color:#f92672">.</span>heappush(h,<span style="color:#ae81ff">10</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> h
+[<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">11</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> heapq<span style="color:#f92672">.</span>heappop(h)
+<span style="color:#ae81ff">10</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> h
+[<span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">12</span>]
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">0</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> heapq<span style="color:#f92672">.</span>heapify(a)
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">2</span>]
+</code></pre></div><h2 id="collectionsdeque-vs-list">collections.deque vs list</h2>
+<p>deque is simiar to list. list is very fast for adding and removing items at the end, a
+collection.deque is very fast for adding and removing items both at the beginning and at the end</p>
+<h2 id="collectionscounter">collections.Counter</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> collections
+<span style="color:#f92672">&gt;&gt;&gt;</span> c<span style="color:#f92672">=</span> collections<span style="color:#f92672">.</span>Counter()
+<span style="color:#f92672">&gt;&gt;&gt;</span> c
+Counter()
+<span style="color:#f92672">&gt;&gt;&gt;</span> c<span style="color:#f92672">=</span> collections<span style="color:#f92672">.</span>Counter(<span style="color:#e6db74">&#34;aabddaced&#34;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> sorted(c)
+[<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> sorted(c<span style="color:#f92672">.</span>elements())
+[<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> c[<span style="color:#e6db74">&#39;a&#39;</span>]
+<span style="color:#ae81ff">3</span>
+</code></pre></div><h2 id="arrayarray-vs-list">array.array vs list</h2>
+<p>Array.array is similar to list except that the type of object which could be stored is fixed.</p>
+<h2 id="weakref">weakref</h2>
+<p>If the only reference to an object is week reference, the object can still be scheduled fro garbage
+collection.</p>
+<p>This is to resolve cycling reference issue. For example, if a is has reference to b, because b is
+under management of a, so if a is garbage collected, b will be garbage collected automatically.
+But if for sake of convenience, b need to keep a reference to a so it could access some property of
+its parent which is a. If both references are strong, both a and b will not be garbage collected.
+In this case b should have week reference to a.</p>
+<h2 id="standard-library-support-base64-by-base64">standard library support Base64 by <code>base64</code></h2>
+<p>Mostly used for handling binary data that is embedded in emails as ASCII text, it can also be used
+to store binary inside .py files.</p>
+<h2 id="standard-library-supports-quoted-printable-by-quopri">standard library supports &ldquo;quoted-printable&rdquo; by <code>quopri</code></h2>
+<h2 id="bz2-gzip-zipfile-tarfile"><code>bz2</code>, `gzip', &lsquo;zipfile&rsquo;, &lsquo;tarfile&rsquo;</h2>
+<h2 id="audio-file-format-aifc-wave-sndhdr">audio file format: aifc, wave, sndhdr</h2>
+<h2 id="configparser">configparser</h2>
+<p>Similar to old sytle windows .ini files is specified in RFC822</p>
+<h2 id="cvs-for-read-and-write-cvs-data"><code>cvs</code> for read and write CVS data</h2>
+<h2 id="shutil"><code>shutil</code></h2>
+<p>shutil.copy() and shutil.copytree() for copying files and entire dicectory trees.</p>
+<h2 id="tempfile"><code>tempfile</code></h2>
+<p>Provide functions to create temporary files and directories.</p>
+<h2 id="filecmp"><code>filecmp</code></h2>
+<p>Used to compare files (filecmp.cmp() ) and compare entire directories (filecmp.comfiles() )</p>
+<h2 id="subprocess-and-multiprocessing"><code>subprocess</code> and <code>multiprocessing</code></h2>
+<h2 id="os">os</h2>
+<h2 id="oswalk-iterates-over-an-entire-directory-tree">os.walk() iterates over an entire directory tree</h2>
+<p>It walk the directly recessively</p>
+<h2 id="ospathsplit-return-a-2-tuple-with-the-first-element-containing-path-and-second-the-filename">os.path.split() return a 2-tuple with the first element containing path and second the filename</h2>
+<p>These two pars are also available directly using os.path.basename() and os.path.dirname()</p>
+<h2 id="reduce">reduce()</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> functools
+<span style="color:#f92672">&gt;&gt;&gt;</span> functools<span style="color:#f92672">.</span>reduce(<span style="color:#66d9ef">lambda</span> x,y: x <span style="color:#f92672">+</span> y, [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>],<span style="color:#ae81ff">0</span>)
+<span style="color:#ae81ff">10</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> functools<span style="color:#f92672">.</span>reduce(<span style="color:#66d9ef">lambda</span> x,y: x <span style="color:#f92672">+</span> y, [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>])
+<span style="color:#ae81ff">10</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> functools<span style="color:#f92672">.</span>reduce(<span style="color:#66d9ef">lambda</span> x,y: x <span style="color:#f92672">^</span> y, [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>])
+<span style="color:#ae81ff">4</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> functools<span style="color:#f92672">.</span>reduce(<span style="color:#66d9ef">lambda</span> x,y: x <span style="color:#f92672">**</span> y, [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>])
+<span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> functools<span style="color:#f92672">.</span>reduce(<span style="color:#66d9ef">lambda</span> x,y: x <span style="color:#f92672">**</span> y, [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>])
+<span style="color:#ae81ff">16777216</span>
+</code></pre></div><h1 id="networking-and-internet-programming">Networking and Internet Programming</h1>
+<h2 id="socket"><code>socket</code></h2>
+<p>Creating sockets, doing DNS, IP address handling</p>
+<h2 id="ssl"><code>ssl</code></h2>
+<p>Encrypted and authenticated sockets can be set up using ssl module.</p>
+<h2 id="socketserver"><code>socketserver</code></h2>
+<p>TCP and UDP server</p>
+<h2 id="asyncore-asynchat"><code>asyncore</code> <code>asynchat</code></h2>
+<p>Asynchronous client and server socket handling</p>
+<h1 id="object---oriented-programming">Object - Oriented Programming</h1>
+<h2 id="-operator">+ operator</h2>
+<p>If we want to create a class that supports concatenation using the + operator and also the len()
+function, we can do so by implementing the <strong>add</strong>() and <strong>len</strong>()</p>
+<h2 id="syntax-of-creating-customer-classes">syntax of creating customer classes</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">className</span>:
+    suite
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">className</span>(base_classes):
+    suite
+</code></pre></div><h2 id="all-object-attributes-must-be-qualified-by-self">all object attributes must be qualified by <code>self</code></h2>
+<h2 id="two-steps-in-create-an-object">two steps in create an object</h2>
+<ul>
+<li><strong>new()</strong> is called to create the object</li>
+<li><strong>init()</strong> is called to initialize it</li>
+</ul>
+<p>If function needed does not exist in object or in any of object&rsquo;s base classes, AttributeError
+exception is raised.</p>
+<h2 id="super__init__">super().<strong>init()</strong></h2>
+<p>This is not required if it is inherited from <code>object</code> base class.</p>
+<h2 id="__ne__-should-not-be-implemented-since-__eq__-will-suffice"><strong>ne</strong> should not be implemented since <strong>eq()</strong> will suffice</h2>
+<h2 id="return-notimplemented">return NotImplemented</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>:
+    <span style="color:#66d9ef">def</span> __eq__(self, other):
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> isinstance(other, point):
+            <span style="color:#66d9ef">return</span> NotImplemented
+</code></pre></div><p>If we return NotImplemented, Python will then try calling other.<strong>eq</strong>(self) to see whether the
+<code>other</code> type supports the comparison with the Point type. If there is no such method or if that
+methods also returns NotImplemented, Python will give up and raise a <code>TypeError</code> exception.</p>
+<h2 id="__repr__self-vs-__str__self"><strong>repr</strong>(self) vs <strong>str</strong>(self)</h2>
+<p><strong>str</strong>() is called by built-in str() function and return the result for human readers.</p>
+<p><strong>repr</strong>() is for built-in repr() function.</p>
+<h2 id="using-properties-to-control-attribute-access">using Properties to control attribute access</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@property</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+    <span style="color:#66d9ef">return</span> math<span style="color:#f92672">.</span>pi <span style="color:#f92672">*</span> (self<span style="color:#f92672">.</span>radius <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>)
+</code></pre></div><p>@property is a <code>decorator</code>, a decorator is a function that takes a function or method as its
+argument and returns a decorated version, that is, a version of the function or method that is
+modified in <code>some</code> way.</p>
+<p>So an alternative way to create a property likes this (we rarely use this syntax)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+    <span style="color:#66d9ef">return</span> math<span style="color:#f92672">.</span>pi <span style="color:#f92672">*</span> (self<span style="color:#f92672">.</span>radius <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>)
+area <span style="color:#f92672">=</span> property(area)
+</code></pre></div><p>Once the area property is created by using @property, the area.getter, area.setter, and
+radius.deleter attributes become available. They can be used as decorator to replace themselves with
+the method they are used to decorate.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@area.setter</span>(self, area)
+    <span style="color:#66d9ef">pass</span>
+
+<span style="color:#75715e">## @staticmethod</span>
+
+<span style="color:#a6e22e">@staticmethod</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">conjunction</span>(<span style="color:#f92672">*</span>fuzzies):
+    <span style="color:#66d9ef">return</span> FuzzyBool(min[float(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> fuzzies])
+
+
+staticmethod does <span style="color:#f92672">not</span> get <span style="color:#e6db74">`self`</span> <span style="color:#f92672">or</span> any other first argument specially passed by Python
+
+But some Python programmers consider the use of static method to be un<span style="color:#f92672">-</span>Pythonic
+
+instead of staticmethod, we crate a module function, <span style="color:#66d9ef">if</span> we create the <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">by</span> inheriting <span style="color:#f92672">from</span> float
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">conjunction</span>(<span style="color:#f92672">*</span>fuzzies):
+    <span style="color:#66d9ef">return</span> FuzzyBool(min(fuzzies))
+</code></pre></div><h2 id="using-exec-to-execute-python-code-in-string">using <code>exec</code> to execute Python code in string</h2>
+<h2 id="pickle"><code>pickle</code></h2>
+<p>Help on module pickle:</p>
+<p>NAME
+pickle - Create portable serialized representations of Python objects.</p>
+<h2 id="using-assert-to-ensure-object-is-callable">using assert to ensure object is callable</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">assert</span> hasattr(someobject, <span style="color:#e6db74">&#34;__call__&#34;</span>)
+</code></pre></div><h2 id="need-to-re-read-chapter-6-object-oriented-programming">need to re-read Chapter 6 Object-Oriented Programming</h2>
+<h2 id="open-function">open() function</h2>
+<p>Python distinguishes between files opened in binary and text modes, even when the underlying
+operating system does not. Files opened in binary mode (including &lsquo;b&rsquo; in the mode argument) return
+contents as bytes objects without any decoding. In text mode (the default, or when &rsquo;t' is included
+in the mode argument), the contents of the file are returned as Unicode strings, the bytes having
+been first decoded using a platform-dependent encoding or using the specified encoding if given.</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+

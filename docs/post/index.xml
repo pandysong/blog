@@ -6,7 +6,78 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating Django and Vue Scaffold</title>
+      <link>https://pandysong.github.io/blog/post/django_vue_scaffold/</link>
+      <pubDate>Thu, 09 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/django_vue_scaffold/</guid>
+      <description>Introduction This describe how we could create an application Scaffold to use Vue at the frontend and use Django on the backend. Both Vue and Django support hot-reload so that both could be developed in parallel.
+The template could be found in this repo.
+Creating Django project This is just following the Django tutorial, so if you are familar with it, just do what you normally do.
+create an virtual env Creating a virtual environment is not a must, however in order to isolate the environment, it is recommended to do so.</description>
+    </item>
+    
+    <item>
+      <title>mmcv, from config to model</title>
+      <link>https://pandysong.github.io/blog/post/mmcv_from_config_to_model/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/mmcv_from_config_to_model/</guid>
+      <description>Introduction This describes how the config file in mmcv is converted to models in mmcv
+build_from_cfg mmcv/utils/registry.py:9: build_from_cfg def build_from_cfg(cfg, registry, default_args=None): ... args = cfg.copy() obj_type = args.pop(&#39;type&#39;) return obj_cls(**args) This function converts a config dictionary to a model.
+This function popes the type from the directory and pass the rest of dict to the class defined by the &amp;lsquo;type&amp;rsquo; string.
+For example:
+In following config
+model = dict( type=&#39;GlidingVertex&#39;, pretrained=&#39;torchvision://resnet50&#39;, backbone=dict( .</description>
+    </item>
+    
+    <item>
+      <title>AEC: Acoustic Echo Cancellation</title>
+      <link>https://pandysong.github.io/blog/post/aec_summary/</link>
+      <pubDate>Mon, 01 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/aec_summary/</guid>
+      <description>Non-Linear AEC The paper[1] describes that the echo takes effects when the echo exceeds 30-50ms. In modem communication system, the delay is far more than that.
+In the paper, two method to handle non-linearity
+ first an approach based on loudspeaker emulation and the second on the linearisation of the loudspeaker.  Echo Return Loss Enhancement (ERLE) Linear Algorithms performance  Frequency block-filtering approaches are shown to be the most disturbed in non-linear environments.</description>
+    </item>
+    
+    <item>
+      <title>Acoustic Beamforming Algorithm</title>
+      <link>https://pandysong.github.io/blog/post/acoustic_beamforming_thoughts/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/acoustic_beamforming_thoughts/</guid>
+      <description>Question Mark When reading the paper of acoustic beamforming of mask based algorithm, I am a bit lost on why do we need to split the signal to frequency bin.
+https://arxiv.org/pdf/2005.09587v2.pdf Above paper descirbes how the mask the calculated with a lot of terms
+ TDOA (Time Difference Of Arrival) Stearing Vector (Used to cancel the phase differences)  But the logic behind that is not explained, why do we bother to split the spectrum to a set of frequency bin?</description>
+    </item>
+    
+    <item>
+      <title>Awesome Audio Technology</title>
+      <link>https://pandysong.github.io/blog/post/awesome_audio_tech/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/awesome_audio_tech/</guid>
+      <description>Open Source HARK  Though HARK supports numerous signal processing methods, it requires a significant amount of computing power, which makes it less suitable for use on low-cost embedding hardware https://hark.jp/download/source-code/
+ManyEars https://github.com/introlab/manyears
+ODAS https://arxiv.org/pdf/2103.03954.pdf
+https://github.com/introlab/odas
+gccphat https://github.com/FrancoisGrondin/gccphat</description>
+    </item>
+    
+    <item>
+      <title>some thoughts form rnnoise to beamforming</title>
+      <link>https://pandysong.github.io/blog/post/from_rnnoise_to_beamforming/</link>
+      <pubDate>Fri, 22 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/from_rnnoise_to_beamforming/</guid>
+      <description>RNNoise RNNoise is a RNN network based noise reduction method, which performs quite well on suppressing environment noises. The idea behind is: adjust the frequency bin (frequency interval is NOT equally spaced) gain to suppress the noise parts of bins dynamically.
+In details In the diagram above, the most important part is the RNN to esitmate the gain which should be applied to the frequency bin to remove the noise.</description>
+    </item>
+    
     <item>
       <title>ALSA Soc (ASoC) Driver Explained</title>
       <link>https://pandysong.github.io/blog/post/asoc_explained/</link>

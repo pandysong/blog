@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Golang notes</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Golang notes</h1>
+  <div class="blog-post-subheader">
+    <time>28 May 2018</time>
+  </div>
+  <div class="blog-post-content">
+    <p>Language Spec: <a href="https://golang.org/ref/spec">https://golang.org/ref/spec</a></p>
+<p>Package: <a href="https://golang.org/pkg/">https://golang.org/pkg/</a></p>
+<h1 id="must-watch-1">Must watch 1</h1>
+<p>Go Concurrency Patterns (slides) : <a href="https://www.youtube.com/watch?v=f6kdp27TYZs">https://www.youtube.com/watch?v=f6kdp27TYZs</a></p>
+<h2 id="goroutines">goroutines</h2>
+<p>important: goroutines are not threads. They are cheap, it&rsquo;s practical to have thousands, even
+hundreds of thousands of goroutines</p>
+<h2 id="channels">channels</h2>
+<p><code>channel sending and receving are synchronized operations</code></p>
+<p>Channels are first-class types</p>
+<h2 id="shared-memory">shared memory</h2>
+<p><code>do not communicate via shared memory</code> using channels instead</p>
+<h2 id="using-another-goroutine-to-get-the-value-to-other-two-channels-and-feed-to-one-channels">using another goroutine to get the value to other two channels and feed to one channels</h2>
+<p>So that the two channels are not necessarily synchronized</p>
+<p>using <code>select</code> to have only one go routine to combine two input to one channel</p>
+<h2 id="we-can-send-a-channel-via-a-channel">we can send a channel via a channel</h2>
+<p>Two way communications to make two goroutine synchronized</p>
+<h2 id="timeout-using-select">timeout using select</h2>
+<p>select {
+case s := &lt;-c:
+do_sth()
+case &lt;- time.After( time.Second):
+fmt.Println(&ldquo;You are too slow&rdquo;)
+return
+}</p>
+<h1 id="must-watch-2">Must watch 2</h1>
+<p><a href="https://vimeo.com/53221558">https://vimeo.com/53221558</a></p>
+<h1 id="section-1">Section 1</h1>
+<h1 id="a-name-with-capital-letter-is-exported">A name with capital letter is exported</h1>
+<h1 id="function-arguments-type-comes-after-the-variable-name">function arguments: type comes after the variable name</h1>
+<h2 id="shorten-the-function-parameters">shorten the function parameters:</h2>
+<p>In this example, we shortened</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>
+</code></pre></div><p>to</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>
+</code></pre></div><h2 id="a-function-could-return-any-number-of-results">a function could return any number of results</h2>
+<p>This is similar to Python. This is different with JavaScript.  In JavaScript, multiple result should
+be shuffled into a object before returning.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">swap</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">x</span>
+}
+</code></pre></div><h2 id="naked-return--and-named-return-values">naked return  and named return values</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">split</span>(<span style="color:#a6e22e">sum</span> <span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">x</span> = <span style="color:#a6e22e">sum</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>
+    <span style="color:#a6e22e">y</span> = <span style="color:#a6e22e">sum</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">x</span>
+    <span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">split</span>(<span style="color:#ae81ff">17</span>))
+}
+
+</code></pre></div><h2 id="var-statements">&lsquo;var&rsquo; statements</h2>
+<h1 id="basic-types">basic types</h1>
+<pre><code>bool
+
+string
+
+int  int8  int16  int32  int64
+uint uint8 uint16 uint32 uint64 uintptr
+
+byte // alias for uint8
+
+rune // alias for int32
+     // represents a Unicode code point
+
+float32 float64
+
+complex64 complex128
+</code></pre><h1 id="variable-declarations-factored-into-blocks">variable declarations factored into blocks</h1>
+<h1 id="zero-values">Zero values</h1>
+<p>declared without an explicit initial value are given their zero value.</p>
+<p>The zero value is:</p>
+<p>0 for numeric types,
+false for the boolean type, and
+&quot;&quot; (the empty string) for strings.</p>
+<h1 id="fmtprintf">fmt.Printf</h1>
+<p>%T for type
+%v for value
+%q for value with quoted</p>
+<h1 id="type-conversions">type conversions</h1>
+<p>Unlike in C, in Go assignment between items of different type requires an explicit conversion. Try
+removing the float64 or uint conversions in the example and see what happens.</p>
+<h1 id="type-inference">type inference</h1>
+<p>When declaring a variable without specifying an explicit type (either by using the := syntax or var
+= expression syntax), the variable&rsquo;s type is inferred from the value on the right hand side.</p>
+<p>Notes:
+This is like Python? Maybe not, inference means the type is deterministic when compiling</p>
+<h1 id="constants">Constants</h1>
+<p>Constants</p>
+<p>Constants are declared like variables, but with the <code>const</code> keyword.</p>
+<p>Constants can be character, string, boolean, or numeric values.</p>
+<p>Constants cannot be declared using the := syntax.</p>
+<p>This is different with Python, in Python constant is by convention using capital letters</p>
+<h1 id="numeric-constants">Numeric Constants</h1>
+<p>Numeric constants are high-precision values.</p>
+<p>An untyped constant takes the type needed by its context.</p>
+<h2 id="pass-by-values">Pass by values</h2>
+<p>Variable is a map or slice</p>
+<p>Maps and slices are reference types in Go and should be passed by values.</p>
+<h1 id="section-2">Section 2</h1>
+<h2 id="for">For</h2>
+<p>No parentheses surrounding the three components of the for statement and braces {} are always
+required.</p>
+<h3 id="for-is-gos-while">For is Go&rsquo;s &ldquo;while&rdquo;</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">sum</span> &lt; <span style="color:#ae81ff">1000</span> {
+        <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">sum</span>
+    }
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sum</span>)
+}
+</code></pre></div><h3 id="forever">Forever</h3>
+<pre><code>func main() {
+    for {
+    }
+}
+</code></pre><h2 id="if-statement">if statement</h2>
+<h3 id="if-with-a-short-statement">if with a short statement</h3>
+<p>Like <code>for</code>, the <code>if</code> statement can start with a short statement to execute before the condition.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">lim</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pow</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">v</span> &lt; <span style="color:#a6e22e">lim</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">lim</span>
+}
+</code></pre></div><h2 id="switch">switch</h2>
+<p>A <code>switch</code> statement is a shorter way to write a sequence of if - else statements. It runs the first
+case whose value is equal to the condition expression.</p>
+<p>Go&rsquo;s switch is like the one in C, C++, Java, JavaScript, and PHP, except that Go only runs the
+selected case, not all the cases that follow. In effect, the break statement that is needed at the
+end of each case in those languages is provided automatically in Go. Another important difference is
+that Go&rsquo;s switch cases need not be constants, and the values involved need not be integers.</p>
+<h2 id="switch-with-no-condition">Switch with no condition</h2>
+<p>Same as <code>switch true</code></p>
+<h2 id="defer">Defer</h2>
+<p>A defer statement defers the execution of a function until the surrounding function returns.</p>
+<p>Useful example are mentioned in <a href="https://kylewbanks.com/blog/when-to-use-defer-in-go">https://kylewbanks.com/blog/when-to-use-defer-in-go</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BillCustomer</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Customer</span>) <span style="color:#66d9ef">error</span> {
+    <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">mutex</span>.<span style="color:#a6e22e">Lock</span>()
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">mutex</span>.<span style="color:#a6e22e">Unlock</span>()
+    
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Bill</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+    }
+    
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Notify</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+    }
+    
+    <span style="color:#75715e">// ... do more stuff ...
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><h1 id="section-3">Section 3</h1>
+<h2 id="pointers">Pointers</h2>
+<p>pointer&rsquo;s zero value is nil</p>
+<p>Unlike C, Go has no pointer arithmetic</p>
+<h2 id="structs">Structs</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Vertex</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">X</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">int</span>
+}
+</code></pre></div><h2 id="pointers-to-structs">pointers to structs</h2>
+<h2 id="arrays">arrays</h2>
+<pre><code>var a [10]int
+</code></pre><p>Declares a variable a as an array of ten integers</p>
+<h2 id="slices">Slices</h2>
+<p>An array has a fixed size. A list on the other hand, is a dynamically-sized</p>
+<p>Much like in python, but slice in go does not support stride, and negative index
+But it could ignore the start index (default as 0) and end index (default as len())</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">primes</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">13</span>}
+
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">primes</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">4</span>]
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)
+}
+
+</code></pre></div><h3 id="like-python-slices-are-like-reference-to-arrays">Like python, Slices are like reference to arrays</h3>
+<h3 id="slice-literal">slice literal</h3>
+<p>A slice literal is like an array literal without the length.</p>
+<p>This is an array literal:</p>
+<p>[3]bool{true, true, false}</p>
+<p>And this creates the same array as above, then builds a slice that references it:</p>
+<p>[]bool{true, true, false}</p>
+<h3 id="slice-length-vs-capacity">slice length vs capacity</h3>
+<p>length: the number of elements the slice contains
+capacity: the number of elements in the underlying arrays</p>
+<h2 id="creating-a-slice-with-make">creating a slice with make</h2>
+<p>a := make([]int, 5)  // len(a)=5</p>
+<p>b := make([]int, 0, 5) // len(b)=0, cap(b)=5</p>
+<pre><code>// Extend its length.
+s = s[:4]
+printSlice(s)
+
+// Drop its first two values. This is interesting as it will reduce the capacity by 2
+s = s[2:]
+printSlice(s)
+</code></pre>
+<h3 id="some-article-about-array-and-slices">some article about array and slices</h3>
+<p><a href="http://openmymind.net/The-Minimum-You-Need-To-Know-About-Arrays-And-Slices-In-Go/">http://openmymind.net/The-Minimum-You-Need-To-Know-About-Arrays-And-Slices-In-Go/</a></p>
+<h2 id="appending-to-a-slice">Appending to a slice</h2>
+<pre><code>func append(s []T, vs ...T) []T
+</code></pre><h2 id="range-is-like-enumerate-in-python-syntax-is-a-bit-different-using--instead-of-in-">range is like enumerate() in python (syntax is a bit different using <code>:=</code> instead of <code>in</code> )</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pow</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">128</span>}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">pow</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;2**%d = %d\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span>)
+    }
+}
+
+</code></pre></div><p>if <code>i</code> is not needed, it could be replaced with <code>_</code></p>
+<p>if <code>v</code> is not needed, it could be &lsquo;,v&rsquo; could be removed entirely</p>
+<h2 id="maps">maps</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">m</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Vertex</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">m</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Vertex</span>)
+    <span style="color:#a6e22e">m</span>[<span style="color:#e6db74">&#34;Bell Labs&#34;</span>] = <span style="color:#a6e22e">Vertex</span>{
+        <span style="color:#ae81ff">40.68433</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">74.39967</span>,
+    }
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">m</span>[<span style="color:#e6db74">&#34;Bell Labs&#34;</span>])
+}
+</code></pre></div><h3 id="mutating-maps">mutating maps</h3>
+<p>deleting:</p>
+<p>delete(m, key) is similar like in python del d[key]</p>
+<h3 id="testing-if-key-is-in-map">testing if key is in map</h3>
+<p>elem,ok = m[key]</p>
+<p>if key is in m, ok is true. if not, ok is false.</p>
+<p>if key is not in map then elem is the zero value for the map&rsquo;s element type</p>
+<h3 id="stringsfield-is-like-pytons-split">strings.Field is like Pyton&rsquo;s split()</h3>
+<h2 id="function-values-like-in-python">Function values like in Python</h2>
+<p>Functions are values too. They can be passed around just like other values.</p>
+<p>Function values may be used as function arguments and return values.</p>
+<h2 id="function-closures">Function closures</h2>
+<p><a href="https://www.calhoun.io/5-useful-ways-to-use-closures-in-go/">https://www.calhoun.io/5-useful-ways-to-use-closures-in-go/</a></p>
+<h3 id="use-cases-isolating-data">use cases: isolating data:</h3>
+<p>it has similar use cases like python&rsquo;s generator function, but not flexible as generator function.
+But channel in golang is like generator in Python. channel is communication between threads it is a
+bit tedious to use comparing to generator which is implemented in a single thread.</p>
+<p>The reason why golang has no generator is maybe because golang needs to compiled while Python is
+script language which could save state in a single thread in a flexible way.</p>
+<p>Note that following example is a good example how to write consice code for return the first values
+in iteration.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#75715e">// fibonacci is a function that returns
+</span><span style="color:#75715e">// a function that returns an int.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fibonacci</span>() <span style="color:#66d9ef">func</span>() <span style="color:#66d9ef">int</span> {
+   <span style="color:#a6e22e">z</span>,<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>
+   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>() <span style="color:#66d9ef">int</span> {
+         <span style="color:#a6e22e">z</span>,<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> =<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>,<span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span>
+         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">z</span>
+   }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fibonacci</span>()
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">f</span>())
+    }
+}
+
+</code></pre></div><p>to read</p>
+<p><a href="https://bbengfort.github.io/snippets/2016/12/22/yielding-functions-for-iteration-golang.html">https://bbengfort.github.io/snippets/2016/12/22/yielding-functions-for-iteration-golang.html</a></p>
+<h3 id="using-function-as-function-decorator">using function as function decorator</h3>
+<p>It is used to verify that a user is authenticated, log web requests, write default headers, and much
+more.</p>
+<h3 id="using-closure-in-sortsearch">using closure in sort.Search()</h3>
+<p>In following example the closure access numbers although it is never passed in</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (  
+  <span style="color:#e6db74">&#34;fmt&#34;</span>
+  <span style="color:#e6db74">&#34;sort&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {  
+  <span style="color:#a6e22e">numbers</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">11</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">12</span>}
+  <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Ints</span>(<span style="color:#a6e22e">numbers</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Sorted:&#34;</span>, <span style="color:#a6e22e">numbers</span>)
+
+  <span style="color:#a6e22e">index</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Search</span>(len(<span style="color:#a6e22e">numbers</span>), <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">numbers</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">7</span>
+  })
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;The first number &gt;= 7 is at index:&#34;</span>, <span style="color:#a6e22e">index</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;The first number &gt;= 7 is:&#34;</span>, <span style="color:#a6e22e">numbers</span>[<span style="color:#a6e22e">index</span>])
+}
+
+</code></pre></div><h3 id="one-liner-to-setup-and-tear-down">one liner to setup and tear down</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {  
+  <span style="color:#a6e22e">f</span> = <span style="color:#a6e22e">setup</span>()
+  <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>()
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">setup</span>() <span style="color:#66d9ef">func</span>() {  
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;pretend to set things up&#34;</span>)
+
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>() {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;pretend to tear things down&#34;</span>)
+  }
+}
+
+</code></pre></div><h1 id="section-4">Section 4</h1>
+<h2 id="methods">methods</h2>
+<p>A method is a function with a special receiver argument.</p>
+<p>The receiver appears in its own argument list between the func keyword and the method name.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Vertex</span>) <span style="color:#a6e22e">Abs</span>() <span style="color:#66d9ef">float64</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Sqrt</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">X</span><span style="color:#f92672">*</span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Y</span><span style="color:#f92672">*</span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Y</span>)
+}
+</code></pre></div><h3 id="pointer-receiver">Pointer receiver</h3>
+<p>Note that this Scale function will receive a value as pointer. so if v is a variable of Vertex.
+v.Scale(f) will compile and work.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Vertex</span>) <span style="color:#a6e22e">Scale</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float64</span>) {
+    <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">X</span> = <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">f</span>
+    <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Y</span> = <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">f</span>
+}
+</code></pre></div><p>In general, all methods on a given type should have either value or pointer receivers, but not a
+mixture of both. (We&rsquo;ll see why over the next few pages.)</p>
+<h2 id="interface">interface</h2>
+<h3 id="interfaces-are-implemented-implicitly">Interfaces are implemented implicitly</h3>
+<p>A type implements an interface by implementing its methods. There is no explicit declaration of
+intent, no &ldquo;implements&rdquo; keyword.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">I</span> <span style="color:#66d9ef">interface</span> {
+    <span style="color:#a6e22e">M</span>()
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">S</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#75715e">// This method means type T implements the interface I,
+</span><span style="color:#75715e">// but we don&#39;t need to explicitly declare that it does so.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">T</span>) <span style="color:#a6e22e">M</span>() {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">S</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#a6e22e">I</span> = <span style="color:#a6e22e">T</span>{<span style="color:#e6db74">&#34;hello&#34;</span>}
+    <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">M</span>()
+}
+
+</code></pre></div><p>Under the covers, interface values can be thought of as a tuple of a value and a concrete type:</p>
+<p>(value, type)</p>
+<p>An interface value holds a value of a specific underlying concrete type.</p>
+<p>Calling a method on an interface value executes the method of the same name on its underlying type.</p>
+<h3 id="interface-values-with-nil-underlying-values">Interface values with nil underlying values</h3>
+<p>If the concrete value inside the interface itself is nil, the method will be called with a nil
+receiver.</p>
+<p>In some languages this would trigger a null pointer exception, but in Go it is common to write
+methods that gracefully handle being called with a nil receiver (as with the method M in this
+example.)</p>
+<p>Note that an interface value that holds a nil concrete value is itself non-nil.</p>
+<h3 id="nil-interface-values">Nil interface values</h3>
+<p>A nil interface value holds neither value nor concrete type.</p>
+<p>Calling a method on a nil interface is a run-time error because there is no type inside the
+interface tuple to indicate which concrete method to call.</p>
+<h3 id="the-empty-interface">The empty interface</h3>
+<p>The interface type that specifies zero methods is known as the empty interface:</p>
+<p>interface{}</p>
+<p>An empty interface may hold values of any type. (Every type implements at least zero methods.)</p>
+<p>Empty interfaces are used by code that handles values of unknown type. For example, fmt.Print takes
+any number of arguments of type interface{}.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}
+    <span style="color:#a6e22e">describe</span>(<span style="color:#a6e22e">i</span>)
+
+    <span style="color:#a6e22e">i</span> = <span style="color:#ae81ff">42</span>
+    <span style="color:#a6e22e">describe</span>(<span style="color:#a6e22e">i</span>)
+
+    <span style="color:#a6e22e">i</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
+    <span style="color:#a6e22e">describe</span>(<span style="color:#a6e22e">i</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">describe</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}) {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;(%v, %T)\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">i</span>)
+}
+
+</code></pre></div><h1 id="to-read">to read</h1>
+<p><a href="https://www.calhoun.io/gotchas-and-common-mistakes-with-closures-in-go/">https://www.calhoun.io/gotchas-and-common-mistakes-with-closures-in-go/</a></p>
+<h1 id="type-assertions">Type assertions</h1>
+<p>A type assertion provides access to an interface value&rsquo;s underlying concrete value.</p>
+<p>t := i.(T)</p>
+<p>This statement asserts that the interface value i holds the concrete type T and assigns the
+underlying T value to the variable t.</p>
+<p>If i does not hold a T, the statement will trigger a panic.</p>
+<p>To test whether an interface value holds a specific type, a type assertion can return two values:
+the underlying value and a boolean value that reports whether the assertion succeeded.</p>
+<p>t, ok := i.(T)</p>
+<p>If i holds a T, then t will be the underlying value and ok will be true.</p>
+<p>If not, ok will be false and t will be the zero value of type T, and no panic occurs.</p>
+<p>Note the similarity between this syntax and that of reading from a map.</p>
+<h1 id="type-switches">type switches</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>.(<span style="color:#66d9ef">type</span>) {
+<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">T</span>:
+    <span style="color:#75715e">// here v has type T
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">case</span> <span style="color:#a6e22e">S</span>:
+    <span style="color:#75715e">// here v has type S
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">default</span>:
+    <span style="color:#75715e">// no match; here v has the same type as i
+</span><span style="color:#75715e"></span>}
+
+</code></pre></div><h1 id="errors">Errors</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">e</span> <span style="color:#a6e22e">ErrNegativeSqrt</span>) <span style="color:#a6e22e">Error</span>() <span style="color:#66d9ef">string</span>
+</code></pre></div><h1 id="readers">Readers</h1>
+<p>The io.Reader interface has a Read method:</p>
+<p>func (T) Read(b []byte) (n int, err error)</p>
+<h1 id="section-5">Section 5</h1>
+<p><a href="https://tour.golang.org/concurrency/1">https://tour.golang.org/concurrency/1</a></p>
+<h2 id="goroutines-1">goroutines</h2>
+<p>Goroutines</p>
+<p>A goroutine is a lightweight thread managed by the Go runtime.</p>
+<p>go f(x, y, z)
+starts a new goroutine running</p>
+<p>f(x, y, z)</p>
+<p>The evaluation of f, x, y, and z happens in the current goroutine and the execution of f happens in
+the new goroutine.</p>
+<h2 id="channels-1">Channels</h2>
+<p>Channels are a typed conduit through which you can send and receive values with the channel
+operator, &lt;-.</p>
+<p>ch &lt;- v    // Send v to channel ch.
+v := &lt;-ch  // Receive from ch, and
+// assign value to v.</p>
+<p>(The data flows in the direction of the arrow.)</p>
+<p>Like maps and slices, channels must be created before use:</p>
+<p>ch := make(chan int)</p>
+<p>By default, sends and receives block until the other side is ready. This allows goroutines to
+synchronize without explicit locks or condition variables.</p>
+<p>The example code sums the numbers in a slice, distributing the work between two goroutines. Once
+both goroutines have completed their computation, it calculates the final result.</p>
+<h3 id="buffered-channels">Buffered Channels</h3>
+<p>Channels can be buffered. Provide the buffer length as the second argument to make to initialize a
+buffered channel:</p>
+<p>ch := make(chan int, 100)</p>
+<h3 id="range-and-close">Range and close</h3>
+<p>A sender can close a channel to indicate that no more values will be sent. Receivers can test
+whether a channel has been closed by assigning a second parameter to the receive expression: after</p>
+<p>v, ok := &lt;-ch</p>
+<p>ok is false if there are no more values to receive and the channel is closed.</p>
+<p>The loop for i := range c receives values from the channel repeatedly until it is closed.</p>
+<p>Note: Only the sender should close a channel, never the receiver. Sending on a closed channel will
+cause a panic.</p>
+<p>Another note: Channels aren&rsquo;t like files; you don&rsquo;t usually need to close them. Closing is only
+necessary when the receiver must be told there are no more values coming, such as to terminate a
+range loop.</p>
+<h2 id="select">Select</h2>
+<p>Following example using two channels to communicate between two threads.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">quit</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> {
+        <span style="color:#66d9ef">select</span> {
+        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">x</span>:
+            <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> = <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">y</span>
+        <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">quit</span>:
+            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;quit&#34;</span>)
+            <span style="color:#66d9ef">return</span>
+        }
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+    <span style="color:#a6e22e">quit</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
+        }
+        <span style="color:#a6e22e">quit</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0</span>
+    }()
+    <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">quit</span>)
+}
+
+</code></pre></div><p>In this example, the reason why the receiver is running in a thread is because the sender may need
+some time to tear down before main exits</p>
+<h3 id="default-selection">default selection</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">)<span style="color:#a6e22e">ckage</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">tick</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Tick</span>(<span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+    <span style="color:#a6e22e">boom</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">After</span>(<span style="color:#ae81ff">500</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+    <span style="color:#66d9ef">for</span> {
+        <span style="color:#66d9ef">select</span> {
+        <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">tick</span>:
+            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;tick.&#34;</span>)
+        <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">boom</span>:
+            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;BOOM!&#34;</span>)
+            <span style="color:#66d9ef">return</span>
+        <span style="color:#66d9ef">default</span>:
+            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;    .&#34;</span>)
+            <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">50</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+        }
+    }
+}
+
+</code></pre></div><h2 id="syncmutex">sync.Mutex</h2>
+<p>type Mutex</p>
+<p>A Mutex is a mutual exclusion lock. The zero value for a Mutex is an unlocked mutex.</p>
+<p>So user could directly using the Lock() and Unlock()</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2020 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
+
