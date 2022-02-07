@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
 
-        <title>Understanding Android Repo</title>
+        <title>Reserve the Carriage Return in the Text File</title>
 
         <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
 
@@ -59,27 +59,32 @@ if (!doNotTrack) {
 
 
 <div class="blog-post">
-  <h1>Understanding Android Repo</h1>
+  <h1>Reserve the Carriage Return in the Text File</h1>
   <div class="blog-post-subheader">
-    <time>25 Aug 2019</time>
+    <time>14 Dec 2021</time>
   </div>
   <div class="blog-post-content">
     <h2 id="introduction">Introduction</h2>
-<p>In Android repo tool, after initializing, there exist following directory under
-<code>.repo</code>:</p>
-<p>project-objects
-projects</p>
-<p>How these are organized?</p>
-<p>Basically in projects, the layout is same as the one for the working directory,
-the project-objects layout is same as the files in the remote server.</p>
-<p>While in the working directory for each project, as usual for git repository,
-there is a <code>.git</code> directory, which basically has bunch of symbol link to
-project-objects and projects directory.</p>
-<h1 id="repo-sync">repo sync</h1>
-<p>Two steps, first one is git fetch:</p>
-<p>When doing fetching, it basically fetch the repository from remote and put
-it under directory <code>.repo/projects</code> and <code>.repo/project-objects</code></p>
-<p>Then doing git rebase to update the current working directory.</p>
+<p>I need to process a text from Windows which has lines terminated with Carriage
+return and a New line, which is &ldquo;\r\n&rdquo;, while in Python, it treat all the new
+line conditions, for example, for the following code:</p>
+<pre><code>        with open(fn, 'r') as f:
+            for line in f.readlines():
+                pass # handle line here
+</code></pre><p>The line is always terminated with &ldquo;\n&rdquo; (at least in Linux and Mac) no matter
+if the line in the file is terminated with &ldquo;\r\n&rdquo; or &ldquo;\r&rdquo;.</p>
+<p>This creates some problem for me as I want to search through lines and replace
+some characters, but I do not want to change the termination of the line, since
+the file handled needs to be put on git, and I do not want to see all lines are
+changed and I want to reserve the original format as much as possible.</p>
+<h1 id="solution">Solution</h1>
+<pre><code>        with open(fn, 'r', newline='\n') as f:
+            for line in f.readlines():
+                pass #handle the line here
+</code></pre><p>Now the line in above code contains the &lsquo;\r&rsquo; as well, since the &lsquo;\r&rsquo; is not
+treated as part of the line termination.</p>
+<p>The problem if above code is that it is not general enough, e.g. if line is
+terminated with &lsquo;\r&rsquo;, it could not handle, which is not my case.</p>
 
   </div>
 </div>

@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://pandysong.github.io/blog/post/understanding_rockchip_rga_driver/</loc>
+    <lastmod>2022-02-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pandysong.github.io/blog/post/python-reserve-carriage-return/</loc>
+    <lastmod>2021-12-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pandysong.github.io/blog/post/django_vue_scaffold/</loc>
     <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url>
@@ -583,12 +593,12 @@
   
   <url>
     <loc>https://pandysong.github.io/blog/</loc>
-    <lastmod>2021-12-09T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://pandysong.github.io/blog/post/</loc>
-    <lastmod>2021-12-09T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>

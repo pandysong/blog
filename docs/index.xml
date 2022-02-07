@@ -6,7 +6,30 @@
     <description>Recent content on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Understand the Regster Setting in Rockchip RGA Driver&#39;s Alpha Mode</title>
+      <link>https://pandysong.github.io/blog/post/understanding_rockchip_rga_driver/</link>
+      <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/understanding_rockchip_rga_driver/</guid>
+      <description>Alpha Mode Alpha mode allows two RGBA images to blend to one RGBA image. So there are two parts of the algorithms.
+RGB Calculation Following figure from datasheet defines how the destination RGB is calculated
+Some notes:
+  As0&#39; is calculated from As0:
+ Either As0&#39; is As0 (with sw_src_alpha_m0 = 0b0 ) Or As0&#39; is 255- As0 (with sw_src_alpha_m0 = 0b1 )    As0_&amp;quot; is calcuated from As0&#39; and Ags</description>
+    </item>
+    
+    <item>
+      <title>Reserve the Carriage Return in the Text File</title>
+      <link>https://pandysong.github.io/blog/post/python-reserve-carriage-return/</link>
+      <pubDate>Tue, 14 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/python-reserve-carriage-return/</guid>
+      <description>Introduction I need to process a text from Windows which has lines terminated with Carriage return and a New line, which is &amp;ldquo;\r\n&amp;rdquo;, while in Python, it treat all the new line conditions, for example, for the following code:
+ with open(fn, &#39;r&#39;) as f: for line in f.readlines(): pass # handle line here The line is always terminated with &amp;ldquo;\n&amp;rdquo; (at least in Linux and Mac) no matter if the line in the file is terminated with &amp;ldquo;\r\n&amp;rdquo; or &amp;ldquo;\r&amp;rdquo;.</description>
+    </item>
+    
     <item>
       <title>Creating Django and Vue Scaffold</title>
       <link>https://pandysong.github.io/blog/post/django_vue_scaffold/</link>
