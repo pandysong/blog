@@ -143,3 +143,9 @@ print("0x{:x}".format(alpha_mode_1))
 
 # here we get 0x1010
 ```
+
+# Helper tool to interpret the register values
+
+Refer to:
+
+https://github.com/pandysong/regdump
