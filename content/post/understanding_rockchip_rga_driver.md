@@ -133,7 +133,7 @@ print("0x{:x}".format(alpha_mode_0))
 
 Following python code get the requested alpha_mode_0 value:
 
-```
+```python
 sw_dst_factor_m1 = 0b001
 sw_src_factor_m1 = 0b001
 alpha_mode_1 = 0
