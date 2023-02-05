@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Rust lang features highlight</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Rust lang features highlight</h1>
+  <div class="blog-post-subheader">
+    <time>02 Jan 2019</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>Highlight the features that Rust has comparing to C/C++, which really reduce
+the pain when using C/C++. This could remind me of highlighted features.</p>
+<h2 id="variable-shadow-and-immutable-default">variable shadow and immutable default</h2>
+<p>These features are for high performance and parallelization.</p>
+<h2 id="expression-and-statement">expression and statement</h2>
+<p>Expression make the inner function possible and much easier.</p>
+<h2 id="labeled-loop">labeled loop</h2>
+<p>Much more clear to break the outer loop.</p>
+<h2 id="loop-expression-with-break-to-return-a-value">loop expression with break to return a value</h2>
+<h2 id="all-pythonic-way-to-loop-over">all pythonic way to loop over</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Rust" data-lang="Rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">50</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> element <span style="color:#66d9ef">in</span> a {
+</span></span><span style="display:flex;"><span>        println!(<span style="color:#e6db74">&#34;the value is: {}&#34;</span>, element);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="pythonic-types-tuple-and-array">pythonic types: tuple and array</h2>
+<h2 id="ownership-make-it-stand-out-from-other-language">Ownership: make it stand out from other language</h2>
+<p>Ownership make it possible to allocate some object in some init() function and
+transfer the Ownership to another function and free the memory there. The design
+pattern is very useful. If it would be done in C++, it would be very
+cumbersome.</p>
+<h2 id="move-feature-s1-is-moved-to-s2">&ldquo;move&rdquo; feature, s1 is moved to s2</h2>
+<p>Rust considers s1 as no longer valid. Therefore, Rust doesn’t need to free
+anything when s1 goes out of scope:</p>
+<pre tabindex="0"><code>    let s1 = String::from(&#34;hello&#34;);
+    let s2 = s1;
+
+    println!(&#34;{}, world!&#34;, s1);
+</code></pre><h2 id="stack-only-data-copy">Stack-Only Data: Copy</h2>
+<pre tabindex="0"><code>    let x = 5;
+    let y = x;
+
+    println!(&#34;x = {}, y = {}&#34;, x, y);
+</code></pre><h2 id="copy-trait-vs-clone-trait">&ldquo;copy&rdquo; trait vs &ldquo;clone&rdquo; trait</h2>
+<pre tabindex="0"><code>
+So what types implement the Copy trait? You can check the documentation for the
+given type to be sure, but as a general rule, any group of simple scalar values
+can implement Copy, and nothing that requires allocation or is some form of
+resource can implement Copy. Here are some of the types that implement Copy:
+
+- All the integer types, such as u32.
+- The Boolean type, bool, with values true and false.
+- All the floating point types, such as f64.
+- The character type, char.
+- Tuples, if they only contain types that also implement Copy. For example,
+  (i32, i32) implements Copy, but (i32, String) does not.
+</code></pre><h2 id="only-one-mutable-reference">&lsquo;only one mutable reference&rsquo;</h2>
+<pre tabindex="0"><code>
+Mutable references have one big restriction: you can have only one mutable
+reference to a particular piece of data at a time.
+</code></pre><p>This is For PERFORMANCE?</p>
+<pre tabindex="0"><code>The benefit of having this restriction is that Rust can prevent data races at
+compile time. A data race is similar to a race condition and happens when these
+three behaviors occur:
+
+- Two or more pointers access the same data at the same time.
+- At least one of the pointers is being used to write to the data.
+- There’s no mechanism being used to synchronize access to the data.
+</code></pre><h2 id="nll-non-lexical-lifetimes">NLL (Non-Lexical Lifetimes)</h2>
+<pre tabindex="0"><code>
+The ability of the compiler to tell that a reference is no longer being used at
+a point before the end of the scope is called Non-Lexical Lifetimes (NLL for
+short), and you can read more about it in The Edition Guide.
+</code></pre><h2 id="dangling-references">Dangling References</h2>
+<p>In languages with pointers, it’s easy to erroneously create a dangling
+pointer&ndash;a pointer that references a location in memory that may have been
+given to someone else&ndash;by freeing some memory while preserving a pointer to
+that memory. In Rust, by contrast, the compiler guarantees that references will
+never be dangling references: if you have a reference to some data, the
+compiler will ensure that the data will not go out of scope before the
+reference to the data does.</p>
+<h2 id="the-rules-of-references">The Rules of References</h2>
+<p>Let’s recap what we’ve discussed about references:</p>
+<ul>
+<li>At any given time, you can have either one mutable reference or any number of
+immutable references.</li>
+<li>References must always be valid.</li>
+</ul>
+<h2 id="slicing-is-similar-to-python">slicing is similar to python</h2>
+<h2 id="string-slices-as-parameters">String Slices as Parameters</h2>
+<p>Knowing that you can take slices of literals and String values leads us to one
+more improvement on first_word, and that’s its signature:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Rust" data-lang="Rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">first_word</span>(s: <span style="color:#66d9ef">&amp;</span>String) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span> {
+</span></span></code></pre></div><p>A more experienced Rustacean would write the signature shown in Listing 4-9
+instead because it allows us to use the same function on both &amp;String values
+and &amp;str values.</p>
+<pre tabindex="0"><code>fn first_word(s: &amp;str) -&gt; &amp;str {
+</code></pre><h2 id="using-the-field-init-shorthand">Using the Field Init Shorthand</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Rust" data-lang="Rust"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">build_user</span>(email: String, username: String) -&gt; <span style="color:#a6e22e">User</span> {
+</span></span><span style="display:flex;"><span>    User {
+</span></span><span style="display:flex;"><span>        email,
+</span></span><span style="display:flex;"><span>        username,
+</span></span><span style="display:flex;"><span>        active: <span style="color:#a6e22e">true</span>,
+</span></span><span style="display:flex;"><span>        sign_in_count: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="tuple-structs-is-like-namedtuple-in-python">tuple structs is like NamedTuple in Python</h2>
+<h2 id="unit-like-structs-without-any-fields">Unit-Like Structs Without Any Fields</h2>
+<pre tabindex="0"><code>
+struct AlwaysEqual;
+
+fn main() {
+    let subject = AlwaysEqual;
+}
+</code></pre><h2 id="using-dbg-to-print-values-when-debugging">using &lsquo;dbg!&rsquo; to print values when debugging</h2>
+<p>very convenient. Rust takes most of the common tasks out of box.</p>
+<h2 id="associated-functions">Associated Functions</h2>
+<p>Decouple the data structure of an object with&rsquo;s associated functions. This
+reflects the fundamental principle of software engineering: &ldquo;decouple if it
+could be&rdquo;.</p>
+<h2 id="null">null</h2>
+<p>In his 2009 presentation “Null References: The Billion Dollar Mistake,” Tony
+Hoare, the inventor of null, has this to say:</p>
+<pre tabindex="0"><code>
+I call it my billion-dollar mistake. At that time, I was designing the first
+comprehensive type system for references in an object-oriented language. My
+goal was to ensure that all use of references should be absolutely safe, with
+checking performed automatically by the compiler. But I couldn’t resist the
+temptation to put in a null reference, simply because it was so easy to
+implement. This has led to innumerable errors, vulnerabilities, and system
+crashes, which have probably caused a billion dollars of pain and damage in the
+last forty years.
+</code></pre><h2 id="enum-option">enum option</h2>
+<p>If the type is Option<!-- raw HTML omitted -->, it is possible that the value is Null, so you have to
+write code to handle the Null case:</p>
+<pre tabindex="0"><code>
+Eliminating the risk of incorrectly assuming a not-null value helps you to be
+more confident in your code. In order to have a value that can possibly be null,
+you must explicitly opt in by making the type of that value Option&lt;T&gt;. Then,
+when you use that value, you are required to explicitly handle the case when
+the value is null. Everywhere that a value has a type that isn’t an Option&lt;T&gt;,
+you can safely assume that the value isn’t null. This was a deliberate design
+decision for Rust to limit null’s pervasiveness and increase the safety of Rust
+code.
+</code></pre><p>The way it handles option value provides a lot of robust.</p>
+<h2 id="match-vs-if-let">match vs &lsquo;if let&rsquo;</h2>
+<h2 id="use--as-to-resolve-the-name-conflicting">use &hellip; as to resolve the name conflicting</h2>
+<h2 id="re-exporting-names-with-pub-use">Re-exporting Names with pub use</h2>
+<h2 id="option-result-and--operator">Option, Result and &lsquo;?&rsquo; operator</h2>
+<p>Need to review the book section:</p>
+<p><a href="https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html">https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html</a></p>
+<h2 id="unwrap-and-expect">unwrap and expect</h2>
+<pre tabindex="0"><code>
+Similarly, the unwrap and expect methods are very handy when prototyping,
+before you’re ready to decide how to handle errors. They leave clear markers in
+your code for when you’re ready to make your program more robust.
+</code></pre><h2 id="traits-defining-shared-behavior">Traits: Defining Shared Behavior</h2>
+<p>traits are a like duck-typing where it was only possible in python, but it is
+implemented in Rust.</p>
+<h3 id="specifying-multiple-trait-bounds-with-the--syntax">Specifying Multiple Trait Bounds with the + Syntax</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">notify</span>(item: <span style="color:#66d9ef">&amp;</span>(<span style="color:#66d9ef">impl</span> Summary <span style="color:#f92672">+</span> Display)) {
+</span></span></code></pre></div><h3 id="clearer-trait-bounds-with-where-clauses">Clearer Trait Bounds with where Clauses</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">some_function</span><span style="color:#f92672">&lt;</span>T, U<span style="color:#f92672">&gt;</span>(t: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">T</span>, u: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">U</span>) -&gt; <span style="color:#66d9ef">i32</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">where</span> T: <span style="color:#a6e22e">Display</span> <span style="color:#f92672">+</span> Clone,
+</span></span><span style="display:flex;"><span>          U: Clone <span style="color:#f92672">+</span> Debug
+</span></span><span style="display:flex;"><span>{
+</span></span></code></pre></div><h2 id="validating-references-with-lifetimes">Validating References with Lifetimes</h2>
+<p>need to re-read again and again:</p>
+<p><a href="https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html">https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html</a></p>
+<h2 id="should_panic-annotion"><code>#[should_panic]</code> annotion</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[cfg(test)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">mod</span> tests {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> <span style="color:#66d9ef">super</span>::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[test]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[should_panic]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">greater_than_100</span>() {
+</span></span><span style="display:flex;"><span>        Guess::new(<span style="color:#ae81ff">200</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="deref-coersion">Deref Coersion</h2>
+<p><a href="https://doc.rust-lang.org/book/ch15-02-deref.html">https://doc.rust-lang.org/book/ch15-02-deref.html</a></p>
+<h2 id="borrow_mut-and-borrow-in-refcellt">borrow_mut() and borrow() in RefCell<!-- raw HTML omitted --></h2>
+<p>It give a flexibility for compiler to escape to check. Instead, it becomes
+run-time checking.</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2023 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
+</html>
+

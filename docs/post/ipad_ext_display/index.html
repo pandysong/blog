@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Use iPad as External Display via Tmux</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Use iPad as External Display via Tmux</h1>
+  <div class="blog-post-subheader">
+    <time>10 Apr 2022</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="ipad">iPad</h1>
+<ul>
+<li>Install <code>shelly</code></li>
+</ul>
+<h1 id="mac">Mac</h1>
+<ul>
+<li>create a tmux session prefixed with &ldquo;ext_display&rdquo;</li>
+<li>then in this tmux session set options to allow the maximum window size
+so resize the tmux windows on mac will not change the size of windows on iPad</li>
+</ul>
+<pre tabindex="0"><code>tmux set-options -g window-size largest
+</code></pre><p>change the session name to specific name:</p>
+<pre tabindex="0"><code>tmux rename-session &#34;ext_display&#34;
+</code></pre><p>resize the iterm window to smallest.</p>
+<h1 id="convert-to-application">convert to Application</h1>
+<h1 id="on-ipad">on iPad</h1>
+<h2 id="manually">manually</h2>
+<ul>
+<li>ssh to my Mac</li>
+<li>then tmux attach to ext_display</li>
+</ul>
+<pre tabindex="0"><code>tmux attach -t ext_display
+</code></pre><h2 id="automating">Automating</h2>
+<ul>
+<li>
+<p>on shelly, configurate to run the specifc script</p>
+</li>
+<li>
+<p>in this script, detect if the tmux session name is prefixed with &ldquo;ext_display&rdquo;: if yes, attach to it</p>
+</li>
+<li>
+<p>in shelly, enable &ldquo;commands&rdquo; after login, enter the script using absolute
+path:</p>
+</li>
+</ul>
+<pre tabindex="0"><code>source /Users/pandysong/.enable_ext_display.sh
+</code></pre><p>Note that in .enable_ext_display.sh, the file path should be absolute path
+instead of relative path</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2023 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
+</html>
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>understanding flash loanx attack (an example)</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>understanding flash loanx attack (an example)</h1>
+  <div class="blog-post-subheader">
+    <time>12 Apr 2017</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>This post tries to understand how the transaction is done on Etherum for a real
+flash loan attack.</p>
+<h1 id="a-real-trasaction">A real Trasaction</h1>
+<pre tabindex="0"><code>
+https://etherscan.io/tx/0x762881b07feb63c436dee38edd4ff1f7a74c33091e534af56c9f7d49b5ecac15
+</code></pre><p>This trasaction has one top level contract:</p>
+<p><a href="https://etherscan.io/address/0x77f973fcaf871459aa58cd81881ce453759281bc">https://etherscan.io/address/0x77f973fcaf871459aa58cd81881ce453759281bc</a></p>
+<h2 id="from-address"><code>From</code> address</h2>
+<p><code>From</code> address is the address who execute function in this contract.</p>
+<pre tabindex="0"><code>0xb8c6ad5fe7cb6cc72f2c4196dca11fbb272a8cbf
+</code></pre><h2 id="contract-internal-trasactions">Contract internal trasactions</h2>
+<p>Seeing from <a href="https://etherscan.io/tx/0x762881b07feb63c436dee38edd4ff1f7a74c33091e534af56c9f7d49b5ecac15#internal">https://etherscan.io/tx/0x762881b07feb63c436dee38edd4ff1f7a74c33091e534af56c9f7d49b5ecac15#internal</a></p>
+<pre tabindex="0"><code>The contract call From 0xb8c6ad5fe7cb6cc72f2c4196dca11fbb272a8cbf To 0x77f973fcaf871459aa58cd81881ce453759281bc produced 65 Internal Transactions
+</code></pre><h3 id="first-trasaction">First Trasaction</h3>
+<p>This internal trasaction get 7500 ETH via the contract 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.</p>
+<pre tabindex="0"><code>Address
+0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
+Name
+Transfer (index_topic_1 address src, index_topic_2 address dst, uint256 wad)View Source
+
+Topics
+
+0 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
+1  0x77f973fcaf871459aa58cd81881ce453759281bc
+2  0x360f85f0b74326cddff33a812b05353bc537747b
+Data
+    wad : 7500000000000000000000
+</code></pre><p>Above event &lsquo;Transfer&rsquo; is part of contact 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&rsquo;s
+function call transfer or transferFrom.</p>
+<p><a href="https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#code">https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#code</a></p>
+<p>As we could see from the contract code from above link:</p>
+<pre tabindex="0"><code>/**
+ *Submitted for verification at Etherscan.io on 2017-12-12
+*/
+
+// Copyright (C) 2015, 2016, 2017 Dapphub
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+
+pragma solidity ^0.4.18;
+
+contract WETH9 {
+    string public name     = &#34;Wrapped Ether&#34;;
+    string public symbol   = &#34;WETH&#34;;
+    uint8  public decimals = 18;
+
+    event  Approval(address indexed src, address indexed guy, uint wad);
+    event  Transfer(address indexed src, address indexed dst, uint wad);
+    event  Deposit(address indexed dst, uint wad);
+    event  Withdrawal(address indexed src, uint wad);
+
+    mapping (address =&gt; uint)                       public  balanceOf;
+    mapping (address =&gt; mapping (address =&gt; uint))  public  allowance;
+
+    function() public payable {
+        deposit();
+    }
+    function deposit() public payable {
+        balanceOf[msg.sender] += msg.value;
+        Deposit(msg.sender, msg.value);
+    }
+    function withdraw(uint wad) public {
+        require(balanceOf[msg.sender] &gt;= wad);
+        balanceOf[msg.sender] -= wad;
+        msg.sender.transfer(wad);
+        Withdrawal(msg.sender, wad);
+    }
+
+    function totalSupply() public view returns (uint) {
+        return this.balance;
+    }
+
+    function approve(address guy, uint wad) public returns (bool) {
+        allowance[msg.sender][guy] = wad;
+        Approval(msg.sender, guy, wad);
+        return true;
+    }
+
+    function transfer(address dst, uint wad) public returns (bool) {
+        return transferFrom(msg.sender, dst, wad);
+    }
+
+    function transferFrom(address src, address dst, uint wad)
+        public
+        returns (bool)
+    {
+        require(balanceOf[src] &gt;= wad);
+
+        if (src != msg.sender &amp;&amp; allowance[src][msg.sender] != uint(-1)) {
+            require(allowance[src][msg.sender] &gt;= wad);
+            allowance[src][msg.sender] -= wad;
+        }
+
+        balanceOf[src] -= wad;
+        balanceOf[dst] += wad;
+
+        Transfer(src, dst, wad);
+
+        return true;
+    }
+}
+</code></pre>
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2023 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
+</html>
+

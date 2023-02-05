@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>openwrt source code reading - uhttpd</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>openwrt source code reading - uhttpd</h1>
+  <div class="blog-post-subheader">
+    <time>04 Feb 2023</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="lua-support">lua support</h1>
+<p>lua support is done via the uhttp plugin system.</p>
+<p>During</p>
+<pre tabindex="0"><code>struct uhttpd_plugin uhttpd_plugin = {
+    .init = lua_plugin_init,
+};
+</code></pre><h1 id="higher-level-construction">higher level construction</h1>
+<p>Each plugin has a struct <code>uhttpd_plugin</code>, which has the .init function which is
+called on the plugins initialization during uhttpd start up.</p>
+<pre tabindex="0"><code>void uh_plugin_post_init(void)
+{
+    struct uhttpd_plugin *p;
+
+    list_for_each_entry(p, &amp;plugins, list)
+        if (p-&gt;post_init)
+            p-&gt;post_init();
+}
+</code></pre><p>This linked-list <code>plugins</code> is constructed in <code>uh_plugin_init(const char *name)</code>
+function calls:</p>
+<pre tabindex="0"><code> if (!list_empty(&amp;conf.lua_prefix) &amp;&amp; uh_plugin_init(&#34;uhttpd_lua.so&#34;))
+     return 1;
+</code></pre><h1 id="lower-level-information">lower level information</h1>
+<h2 id="lua_plugin_init">lua_plugin_init</h2>
+<p>This function will initialize each lua_prefx (corresponding to and url prefix)
+using uh_lua_state_init function call.</p>
+<p>Then it will use the ops (the uhttp functions) to register the dispatch struct.</p>
+<pre tabindex="0"><code>static int lua_plugin_init(const struct uhttpd_ops *o, struct config *c)
+{
+	struct lua_prefix *p;
+
+	ops = o;
+	_conf = c;
+
+	list_for_each_entry(p, &amp;conf.lua_prefix, list)
+		uh_lua_state_init(p);
+
+	ops-&gt;dispatch_add(&amp;lua_dispatch);
+	return 0;
+}
+</code></pre><h2 id="dispatch_handler">dispatch_handler</h2>
+<p>The dispatch handler is where the url is matched (by check_url function calls)
+and handled (by handle_requet function calls)</p>
+<pre tabindex="0"><code>static struct dispatch_handler lua_dispatch = {
+	.script = true,
+	.check_url = check_lua_url,
+	.handle_request = lua_handle_request,
+};
+</code></pre><p>The dispatch is added to following global list.</p>
+<pre tabindex="0"><code>static LIST_HEAD(dispatch_handlers);
+</code></pre><p>Refer to following function in file.c</p>
+<pre tabindex="0"><code>void uh_dispatch_add(struct dispatch_handler *d)
+{
+	list_add_tail(&amp;d-&gt;list, &amp;dispatch_handlers);
+}
+</code></pre><h1 id="how-dispatch-is-used">how dispatch is used</h1>
+<pre tabindex="0"><code>uh_handle_request -&gt; __handle_file_request -&gt;
+dispatch_find -&gt; check_url
+</code></pre><p>In <code>__handle_file_request</code>, if the dispatch handler is found, it will invoke the
+handler :</p>
+<pre tabindex="0"><code>	if (is_error_handler) {
+		d = dispatch_find(url, NULL);
+
+		if (d) {
+			uh_invoke_handler(cl, d, url, NULL);
+
+			return true;
+		}
+	}
+</code></pre><h1 id="how-lua-handle-each-request">How lua handle each request</h1>
+<p>In case of lua, all the request has same url prefix, so for the each specific
+lua url, it will try to match the exact lua script path to handle the request.</p>
+<pre tabindex="0"><code>static void lua_handle_request(struct client *cl, char *url, struct path_info *pi)
+{
+	struct lua_prefix *p;
+	static struct path_info _pi;
+
+	list_for_each_entry(p, &amp;conf.lua_prefix, list) {
+		if (!ops-&gt;path_match(p-&gt;prefix, url))
+			continue;
+
+		pi = &amp;_pi;
+		pi-&gt;name = p-&gt;prefix;
+		pi-&gt;phys = p-&gt;handler;
+
+		_L = p-&gt;ctx;
+
+		if (!ops-&gt;create_process(cl, pi, url, lua_main)) {
+			ops-&gt;client_error(cl, 500, &#34;Internal Server Error&#34;,
+			                  &#34;Failed to create CGI process: %s&#34;,
+			                  strerror(errno));
+		}
+
+		return;
+	}
+
+	ops-&gt;client_error(cl, 500, &#34;Internal Server Error&#34;,
+	                  &#34;Failed to lookup matching handler&#34;);
+}
+</code></pre><h1 id="cgi-support">cgi support</h1>
+<p>cig support is a built-in feature, which means it is not supported via plugin
+system. But nevermind, it is similar with a plugin, it just needs to register a
+<code>dispatch_handler</code>.</p>
+<p>cig handler is very similar to lua handler: it will create a sub-process and
+run the <code>cgi_main</code> in that process, just like in lua handler, <code>lua_main</code> is
+finally called.</p>
+<pre tabindex="0"><code>static void cgi_handle_request(struct client *cl, char *url, struct path_info *pi)
+{
+	unsigned int mode = S_IFREG | S_IXOTH;
+	char *escaped_url;
+
+	if (!pi-&gt;ip &amp;&amp; !((pi-&gt;stat.st_mode &amp; mode) == mode)) {
+		escaped_url = uh_htmlescape(url);
+
+		uh_client_error(cl, 403, &#34;Forbidden&#34;,
+				&#34;You don&#39;t have permission to access %s on this server.&#34;,
+				escaped_url ? escaped_url : &#34;the url&#34;);
+
+		if (escaped_url)
+			free(escaped_url);
+
+		return;
+	}
+
+	if (!uh_create_process(cl, pi, url, cgi_main)) {
+		uh_client_error(cl, 500, &#34;Internal Server Error&#34;,
+				&#34;Failed to create CGI process: %s&#34;, strerror(errno));
+		return;
+	}
+
+	return;
+}
+</code></pre><h1 id="ubus-support">ubus support</h1>
+<p>The ubus support is done via plugin  however the handling of request is not via
+a separate process. The reasons why lua and cgi support needs a separate are
+because that the lua and cgi needs standalone environment.</p>
+<h1 id="ucode-support">ucode support</h1>
+<p>Similar to cgi and lua support, ucode is supported via plugin and it needs a
+process to run the handler.</p>
+<pre tabindex="0"><code>static void
+ucode_handle_request(struct client *cl, char *url, struct path_info *pi)
+{
+....
+		if (!ops-&gt;create_process(cl, pi, url, ucode_main)) {
+			ops-&gt;client_error(cl, 500, &#34;Internal Server Error&#34;,
+			                  &#34;Failed to create CGI process: %s&#34;,
+			                  strerror(errno));
+....
+}
+</code></pre>
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2023 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
+</html>
+

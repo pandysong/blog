@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>Google MediaPipe</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>Google MediaPipe</h1>
+  <div class="blog-post-subheader">
+    <time>19 Apr 2021</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="mediapipe">MediaPipe</h1>
+<p>MediaPipe streamlized the processing and make it flexible to handle the complex
+scenario where it needs mutiple stage processing.</p>
+<p>It support out of box GPU/CPU on desktop. It is also possible for media pipe to
+run on NPU:</p>
+<p>Refer to following disucssion:</p>
+<p><a href="https://github.com/google/mediapipe/issues/1425">https://github.com/google/mediapipe/issues/1425</a></p>
+<h1 id="palmdetection-graph">PalmDetection Graph</h1>
+<p>.pbtxt is the a text format descriing the graph of a data flow to performe a
+specific detection, e.g.:</p>
+<pre tabindex="0"><code>mediapipe/modules/palm_detection/palm_detection_cpu.pbtxt
+</code></pre><p>For example the actual calculating is done by a calculator
+&ldquo;ImageToTensorCalculator&rdquo;.</p>
+<pre tabindex="0"><code>node {
+  calculator: &#34;ImageToTensorCalculator&#34;
+  input_stream: &#34;IMAGE:image&#34;
+  output_stream: &#34;TENSORS:input_tensor&#34;
+  output_stream: &#34;LETTERBOX_PADDING:letterbox_padding&#34;
+</code></pre><p>The input stream type is &ldquo;IMAGE:image&rdquo;</p>
+<p>So that means the image is firstly converted to tensors, and then output to
+&ldquo;TENSORS:input_tensor&rdquo;, on which calculator &ldquo;InferenceCalculator&rdquo; is run.</p>
+<pre tabindex="0"><code>node {
+  calculator: &#34;InferenceCalculator&#34;
+  input_stream: &#34;TENSORS:input_tensor&#34;
+  output_stream: &#34;TENSORS:detection_tensors&#34;
+  input_side_packet: &#34;CUSTOM_OP_RESOLVER:opresolver&#34;
+  input_side_packet: &#34;MODEL:model&#34;
+  options: {
+    [mediapipe.InferenceCalculatorOptions.ext] {
+      delegate { xnnpack {} }
+    }
+  }
+}
+</code></pre><p>It is tedious to understand from text format, fortunately mediapipe provides a
+graph virtualizer:</p>
+<pre tabindex="0"><code>https://google.github.io/mediapipe/tools/visualizer.html
+</code></pre>
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2023 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
+</html>
+
