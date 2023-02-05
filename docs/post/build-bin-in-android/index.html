@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -72,25 +71,25 @@ especially those for debug purpose.</p>
 <p>The developer&rsquo;s tools such as this one mentioned in below command are not with
 the usual SDK.</p>
 <p>Here is the step to download and build on your build server:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ~/&lt;your working directory&gt;/
-git clone https://github.com/MeekJeen/AndroidDriverTools.git
-cd AndroidDriverTools/i2c-tools
-source ../../../../build/envsetup.sh
-mm
-</code></pre></div><p>Then on your PC, install it to android device:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
-scp -r &lt;server_name_or_ip&gt;:&lt;your_sdk_path&gt;/out/target/product/rk3128_box/system/xbin ./
-adb root
-adb remount
-adb push xbin/i2c* /system/xbin/
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/&lt;your working directory&gt;/
+</span></span><span style="display:flex;"><span>git clone https://github.com/MeekJeen/AndroidDriverTools.git
+</span></span><span style="display:flex;"><span>cd AndroidDriverTools/i2c-tools
+</span></span><span style="display:flex;"><span>source ../../../../build/envsetup.sh
+</span></span><span style="display:flex;"><span>mm
+</span></span></code></pre></div><p>Then on your PC, install it to android device:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scp -r &lt;server_name_or_ip&gt;:&lt;your_sdk_path&gt;/out/target/product/rk3128_box/system/xbin ./
+</span></span><span style="display:flex;"><span>adb root
+</span></span><span style="display:flex;"><span>adb remount
+</span></span><span style="display:flex;"><span>adb push xbin/i2c* /system/xbin/
+</span></span></code></pre></div>
   </div>
 </div>
 
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -101,5 +100,11 @@ adb push xbin/i2c* /system/xbin/
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

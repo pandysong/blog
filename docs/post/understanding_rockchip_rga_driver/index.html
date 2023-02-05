@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -73,18 +72,18 @@ parts of the algorithms.</p>
 <p>Some notes:</p>
 <ul>
 <li>
-<p>As0' is calculated from As0:</p>
+<p>As0&rsquo; is calculated from As0:</p>
 <ul>
-<li>Either As0' is As0 (with sw_src_alpha_m0 = 0b0 )</li>
-<li>Or As0' is 255- As0 (with sw_src_alpha_m0 = 0b1 )</li>
+<li>Either As0&rsquo; is As0 (with sw_src_alpha_m0 = 0b0 )</li>
+<li>Or As0&rsquo; is 255- As0 (with sw_src_alpha_m0 = 0b1 )</li>
 </ul>
 </li>
 <li>
-<p>As0_&quot; is calcuated from As0' and Ags</p>
+<p>As0_&quot; is calcuated from As0&rsquo; and Ags</p>
 <ul>
 <li>As0_&quot; = Ags or</li>
-<li>As0_&quot; = As0' or</li>
-<li>As0_&quot; = (As0'*Ags)&raquo;8</li>
+<li>As0_&quot; = As0&rsquo; or</li>
+<li>As0_&quot; = (As0&rsquo;*Ags)&raquo;8</li>
 </ul>
 </li>
 <li>
@@ -99,20 +98,20 @@ parts of the algorithms.</p>
 </li>
 </ul>
 <p>Finally the destination color is calculated with following formula:</p>
-<p>Cd = Fs0 * Cs' + Fd0 * Cd'</p>
+<p>Cd = Fs0 * Cs&rsquo; + Fd0 * Cd'</p>
 <p>In my case, I want to blend two images with the global src and dst alpha value.
 Normally alpha = 0 means totally transparent while alpha == 255 means totally
 opaque.</p>
 <p>So I should have following configuration:</p>
 <ul>
 <li>
-<p>Cs' = Cs , with following Regster setting:</p>
+<p>Cs&rsquo; = Cs , with following Regster setting:</p>
 <ul>
 <li>sw_src_color_m0 = 0b0</li>
 </ul>
 </li>
 <li>
-<p>Cd' = Cd , with following Regster setting:</p>
+<p>Cd&rsquo; = Cd , with following Regster setting:</p>
 <ul>
 <li>sw_dst_color_m0 = 0b0</li>
 </ul>
@@ -184,39 +183,38 @@ opaque.</p>
 </li>
 </ul>
 <p>Following python code get the requested alpha_mode_0 value:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sw_src_color_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b0</span>
-sw_dst_color_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b0</span>
-sw_dst_factor_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b100</span>
-sw_dst_alpha_cal_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b1</span>
-sw_dst_blend_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b00</span>
-sw_src_factor_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b100</span>
-sw_src_alpha_cal_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b1</span>
-sw_src_blend_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b00</span>
-
-alpha_mode_0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-alpha_mode_0 <span style="color:#f92672">|=</span> sw_dst_color_m0    <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">15</span>
-alpha_mode_0 <span style="color:#f92672">|=</span> sw_src_color_m0    <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">7</span>
-alpha_mode_0 <span style="color:#f92672">|=</span> sw_dst_factor_m0   <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">12</span>
-alpha_mode_0 <span style="color:#f92672">|=</span> sw_src_factor_m0   <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">4</span>
-alpha_mode_0 <span style="color:#f92672">|=</span> sw_dst_alpha_cal_m0<span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">11</span>
-alpha_mode_0 <span style="color:#f92672">|=</span> sw_src_alpha_cal_m0<span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">3</span>
-alpha_mode_0 <span style="color:#f92672">|=</span> sw_dst_blend_m0    <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">9</span>
-alpha_mode_0 <span style="color:#f92672">|=</span> sw_src_blend_m0    <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>
-
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;0x{:x}&#34;</span><span style="color:#f92672">.</span>format(alpha_mode_0))
-
-<span style="color:#75715e"># here we get 0x4848</span>
-
-</code></pre></div><p>Following python code get the requested alpha_mode_0 value:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sw_dst_factor_m1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b001</span>
-sw_src_factor_m1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b001</span>
-alpha_mode_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-alpha_mode_1 <span style="color:#f92672">|=</span> sw_dst_factor_m1 <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">12</span>
-alpha_mode_1 <span style="color:#f92672">|=</span> sw_src_factor_m1 <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">4</span>
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;0x{:x}&#34;</span><span style="color:#f92672">.</span>format(alpha_mode_1))
-
-<span style="color:#75715e"># here we get 0x1010</span>
-</code></pre></div><h1 id="helper-tool-to-interpret-the-register-values">Helper tool to interpret the register values</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sw_src_color_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b0</span>
+</span></span><span style="display:flex;"><span>sw_dst_color_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b0</span>
+</span></span><span style="display:flex;"><span>sw_dst_factor_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b100</span>
+</span></span><span style="display:flex;"><span>sw_dst_alpha_cal_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b1</span>
+</span></span><span style="display:flex;"><span>sw_dst_blend_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b00</span>
+</span></span><span style="display:flex;"><span>sw_src_factor_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b100</span>
+</span></span><span style="display:flex;"><span>sw_src_alpha_cal_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b1</span>
+</span></span><span style="display:flex;"><span>sw_src_blend_m0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b00</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">|=</span> sw_dst_color_m0    <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">|=</span> sw_src_color_m0    <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">|=</span> sw_dst_factor_m0   <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">|=</span> sw_src_factor_m0   <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">|=</span> sw_dst_alpha_cal_m0<span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">|=</span> sw_src_alpha_cal_m0<span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">|=</span> sw_dst_blend_m0    <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>alpha_mode_0 <span style="color:#f92672">|=</span> sw_src_blend_m0    <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;0x</span><span style="color:#e6db74">{:x}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(alpha_mode_0))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># here we get 0x4848</span>
+</span></span></code></pre></div><p>Following python code get the requested alpha_mode_0 value:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sw_dst_factor_m1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b001</span>
+</span></span><span style="display:flex;"><span>sw_src_factor_m1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b001</span>
+</span></span><span style="display:flex;"><span>alpha_mode_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>alpha_mode_1 <span style="color:#f92672">|=</span> sw_dst_factor_m1 <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>alpha_mode_1 <span style="color:#f92672">|=</span> sw_src_factor_m1 <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;0x</span><span style="color:#e6db74">{:x}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(alpha_mode_1))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># here we get 0x1010</span>
+</span></span></code></pre></div><h1 id="helper-tool-to-interpret-the-register-values">Helper tool to interpret the register values</h1>
 <p>Refer to:</p>
 <p><a href="https://github.com/pandysong/regdump">https://github.com/pandysong/regdump</a></p>
 
@@ -226,7 +224,7 @@ alpha_mode_1 <span style="color:#f92672">|=</span> sw_src_factor_m1 <span style=
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -237,5 +235,11 @@ alpha_mode_1 <span style="color:#f92672">|=</span> sw_src_factor_m1 <span style=
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

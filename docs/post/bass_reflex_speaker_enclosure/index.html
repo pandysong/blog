@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,30 +66,29 @@ if (!doNotTrack) {
     <h1 id="introduction">Introduction</h1>
 <p>This is the notes on reading LPRNet.</p>
 <h1 id="quoting">Quoting</h1>
-<pre><code>
+<pre tabindex="0"><code>
 This is probably the most common enclosure in use today.  It was used in very
-early speaker systems, but it was basically a 'trial-and-error' design until
+early speaker systems, but it was basically a &#39;trial-and-error&#39; design until
 the loudspeaker parameters were properly quantified by Neville Thiele and
 Richard Small.  This allowed mathematical calculation of the enclosure and port
 sizes, and it was then possible to design a system, build it, and have it
-perform as expected.  Many of the early 'tuned' boxes were what's now commonly
-referred to as 'boom boxes', because they had excessive and often 'one note'
+perform as expected.  Many of the early &#39;tuned&#39; boxes were what&#39;s now commonly
+referred to as &#39;boom boxes&#39;, because they had excessive and often &#39;one note&#39;
 bass.  Countless programs have been written to allow users to design an
 enclosure, based on the Thiele-Small parameters.  This has removed much of the
 guesswork, but by themselves, the programs are (mostly) unable to provide a
 complete design.  Most provide the necessary internal volume and port (vent)
-diameter and length, but further 'tweaking' is nearly always needed.
+diameter and length, but further &#39;tweaking&#39; is nearly always needed.
 
 In these enclosures, the rear radiation is utilised to boost the bass response
-below the loudspeaker driver's resonant frequency.  The combination of the
+below the loudspeaker driver&#39;s resonant frequency.  The combination of the
 enclosure volume and the vent length and diameter form a Helmholtz resonator,
 which (when done properly) reinforces the low frequency response without
-creating excessive bass and/or poor transient response.  It's important to
-understand that the Thiele-Small parameters are 'small signal', meaning that
+creating excessive bass and/or poor transient response.  It&#39;s important to
+understand that the Thiele-Small parameters are &#39;small signal&#39;, meaning that
 the performance is not necessarily the same at high power levels.  Only the
 bass region is affected by a bass reflex enclosure, and mid to high frequencies
 still need to be absorbed within the enclosure.
-
 </code></pre><h1 id="key-points">Key Points</h1>
 <ul>
 <li>It could be calcuated by parameters (thanks to Neville Thiele and Richard Small)</li>
@@ -102,10 +100,9 @@ reinforces the low frequency response without creating excessive bass and/or
 poor transient response.</li>
 </ul>
 <h1 id="quoting-1">Quoting</h1>
-<pre><code>
+<pre tabindex="0"><code>
 These parameters are published in specification sheets by driver manufacturers
 giving designers a guide for selecting drivers for loudspeaker systems.
-
 </code></pre><p>Key Points:</p>
 <ul>
 <li>Parameters are in datasheet of a driver.</li>
@@ -113,22 +110,20 @@ giving designers a guide for selecting drivers for loudspeaker systems.
 <h1 id="parameters-could-be-tested-and-confirmed">Parameters could be tested and confirmed</h1>
 <p>Refer to : <a href="https://courses.physics.illinois.edu/phys406/sp2017/Student_Projects/Spring01/PPoongbunkor/Piya_Poongbunkor_TS.pdf">https://courses.physics.illinois.edu/phys406/sp2017/Student_Projects/Spring01/PPoongbunkor/Piya_Poongbunkor_TS.pdf</a></p>
 <h2 id="most-important-parameters">Most Important Parameters</h2>
-<pre><code>There are many Thiele-Small parameters that can be measured from loudspeakers,
+<pre tabindex="0"><code>There are many Thiele-Small parameters that can be measured from loudspeakers,
 but the three most important ones are: free air resonance (F(s)), Q(ts), and volume of
 suspension (V(as)). The free air resonance is the resonant frequency of the speaker found
 in free air. Below, a typical impedance frequency response of a loudspeaker is shown on
 a log scale.
-</code></pre><pre><code>
+</code></pre><pre tabindex="0"><code>
 The resonant frequency is considered the threshold at which a speaker can be
 used. 
-
-</code></pre><pre><code>
+</code></pre><pre tabindex="0"><code>
 The Q(ts) or total Q of the speaker, also known as total quality factor, is
 basically describing the resonance curve of the speaker. The higher and thinner
 of a peak the curve has, the lower Q it will have. The rounder a peak the curve
 has, the higher Q it will have
-
-</code></pre><pre><code>
+</code></pre><pre tabindex="0"><code>
 The Q(ts) value of the speaker is an indicator of the “resonant magnification”
 of the speaker. This value is important in deciding what type of enclosure a
 speaker should go into. Also, a high value for Q(ts) will have a “warmer” tone,
@@ -137,8 +132,7 @@ Loudspeaker Design Cookbook by Vance Dickason. A very high Q(ts) or a very low
 value for Q(ts) is not good. The speakers towards the middle of the table
 should be of higher quality and should sound better than those at the edges,
 since the table is sorted with respect to Q(ts).
-
-</code></pre><pre><code>
+</code></pre><pre tabindex="0"><code>
 One of the biggest things that you can see is that the resonant frequency is
 actually shifted down when the speaker is in the cabinet as opposed to in free air. In the
 graphs, above, the F(s) of the speaker in free air is about 58 Hz, while the F(s) of the
@@ -151,7 +145,6 @@ interfere with the audio signals produced by the speaker in front of the baffle.
 obvious difference we can see from a speaker in free air and a speaker in the cabinet is
 that the in the free air situation, the curve is much more smooth than in the cabinet. The
 true characteristic of the impedance curve is amplified in the cabinet.
-
 </code></pre><p>Key Points:</p>
 <ul>
 <li>F(s) is lower (which is better) in enclosure.</li>
@@ -165,13 +158,11 @@ conflicting with the low frequency sound from the front.</li>
 <a href="https://github.com/makerportal/thiele_small_parameters">https://github.com/makerportal/thiele_small_parameters</a></p>
 <h2 id="equivalent-compliance-volume-var">Equivalent Compliance Volume, Var</h2>
 <p>Refer to : <a href="https://makersportal.com/blog/2019/2/20/loudspeaker-analysis-and-experiments-part-ii">https://makersportal.com/blog/2019/2/20/loudspeaker-analysis-and-experiments-part-ii</a></p>
-<pre><code>The compliance value above allows us to calculate another important parameter
+<pre tabindex="0"><code>The compliance value above allows us to calculate another important parameter
 called the equivalent compliance volume, Var , which is a measure of the amount
 of air that the suspension system is capable of moving. It is measured in
 liters or m3, and generally is a measure of what size enclosure the loudspeaker
 should be housed in
-
-
 </code></pre><h1 id="yutube-channel">YuTube Channel</h1>
 <p><a href="https://www.youtube.com/channel/UCWOhWAOydPUqillkpt5UlaA">https://www.youtube.com/channel/UCWOhWAOydPUqillkpt5UlaA</a></p>
 <h1 id="tools">Tools</h1>
@@ -200,7 +191,7 @@ should be housed in
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -211,5 +202,11 @@ should be housed in
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

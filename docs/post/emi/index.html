@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -71,7 +70,7 @@ if (!doNotTrack) {
 <h1 id="双倍间距">双倍间距：</h1>
 <p><a href="https://www.protoexpress.com/blog/7-pcb-design-tips-solve-emi-emc-issues/">https://www.protoexpress.com/blog/7-pcb-design-tips-solve-emi-emc-issues/</a></p>
 <p>模拟地和数字地之间必须提供两倍宽度。</p>
-<pre><code>差分信号的D-和D+之间保持平行 （倾斜匹配）。这些走线的长度必须相同。这些差分信
+<pre tabindex="0"><code>差分信号的D-和D+之间保持平行 （倾斜匹配）。这些走线的长度必须相同。这些差分信
 号在布线时彼此应足够靠近，以抑制共模噪声。
 • 差分信号之间的间距必须小于等于一倍宽度。
 • 任何差分对与任何其他信号之间的间距必须超过两倍宽度。
@@ -101,7 +100,7 @@ if (!doNotTrack) {
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -112,5 +111,11 @@ if (!doNotTrack) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

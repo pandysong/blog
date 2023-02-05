@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -71,7 +70,7 @@ physical address with virtual address, why bother to do memory mapping?</p>
 <p>Refer to following paragraph in <a href="https://stackoverflow.com/questions/21797441/do-we-require-mmu-when-virtual-address-space-is-equal-to-physical-address-space">post</a>. In short, the MMU not only provide
 the memory address mapping, but also provide memory protection for example, set
 the memory page to read-only or write-only or allowing execution.</p>
-<pre><code>The MMU does much more than mapping a virtual address space to a physical
+<pre tabindex="0"><code>The MMU does much more than mapping a virtual address space to a physical
 address space of different size. The most important point of an MMU is memory
 protection, which is relevant even if both address spaces have the same size:
 The MMU handles pages (e.g. 4 kB of size) of virtual memory that are mapped to
@@ -91,7 +90,7 @@ overflow attacks).
 Moreover, even if there is a single process, pages can be treated as
 read-write, read-only, execute only, and access forbidden. This allows to
 restrict a process to access its own pages in a permitted way, e.g. it can make
-it impossible to execute &quot;data&quot; stored.
+it impossible to execute &#34;data&#34; stored.
 </code></pre>
   </div>
 </div>
@@ -99,7 +98,7 @@ it impossible to execute &quot;data&quot; stored.
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -110,5 +109,11 @@ it impossible to execute &quot;data&quot; stored.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

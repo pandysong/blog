@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,22 +65,22 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h2 id="a-piece-of-code">A piece of code</h2>
 <p>Look at following code:</p>
-<pre><code>#include &lt;stdio.h&gt;
+<pre tabindex="0"><code>#include &lt;stdio.h&gt;
 
 int main()
 {
-    char *s = &quot;hello world&quot;;
+    char *s = &#34;hello world&#34;;
     puts(s);
 }
 </code></pre><p>Note that puts is basically a <code>printf</code> like funtion but without <code>format</code>
 functinalities.</p>
 <p>Now using the following command to compile as a c program.</p>
-<pre><code>gcc puts_test.c -o puts_test_c
+<pre tabindex="0"><code>gcc puts_test.c -o puts_test_c
 </code></pre><p>There are no errors emitted.</p>
 <p>However if we compile as C++ program:</p>
-<pre><code>g++ -std=c++14 -o puts_test puts_test.cpp
-puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-    char *s = &quot;hello world&quot;;
+<pre tabindex="0"><code>g++ -std=c++14 -o puts_test puts_test.cpp
+puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string literal to &#39;char *&#39; [-Wwritable-strings]
+    char *s = &#34;hello world&#34;;
               ^
 1 warning generated.
 </code></pre><p>It complains.</p>
@@ -92,11 +91,11 @@ to a mutable variable.</p>
 <p>Using <code>const char *</code> instead of <code>char *</code>.</p>
 <h2 id="a-bit-more">a bit more</h2>
 <p>To make the C++ program more with C++ style:</p>
-<pre><code>#include &lt;cstdio&gt;
+<pre tabindex="0"><code>#include &lt;cstdio&gt;
 
 int main()
 {
-    const char *s = &quot;hello world&quot;;
+    const char *s = &#34;hello world&#34;;
     std::puts(s);
 }
 </code></pre>
@@ -106,7 +105,7 @@ int main()
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -117,5 +116,11 @@ int main()
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

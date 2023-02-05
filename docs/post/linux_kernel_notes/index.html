@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,31 +65,30 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h1 id="basic-command">basic command</h1>
 <h2 id="uname">uname</h2>
-<pre><code>$ uname -a
+<pre tabindex="0"><code>$ uname -a
 Linux syd-svr-pes 4.16.9-1-ARCH #1 SMP PREEMPT Thu May 17 02:10:09 UTC 2018 x86_64 GNU/Linux
 </code></pre><h2 id="driver-modules-libmodules">driver modules <code>/lib/modules</code></h2>
-<pre><code>cd /lib/modules
-
+<pre tabindex="0"><code>cd /lib/modules
 </code></pre><h2 id="lsmod">lsmod</h2>
-<pre><code>$ lsmod
+<pre tabindex="0"><code>$ lsmod
 Module                  Size  Used by
 nf_conntrack_ipv4      16384  18
 ...
 ...
 ...
 </code></pre><h2 id="let-tar-to-figure-out-the-compression-way">let tar to figure out the compression way</h2>
-<pre><code>tar xf somefile.tar.xz
+<pre tabindex="0"><code>tar xf somefile.tar.xz
 </code></pre><h2 id="more-is-old-utility-use-less-instead-of-more"><code>more</code> is old utility, use <code>less</code> instead of <code>more</code></h2>
 <p>Becuase <code>less</code> is a bit massive than <code>more</code>, some embedded system only have more.</p>
 <h2 id="compile-kernel">compile kernel</h2>
-<pre><code>make menuconfig
+<pre tabindex="0"><code>make menuconfig
 make all
 make modules_install # install modules to /lib/modules/
 make install
 </code></pre><h2 id="strace">strace</h2>
 <p>using strace to see the system call being called</p>
 <p><a href="https://www.youtube.com/watch?v=0IQlpFWTFbM">https://www.youtube.com/watch?v=0IQlpFWTFbM</a></p>
-<pre><code>strace &lt;your programe&gt;
+<pre tabindex="0"><code>strace &lt;your programe&gt;
 </code></pre><p>strace could filter as well.</p>
 <h2 id="perf-track-l1-cache-misses">perf, track L1 cache misses</h2>
 <h2 id="ftrace-tracing-kernel-functions">ftrace, tracing kernel functions</h2>
@@ -109,7 +107,7 @@ make install
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -120,5 +118,11 @@ make install
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

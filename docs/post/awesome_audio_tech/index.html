@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,11 +65,10 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h1 id="open-source">Open Source</h1>
 <h2 id="hark">HARK</h2>
-<pre><code>
+<pre tabindex="0"><code>
 Though HARK supports numerous signal processing methods, it requires a
 significant amount of computing power, which makes it less suitable for use on
 low-cost embedding hardware
-
 </code></pre><p><a href="https://hark.jp/download/source-code/">https://hark.jp/download/source-code/</a></p>
 <h2 id="manyears">ManyEars</h2>
 <p><a href="https://github.com/introlab/manyears">https://github.com/introlab/manyears</a></p>
@@ -86,7 +84,7 @@ low-cost embedding hardware
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -97,5 +95,11 @@ low-cost embedding hardware
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

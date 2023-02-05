@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,7 +66,7 @@ if (!doNotTrack) {
     <h1 id="virtual-box-dhcp-server-not-working">Virtual Box DHCP Server not working</h1>
 <p>I installed a mini Ubuntu Linux guest, however the host-only
 network interface could not get appropriate ip address from dhcp server</p>
-<pre><code>$ VBoxManage  list dhcpservers
+<pre tabindex="0"><code>$ VBoxManage  list dhcpservers
 NetworkName:    HostInterfaceNetworking-vboxnet0
 IP:             192.168.56.100
 NetworkMask:    255.255.255.0
@@ -75,7 +74,7 @@ lowerIPAddress: 192.168.56.101
 upperIPAddress: 192.168.56.254
 Enabled:        No
 </code></pre><p>It looks the dhcp server is not enabled, alought it looks enabled from GUI</p>
-<pre><code>$ VBoxManage dhcpserver modify --netname HostInterfaceNetworking-vboxnet0 --enable
+<pre tabindex="0"><code>$ VBoxManage dhcpserver modify --netname HostInterfaceNetworking-vboxnet0 --enable
 $ VBoxManage  list dhcpservers
 NetworkName:    HostInterfaceNetworking-vboxnet0
 IP:             192.168.56.100
@@ -87,7 +86,7 @@ Enabled:        Yes
 <h1 id="ubuntu-netplan">ubuntu netplan</h1>
 <p>new ubuntu release uses netplan to configure interface.</p>
 <p>Add the last two lines to enable the interface <code>enp0s8</code></p>
-<pre><code>pandy@ubuntu:~$ cat /etc/netplan/01-netcfg.yaml
+<pre tabindex="0"><code>pandy@ubuntu:~$ cat /etc/netplan/01-netcfg.yaml
 # This file describes the network interfaces available on your system
 # For more information, see netplan(5).
 network:
@@ -105,7 +104,7 @@ network:
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -116,5 +115,11 @@ network:
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

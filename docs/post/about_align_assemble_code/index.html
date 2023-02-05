@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,23 +65,23 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h2 id="introduction">Introduction</h2>
 <p>Often we find following assemble code</p>
-<pre><code>.align &lt;n&gt;
+<pre tabindex="0"><code>.align &lt;n&gt;
 </code></pre><p>Where n is an integer which could be e.g. 3, 5</p>
 <p>In this document, we will do some experiment for understanding this.</p>
 <h2 id="test-code">Test code</h2>
 <p>Create a file <code>a.S</code> with following content</p>
-<pre><code>mov x0,0xf5
+<pre tabindex="0"><code>mov x0,0xf5
 .align 3
 mov x0,0xf4
 </code></pre><h2 id="compile">Compile</h2>
 <p>Now using an arm cross compiler to compile above code</p>
-<pre><code>aarch64-linux-gnu-gcc -c a.S
+<pre tabindex="0"><code>aarch64-linux-gnu-gcc -c a.S
 </code></pre><p>This will generate an object file a.o</p>
-<pre><code>pandy@ubuntu:~/temp/asm_test$ file a.o
+<pre tabindex="0"><code>pandy@ubuntu:~/temp/asm_test$ file a.o
 a.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), not stripped
 </code></pre><h2 id="disassemble-the-code">Disassemble the code</h2>
 <p>Let&rsquo;s check what is the generated code:</p>
-<pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
+<pre tabindex="0"><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
 
 a.o:     file format elf64-littleaarch64
 
@@ -97,10 +96,10 @@ Disassembly of section .text:
 happens to be <code>2^3</code>.</p>
 <h1 id="more-testing">More testing</h1>
 <p>Let&rsquo;s do some change:</p>
-<pre><code>mov x0,0xf5
+<pre tabindex="0"><code>mov x0,0xf5
 .align 5
 mov x0,0xf4
-</code></pre><pre><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
+</code></pre><pre tabindex="0"><code>pandy@ubuntu:~/temp/asm_test$ aarch64-linux-gnu-objdump -d a.o
 
 a.o:     file format elf64-littleaarch64
 
@@ -125,7 +124,7 @@ Disassembly of section .text:
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -136,5 +135,11 @@ Disassembly of section .text:
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

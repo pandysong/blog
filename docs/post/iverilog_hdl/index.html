@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -77,68 +76,67 @@ reported that bison 2.3 on MacOS generates broken code, but bison 3.0.4 works.&r
 <p>I was just using brew to install the latest bison, please note that at end of
 bison installation, following is suggest to use the brew installed version
 instead of osx default one.</p>
-<pre><code>echo 'export PATH=&quot;/usr/local/opt/bison/bin:$PATH&quot;' &gt;&gt; ~/.zshrc 
+<pre tabindex="0"><code>echo &#39;export PATH=&#34;/usr/local/opt/bison/bin:$PATH&#34;&#39; &gt;&gt; ~/.zshrc 
 </code></pre><p>The above command might be different for <code>bash</code>, as it is for zsh.</p>
 <h1 id="an-example">An example</h1>
 <p>The following example is copied from the examples directory:
 examples/xram16x1.v and some var name are replaced for easy understanding.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-verilog" data-lang="verilog">
-<span style="color:#75715e">// defines a 16x1 ram module
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">module</span> ram16x1 (out, data, index, assign_flag, wclk);
-     <span style="color:#66d9ef">output</span> out;
-     <span style="color:#66d9ef">input</span> data;
-     <span style="color:#66d9ef">input</span> [<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] index;
-     <span style="color:#66d9ef">input</span> assign_flag;
-     <span style="color:#66d9ef">input</span> wclk;
-
-     <span style="color:#66d9ef">reg</span> mem[<span style="color:#ae81ff">15</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>];
-
-     <span style="color:#66d9ef">assign</span> out <span style="color:#f92672">=</span> mem[index];
-     <span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> wclk) <span style="color:#66d9ef">if</span> (assign_flag) mem[index] <span style="color:#f92672">=</span> data;
-
- <span style="color:#66d9ef">endmodule</span> <span style="color:#75715e">/* ram16x1 */</span>
-
-<span style="color:#75715e">// the toplevel emulation module
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">module</span> main;
-    <span style="color:#66d9ef">wire</span> out;
-    <span style="color:#66d9ef">reg</span> data;
-    <span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] index;
-    <span style="color:#66d9ef">reg</span> assign_flag, wclk;
-
-    ram16x1 r1 (out, data, index, assign_flag, wclk);
-
-    <span style="color:#66d9ef">initial</span> <span style="color:#66d9ef">begin</span>
-    $dumpfile(<span style="color:#e6db74">&#34;show_vcd.vcd&#34;</span>);
-    $dumpvars(<span style="color:#ae81ff">1</span>, main.r1);
-    wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    assign_flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">for</span> (index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4&#39;hf</span> ;  index <span style="color:#f92672">=</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">begin</span>
-        data <span style="color:#f92672">=</span> index[<span style="color:#ae81ff">0</span>];
-        #<span style="color:#ae81ff">1</span> wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">//the data is written to ram on positve edge
-</span><span style="color:#75715e"></span>        #<span style="color:#ae81ff">1</span> wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        $display(<span style="color:#e6db74">&#34;r1[%x] == %b&#34;</span>, index, out);
-    <span style="color:#66d9ef">end</span>
-
-    <span style="color:#66d9ef">for</span> (index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4&#39;hf</span> ;  index <span style="color:#f92672">=</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
-        #<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> (out <span style="color:#f92672">!==</span> index[<span style="color:#ae81ff">0</span>]) <span style="color:#66d9ef">begin</span>
-            $display(<span style="color:#e6db74">&#34;FAILED -- mem[%h] !== %b&#34;</span>, index, index[<span style="color:#ae81ff">0</span>]);
-            $finish;
-        <span style="color:#66d9ef">end</span>
-
-        $display(<span style="color:#e6db74">&#34;PASSED&#34;</span>);
-    <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">endmodule</span> <span style="color:#75715e">/* main */</span>
-
-</code></pre></div><p>The commands started with <code>$</code> are for emulation only. $dumpfile and $dumpvars
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// defines a 16x1 ram module
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">module</span> ram16x1 (out, data, index, assign_flag, wclk);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">output</span> out;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">input</span> data;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">input</span> [<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] index;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">input</span> assign_flag;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">input</span> wclk;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">reg</span> mem[<span style="color:#ae81ff">15</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">assign</span> out <span style="color:#f92672">=</span> mem[index];
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> wclk) <span style="color:#66d9ef">if</span> (assign_flag) mem[index] <span style="color:#f92672">=</span> data;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">endmodule</span> <span style="color:#75715e">/* ram16x1 */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// the toplevel emulation module
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">module</span> main;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">wire</span> out;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reg</span> data;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] index;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reg</span> assign_flag, wclk;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ram16x1 r1 (out, data, index, assign_flag, wclk);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">initial</span> <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    $dumpfile(<span style="color:#e6db74">&#34;show_vcd.vcd&#34;</span>);
+</span></span><span style="display:flex;"><span>    $dumpvars(<span style="color:#ae81ff">1</span>, main.r1);
+</span></span><span style="display:flex;"><span>    wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    assign_flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4&#39;hf</span> ;  index <span style="color:#f92672">=</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> index[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>        #<span style="color:#ae81ff">1</span> wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">//the data is written to ram on positve edge
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        #<span style="color:#ae81ff">1</span> wclk <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        $display(<span style="color:#e6db74">&#34;r1[%x] == %b&#34;</span>, index, out);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4&#39;hf</span> ;  index <span style="color:#f92672">=</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        #<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> (out <span style="color:#f92672">!==</span> index[<span style="color:#ae81ff">0</span>]) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>            $display(<span style="color:#e6db74">&#34;FAILED -- mem[%h] !== %b&#34;</span>, index, index[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>            $finish;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $display(<span style="color:#e6db74">&#34;PASSED&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span> <span style="color:#75715e">/* main */</span>
+</span></span></code></pre></div><p>The commands started with <code>$</code> are for emulation only. $dumpfile and $dumpvars
 are for dump all data to e.g. <code>show_vcd.vcd</code>.</p>
 <h1 id="compile">compile</h1>
-<pre><code>iverylog -oxram16x1 xram16x1.v
+<pre tabindex="0"><code>iverylog -oxram16x1 xram16x1.v
 </code></pre><p>A copy could be fetched from <a href="https://github.com/pandysong/iverilog_xram16x1.git">here</a></p>
 <p>Where a Makefile is added, so a simple <code>make</code> could suffice.</p>
 <h1 id="run">run</h1>
-<pre><code>./xram16x1
+<pre tabindex="0"><code>./xram16x1
 </code></pre><p>The output:</p>
-<pre><code>VCD info: dumpfile show_vcd.vcd opened for output.
+<pre tabindex="0"><code>VCD info: dumpfile show_vcd.vcd opened for output.
 r1[0] == 0
 r1[1] == 1
 r1[2] == 0
@@ -156,11 +154,11 @@ r1[d] == 1
 r1[e] == 0
 PASSED
 </code></pre><p>The above printing is corresponding to the code:</p>
-<pre><code>$display(&quot;r1[%x] == %b&quot;, index, out);
+<pre tabindex="0"><code>$display(&#34;r1[%x] == %b&#34;, index, out);
 </code></pre><h1 id="open-the-data">open the data</h1>
 <p>To run <code>xram16x1</code>, it also generates &ldquo;show_vcd.vcd&rdquo; file.</p>
 <p>using gtkwave command to show:</p>
-<pre><code>gtkwave show_vcd.vcd
+<pre tabindex="0"><code>gtkwave show_vcd.vcd
 </code></pre><p>The tool could shows all the logics during emulation:</p>
 <p><img src="https://pandysong.github.io/blog/img/gtkwave_xram16x1.png" alt="gtkwave"></p>
 <p>Some explanation on the above figure:</p>
@@ -180,7 +178,7 @@ memory, wclk is not altered.</li>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -191,5 +189,11 @@ memory, wclk is not altered.</li>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

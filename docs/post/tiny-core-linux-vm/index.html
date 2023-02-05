@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -81,20 +80,20 @@ the first, I do not bother to create a VDI at all, as mentioned earlier, it does
 not need a disk.</p>
 <h1 id="run-the-linux-binary-in-tiny-core-linux">run the Linux binary in tiny core Linux</h1>
 <p>Network is setup to access the host</p>
-<pre><code>wget http://$HOST_IP:8000/thebianry
+<pre tabindex="0"><code>wget http://$HOST_IP:8000/thebianry
 </code></pre><p>For above command to work, in the host we need to setup a simple http server.</p>
 <p>Run following command where you have you <code>thebinary</code></p>
-<pre><code>python3 -m http.server
+<pre tabindex="0"><code>python3 -m http.server
 </code></pre><h1 id="remember-to-chmod">remember to chmod</h1>
-<pre><code>chmod +x thebinary
-</code></pre><h2 id="error-no-such-file">error &lsquo;no such file&rsquo;</h2>
+<pre tabindex="0"><code>chmod +x thebinary
+</code></pre><h2 id="error-no-such-file">error &rsquo;no such file'</h2>
 <p>Make sure the file exists, otherwise it is possible that you are running a 32bit
 binary in a 64bit Linux.</p>
 <h1 id="persistence-of-extensions">persistence of extensions</h1>
 <p>tiny core Linux support to make the extensions install persistent by put a boot
 parameter.</p>
 <p>In case of micro-core:</p>
-<pre><code>mc tce=/dev/sda1
+<pre tabindex="0"><code>mc tce=/dev/sda1
 </code></pre><p>Note that this could be done only once. But before doing that, we should format
 and make a file system on it.</p>
 <p>Do it in three steps:</p>
@@ -103,11 +102,11 @@ and make a file system on it.</p>
 <li>in tiny core Linux, using <code>cfdisk</code> or <code>fdisk</code> to create partitions, reboot to go
 to next step.</li>
 </ul>
-<pre><code>cfdisk /dev/sda
+<pre tabindex="0"><code>cfdisk /dev/sda
 </code></pre><ul>
 <li>in tiny core Linux, using mkfs.ext3 to create a file system on the partition.</li>
 </ul>
-<pre><code>
+<pre tabindex="0"><code>
 # create host-only adaptor
 
 In virtual box it is possible to set up second virtual network adaptor to allow
@@ -122,14 +121,12 @@ Do it in two steps:
 
 
 # run ssh server
-
 </code></pre><p>tce-load -wi openssh
 sudo /usr/local/etc/init.d/openssh start</p>
-<pre><code>
+<pre tabindex="0"><code>
 # connect from host to guest via ssh
-
 </code></pre><p>ssh <a href="mailto:username@192.168.56.101">username@192.168.56.101</a></p>
-<pre><code>
+<pre tabindex="0"><code>
 Chagne the username and ip address accordingly.
 
 # dns issue
@@ -138,18 +135,17 @@ After host-only adaptor is enabled the guest nds might not work
 
 checkot following file 
 </code></pre><p>/etc/resolv.conf</p>
-<pre><code>
+<pre tabindex="0"><code>
 To see if following line exists
-
 </code></pre><p>nameserver 192.168.0.1</p>
-<pre><code></code></pre>
+<pre tabindex="0"><code></code></pre>
   </div>
 </div>
 
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -160,5 +156,11 @@ To see if following line exists
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

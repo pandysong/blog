@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -78,8 +77,8 @@ for more detailed reading.</p>
 <p>Please note that for example following python (torch) code create a Convolution
 layer, the first parameter <code>1</code> is the number of input channels, while <code>6</code> is
 number of the output channels, How does it work?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">3</span>)
-</code></pre></div><p>It means that there are 6 filters to do convolution on the same location of the
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><p>It means that there are 6 filters to do convolution on the same location of the
 image, so that one channel of image could outputs 6 different channels of
 images.</p>
 <p>Refer to
@@ -88,7 +87,7 @@ for the discussion.</p>
 <h1 id="size-reduced-after-convolution">size reduced after convolution</h1>
 <p>Following example create a convolution function <code>conv2d_test</code>, which takes 1
 channel and output another channel with kernel size 3 that is 3 x 3.</p>
-<pre><code>&gt;&gt;&gt; conv2d_test = nn.Conv2d(1,1,3)
+<pre tabindex="0"><code>&gt;&gt;&gt; conv2d_test = nn.Conv2d(1,1,3)
 &gt;&gt;&gt; x=torch.rand(1,1,5,5)
 &gt;&gt;&gt; conv2d_test(x)
 tensor([[[[ 0.1419,  0.0967, -0.1615],
@@ -106,7 +105,7 @@ tensor([[[[ 0.1419,  0.0967, -0.1615],
 -&gt; (ReLU and apply 2 x 2 pooling, that is down sampling), 16 Channels 6 x 6 images</p>
 <h1 id="what-is-the-purpose-to-accumulate-the-gradient">what is the purpose to &ldquo;accumulate&rdquo; the gradient?</h1>
 <p>Refer to <a href="http://cs231n.github.io/optimization-2/">github</a></p>
-<pre><code>Gradients add up at forks. The forward expression involves the variables x,y
+<pre tabindex="0"><code>Gradients add up at forks. The forward expression involves the variables x,y
 multiple times, so when we perform backpropagation we must be careful to use +=
 instead of = to accumulate the gradient on these variables (otherwise we would
 overwrite it). This follows the multivariable chain rule in Calculus, which
@@ -120,7 +119,7 @@ performing back-propagation. Refer to end of
 <h1 id="different-models-on-imagenet">Different models on ImageNet</h1>
 <p>Refer to <a href="https://medium.com/@RaghavPrabhu/cnn-architectures-lenet-alexnet-vgg-googlenet-and-resnet-7c81c017b848">https://medium.com/@RaghavPrabhu/cnn-architectures-lenet-alexnet-vgg-googlenet-and-resnet-7c81c017b848</a></p>
 <h1 id="resnet">ResNet</h1>
-<pre><code>
+<pre tabindex="0"><code>
 不做图像相关处理，研究不多，看过网络结构图和highway
 network那篇文章，说说自己的直观理解。我觉得是在解决
 不同层级的特征组合问题或者说浅层信息的远距离传输问题。卷积网络都是从低阶特征抽象出高阶特征的，从点线面到简单结构到复杂形状，而每一层网络能表示的往往是相近复杂度的特征（或者说相近感受野范围内的特征）。另一方面，对不同的图片，相似的特征并不总是处在同一层，比如同样的抽象出一个眼睛，小点的图像可能在第3层就抽象出来了，但是对同样内容的一个大尺度图片，可能要到第8层才抽象出来（因为要这么深感受野才覆盖得到）。图像任务利用的特征基本都不是单一层级的，而是多个层级的组合，比如眉毛部分的局部特征+整个脸部特征来判断一个人，但是这些特征并不都在一个层级。不加res连接，意味着低阶的特征要起作用需要经过多层网络来传递，这个过程中是会有信息损益的，可能第三层抽象出来的特征，传到最后就不知道是什么东西了。加了res层保证了各个层级的特征可以随意的组合，而且可以高保真的让各层级的有用特征传递到最终的特征层。
@@ -148,7 +147,7 @@ image recognition task for other purposes. The method is called &ldquo;transfer
 learning&rdquo;.</p>
 <p>Refer to
 <a href="https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce">https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce</a></p>
-<pre><code>
+<pre tabindex="0"><code>
 The basic premise of transfer learning is simple: take a model trained on a
 large dataset and transfer its knowledge to a smaller dataset. For object
 recognition with a CNN, we freeze the early convolutional layers of the network
@@ -156,7 +155,6 @@ and only train the last few layers which make a prediction. The idea is the
 convolutional layers extract general, low-level features that are applicable
 across images — such as edges, patterns, gradients — and the later layers
 identify specific features within an image such as eyes or wheels.
-
 </code></pre>
   </div>
 </div>
@@ -164,7 +162,7 @@ identify specific features within an image such as eyes or wheels.
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -175,5 +173,11 @@ identify specific features within an image such as eyes or wheels.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

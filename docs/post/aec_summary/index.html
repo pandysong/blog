@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -74,30 +73,25 @@ if (!doNotTrack) {
 </ul>
 <h2 id="echo-return-loss-enhancement-erle">Echo Return Loss Enhancement (ERLE)</h2>
 <h2 id="linear-algorithms-performance">Linear Algorithms performance</h2>
-<pre><code>
+<pre tabindex="0"><code>
 Frequency block-filtering approaches are shown to be the most disturbed in
 non-linear environments. An Adaptive Projection Algorithm (APA) approach is
 furthermore shown not to perform any bet- ter than a standard Normalized-LMS
 (NLMS) algorithm
-
-
-</code></pre><pre><code>
+</code></pre><pre tabindex="0"><code>
 The new theoreti- cal analysis better accounts for observed experimental
 results than any existing theory and shows why NLMS algorithms often perform
 better than APA algorithms in the presence of non-linear distortion
-
 </code></pre><h2 id="loudspeaker-modelling">Loudspeaker Modelling</h2>
-<pre><code>
+<pre tabindex="0"><code>
 Loudspeaker modelling based on harmonic summation
 
 Loudspeaker modelling based on polynomial expansion
-
 </code></pre><h2 id="loudspeaker-pre-processing">Loudspeaker pre-processing</h2>
-<pre><code>
+<pre tabindex="0"><code>
 This approach places no constraints on the use of any particular AEC algorithm
 and avoids the introduction of distortion in the error signal which can occur
 with alternative approaches to non-linear AEC.
-
 </code></pre><h1 id="references">References</h1>
 <p>[1] Non-linear AEC with loudspeaker modelling and pre-processing, 2012</p>
 
@@ -107,7 +101,7 @@ with alternative approaches to non-linear AEC.
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -118,5 +112,11 @@ with alternative approaches to non-linear AEC.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

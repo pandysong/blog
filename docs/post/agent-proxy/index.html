@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -72,18 +71,18 @@ The idea is that you use the agent-proxy to connect to a serial port
 directly or to a remote terminal server.
 </code></pre>
 <h1 id="repo">repo</h1>
-<pre><code>https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git
-</code></pre><pre><code>mkdir -p /temp/kdmx_is_not_hard
+<pre tabindex="0"><code>https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git
+</code></pre><pre tabindex="0"><code>mkdir -p /temp/kdmx_is_not_hard
 cd /temp/kdmx_is_not_hard
 git clone git://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git
 cd kdmx
 make
-./kdmx -n -p &quot;/dev/ttyxxxx&quot; -s /temp/kdmx_ports &amp;
+./kdmx -n -p &#34;/dev/ttyxxxx&#34; -s /temp/kdmx_ports &amp;
 cu --nostop -l $(cat /temp/kdmx_ports_trm)
 
 # when debugging
 
-$(CROSS_ARCH)-gdb /path/to/vmlinux -ex &quot;target remote $(cat /temp/kdmx_ports_gdb)&quot;
+$(CROSS_ARCH)-gdb /path/to/vmlinux -ex &#34;target remote $(cat /temp/kdmx_ports_gdb)&#34;
 </code></pre><h1 id="btw-install-gdb-on-mac">BTW: install gdb on mac</h1>
 <p><a href="http://tomszilagyi.github.io/2018/03/Remote-gdb-with-stl-pp">http://tomszilagyi.github.io/2018/03/Remote-gdb-with-stl-pp</a></p>
 
@@ -93,7 +92,7 @@ $(CROSS_ARCH)-gdb /path/to/vmlinux -ex &quot;target remote $(cat /temp/kdmx_port
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -104,5 +103,11 @@ $(CROSS_ARCH)-gdb /path/to/vmlinux -ex &quot;target remote $(cat /temp/kdmx_port
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

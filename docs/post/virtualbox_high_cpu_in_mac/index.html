@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -68,7 +67,7 @@ if (!doNotTrack) {
 <p>My problem resolved after following one of the solutions in:</p>
 <p><a href="https://www.virtualbox.org/ticket/18089?cversion=1&amp;cnum_hist=13">https://www.virtualbox.org/ticket/18089?cversion=1&amp;cnum_hist=13</a></p>
 <p>Which is</p>
-<pre><code>I just updated to mac OS 10.14.3 and to VirtualBox 5.2.24, and the problem
+<pre tabindex="0"><code>I just updated to mac OS 10.14.3 and to VirtualBox 5.2.24, and the problem
 recurred on a VM where it had been fine before. I had previously set this VM to
 use the null audio driver. The settings were:
 
@@ -80,7 +79,6 @@ Audio Input Enabled
 
 I shut it down, unchecked the first box to disable audio entirely, restarted
 the VM, and CPU load is normal again.
-
 </code></pre>
   </div>
 </div>
@@ -88,7 +86,7 @@ the VM, and CPU load is normal again.
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -99,5 +97,11 @@ the VM, and CPU load is normal again.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

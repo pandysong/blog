@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,16 +65,16 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h1 id="error">Error</h1>
 <p>When running following command to convert a markdown to pdf:</p>
-<pre><code>pandoc  xyz.md -o xyz.pdf --pdf-engine=xelatex --template=./xyz_template.tex
+<pre tabindex="0"><code>pandoc  xyz.md -o xyz.pdf --pdf-engine=xelatex --template=./xyz_template.tex
 </code></pre><p>I get following error.</p>
-<pre><code>kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT', contains '
-kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT', contains '
+<pre tabindex="0"><code>kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&#39;, contains &#39;
+kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&#39;, contains &#39;
 Error producing PDF.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
-! fontspec error: &quot;font-not-found&quot;
+! fontspec error: &#34;font-not-found&#34;
 !
-! The font &quot;文泉驿微米黑&quot; cannot be found.
+! The font &#34;文泉驿微米黑&#34; cannot be found.
 !
 ! See the fontspec documentation for further information.
 !
@@ -84,14 +83,14 @@ Error producing PDF.
 
 l.21   \setCJKmainfont{文泉驿微米黑}
 </code></pre><p>I am using following command  in xyz_template.tex</p>
-<pre><code>    \setCJKmainfont{文泉驿微米黑}  
+<pre tabindex="0"><code>    \setCJKmainfont{文泉驿微米黑}  
 </code></pre><h1 id="debugging">Debugging</h1>
 <p>Using command fc-list to check if the font does exists</p>
-<pre><code>~/(master ✗) fc-list | grep 泉
+<pre tabindex="0"><code>~/(master ✗) fc-list | grep 泉
 /Users/pandysong/Library/Fonts/WenQuanWeiMiHei-1.ttf: 文泉驿微米黑,文泉驛微米黑,WenQuanYi Micro Hei:style=Regular
 </code></pre><h1 id="solution">Solution</h1>
 <p>Replace with following english font name resolve the problem:</p>
-<pre><code>    \setCJKmainfont{WenQuanYi Micro Hei}  
+<pre tabindex="0"><code>    \setCJKmainfont{WenQuanYi Micro Hei}  
 </code></pre>
   </div>
 </div>
@@ -99,7 +98,7 @@ l.21   \setCJKmainfont{文泉驿微米黑}
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -110,5 +109,11 @@ l.21   \setCJKmainfont{文泉驿微米黑}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

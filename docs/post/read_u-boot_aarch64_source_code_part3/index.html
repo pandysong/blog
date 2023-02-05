@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,7 +65,7 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h2 id="run_main_loopvoid"><code>run_main_loop(void)</code></h2>
 <p>This function calls <code>main_loop()</code>.</p>
-<pre><code>static int run_main_loop(void)
+<pre tabindex="0"><code>static int run_main_loop(void)
 {
 #ifdef CONFIG_SANDBOX
 	sandbox_main_loop_init();
@@ -76,18 +75,17 @@ if (!doNotTrack) {
 		main_loop();
 	return 0;
 }
-
 </code></pre><h2 id="main_loopvoid"><code>main_loop(void)</code></h2>
 <p>This is the place to receive command and execute it.</p>
-<pre><code>/* We come here after U-Boot is initialised and ready to process commands */
+<pre tabindex="0"><code>/* We come here after U-Boot is initialised and ready to process commands */
 void main_loop(void)
 {
 	const char *s;
 
-	bootstage_mark_name(BOOTSTAGE_ID_MAIN_LOOP, &quot;main_loop&quot;);
+	bootstage_mark_name(BOOTSTAGE_ID_MAIN_LOOP, &#34;main_loop&#34;);
 
 #ifdef CONFIG_VERSION_VARIABLE
-	env_set(&quot;ver&quot;, version_string);  /* set version variable */
+	env_set(&#34;ver&#34;, version_string);  /* set version variable */
 #endif /* CONFIG_VERSION_VARIABLE */
 
 	cli_init();
@@ -105,7 +103,7 @@ void main_loop(void)
 	autoboot_command(s);
 
 	cli_loop();
-	panic(&quot;No CLI available&quot;);
+	panic(&#34;No CLI available&#34;);
 }
 </code></pre>
   </div>
@@ -114,7 +112,7 @@ void main_loop(void)
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -125,5 +123,11 @@ void main_loop(void)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

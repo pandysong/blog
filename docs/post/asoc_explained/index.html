@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -105,14 +104,14 @@ platform to another.</p>
 upper layer. A generic implementation of a machine driver is simple-audio-card.</p>
 <p>How the gluing is actually done?</p>
 <p>Refer to:</p>
-<pre><code>devicetree/bindings/sound/simple-card.txt
+<pre tabindex="0"><code>devicetree/bindings/sound/simple-card.txt
 </code></pre><p>For example, this device tree of a simple-audio-card, glue the following two
 parts</p>
 <ul>
 <li>the CPU part (SoC driver): rcar_sound</li>
 <li>The Codec Part (Codec Driver): ak4643</li>
 </ul>
-<pre><code>    sndcpu: simple-audio-card,cpu {
+<pre tabindex="0"><code>    sndcpu: simple-audio-card,cpu {
         sound-dai = &lt;&amp;rcar_sound&gt;;
     };
 
@@ -127,15 +126,15 @@ speaker, and turn on the widget on that path so that audio data could flow
 through the path to speaker.</p>
 <h1 id="fixed-name-of-widget">Fixed Name of Widget</h1>
 <p>In following core code:</p>
-<pre><code>kernel/sound/soc/soc-core.c
+<pre tabindex="0"><code>kernel/sound/soc/soc-core.c
 </code></pre><p>Following fixed name widget is defined as well-known widget</p>
-<pre><code>static const struct snd_soc_dapm_widget simple_widgets[] = {
-      SND_SOC_DAPM_MIC(&quot;Microphone&quot;, NULL),
-      SND_SOC_DAPM_LINE(&quot;Line&quot;, NULL),
-      SND_SOC_DAPM_HP(&quot;Headphone&quot;, NULL),
-      SND_SOC_DAPM_SPK(&quot;Speaker&quot;, NULL),
+<pre tabindex="0"><code>static const struct snd_soc_dapm_widget simple_widgets[] = {
+      SND_SOC_DAPM_MIC(&#34;Microphone&#34;, NULL),
+      SND_SOC_DAPM_LINE(&#34;Line&#34;, NULL),
+      SND_SOC_DAPM_HP(&#34;Headphone&#34;, NULL),
+      SND_SOC_DAPM_SPK(&#34;Speaker&#34;, NULL),
   };
-</code></pre><pre><code>struct snd_soc_dapm_widget {
+</code></pre><pre tabindex="0"><code>struct snd_soc_dapm_widget {
       enum snd_soc_dapm_type id;
       const char *name;       /* widget name */
       const char *sname;  /* stream name */
@@ -151,26 +150,26 @@ through the path to speaker.</p>
 </code></pre><h2 id="widgettxt-document">widget.txt Document</h2>
 <p>The document in widget.txt explain it as well. The &ldquo;template-wname&rdquo; is the
 template widget name. This allows to define a user-supplied-name to the widget.</p>
-<pre><code>Widgets:
+<pre tabindex="0"><code>Widgets:
 
 This mainly specifies audio off-codec DAPM widgets.
 
 Each entry is a pair of strings in DT:
 
-    &quot;template-wname&quot;, &quot;user-supplied-wname&quot;
+    &#34;template-wname&#34;, &#34;user-supplied-wname&#34;
 
-The &quot;template-wname&quot; being the template widget name and currently includes:
-&quot;Microphone&quot;, &quot;Line&quot;, &quot;Headphone&quot; and &quot;Speaker&quot;.
+The &#34;template-wname&#34; being the template widget name and currently includes:
+&#34;Microphone&#34;, &#34;Line&#34;, &#34;Headphone&#34; and &#34;Speaker&#34;.
 
-The &quot;user-supplied-wname&quot; being the user specified widget name.
+The &#34;user-supplied-wname&#34; being the user specified widget name.
 
 For instance:
     simple-audio-widgets =
-        &quot;Microphone&quot;, &quot;Microphone Jack&quot;,
-        &quot;Line&quot;, &quot;Line In Jack&quot;,
-        &quot;Line&quot;, &quot;Line Out Jack&quot;,
-        &quot;Headphone&quot;, &quot;Headphone Jack&quot;,
-        &quot;Speaker&quot;, &quot;Speaker External&quot;;
+        &#34;Microphone&#34;, &#34;Microphone Jack&#34;,
+        &#34;Line&#34;, &#34;Line In Jack&#34;,
+        &#34;Line&#34;, &#34;Line Out Jack&#34;,
+        &#34;Headphone&#34;, &#34;Headphone Jack&#34;,
+        &#34;Speaker&#34;, &#34;Speaker External&#34;;
 </code></pre>
   </div>
 </div>
@@ -178,7 +177,7 @@ For instance:
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -189,5 +188,11 @@ For instance:
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,7 +65,7 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h1 id="resolve-the-installation-issue">resolve the installation issue</h1>
 <p>Using <code>flutter doctor</code> to check:</p>
-<pre><code>~ flutter doctor
+<pre tabindex="0"><code>~ flutter doctor
 Doctor summary (to see all details, run flutter doctor -v):
 [✓] Flutter (Channel stable, v1.12.13+hotfix.9, on Mac OS X 10.15.4 19E287, locale zh-Hans-CN)
 [!] Android toolchain - develop for Android devices
@@ -80,7 +79,7 @@ Doctor summary (to see all details, run flutter doctor -v):
     ✗ No valid Android SDK platforms found in /usr/local/Caskroom/android-platform-tools/29.0.2/platforms. Directory was empty.
 [!] Xcode - develop for iOS and macOS (Xcode 11.4.1)
     ✗ CocoaPods not installed.
-        CocoaPods is used to retrieve the iOS and macOS platform side's plugin code that responds to your plugin usage on the Dart side.
+        CocoaPods is used to retrieve the iOS and macOS platform side&#39;s plugin code that responds to your plugin usage on the Dart side.
         Without CocoaPods, plugins will not work on iOS or macOS.
         For more info, see https://flutter.dev/platform-plugins
       To install:
@@ -91,20 +90,19 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 ! Doctor found issues in 4 categories.
 </code></pre><p>It looks we have to install CocoaPods:</p>
-<pre><code>~ sudo gem install cocoapods
+<pre tabindex="0"><code>~ sudo gem install cocoapods
 Password:
 ERROR:  Loading command: install (LoadError)
         dlopen(/usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/x86_64-darwin17/openssl.bundle, 9): Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib
   Referenced from: /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/x86_64-darwin17/openssl.bundle
   Reason: image not found - /usr/local/Cellar/ruby/2.5.1/lib/ruby/2.5.0/x86_64-darwin17/openssl.bundle
 ERROR:  While executing gem ... (NoMethodError)
-    undefined method `invoke_with_build_args' for nil:NilClass
+    undefined method `invoke_with_build_args&#39; for nil:NilClass
 ``
 
 
 The reason is that the openssl version is already 1.1, while `gem install`
 needs the openssl version 1.0:
-
 </code></pre><p>~ brew info openssl
 <a href="mailto:openssl@1.1">openssl@1.1</a>: stable 1.1.1f (bottled) [keg-only]
 Cryptography and SSL/TLS Toolkit
@@ -124,9 +122,8 @@ because macOS provides LibreSSL.</p>
 install: 793,390 (30 days), 1,631,668 (90 days), 4,466,643 (365 days)
 install-on-request: 122,631 (30 days), 230,827 (90 days), 625,229 (365 days)
 build-error: 0 (30 days)</p>
-<pre><code>
+<pre tabindex="0"><code>
 Check the available version installed by brew:
-
 </code></pre><p>~ ls -al /usr/local/Cellar/openssl*
 /usr/local/Cellar/openssl:
 total 0
@@ -142,7 +139,7 @@ total 0
 drwxr-xr-x    3 pandysong  staff    96  3 15 19:03 .
 drwxrwxr-x  182 pandysong  admin  5824  4 20 23:32 ..
 drwxr-xr-x   14 pandysong  staff   448  3 15 18:48 1.1.1d</p>
-<pre><code>
+<pre tabindex="0"><code>
 
 Swich to version 1.0:
 </code></pre><p>~ brew switch openssl 1.0.2p
@@ -152,9 +149,8 @@ Cleaning /usr/local/Cellar/openssl/1.0.2p
 Cleaning /usr/local/Cellar/openssl/1.0.2l
 Cleaning /usr/local/Cellar/openssl/1.0.2o_2
 Opt link created for /usr/local/Cellar/openssl/1.0.2p</p>
-<pre><code>
+<pre tabindex="0"><code>
 Now we could use gem to install CocoaPods:
-
 </code></pre><p>~ sudo gem install cocoapods
 Fetching: thread_safe-0.3.6.gem (100%)
 Successfully installed thread_safe-0.3.6
@@ -278,14 +274,14 @@ Parsing documentation for cocoapods-1.9.1
 Installing ri documentation for cocoapods-1.9.1
 Done installing documentation for thread_safe, tzinfo, activesupport, nap, fuzzy_match, httpclient, algoliasearch, ethon, typhoeus, netrc, cocoapods-core, claide, cocoapods-deintegrate, cocoapods-downloader, cocoapods-plugins, cocoapods-search, cocoapods-stats, cocoapods-trunk, cocoapods-try, molinillo, atomos, CFPropertyList, colored2, nanaimo, xcodeproj, escape, fourflusher, gh_inspector, ruby-macho, cocoapods after 32 seconds
 30 gems installed</p>
-<pre><code></code></pre>
+<pre tabindex="0"><code></code></pre>
   </div>
 </div>
 
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -296,5 +292,11 @@ Done installing documentation for thread_safe, tzinfo, activesupport, nap, fuzzy
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

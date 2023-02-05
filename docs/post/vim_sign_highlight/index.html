@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,12 +65,12 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h2 id="an-example">An example</h2>
 <p>Following define a sign with name <code>piet</code>:</p>
-<pre><code>sign define piet text=. linehl=Search texthl=Search
+<pre tabindex="0"><code>sign define piet text=. linehl=Search texthl=Search
 </code></pre><p>Note that <code>linehl=&lt;groupname&gt;</code> is used to highlight the whole line. We may
 define a new group using following command</p>
-<pre><code>:highlight &lt;groupname&gt; ctermbg=darkred guibg=darkred
+<pre tabindex="0"><code>:highlight &lt;groupname&gt; ctermbg=darkred guibg=darkred
 </code></pre><p>Then using the command <code>:sign place</code> to put a sign</p>
-<pre><code>:exe &quot;:sign place 2 line=104 name=piet file=&quot; . expand(&quot;%:p&quot;)
+<pre tabindex="0"><code>:exe &#34;:sign place 2 line=104 name=piet file=&#34; . expand(&#34;%:p&#34;)
 </code></pre><p><img src="https://pandysong.github.io/blog/img/sign_linehl.png" alt="linehl"></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>It is possible to use this feature in the
@@ -85,7 +84,7 @@ line, which is a bit annoying.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -96,5 +95,11 @@ line, which is a bit annoying.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

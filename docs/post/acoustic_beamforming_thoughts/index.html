@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,7 +66,7 @@ if (!doNotTrack) {
     <h1 id="question-mark">Question Mark</h1>
 <p>When reading the paper of acoustic beamforming of mask based algorithm, I am a
 bit lost on why do we need to split the signal to frequency bin.</p>
-<pre><code>https://arxiv.org/pdf/2005.09587v2.pdf
+<pre tabindex="0"><code>https://arxiv.org/pdf/2005.09587v2.pdf
 </code></pre><p>Above paper descirbes how the mask the calculated with a lot of terms</p>
 <ul>
 <li>TDOA (Time Difference Of Arrival)</li>
@@ -106,7 +105,7 @@ since deep learning framework is a linear system.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -117,5 +116,11 @@ since deep learning framework is a linear system.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

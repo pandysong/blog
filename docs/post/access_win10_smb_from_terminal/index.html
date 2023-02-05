@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -65,18 +64,17 @@ if (!doNotTrack) {
   </div>
   <div class="blog-post-content">
     <h1 id="could-not-ls-or-copy-file-to-the-server">could not ls or copy file to the server</h1>
-<pre><code>/Volumes/releases ls
+<pre tabindex="0"><code>/Volumes/releases ls
 ls: .: Operation not permitted
 </code></pre><p>We however could copy files to server on Mac <code>finder</code> application.</p>
 <h1 id="solution">Solution</h1>
-<pre><code>
+<pre tabindex="0"><code>
 I had the same problem and it was fixed by granting »Full disk access« to
 Terminal in System preferences -&gt; Security &amp; Privacy -&gt; Privacy and restarting
 Terminal.
 
 Click the lock at the bottom left of the window in case the options are greyed
 out.
-
 </code></pre>
   </div>
 </div>
@@ -84,7 +82,7 @@ out.
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -95,5 +93,11 @@ out.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

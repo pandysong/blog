@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,11 +66,10 @@ if (!doNotTrack) {
     <h1 id="introduction">Introduction</h1>
 <p>Following are all copied from <a href="https://www.onvif.org/">https://www.onvif.org/</a></p>
 <h1 id="nvt-network-video-transmitter">NVT (Network Video Transmitter)</h1>
-<pre><code>
+<pre tabindex="0"><code>
 A Network Video Transmitter (NVT) is an ONVIF device that sends media data over
 an IP network to a client. For example, an NVT may be an IP network camera or
 an encoder device. 
-
 </code></pre><p>An NVT implements the following services to provide its core functionality:</p>
 <ul>
 <li><em>Device service</em> enables an NVT to provide device management functionality
@@ -93,7 +91,7 @@ functionality. <!-- raw HTML omitted --></li>
 <p>Beyond this, an NVT can also include additional ONVIF services, for example the
 Recording service if support for local storage is required</p>
 <h1 id="nvd-network-video-display">NVD (Network Video Display)</h1>
-<pre><code>A Network Video Display (NVD) is an ONVIF device that receives media data over
+<pre tabindex="0"><code>A Network Video Display (NVD) is an ONVIF device that receives media data over
 an IP network and outputs it. For example, an NVD may be an IP network video
 monitor which displays video and outputs audio. 
 </code></pre><p>An NVD implements the following services to provide its core functionality:</p>
@@ -110,7 +108,7 @@ occupies an area of the physical display.</li>
 source e.g. a Network Video Transmitter (NVT).</li>
 </ul>
 <h1 id="nvs-network-video-storage">NVS (Network Video Storage)</h1>
-<pre><code>A Network Video Storage (NVS) is an ONVIF device that records media and
+<pre tabindex="0"><code>A Network Video Storage (NVS) is an ONVIF device that records media and
 metadata received from a streaming device, such as an NVT, over an IP network
 to a permanent storage medium. The NVS also enables clients to review the
 stored data. For example, an NVS could be a network video recorder (NVR), a
@@ -136,7 +134,7 @@ enables a client to download data from the storage device so that export
 functionality can be provided.</li>
 </ul>
 <h1 id="nva-network-video-analytics-">NVA (Network Video Analytics )</h1>
-<pre><code>
+<pre tabindex="0"><code>
 A Network Video Analytics (NVA) device is an ONVIF device that performs
 analysis on media data and meta data received from from an IP streaming device.
 For example, an NVA may be an analytics server device that receives and
@@ -144,7 +142,6 @@ analyses live data from a Network Video Transmitter to generate events, or
 analyses recorded data from a Network Video Storage device, to perform forensic
 searches. Evaluations may involve more than one media stream or metadata
 enhanced media stream at a time. 
-
 </code></pre><p>An NVA implements the following services to provide its core functionality:</p>
 <ul>
 <li><em>Device service</em> enables an NVA to provide device management functionality such
@@ -168,7 +165,7 @@ e.g. a Network Video Transmitter (NVT).</li>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -179,5 +176,11 @@ e.g. a Network Video Transmitter (NVT).</li>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -71,31 +70,30 @@ real hardware.</p>
 <h2 id="how-to">How to</h2>
 <p>I am running this in a ubuntu virtual machine on my mac book.</p>
 <p>This is for running arm:</p>
-<pre><code>export CROSS_COMPILE=arm-linux-gnueabi-
+<pre tabindex="0"><code>export CROSS_COMPILE=arm-linux-gnueabi-
 make qemu_arm_defconfig
 make cscope # This is optional
 make
 </code></pre><p>For AArch64, replace CROSS_COMPILE with correct cross compiler and then:</p>
-<pre><code>export CROSS_COMPILE=aarch64-linux-gnu-
+<pre tabindex="0"><code>export CROSS_COMPILE=aarch64-linux-gnu-
 make qemu_arm64_defconfig
 make
 </code></pre><p>BTW, install the cross-compiler for aarch64:</p>
-<pre><code>sudo apt-get install gcc-aarch64-linux-gnu
+<pre tabindex="0"><code>sudo apt-get install gcc-aarch64-linux-gnu
 </code></pre><h2 id="run">Run:</h2>
 <p>I am running in a virtual machine by ssh to it</p>
-<pre><code>qemu-system-arm -curses -machine virt -bios u-boot.bin
+<pre tabindex="0"><code>qemu-system-arm -curses -machine virt -bios u-boot.bin
 </code></pre><p>I need <code>-curses</code>, otherwise it will complain:</p>
-<pre><code>Could not initialize SDL(No available video device) - exiting
+<pre tabindex="0"><code>Could not initialize SDL(No available video device) - exiting
 </code></pre><p>For AArch64:</p>
-<pre><code>qemu-system-aarch64 -curses -machine virt -cpu cortex-a57 -bios u-boot.bin
+<pre tabindex="0"><code>qemu-system-aarch64 -curses -machine virt -cpu cortex-a57 -bios u-boot.bin
 </code></pre><p>Press <code>Esc + 1</code> to go to the qemu monitor command line interface, you could type
 <code>help</code> to get all qemu command, e.g. <code>stop</code> to stop emulation:</p>
-<pre><code>compat_monitor0 console
-QEMU 2.11.1 monitor - type 'help' for more information
+<pre tabindex="0"><code>compat_monitor0 console
+QEMU 2.11.1 monitor - type &#39;help&#39; for more information
 (qemu)
-
 </code></pre><p>Press <code>Esc + 2</code> to go to the u-boot interface.</p>
-<pre><code>serial0 console
+<pre tabindex="0"><code>serial0 console
 
 
 U-Boot 2018.09 (Apr 25 2019 - 21:37:28 +1000)
@@ -117,7 +115,7 @@ No ethernet found.
 =&gt;
 </code></pre><h1 id="qemu-version">QEMU version</h1>
 <p>This is tested on the following version:</p>
-<pre><code>pandy@ubuntu:~/u-boot-2018.09$ qemu-system-arm --version
+<pre tabindex="0"><code>pandy@ubuntu:~/u-boot-2018.09$ qemu-system-arm --version
 QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.8)
 Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
 </code></pre>
@@ -127,7 +125,7 @@ Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -138,5 +136,11 @@ Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

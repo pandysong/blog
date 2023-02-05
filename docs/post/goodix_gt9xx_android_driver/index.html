@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -70,7 +69,7 @@ if (!doNotTrack) {
 <p>After reading the code, it is found that when <code>irq-gpios</code> is not set, the code
 will be working in polling mode. However when I tried to port it to Android
 9.0. The code crashes.</p>
-<pre><code>kernel/kernel/locking/rtmutex.c:1536: (discriminator 9) [&lt;ffffff8008b538a8&gt;] rt_mutex_trylock+0x30/0xb8
+<pre tabindex="0"><code>kernel/kernel/locking/rtmutex.c:1536: (discriminator 9) [&lt;ffffff8008b538a8&gt;] rt_mutex_trylock+0x30/0xb8
 kernel/drivers/i2c/i2c-core.c:2343: [&lt;ffffff80086b1a98&gt;] i2c_transfer+0x40/0x94
 kernel/drivers/input/touchscreen/gt9xx/gt9xx.c:97: [&lt;ffffff800868da2c&gt;] gtp_i2c_read+0xf4/0x1a8
 kernel/drivers/input/touchscreen/gt9xx/gt9xx.c:355: [&lt;ffffff800868e198&gt;] gtp_get_points+0x84/0x284
@@ -83,7 +82,6 @@ kernel/kernel/irq/chip.c:761: [&lt;ffffff80080f99c4&gt;] handle_percpu_devid_irq
 kernel/kernel/irq/irqdesc.c:352: [&lt;ffffff80080f53dc&gt;] generic_handle_irq+0x18/0x2c
 kernel/kernel/irq/irqdesc.c:388: [&lt;ffffff80080f5710&gt;] __handle_domain_irq+0xa8/0xac
 kernel/drivers/irqchip/irq-gic.c:352: [&lt;ffffff8008080f24&gt;] gic_handle_irq+0x64/0xa0
-
 </code></pre><p>Above indicates that the gtp_work_func() could not work in interrupt context.
 Hence it is believed that the interrupt mode of this driver does not work as
 well.</p>
@@ -117,7 +115,7 @@ position.</li>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -128,5 +126,11 @@ position.</li>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

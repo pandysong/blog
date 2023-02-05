@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,7 +66,7 @@ if (!doNotTrack) {
     <h1 id="introduction">Introduction</h1>
 <p>The statement in <a href="https://dspguru.com/dsp/faqs/multirate/decimation/">https://dspguru.com/dsp/faqs/multirate/decimation/</a> well
 explains why we need decimations:</p>
-<pre><code>In most cases, though, you’ll end up lowpass-filtering your signal prior to
+<pre tabindex="0"><code>In most cases, though, you’ll end up lowpass-filtering your signal prior to
 downsampling, in order to enforce the Nyquist criteria at the post-decimation
 rate. For example, suppose you have a signal sampled at a rate of 30 kHz, whose
 highest frequency component is 10 kHz (which is less than the Nyquist frequency
@@ -94,7 +93,7 @@ use FIR filter instead if IIR filter to filter before downsampling.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -105,5 +104,11 @@ use FIR filter instead if IIR filter to filter before downsampling.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

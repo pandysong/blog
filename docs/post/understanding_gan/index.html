@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -85,7 +84,7 @@ expected output would be <code>1.0</code> as it is real; Another input is the ou
 generator, although generator could generate likely pleasant result it is
 actually fake (noisy), so the expected output would be <code>0.0</code>.</p>
 <p>The loss function is the average of above two losses.</p>
-<pre><code>
+<pre tabindex="0"><code>
         ##### TRAIN D #####
         # TRAIN D to recognize clean audio as clean
         # training batch pass
@@ -99,13 +98,13 @@ actually fake (noisy), so the expected output would be <code>0.0</code>.</p>
         noisy_loss = torch.mean(outputs ** 2)  # L2 loss - we want them all to be 0
         d_loss = 0.5 * (clean_loss + noisy_loss)
 </code></pre><p>After loss is defined, we could update the weights.</p>
-<pre><code>        # back-propagate and update
+<pre tabindex="0"><code>        # back-propagate and update
         discriminator.zero_grad()
         d_loss.backward()
         d_optimizer.step()  # update parameters
 </code></pre><p>Similarly, when training generator, the generated output from G will be feed to
 D. The expected output for G would be <code>1.0</code> (in contrast to <code>0.0</code> for D).</p>
-<pre><code>        ##### TRAIN G #####
+<pre tabindex="0"><code>        ##### TRAIN G #####
         # TRAIN G so that D recognizes G(z) as real
         z = sample_latent()
         generated_outputs = generator(noisy_batch_var, z)
@@ -117,14 +116,12 @@ D. The expected output for G would be <code>1.0</code> (in contrast to <code>0.0
         l1_dist = torch.abs(torch.add(generated_outputs, torch.neg(clean_batch_var)))
         g_cond_loss = g_lambda * torch.mean(l1_dist)  # conditional loss
         g_loss = g_loss_ + g_cond_loss
-
 </code></pre><p>Update the weights for G:</p>
-<pre><code>
+<pre tabindex="0"><code>
         # back-propagate and update
         generator.zero_grad()
         g_loss.backward()
         g_optimizer.step()
-
 </code></pre><h1 id="another-example">another example</h1>
 <p><a href="https://github.com/deNsuh/segan-pytorch">https://github.com/deNsuh/segan-pytorch</a></p>
 
@@ -134,7 +131,7 @@ D. The expected output for G would be <code>1.0</code> (in contrast to <code>0.0
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -145,5 +142,11 @@ D. The expected output for G would be <code>1.0</code> (in contrast to <code>0.0
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

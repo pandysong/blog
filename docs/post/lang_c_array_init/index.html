@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,25 +66,25 @@ if (!doNotTrack) {
     <h1 id="introduction">Introduction</h1>
 <p>This note introduces a way to initiliaze an item in an array by its index.</p>
 <h1 id="using-index-to-init-specific-item-in-an-array">Using index to init specific item in an array</h1>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">enum</span> {
-    TYPE_1,
-    TYPE_2,
-    TYPE_3,
-};
-
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> array[] <span style="color:#f92672">=</span> {
-    [TYPE_1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
-    [TYPE_3] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,
-};
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-{
-    printf(<span style="color:#e6db74">&#34;hello world %d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, array[<span style="color:#ae81ff">1</span>], array[<span style="color:#ae81ff">2</span>]);
-}
-</code></pre></div><p>This is usefuly to insert a new enum type, say if I will change to</p>
-<pre><code>enum {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> {
+</span></span><span style="display:flex;"><span>    TYPE_1,
+</span></span><span style="display:flex;"><span>    TYPE_2,
+</span></span><span style="display:flex;"><span>    TYPE_3,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> array[] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    [TYPE_1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    [TYPE_3] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;hello world %d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, array[<span style="color:#ae81ff">1</span>], array[<span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is usefuly to insert a new enum type, say if I will change to</p>
+<pre tabindex="0"><code>enum {
     TYPE_1,
     TYPE_1_1,
     TYPE_2,
@@ -99,7 +98,7 @@ if (!doNotTrack) {
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -110,5 +109,11 @@ if (!doNotTrack) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -6,7 +6,137 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 06 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>openwrt source code reading - uhttpd</title>
+      <link>https://pandysong.github.io/blog/post/uhttpd/</link>
+      <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/uhttpd/</guid>
+      <description>lua support lua support is done via the uhttp plugin system.
+During
+struct uhttpd_plugin uhttpd_plugin = { .init = lua_plugin_init, }; higher level construction Each plugin has a struct uhttpd_plugin, which has the .init function which is called on the plugins initialization during uhttpd start up.
+void uh_plugin_post_init(void) { struct uhttpd_plugin *p; list_for_each_entry(p, &amp;amp;plugins, list) if (p-&amp;gt;post_init) p-&amp;gt;post_init(); } This linked-list plugins is constructed in uh_plugin_init(const char *name) function calls:</description>
+    </item>
+    
+    <item>
+      <title>Wechat Audio Decode</title>
+      <link>https://pandysong.github.io/blog/post/wechat_audio_dec/</link>
+      <pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/wechat_audio_dec/</guid>
+      <description>strip the first byte dd if=&amp;lt;inputfile.silk&amp;gt; of=&amp;#34;outputfile.silk&amp;#34; bs=1 skip=1 Download Silk Codec https://github.com/gaozehua/SILKCodec compile it and using decoder to decode it
+usage: ./decoder in.bit out.pcm [settings] in.bit : Bitstream input to decoder out.pcm : Speech output from decoder settings: -Fs_API &amp;lt;Hz&amp;gt; : Sampling rate of output signal in Hz; default: 24000 -loss &amp;lt;perc&amp;gt; : Simulated packet loss percentage (0-100); default: 0 -quiet : Print out just some basic values using audacity to import this raw data The default sample rate is 24K as shown above.</description>
+    </item>
+    
+    <item>
+      <title>How to resolve mds_stores high CPU issue on Mac</title>
+      <link>https://pandysong.github.io/blog/post/mds_stores_high_cpu/</link>
+      <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/mds_stores_high_cpu/</guid>
+      <description>mds_stores -&amp;gt; spotlight, the mac search engine For those who mainly work on limitted number of documents, it does not make much trouble, as it index fast enough. But for those who managed a lot of files and has a lot of messages on instant messenger, the process mds_stores may cause high cpu on you mac.
+how to resolve I want it to index on the application names and normal documents, but not on the source code or vast messages on the instant messenger.</description>
+    </item>
+    
+    <item>
+      <title>Useful command in Mac and Linux</title>
+      <link>https://pandysong.github.io/blog/post/useful_commands_in_mac_linux/</link>
+      <pubDate>Fri, 03 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/useful_commands_in_mac_linux/</guid>
+      <description>Introduction ntfy send notification:
+ntfy -t &amp;#34;DeFi&amp;#34; send &amp;#34;1000 BTC received&amp;#34; How to install:
+python3 -m pip install ntfy ncdu scan the disk and sort out.
+How to install:
+brew install ncdu sudo !! ! This will get the command to the shell and then you could just press enter to run that command.
+reset reset the screen if something goes wrong.
+ctrl + u type something and then ctrl+u to delete all on the command line</description>
+    </item>
+    
+    <item>
+      <title>Solidity Language</title>
+      <link>https://pandysong.github.io/blog/post/soladity/</link>
+      <pubDate>Mon, 16 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/soladity/</guid>
+      <description>Introduction https://www.youtube.com/watch?v=IOUnhCTw6tE
+Cool video explains how to write a secure smart contract.
+ Interview Devs Review .sol files Try compiling Dissect Code flow Run Oyente Run Manticore Run MAIAN Manually check for vulns&amp;hellip;  Get Involed  Master Solidity Experiment with Smart Contract Hacking Challenge online   </description>
+    </item>
+    
+    <item>
+      <title>Using Pseudo TTY for testing purpose</title>
+      <link>https://pandysong.github.io/blog/post/pseudo_tty/</link>
+      <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/pseudo_tty/</guid>
+      <description>Introduction In my application I have a embedded Linux board, where I have some application accessing to a UART. The remote device will send command to the UART. The remote device is not yet ready. Before that, we could use Pseudo tty to do loopback testing.
+socat buildroot is used for this embedded system, socat is not default installed. We could always use following command in buildroot/out/xxxxx/ directory to build the socat.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://pandysong.github.io/blog/post/vim_fix_pyright_could_not_import_error/</link>
+      <pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/vim_fix_pyright_could_not_import_error/</guid>
+      <description>Error: &amp;ldquo;Import xxxx could not be resolved&amp;rdquo; &amp;ldquo;[Pyright: reportMissingImports]&amp;rdquo;
+This might be due to that the Coc is using different python version than the one you expect to use in your project.
+Fix Type &amp;ldquo;:CocConfig&amp;rdquo; in vim and add following line to the config
+&amp;ldquo;python.pythonPath&amp;rdquo;: &amp;ldquo;/usr/local/opt/python@3.8/bin/python3&amp;rdquo;
+Where python3 is the one I got from
+&amp;ldquo;which python3&amp;rdquo;
+Since I am using python3.8 in my project.
+Save and exit and restart vim</description>
+    </item>
+    
+    <item>
+      <title>Use iPad as External Display via Tmux</title>
+      <link>https://pandysong.github.io/blog/post/ipad_ext_display/</link>
+      <pubDate>Sun, 10 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/ipad_ext_display/</guid>
+      <description>iPad  Install shelly  Mac  create a tmux session prefixed with &amp;ldquo;ext_display&amp;rdquo; then in this tmux session set options to allow the maximum window size so resize the tmux windows on mac will not change the size of windows on iPad  tmux set-options -g window-size largest change the session name to specific name:
+tmux rename-session &amp;#34;ext_display&amp;#34; resize the iterm window to smallest.
+convert to Application on iPad manually  ssh to my Mac then tmux attach to ext_display  tmux attach -t ext_display Automating   on shelly, configurate to run the specifc script</description>
+    </item>
+    
+    <item>
+      <title>Data Science Notes</title>
+      <link>https://pandysong.github.io/blog/post/data_science/</link>
+      <pubDate>Sat, 09 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/data_science/</guid>
+      <description>Apriori Algirithm Using data to find the colleration of sales items:
+https://towardsdatascience.com/data-mining-market-basket-analysis-with-apriori-algorithm-970ff256a92c
+graph LR; A[Apriori] -- |optimized| B(FP-Tree) A[Apriori] -- |optimized| C(GSP) A[Apriori] -- |optimized| D(CBA)  Seaborn: statistical data visualization https://seaborn.pydata.org/
+Using seaborn to virtualize the data:
+https://towardsdatascience.com/from-scatter-plot-to-story-the-seaborn-edition-fb15f3c4cd72</description>
+    </item>
+    
+    <item>
+      <title>crypto notes</title>
+      <link>https://pandysong.github.io/blog/post/crypto/</link>
+      <pubDate>Tue, 29 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/crypto/</guid>
+      <description>diagram graph LR; A[OneLedger] --|used by| B(Moonba) C[Tendermint] --|used by| A C --|used by | L(Binance DEX) C --|used by | M(Oasis Labs) C --|used by | N(IRISnet) D[EVM] --|double-spent protection| A E[PoS] --|Proof of Sake| A C --|use cases| F[Games,Identity Systems, Digital Rights, Property, Communication, Video] C --|include| G(core) C --|include| H(cosmos) J(Blockchain Tech) -- H J(Blockchain Tech) -- I(polkadot)  Moonba https://www.moonba.co/
+  Moonba is built on OneLedger ecosystem</description>
+    </item>
+    
+    <item>
+      <title>How to fill price to BOM using Pandas</title>
+      <link>https://pandysong.github.io/blog/post/fill_price_with_pandas/</link>
+      <pubDate>Fri, 18 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/fill_price_with_pandas/</guid>
+      <description>Problems I have a csv table with all the prices with the indexes.
+I also have the BOM (Bill of Meterial), I want to fill the price to the BOM so that BOM cost could be calculated.
+Average way The average way is to loop over the BOM and find the price in the price table one by one.
+Better Way: Using Pandas import pandas as pd Create a BOM</description>
+    </item>
+    
     <item>
       <title>How to Understand the Regster Setting in Rockchip RGA Driver&#39;s Alpha Mode</title>
       <link>https://pandysong.github.io/blog/post/understanding_rockchip_rga_driver/</link>
@@ -16,8 +146,8 @@
       <description>Alpha Mode Alpha mode allows two RGBA images to blend to one RGBA image. So there are two parts of the algorithms.
 RGB Calculation Following figure from datasheet defines how the destination RGB is calculated
 Some notes:
-  As0&#39; is calculated from As0:
- Either As0&#39; is As0 (with sw_src_alpha_m0 = 0b0 ) Or As0&#39; is 255- As0 (with sw_src_alpha_m0 = 0b1 )    As0_&amp;quot; is calcuated from As0&#39; and Ags</description>
+  As0&amp;rsquo; is calculated from As0:
+ Either As0&amp;rsquo; is As0 (with sw_src_alpha_m0 = 0b0 ) Or As0&amp;rsquo; is 255- As0 (with sw_src_alpha_m0 = 0b1 )    As0_&amp;quot; is calcuated from As0&amp;rsquo; and Ags</description>
     </item>
     
     <item>
@@ -27,7 +157,7 @@ Some notes:
       
       <guid>https://pandysong.github.io/blog/post/python-reserve-carriage-return/</guid>
       <description>Introduction I need to process a text from Windows which has lines terminated with Carriage return and a New line, which is &amp;ldquo;\r\n&amp;rdquo;, while in Python, it treat all the new line conditions, for example, for the following code:
- with open(fn, &#39;r&#39;) as f: for line in f.readlines(): pass # handle line here The line is always terminated with &amp;ldquo;\n&amp;rdquo; (at least in Linux and Mac) no matter if the line in the file is terminated with &amp;ldquo;\r\n&amp;rdquo; or &amp;ldquo;\r&amp;rdquo;.</description>
+ with open(fn, &amp;#39;r&amp;#39;) as f: for line in f.readlines(): pass # handle line here The line is always terminated with &amp;ldquo;\n&amp;rdquo; (at least in Linux and Mac) no matter if the line in the file is terminated with &amp;ldquo;\r\n&amp;rdquo; or &amp;ldquo;\r&amp;rdquo;.</description>
     </item>
     
     <item>
@@ -49,11 +179,11 @@ create an virtual env Creating a virtual environment is not a must, however in o
       
       <guid>https://pandysong.github.io/blog/post/mmcv_from_config_to_model/</guid>
       <description>Introduction This describes how the config file in mmcv is converted to models in mmcv
-build_from_cfg mmcv/utils/registry.py:9: build_from_cfg def build_from_cfg(cfg, registry, default_args=None): ... args = cfg.copy() obj_type = args.pop(&#39;type&#39;) return obj_cls(**args) This function converts a config dictionary to a model.
-This function popes the type from the directory and pass the rest of dict to the class defined by the &amp;lsquo;type&amp;rsquo; string.
+build_from_cfg mmcv/utils/registry.py:9: build_from_cfg def build_from_cfg(cfg, registry, default_args=None): ... args = cfg.copy() obj_type = args.pop(&amp;#39;type&amp;#39;) return obj_cls(**args) This function converts a config dictionary to a model.
+This function popes the type from the directory and pass the rest of dict to the class defined by the &amp;rsquo;type&amp;rsquo; string.
 For example:
 In following config
-model = dict( type=&#39;GlidingVertex&#39;, pretrained=&#39;torchvision://resnet50&#39;, backbone=dict( .</description>
+model = dict( type=&amp;#39;GlidingVertex&amp;#39;, pretrained=&amp;#39;torchvision://resnet50&amp;#39;, backbone=dict( .</description>
     </item>
     
     <item>
@@ -112,6 +242,20 @@ This interface is the one between SoC and Codec. This has to be abstracted so th
     </item>
     
     <item>
+      <title>Google MediaPipe</title>
+      <link>https://pandysong.github.io/blog/post/mediapipe_notes/</link>
+      <pubDate>Mon, 19 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/mediapipe_notes/</guid>
+      <description>MediaPipe MediaPipe streamlized the processing and make it flexible to handle the complex scenario where it needs mutiple stage processing.
+It support out of box GPU/CPU on desktop. It is also possible for media pipe to run on NPU:
+Refer to following disucssion:
+https://github.com/google/mediapipe/issues/1425
+PalmDetection Graph .pbtxt is the a text format descriing the graph of a data flow to performe a specific detection, e.g.:
+mediapipe/modules/palm_detection/palm_detection_cpu.pbtxt For example the actual calculating is done by a calculator &amp;ldquo;ImageToTensorCalculator&amp;rdquo;.</description>
+    </item>
+    
+    <item>
       <title>Access SMB server from Mac Terminal</title>
       <link>https://pandysong.github.io/blog/post/access_win10_smb_from_terminal/</link>
       <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
@@ -128,7 +272,7 @@ Solution  I had the same problem and it was fixed by granting »Full disk access
       
       <guid>https://pandysong.github.io/blog/post/bass_reflex_speaker_enclosure/</guid>
       <description>Introduction This is the notes on reading LPRNet.
-Quoting  This is probably the most common enclosure in use today. It was used in very early speaker systems, but it was basically a &#39;trial-and-error&#39; design until the loudspeaker parameters were properly quantified by Neville Thiele and Richard Small. This allowed mathematical calculation of the enclosure and port sizes, and it was then possible to design a system, build it, and have it perform as expected.</description>
+Quoting  This is probably the most common enclosure in use today. It was used in very early speaker systems, but it was basically a &amp;#39;trial-and-error&amp;#39; design until the loudspeaker parameters were properly quantified by Neville Thiele and Richard Small. This allowed mathematical calculation of the enclosure and port sizes, and it was then possible to design a system, build it, and have it perform as expected.</description>
     </item>
     
     <item>
@@ -143,7 +287,7 @@ sudo apt-get install tasksel sudo tasksel Select Xubunut-Deskop and then OK, it 
 Once reboot, it should work.
 When Login Graphic freeze One could use &amp;ldquo;Ctrl+Alt+Fn&amp;rdquo; to switch to console mode, so that changes to the system could be done.
 For example to change the grub configuration:
-sudo vim /etc/default/grub show the graphic device and driver lspci -k | grep -EA3 &#39;VGA|3D|Display&#39; </description>
+sudo vim /etc/default/grub show the graphic device and driver lspci -k | grep -EA3 &amp;#39;VGA|3D|Display&amp;#39; </description>
     </item>
     
     <item>
@@ -153,7 +297,7 @@ sudo vim /etc/default/grub show the graphic device and driver lspci -k | grep -E
       
       <guid>https://pandysong.github.io/blog/post/acoustic_testing/</guid>
       <description>SpeakerResponseTesting https://www.diyaudioandvideo.com/Tutorial/SpeakerResponseTesting/
-I don&#39;t see anything in any of these tests that would warrant any additional modifications to the crossover. Given this is an off-the-shelf speaker that is to be expected. Here are some things to look for in speaker testing: A large drop (~20dB) at a crossover point would indicate that the drivers are canceling each other out. Try reversing polarity (swap + &amp;amp; -) on one of the drivers to see if the dip goes away.</description>
+I don&amp;#39;t see anything in any of these tests that would warrant any additional modifications to the crossover. Given this is an off-the-shelf speaker that is to be expected. Here are some things to look for in speaker testing: A large drop (~20dB) at a crossover point would indicate that the drivers are canceling each other out. Try reversing polarity (swap + &amp;amp; -) on one of the drivers to see if the dip goes away.</description>
     </item>
     
     <item>
@@ -211,6 +355,15 @@ In most cases, though, you’ll end up lowpass-filtering your signal prior to do
     
     <item>
       <title>LFFD (A Light and Fast Face Detector for Edge Devices)</title>
+      <link>https://pandysong.github.io/blog/post/awsome_acoustic/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/awsome_acoustic/</guid>
+      <description>pytorch audio https://pytorch.org/audio/main/tutorials/mvdr_tutorial.html Analog Device Beamforming https://www.youtube.com/watch?v=j91QTWDSzZU ODAS https://github.com/introlab/odas </description>
+    </item>
+    
+    <item>
+      <title>LFFD (A Light and Fast Face Detector for Edge Devices)</title>
       <link>https://pandysong.github.io/blog/post/dl_lffd/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
@@ -258,7 +411,7 @@ What problem NMS try to resolve? The problem of the output bounding boxes are:</
       
       <guid>https://pandysong.github.io/blog/post/lang_c_array_init/</guid>
       <description>Introduction This note introduces a way to initiliaze an item in an array by its index.
-Using index to init specific item in an array #include &amp;lt;stdio.h&amp;gt; enum { TYPE_1, TYPE_2, TYPE_3, }; static int array[] = { [TYPE_1] = 1, [TYPE_3] = 4, }; int main() { printf(&amp;#34;hello world %d %d\n&amp;#34;, array[1], array[2]); } This is usefuly to insert a new enum type, say if I will change to</description>
+Using index to init specific item in an array #include &amp;lt;stdio.h&amp;gt; enum {  TYPE_1,  TYPE_2,  TYPE_3, };  static int array[] = {  [TYPE_1] = 1,  [TYPE_3] = 4, };  int main() {  printf(&amp;#34;hello world %d %d\n&amp;#34;, array[1], array[2]); } This is usefuly to insert a new enum type, say if I will change to</description>
     </item>
     
     <item>
@@ -454,7 +607,7 @@ Open the file and then load the current file to quickfix window: :cfile %</descr
       <guid>https://pandysong.github.io/blog/post/pandoc_found_cannot_be_found/</guid>
       <description>Error When running following command to convert a markdown to pdf:
 pandoc xyz.md -o xyz.pdf --pdf-engine=xelatex --template=./xyz_template.tex I get following error.
-kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&#39;, contains &#39; kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&#39;, contains &#39; Error producing PDF. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ! ! fontspec error: &amp;quot;font-not-found&amp;quot; ! ! The font &amp;quot;文泉驿微米黑&amp;quot; cannot be found. ! ! See the fontspec documentation for further information. ! ! For immediate help type H &amp;lt;return&amp;gt;. !............................................... l.21 \setCJKmainfont{文泉驿微米黑} I am using following command in xyz_template.</description>
+kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&amp;#39;, contains &amp;#39; kpathsea:make_tex: Invalid filename `文泉驿微米黑/OT&amp;#39;, contains &amp;#39; Error producing PDF. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ! ! fontspec error: &amp;#34;font-not-found&amp;#34; ! ! The font &amp;#34;文泉驿微米黑&amp;#34; cannot be found. ! ! See the fontspec documentation for further information. ! ! For immediate help type H &amp;lt;return&amp;gt;. !............................................... l.21 \setCJKmainfont{文泉驿微米黑} I am using following command in xyz_template.</description>
     </item>
     
     <item>
@@ -484,7 +637,7 @@ how to append all matches to register :g/some pattern here/yank A yank to regist
       
       <guid>https://pandysong.github.io/blog/post/android_update_bin/</guid>
       <description>Introduction During development, from time to time, we have to update part of the system by using adb push command, but sometimes the file is in the read-only part:
-remote couldn&#39;t create file: Read-only file system using the following command to remount as with read and write previlige.
+remote couldn&amp;#39;t create file: Read-only file system using the following command to remount as with read and write previlige.
 adb root adb shell mount -o rw,remount -t auto / </description>
     </item>
     
@@ -515,7 +668,7 @@ uses addr2line Following command will print the line number for the specific add
       <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>https://pandysong.github.io/blog/post/agent-proxy/</guid>
-      <description>agent-proxy This is a simple, small proxy which was intended for use with kgdb, or gdbserver type connections where you want to share a text console and a debug session. The idea is that you use the agent-proxy to connect to a serial port directly or to a remote terminal server.  repo https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git mkdir -p /temp/kdmx_is_not_hard cd /temp/kdmx_is_not_hard git clone git://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git cd kdmx make ./kdmx -n -p &amp;quot;/dev/ttyxxxx&amp;quot; -s /temp/kdmx_ports &amp;amp; cu --nostop -l $(cat /temp/kdmx_ports_trm) # when debugging $(CROSS_ARCH)-gdb /path/to/vmlinux -ex &amp;quot;target remote $(cat /temp/kdmx_ports_gdb)&amp;quot; BTW: install gdb on mac http://tomszilagyi.</description>
+      <description>agent-proxy This is a simple, small proxy which was intended for use with kgdb, or gdbserver type connections where you want to share a text console and a debug session. The idea is that you use the agent-proxy to connect to a serial port directly or to a remote terminal server.  repo https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git mkdir -p /temp/kdmx_is_not_hard cd /temp/kdmx_is_not_hard git clone git://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git cd kdmx make ./kdmx -n -p &amp;#34;/dev/ttyxxxx&amp;#34; -s /temp/kdmx_ports &amp;amp; cu --nostop -l $(cat /temp/kdmx_ports_trm) # when debugging $(CROSS_ARCH)-gdb /path/to/vmlinux -ex &amp;#34;target remote $(cat /temp/kdmx_ports_gdb)&amp;#34; BTW: install gdb on mac http://tomszilagyi.</description>
     </item>
     
     <item>
@@ -527,15 +680,6 @@ uses addr2line Following command will print the line number for the specific add
       <description>Introduction In Android, in between Java space and normal Linux User space (written in C++), the popular communication interface is called Binder. Two processes in Linux user space could also use Binder to communicate. aidl_generator is the tool to generate the client and server stubs for Binder interface.
 Detail Explanations. The code and document is in the Android source code tree:
 system/tools/aidl/docs/aidl-cpp.md </description>
-    </item>
-    
-    <item>
-      <title>Favourite YouTube Channel</title>
-      <link>https://pandysong.github.io/blog/post/youtube_list/</link>
-      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pandysong.github.io/blog/post/youtube_list/</guid>
-      <description>A list  Make RF Design really easy: https://www.youtube.com/watch?v=TnRn3Kn_aXg&amp;amp;t=2226s Note the comments below the video are also informative.    His repeated advice to refer to the manufacturer’s datasheets is very useful. Manufacturers have done the hard work for you and provide you with proven designs. This is done to make their product easier to use and when their product is easier to use, you’re more likely to implement it into your design instead of something from one of their competitors.</description>
     </item>
     
     <item>
@@ -621,11 +765,11 @@ While for D, there are two inputs, one is the real data, which D should think it
       
       <guid>https://pandysong.github.io/blog/post/one_minor_difference_for_c_and_c&#43;&#43;/</guid>
       <description>A piece of code Look at following code:
-#include &amp;lt;stdio.h&amp;gt; int main() { char *s = &amp;quot;hello world&amp;quot;; puts(s); } Note that puts is basically a printf like funtion but without format functinalities.
+#include &amp;lt;stdio.h&amp;gt; int main() { char *s = &amp;#34;hello world&amp;#34;; puts(s); } Note that puts is basically a printf like funtion but without format functinalities.
 Now using the following command to compile as a c program.
 gcc puts_test.c -o puts_test_c There are no errors emitted.
 However if we compile as C++ program:
-g++ -std=c++14 -o puts_test puts_test.cpp puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string literal to &#39;char *&#39; [-Wwritable-strings] char *s = &amp;quot;hello world&amp;quot;; ^ 1 warning generated.</description>
+g++ -std=c++14 -o puts_test puts_test.cpp puts_test.cpp:5:15: warning: ISO C++11 does not allow conversion from string literal to &amp;#39;char *&amp;#39; [-Wwritable-strings] char *s = &amp;#34;hello world&amp;#34;; ^ 1 warning generated.</description>
     </item>
     
     <item>
@@ -647,7 +791,7 @@ But that is not perfact: in the production code like u-boot there are many macro
       <description>An example Following define a sign with name piet:
 sign define piet text=. linehl=Search texthl=Search Note that linehl=&amp;lt;groupname&amp;gt; is used to highlight the whole line. We may define a new group using following command
 :highlight &amp;lt;groupname&amp;gt; ctermbg=darkred guibg=darkred Then using the command :sign place to put a sign
-:exe &amp;quot;:sign place 2 line=104 name=piet file=&amp;quot; . expand(&amp;quot;%:p&amp;quot;) Conclusion It is possible to use this feature in the plugin. However I am not sure how I could use the feature without the sign character in the beginning of a line, which is a bit annoying.</description>
+:exe &amp;#34;:sign place 2 line=104 name=piet file=&amp;#34; . expand(&amp;#34;%:p&amp;#34;) Conclusion It is possible to use this feature in the plugin. However I am not sure how I could use the feature without the sign character in the beginning of a line, which is a bit annoying.</description>
     </item>
     
     <item>
@@ -669,7 +813,7 @@ content values The first instruction is to jump to function reset, just after th
       
       <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part2/</guid>
       <description>Introduction _main function is defined in a file called crt0_64.S, which is C-runtime startup Code for AArch64 U-Boot.
-crt0_64.S /* * This file handles the target-independent stages of the U-Boot * start-up where a C runtime environment is needed. Its entry point * is _main and is branched into from the target&#39;s start.S file. * * _main execution sequence is: * * 1. Set up initial environment for calling board_init_f(). * This environment only provides a stack and a place to store * the GD (&#39;global data&#39;) structure, both located in some readily * available RAM (SRAM, locked cache.</description>
+crt0_64.S /* * This file handles the target-independent stages of the U-Boot * start-up where a C runtime environment is needed. Its entry point * is _main and is branched into from the target&amp;#39;s start.S file. * * _main execution sequence is: * * 1. Set up initial environment for calling board_init_f(). * This environment only provides a stack and a place to store * the GD (&amp;#39;global data&amp;#39;) structure, both located in some readily * available RAM (SRAM, locked cache.</description>
     </item>
     
     <item>
@@ -680,7 +824,7 @@ crt0_64.S /* * This file handles the target-independent stages of the U-Boot * s
       <guid>https://pandysong.github.io/blog/post/read_u-boot_aarch64_source_code_part3/</guid>
       <description>run_main_loop(void) This function calls main_loop().
 static int run_main_loop(void) { #ifdef CONFIG_SANDBOX sandbox_main_loop_init(); #endif /* main_loop() can return to retry autoboot, if so just run it again */ for (;;) main_loop(); return 0; } main_loop(void) This is the place to receive command and execute it.
-/* We come here after U-Boot is initialised and ready to process commands */ void main_loop(void) { const char *s; bootstage_mark_name(BOOTSTAGE_ID_MAIN_LOOP, &amp;quot;main_loop&amp;quot;); #ifdef CONFIG_VERSION_VARIABLE env_set(&amp;quot;ver&amp;quot;, version_string); /* set version variable */ #endif /* CONFIG_VERSION_VARIABLE */ cli_init(); run_preboot_environment_command(); #if defined(CONFIG_UPDATE_TFTP) update_tftp(0UL, NULL, NULL); #endif /* CONFIG_UPDATE_TFTP */ s = bootdelay_process(); if (cli_process_fdt(&amp;amp;s)) cli_secure_boot_cmd(s); autoboot_command(s); cli_loop(); panic(&amp;quot;No CLI available&amp;quot;); } </description>
+/* We come here after U-Boot is initialised and ready to process commands */ void main_loop(void) { const char *s; bootstage_mark_name(BOOTSTAGE_ID_MAIN_LOOP, &amp;#34;main_loop&amp;#34;); #ifdef CONFIG_VERSION_VARIABLE env_set(&amp;#34;ver&amp;#34;, version_string); /* set version variable */ #endif /* CONFIG_VERSION_VARIABLE */ cli_init(); run_preboot_environment_command(); #if defined(CONFIG_UPDATE_TFTP) update_tftp(0UL, NULL, NULL); #endif /* CONFIG_UPDATE_TFTP */ s = bootdelay_process(); if (cli_process_fdt(&amp;amp;s)) cli_secure_boot_cmd(s); autoboot_command(s); cli_loop(); panic(&amp;#34;No CLI available&amp;#34;); } </description>
     </item>
     
     <item>
@@ -938,8 +1082,8 @@ openssl dgst -sha256 -sign ${PRIVATE_KEY} -out ${INPUT_FILE}.sig ${INPUT_FILE}  
       
       <guid>https://pandysong.github.io/blog/post/array_of_pointer_to_array/</guid>
       <description>Introduction Following code demonstrates how to initialize an array of pointer to an int array.
-#include &amp;lt;stdio.h&amp;gt; int main() { int *cmd[] = { (int []){0x1, 0x2, 0x3}, (int []){0x4, 0x5, 0x6, 0x7}, }; printf(&amp;quot;%d %d\n&amp;quot;, cmd[0][1], cmd[1][2]); } See the differences with the following code?
-#include &amp;lt;stdio.h&amp;gt; int main() { int cmd[2][4] = { {0x1, 0x2, 0x3}, {0x4, 0x5, 0x6, 0x7}, }; printf(&amp;quot;%d %d\n&amp;quot;, cmd[0][1], cmd[1][2]); } It is two dimensions array initialization.</description>
+#include &amp;lt;stdio.h&amp;gt; int main() { int *cmd[] = { (int []){0x1, 0x2, 0x3}, (int []){0x4, 0x5, 0x6, 0x7}, }; printf(&amp;#34;%d %d\n&amp;#34;, cmd[0][1], cmd[1][2]); } See the differences with the following code?
+#include &amp;lt;stdio.h&amp;gt; int main() { int cmd[2][4] = { {0x1, 0x2, 0x3}, {0x4, 0x5, 0x6, 0x7}, }; printf(&amp;#34;%d %d\n&amp;#34;, cmd[0][1], cmd[1][2]); } It is two dimensions array initialization.</description>
     </item>
     
     <item>
@@ -963,6 +1107,19 @@ The place to search for Q&amp;amp;A https://china.xilinx.com/support.html</descr
 HDMI is quite popular interface, the negotiation between the video source and vide sink is via EDID, which basically are blocks with 128bytes each block.
 Flexibility The EDID is provided by the sink side via DDC (physically i2c interface) to the video source (e.g. a computer). The source will then decide which format, timing, resolution to send over HDMI signal cable.
 EDID has been evolving while the industry is moving forward.</description>
+    </item>
+    
+    <item>
+      <title>Rust lang features highlight</title>
+      <link>https://pandysong.github.io/blog/post/rust/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/rust/</guid>
+      <description>Introduction Highlight the features that Rust has comparing to C/C++, which really reduce the pain when using C/C++. This could remind me of highlighted features.
+variable shadow and immutable default These features are for high performance and parallelization.
+expression and statement Expression make the inner function possible and much easier.
+labeled loop Much more clear to break the outer loop.
+loop expression with break to return a value all pythonic way to loop over fn main() {  let a = [10, 20, 30, 40, 50];   for element in a {  println!</description>
     </item>
     
     <item>
@@ -1043,7 +1200,7 @@ C ``` C is a general-purpose, high-level language that was originally developed 
       
       <guid>https://pandysong.github.io/blog/post/haskell/</guid>
       <description>courses https://www.seas.upenn.edu/~cis194/fall16/
-Exercies 1 import CodeWorld import Data.Fixed trafficController :: Double -&amp;gt; Picture trafficController t | s &amp;lt; 3 = trafficLight Green | s &amp;lt; 4 = trafficLight Amber | s &amp;lt; 6 = trafficLight Red | s &amp;lt; 7 = trafficLight RedAmber where s = mod&amp;#39; t 7 botCircle c = colored c (translated 0 (-2.5) (solidCircle 1)) midCircle c = colored c (translated 0 0 (solidCircle 1)) topCircle c = colored c (translated 0 2.</description>
+Exercies 1 import CodeWorld import Data.Fixed trafficController :: Double -&amp;gt; Picture trafficController t  | s &amp;lt; 3 = trafficLight Green  | s &amp;lt; 4 = trafficLight Amber  | s &amp;lt; 6 = trafficLight Red  | s &amp;lt; 7 = trafficLight RedAmber  where s = mod&amp;#39; t 7  botCircle c = colored c (translated 0 (-2.5) (solidCircle 1)) midCircle c = colored c (translated 0 0 (solidCircle 1)) topCircle c = colored c (translated 0 2.</description>
     </item>
     
     <item>
@@ -1069,8 +1226,8 @@ Then config it to use external editor vim
 For open all files in one vim, one may open a vim server
 vim --servername server_name_here then open in other location
 vim --servername server_name_here --remote file_name_here One can get all lines:
-vim --servername server_name_here --remote-expr &amp;quot;getline(1,&#39;$&#39;)&amp;quot; One can issue commands:
-vim --servername server_name_here --remote-send &amp;quot;&amp;lt;ESC&amp;gt;&amp;quot; Through &amp;ndash;remote-expr and &amp;ndash;remote-send, one could almost totally control the vim server.</description>
+vim --servername server_name_here --remote-expr &amp;#34;getline(1,&amp;#39;$&amp;#39;)&amp;#34; One can issue commands:
+vim --servername server_name_here --remote-send &amp;#34;&amp;lt;ESC&amp;gt;&amp;#34; Through &amp;ndash;remote-expr and &amp;ndash;remote-send, one could almost totally control the vim server.</description>
     </item>
     
     <item>
@@ -1090,7 +1247,7 @@ vim --servername server_name_here --remote-send &amp;quot;&amp;lt;ESC&amp;gt;&am
       <guid>https://pandysong.github.io/blog/post/4clojure-60/</guid>
       <description>Introduction The problem in following pages got attention. http://www.4clojure.com/problem/60#prob-title
 solution Here is my solution which passes the unit tests.
-(fn myreduce ([f coll] (when-let [s (seq coll)] (myreduce f (first s) (rest s)))) ([f v coll] (lazy-seq (cons v (when-let [s (seq coll)] (myreduce f (f v (first s)) (rest s))))))) </description>
+ (fn myreduce  ([f coll]  (when-let [s (seq coll)]  (myreduce f (first s) (rest s))))  ([f v coll]  (lazy-seq (cons v (when-let [s (seq coll)]  (myreduce f (f v (first s)) (rest s))))))) </description>
     </item>
     
     <item>
@@ -1153,10 +1310,23 @@ $ pip install &amp;ndash;proxy https://serveraddress:8123 &amp;ndash;user flake8
       <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://pandysong.github.io/blog/post/python/</guid>
-      <description>understanding yield in python def gen(): s = &amp;#34;init string&amp;#34; while True: s = yield s s += &amp;#34; processed&amp;#34; c= gen() print(next(c)) print(format(c.send(&amp;#34;hello&amp;#34;))) The above has following output
+      <description>understanding yield in python def gen():  s = &amp;#34;init string&amp;#34;  while True:  s = yield s  s += &amp;#34; processed&amp;#34;  c= gen() print(next(c)) print(format(c.send(&amp;#34;hello&amp;#34;))) The above has following output
 init string hello processed when next(c) is called, the gen function runs until line :
-s = yield s However since it does not send anything (using next()), the gen() function only runs the right part of the statement:
-yield s Now when c.</description>
+s = yield s However since it does not send anything (using next()), the gen() function only runs the right part of the statement:</description>
+    </item>
+    
+    <item>
+      <title>understanding flash loanx attack (an example)</title>
+      <link>https://pandysong.github.io/blog/post/understanding_flash_loan_attack/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/understanding_flash_loan_attack/</guid>
+      <description>Introduction This post tries to understand how the transaction is done on Etherum for a real flash loan attack.
+A real Trasaction  https://etherscan.io/tx/0x762881b07feb63c436dee38edd4ff1f7a74c33091e534af56c9f7d49b5ecac15 This trasaction has one top level contract:
+https://etherscan.io/address/0x77f973fcaf871459aa58cd81881ce453759281bc
+From address From address is the address who execute function in this contract.
+0xb8c6ad5fe7cb6cc72f2c4196dca11fbb272a8cbf Contract internal trasactions Seeing from https://etherscan.io/tx/0x762881b07feb63c436dee38edd4ff1f7a74c33091e534af56c9f7d49b5ecac15#internal
+The contract call From 0xb8c6ad5fe7cb6cc72f2c4196dca11fbb272a8cbf To 0x77f973fcaf871459aa58cd81881ce453759281bc produced 65 Internal Transactions First Trasaction This internal trasaction get 7500 ETH via the contract 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.</description>
     </item>
     
     <item>
@@ -1233,7 +1403,7 @@ tmux attach-session -t your-session-name The DISPLAY env var may still be the ol
 Following blog provides a solution
 https://raimue.blog/2013/01/30/tmux-update-environment/
 It introduces a shell function:
-function tmux() { local tmux=$(type -fp tmux) case &amp;#34;$1&amp;#34; in update-environment|update-env|env-update) local v while read v; do if [[ $v == -* ]]; then unset ${v/#-/} else # Add quotes around the argument v=${v/=/=\&amp;#34;} v=${v/%/\&amp;#34;} eval export $v fi done &amp;lt; &amp;lt;(tmux show-environment) ;; *) $tmux &amp;#34;$@&amp;#34; ;; esac } Save it to a file ~/.</description>
+function tmux() {  local tmux=$(type -fp tmux)  case &amp;#34;$1&amp;#34; in  update-environment|update-env|env-update)  local v  while read v; do  if [[ $v == -* ]]; then  unset ${v/#-/}  else  # Add quotes around the argument  v=${v/=/=\&amp;#34;}  v=${v/%/\&amp;#34;}  eval export $v  fi  done &amp;lt; &amp;lt;(tmux show-environment)  ;;  *)  $tmux &amp;#34;$@&amp;#34;  ;;  esac } Save it to a file ~/.</description>
     </item>
     
     <item>

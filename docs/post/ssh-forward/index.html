@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,16 +65,16 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h2 id="step-1">Step 1</h2>
 <p>Change config in ~/.ssh/config</p>
-<pre><code>host xxxx
+<pre tabindex="0"><code>host xxxx
     user your_prefered_user_name
     ForwardX11 yes
     ForwardX11Trusted yes
     ForwardAgent yes
 </code></pre><h2 id="step-2">Step 2</h2>
 <p>Add the key you would like to forward:</p>
-<pre><code>ssh-add ~/.ssh/id_rsa
+<pre tabindex="0"><code>ssh-add ~/.ssh/id_rsa
 </code></pre><p>Using commands to verify the key is added:</p>
-<pre><code>ssh-add -l
+<pre tabindex="0"><code>ssh-add -l
 </code></pre>
   </div>
 </div>
@@ -83,7 +82,7 @@ if (!doNotTrack) {
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -94,5 +93,11 @@ if (!doNotTrack) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

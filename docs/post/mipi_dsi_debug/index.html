@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -71,9 +70,9 @@ if (!doNotTrack) {
 the MIPI DSI host driver and panel driver.</p>
 <p>After adding a printing in the <code>connector</code> callback functions, it is found that
 following function is not called during booting up.</p>
-<pre><code>void dw_mipi_dsi_encoder_enable(struct drm_encoder *encoder)
+<pre tabindex="0"><code>void dw_mipi_dsi_encoder_enable(struct drm_encoder *encoder)
 </code></pre><p>But it is called every late:</p>
-<pre><code>[   43.284590] encoder: dw_mipi_dsi_encoder_enable: debuga start
+<pre tabindex="0"><code>[   43.284590] encoder: dw_mipi_dsi_encoder_enable: debuga start
 [   43.284663] dw_mipi_dsi_encoder_enable: lane_rate 433333333
 [   43.284769] dw-mipi-dsi ff960000.dsi: final DSI-Link bandwidth: 432 x 4 bps
 [   43.284835] dw_mipi_dsi_encoder_enable: dw_mipi_dsi_vop_routing
@@ -82,12 +81,12 @@ following function is not called during booting up.</p>
 [   43.288304] encoder: dw_mipi_dsi_loader_protect: debuga start
 [   43.288358] encoder: dw_mipi_dsi_encoder_disable: debuga start
 </code></pre><h1 id="the-client-of-host-driver-and-panel-driver">the client of <code>host driver</code> and <code>panel driver</code></h1>
-<pre><code>/home/pandy/rk3368_9/kernel/drivers/gpu/drm/rockchip/rockchip_drm_drv.c:1971
-</code></pre><pre><code>static const struct of_device_id rockchip_drm_dt_ids[] = {
-    { .compatible = &quot;rockchip,display-subsystem&quot;, },
+<pre tabindex="0"><code>/home/pandy/rk3368_9/kernel/drivers/gpu/drm/rockchip/rockchip_drm_drv.c:1971
+</code></pre><pre tabindex="0"><code>static const struct of_device_id rockchip_drm_dt_ids[] = {
+    { .compatible = &#34;rockchip,display-subsystem&#34;, },
     { /* sentinel */ },
 };
-</code></pre><pre><code>/**
+</code></pre><pre tabindex="0"><code>/**
  * struct drm_encoder_helper_funcs - helper operations for encoders
  * @dpms: set power state
  * @save: save connector state
@@ -107,7 +106,7 @@ following function is not called during booting up.</p>
  * Note that with atomic helpers @dpms, @prepare and @commit hooks are
  * deprecated. Used @enable and @disable instead exclusively.
  *
- * With legacy crtc helpers there's a big semantic difference between @disable
+ * With legacy crtc helpers there&#39;s a big semantic difference between @disable
  * and the other hooks: @disable also needs to release any resources acquired in
  * @mode_set (like shared PLLs).
  */
@@ -139,7 +138,7 @@ struct drm_encoder_helper_funcs {
                 struct drm_connector_state *conn_state);
 };
 </code></pre><h1 id="analysis-of-the-log">Analysis of the log</h1>
-<pre><code>&gt;&gt; encoder as part of dsi host driver:
+<pre tabindex="0"><code>&gt;&gt; encoder as part of dsi host driver:
 1   [   52.717775] encoder: dw_mipi_dsi_encoder_atomic_check: debuga start
 2   [   52.718275] encoder: dw_mipi_dsi_encoder_mode_set: debuga start
 
@@ -193,13 +192,13 @@ struct drm_encoder_helper_funcs {
 </code></pre><p>Now the question is that why the DSI module is reset and power up again?</p>
 <p>During reset and power up period, if vid mode is none-zero, it will be set:</p>
 <p>Register <code>MIPIC_VID_MODE_CFG</code> 0x00038 bit 1:0, vid_mode_type:</p>
-<pre><code>This field indicates the video mode
+<pre tabindex="0"><code>This field indicates the video mode
 transmission type as follows: 
 00:Non-burst with sync pulses 
 01:Non-burst with sync events
 10 and 11:Burst with sync pulses
 </code></pre><p>MIPIC_MODE_CFG 0x00034</p>
-<pre><code>en_video_mode
+<pre tabindex="0"><code>en_video_mode
 When set to 1,this bit enables the DPI Video mode transmission.
 </code></pre>
   </div>
@@ -208,7 +207,7 @@ When set to 1,this bit enables the DPI Video mode transmission.
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -219,5 +218,11 @@ When set to 1,this bit enables the DPI Video mode transmission.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -93,10 +92,10 @@ is mostly of thought. The OOD could be applied with any language. However it
 needs some cost/tricky skills to apply these patterns in C.</p>
 <p>For example, following code will basically decouple the definition of <code>struct circle</code> from its client, only the place which needs to access the <code>struct circle</code> definition needs to know the concrete definition of this <code>struct</code>. The
 usually client only needs to have a pointer as reference.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//foward declaration to hide the implementation
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> circle;
-<span style="color:#66d9ef">struct</span> circle <span style="color:#f92672">*</span><span style="color:#a6e22e">create_circle</span>(...);
-</code></pre></div><p>In another words, we make <code>struct circle</code> totally transparent, as only one
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">//foward declaration to hide the implementation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> circle;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> circle <span style="color:#f92672">*</span><span style="color:#a6e22e">create_circle</span>(...);
+</span></span></code></pre></div><p>In another words, we make <code>struct circle</code> totally transparent, as only one
 implementation needs to care the concrete definition, which is the place to put
 the definition of <code>struct circle</code>.</p>
 <p>Overall C is good for any tasks, but the implementation will usually be
@@ -146,7 +145,7 @@ interpreter needs additional ROM/RAM.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -157,5 +156,11 @@ interpreter needs additional ROM/RAM.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

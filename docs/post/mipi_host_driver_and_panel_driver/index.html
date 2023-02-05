@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -73,7 +72,7 @@ notes to understand from one perspective.</p>
 <h2 id="mipi-dsi-host-driver">MIPI DSI Host Driver</h2>
 <p>What is the host? The host basically means the SOC itself. The MIPI Host driver
 is in e.g.:</p>
-<pre><code>drivers/gpu/drm/rockchip/dw-mipi-dsi.c  
+<pre tabindex="0"><code>drivers/gpu/drm/rockchip/dw-mipi-dsi.c  
 </code></pre><p>It controls the registers in SOC in order to connect to a panel.</p>
 <h2 id="mipi-panel-driver">MIPI Panel Driver</h2>
 <p>What is the panel? It basically means the Panel, which could be controlled BY
@@ -104,9 +103,9 @@ driver and panel driver to become more static, but move the dynamic part under
 the cover of <code>component</code> helper system.</p>
 <h3 id="probing-of-host-driver">probing of host driver</h3>
 <p>During probe of MIPI DSI Host driver, following component (ops) is registered:</p>
-<pre><code>ret = component_add(dev, &amp;dw_mipi_dsi_ops);
+<pre tabindex="0"><code>ret = component_add(dev, &amp;dw_mipi_dsi_ops);
 </code></pre><p>The host DSI ops has two callback functions: <code>bind</code> and <code>unbind</code>.</p>
-<pre><code>static const struct component_ops dw_mipi_dsi_ops = {
+<pre tabindex="0"><code>static const struct component_ops dw_mipi_dsi_ops = {
     .bind   = dw_mipi_dsi_bind,
     .unbind = dw_mipi_dsi_unbind,
 };
@@ -115,36 +114,36 @@ the cover of <code>component</code> helper system.</p>
 not, it will return <code>EPROBE_DEFER</code> to indicate the <code>component</code> system that
 &lsquo;please call me later&rsquo;. The component system will call it again a bit later.</p>
 <p>Following function is called to check if the panel is available:</p>
-<pre><code>dsi-&gt;panel = of_drm_find_panel(dsi-&gt;client);
+<pre tabindex="0"><code>dsi-&gt;panel = of_drm_find_panel(dsi-&gt;client);
 </code></pre><p><code>of_drm_find_panel</code> is a helper function to check if the panel is already added
 by function <code>drm_panel_add</code>, which is called by panel driver during probing.</p>
 <p>Refer to:</p>
-<pre><code>drivers/gpu/drm/drm_panel.c 
+<pre tabindex="0"><code>drivers/gpu/drm/drm_panel.c 
 </code></pre><h3 id="probing-of-panel-driver">probing of panel driver</h3>
 <p>Refer to following source code for for the calling of <code>drm_panel_add</code> by the
 panel driver:</p>
-<pre><code>drivers/gpu/drm/panel/panel-simple.c
+<pre tabindex="0"><code>drivers/gpu/drm/panel/panel-simple.c
 </code></pre><h3 id="continuing-of-probing-of-host-driver">continuing of probing of Host driver</h3>
 <p>Once the host driver (in binding function) find the correct panel, it will
 continue its logic, it will other factors and it may tell to be called later
 again by return <code>-EPROBE_DEFER</code>.</p>
 <p>Refer to a specific host driver:</p>
-<pre><code>drivers/gpu/drm/rockchip/dw-mipi-dsi.c
+<pre tabindex="0"><code>drivers/gpu/drm/rockchip/dw-mipi-dsi.c
 </code></pre><h3 id="connector-1"><code>connector</code></h3>
 <h4 id="get_modes"><code>get_modes</code></h4>
 <p>As we understand earlier, <code>connector</code> will expose some functions. One of them
 is <code>get_modes</code> function, as shown in below:</p>
-<pre><code>static const struct drm_connector_helper_funcs
+<pre tabindex="0"><code>static const struct drm_connector_helper_funcs
 dw_mipi_dsi_connector_helper_funcs = {
     .get_modes = dw_mipi_dsi_connector_get_modes,
     .best_encoder = dw_mipi_dsi_connector_best_encoder,
 };
 </code></pre><p>It will call the panel&rsquo;s driver&rsquo;s function eventually:</p>
-<pre><code>int panel_simple_get_modes(struct drm_panel *panel)
+<pre tabindex="0"><code>int panel_simple_get_modes(struct drm_panel *panel)
 </code></pre><h5 id="encoder"><code>encoder</code></h5>
 <p>Another part of a <code>connector</code> is the encoder, the encoder has several callbacks
 to be used by the client:</p>
-<pre><code>static const struct drm_encoder_helper_funcs
+<pre tabindex="0"><code>static const struct drm_encoder_helper_funcs
 dw_mipi_dsi_encoder_helper_funcs = {
     .loader_protect = dw_mipi_dsi_encoder_loader_protect,
     .mode_set = dw_mipi_dsi_encoder_mode_set,
@@ -173,7 +172,7 @@ client.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -184,5 +183,11 @@ client.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

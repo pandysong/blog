@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -71,7 +70,7 @@ if (!doNotTrack) {
 NAT. For the world outside the host, it only knows the IP address of host. I
 will need to ssh to VM, I just ssh to the host which will do the port forward
 to VM</p>
-<pre><code>another host (30.0.0.2)  &lt;-&gt; host (30.0.0.125) &lt;-&gt; VM (10.0.2.5)
+<pre tabindex="0"><code>another host (30.0.0.2)  &lt;-&gt; host (30.0.0.125) &lt;-&gt; VM (10.0.2.5)
 </code></pre><p>In the NAT network, it will configure the port forwarding: 30.0.0.125:22 to
 10.0.2.5:22.</p>
 <p>I will just need to <code>ssh pandy@30.0.0.125</code>.</p>
@@ -87,11 +86,11 @@ gateway.</p>
 is the name configurared in the previous step).</p>
 <h1 id="configurare-ip-in-vm">Configurare IP in VM</h1>
 <p>Below is for Ubuntu 18.04.</p>
-<pre><code>sudo vim /etc/netplan/50-cloud-init.yaml
+<pre tabindex="0"><code>sudo vim /etc/netplan/50-cloud-init.yaml
 </code></pre><p>Configure the adaptor:</p>
-<pre><code># This file is generated from information provided by
+<pre tabindex="0"><code># This file is generated from information provided by
 # the datasource.  Changes to it will not persist across an instance.
-# To disable cloud-init's network configuration capabilities, write a file
+# To disable cloud-init&#39;s network configuration capabilities, write a file
 # /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
 # network: {config: disabled}
 network:
@@ -109,7 +108,7 @@ network:
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -120,5 +119,11 @@ network:
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

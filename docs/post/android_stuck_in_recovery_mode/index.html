@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -79,16 +78,16 @@ data or format the partition.</p>
 <h1 id="clue-1">clue #1</h1>
 <p>From the log, we could find that the user space application under Android
 framework failed to find the needed partitions: dtbo, vbmeta, vendor:</p>
-<pre><code>[    2.420597] init: bool android::init::FirstStageMount::InitRequiredDevices(): partition(s) not found in /sys, waiting for their uevent(s): dtbo, vbmeta, vendor
+<pre tabindex="0"><code>[    2.420597] init: bool android::init::FirstStageMount::InitRequiredDevices(): partition(s) not found in /sys, waiting for their uevent(s): dtbo, vbmeta, vendor
 </code></pre><p>And it fails to mount the <code>/cache</code> partition.</p>
-<pre><code>E:Failed to mount /cache: No such file or directory
+<pre tabindex="0"><code>E:Failed to mount /cache: No such file or directory
 </code></pre><p>By analyzing the code of &ldquo;FirstStageMount&rdquo;, it is found that this application
 is just waiting from the indication from kernel the event that some partition
 is mounted. So it is eventually a pure kernel issue: the kernel is not mounting
 the partition.</p>
 <h1 id="clue-2">Clue #2</h1>
 <p>The patition table looks ok as the boot code could read it:</p>
-<pre><code>GPT part:  0, name:            uboot, start:0x4000, size:0x2000
+<pre tabindex="0"><code>GPT part:  0, name:            uboot, start:0x4000, size:0x2000
 GPT part:  1, name:            trust, start:0x6000, size:0x2000
 GPT part:  2, name:             misc, start:0x8000, size:0x2000
 GPT part:  3, name:         resource, start:0xa000, size:0x8000
@@ -108,12 +107,12 @@ GPT part: 16, name:              oem, start:0x798800, size:0x100000
 GPT part: 17, name:              frp, start:0x898800, size:0x400
 GPT part: 18, name:         userdata, start:0x898c00, size:0x31a53df
 </code></pre><p>The next clue is</p>
-<pre><code>[    1.462714] mmc0: error -5 whilst initialising MMC card
+<pre tabindex="0"><code>[    1.462714] mmc0: error -5 whilst initialising MMC card
 </code></pre><p>OK. now the problem is now that the eMMC driver is not successfully
 initializing the device.</p>
 <p>A lot of googling on the internet does not indicate any further clue.</p>
 <p>But it is strange that u-boot could do it correctly: it could tell from the log:</p>
-<pre><code>dwmmc@ff0f0000: 0
+<pre tabindex="0"><code>dwmmc@ff0f0000: 0
 MMC Device 1 not found
 no mmc device at slot 1
 switch to partitions #0, OK
@@ -121,64 +120,64 @@ mmc0(part 0) is current device
 </code></pre><p>While the kernel failed to do that.</p>
 <p>It is possible taht the device driver would be different for u-boot and kernel.
 After browsing the code, it is found that in the following code:</p>
-<pre><code>drivers/mmc/core/host.c
+<pre tabindex="0"><code>drivers/mmc/core/host.c
 </code></pre><p>There are many different options for the eMMC dts settings:</p>
-<pre><code>if (of_property_read_bool(np, &quot;cap-sd-highspeed&quot;))
+<pre tabindex="0"><code>if (of_property_read_bool(np, &#34;cap-sd-highspeed&#34;))
     host-&gt;caps |= MMC_CAP_SD_HIGHSPEED;
-if (of_property_read_bool(np, &quot;cap-mmc-highspeed&quot;))
+if (of_property_read_bool(np, &#34;cap-mmc-highspeed&#34;))
     host-&gt;caps |= MMC_CAP_MMC_HIGHSPEED;
-if (of_property_read_bool(np, &quot;sd-uhs-sdr12&quot;))
+if (of_property_read_bool(np, &#34;sd-uhs-sdr12&#34;))
     host-&gt;caps |= MMC_CAP_UHS_SDR12;
-if (of_property_read_bool(np, &quot;sd-uhs-sdr25&quot;))
+if (of_property_read_bool(np, &#34;sd-uhs-sdr25&#34;))
     host-&gt;caps |= MMC_CAP_UHS_SDR25;
-if (of_property_read_bool(np, &quot;sd-uhs-sdr50&quot;))
+if (of_property_read_bool(np, &#34;sd-uhs-sdr50&#34;))
     host-&gt;caps |= MMC_CAP_UHS_SDR50;
-if (of_property_read_bool(np, &quot;sd-uhs-sdr104&quot;))
+if (of_property_read_bool(np, &#34;sd-uhs-sdr104&#34;))
     host-&gt;caps |= MMC_CAP_UHS_SDR104;
-if (of_property_read_bool(np, &quot;sd-uhs-ddr50&quot;))
+if (of_property_read_bool(np, &#34;sd-uhs-ddr50&#34;))
     host-&gt;caps |= MMC_CAP_UHS_DDR50;
-if (of_property_read_bool(np, &quot;cap-power-off-card&quot;))
+if (of_property_read_bool(np, &#34;cap-power-off-card&#34;))
     host-&gt;caps |= MMC_CAP_POWER_OFF_CARD;
-if (of_property_read_bool(np, &quot;cap-mmc-hw-reset&quot;))
+if (of_property_read_bool(np, &#34;cap-mmc-hw-reset&#34;))
     host-&gt;caps |= MMC_CAP_HW_RESET;
-if (of_property_read_bool(np, &quot;cap-sdio-irq&quot;))
+if (of_property_read_bool(np, &#34;cap-sdio-irq&#34;))
     host-&gt;caps |= MMC_CAP_SDIO_IRQ;
-if (of_property_read_bool(np, &quot;full-pwr-cycle&quot;))
+if (of_property_read_bool(np, &#34;full-pwr-cycle&#34;))
     host-&gt;caps2 |= MMC_CAP2_FULL_PWR_CYCLE;
-if (of_property_read_bool(np, &quot;keep-power-in-suspend&quot;))
+if (of_property_read_bool(np, &#34;keep-power-in-suspend&#34;))
     host-&gt;pm_caps |= MMC_PM_KEEP_POWER;
-if (of_property_read_bool(np, &quot;enable-sdio-wakeup&quot;))
+if (of_property_read_bool(np, &#34;enable-sdio-wakeup&#34;))
     host-&gt;pm_caps |= MMC_PM_WAKE_SDIO_IRQ;
-if (of_property_read_bool(np, &quot;mmc-ddr-1_8v&quot;))
+if (of_property_read_bool(np, &#34;mmc-ddr-1_8v&#34;))
     host-&gt;caps |= MMC_CAP_1_8V_DDR;
-if (of_property_read_bool(np, &quot;mmc-ddr-1_2v&quot;))
+if (of_property_read_bool(np, &#34;mmc-ddr-1_2v&#34;))
     host-&gt;caps |= MMC_CAP_1_2V_DDR;
-if (of_property_read_bool(np, &quot;mmc-hs200-1_8v&quot;))
+if (of_property_read_bool(np, &#34;mmc-hs200-1_8v&#34;))
     host-&gt;caps2 |= MMC_CAP2_HS200_1_8V_SDR;
-if (of_property_read_bool(np, &quot;mmc-hs200-1_2v&quot;))
+if (of_property_read_bool(np, &#34;mmc-hs200-1_2v&#34;))
     host-&gt;caps2 |= MMC_CAP2_HS200_1_2V_SDR;
-if (of_property_read_bool(np, &quot;mmc-hs400-1_8v&quot;))
+if (of_property_read_bool(np, &#34;mmc-hs400-1_8v&#34;))
     host-&gt;caps2 |= MMC_CAP2_HS400_1_8V | MMC_CAP2_HS200_1_8V_SDR;
-if (of_property_read_bool(np, &quot;mmc-hs400-1_2v&quot;))
+if (of_property_read_bool(np, &#34;mmc-hs400-1_2v&#34;))
     host-&gt;caps2 |= MMC_CAP2_HS400_1_2V | MMC_CAP2_HS200_1_2V_SDR;
-if (of_property_read_bool(np, &quot;mmc-hs400-enhanced-strobe&quot;))
+if (of_property_read_bool(np, &#34;mmc-hs400-enhanced-strobe&#34;))
     host-&gt;caps2 |= MMC_CAP2_HS400_ES;
 
-if (of_property_read_bool(np, &quot;supports-sd&quot;))
+if (of_property_read_bool(np, &#34;supports-sd&#34;))
     host-&gt;restrict_caps |= RESTRICT_CARD_TYPE_SD;
-if (of_property_read_bool(np, &quot;supports-sdio&quot;))
+if (of_property_read_bool(np, &#34;supports-sdio&#34;))
     host-&gt;restrict_caps |= RESTRICT_CARD_TYPE_SDIO;
-if (of_property_read_bool(np, &quot;supports-emmc&quot;))
+if (of_property_read_bool(np, &#34;supports-emmc&#34;))
 </code></pre><p>Is it possible that some of above options are not set correctly?</p>
 <h1 id="clue-3">Clue 3</h1>
 <p>After reading the spec of eMMC <code>THGAMRG8T13BAIL</code>,</p>
 <p>Following description gets my attention:</p>
-<pre><code>High Interface speed HS400 (according to JEDEC 5.x)
+<pre tabindex="0"><code>High Interface speed HS400 (according to JEDEC 5.x)
 </code></pre><h1 id="solution">Solution</h1>
 <p>The DTS setting of eMCC was using &ldquo;mmc-hs200-1_8v&rdquo;. I tried &ldquo;mmc-hs499-1_8v&rdquo;
 with failure and tried &ldquo;mmc-hs400-1_2v&rdquo; with success.</p>
 <h1 id="appendix">Appendix</h1>
-<pre><code>Script started on Thu Apr  2 13:00:55 2020
+<pre tabindex="0"><code>Script started on Thu Apr  2 13:00:55 2020
 command: screen /dev/tty.usbserial-A104LOXS 115200
 7[?47h[m[?7h[4l&gt;7[r[?1;3;4;6l8[4l[?1h=[m)0[1;26r[H[2J[H[2JDDR Version v1.17 20160513
 In
@@ -313,7 +312,7 @@ Load FDT from recovery part
 DTB: rk-kernel.dtb
 rockchip_get_boot_mode: env_reboot_mode &lt;NULL&gt;
 rockchip_get_boot_mode: env_reboot_mode &lt;NULL&gt;
-Sysmem: Free: &quot;fdt&quot;, paddr=0x8300000, size=0x12804
+Sysmem: Free: &#34;fdt&#34;, paddr=0x8300000, size=0x12804
 ANDROID: fdt overlay OK
 I2c speed: 100000Hz
 PMIC:  RK8180 (on=0x00, off=0x37)
@@ -346,8 +345,8 @@ CLK: (sync kernel. armb: enter 24000 KHz, init 24000 KHz, kernel 0N/A)
   aclk_peri 288000 KHz
   hclk_peri 144000 KHz
   pclk_peri 72000 KHz
-Hit key to stop autoboot('CTRL+C'):  0 
-ANDROID: reboot reason: &quot;recovery&quot;
+Hit key to stop autoboot(&#39;CTRL+C&#39;):  0 
+ANDROID: reboot reason: &#34;recovery&#34;
 get share memory, arg0=0x0 arg1=0x9e08000 arg2=0x3f8000 arg3=0x1
 SecureBoot enabled, AVB verify
 get share memory, arg0=0x0 arg1=0x9e08000 arg2=0x3f8000 arg3=0x1
@@ -381,7 +380,7 @@ Starting kernel ...
 [    0.000000] Initializing cgroup subsys schedtune
 [    0.000000] Linux version 4.4.167 (pandy@dell-PowerEdge-R740) (gcc version 6.3.1 20170404 (Linaro GCC 6.3-2017.05) ) #5 SMP PREEMPT Tue Mar 31 18:40:28 CST 2020
 [    0.000000] Boot CPU: AArch64 Processor [410fd033]
-[    0.000000] Reserved memory: failed to reserve memory for node 'drm-logo@00000000': base 0x0000000000000000, size 0 MiB
+[    0.000000] Reserved memory: failed to reserve memory for node &#39;drm-logo@00000000&#39;: base 0x0000000000000000, size 0 MiB
 [    0.000000] Reserved memory: created CMA memory pool at 0x000000007e000000, size 32 MiB
 [    0.000000] Reserved memory: initialized node linux,cma, compatible id shared-dma-pool
 [    0.000000] psci: probing for conduit method from DT.
@@ -418,7 +417,7 @@ Starting kernel ...
 [    0.000000] Architected cp15 timer(s) running at 24.00MHz (virt).
 [    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
 [    0.000005] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
-[    0.000291] Failed to get pclk for 'rk_timer'
+[    0.000291] Failed to get pclk for &#39;rk_timer&#39;
 [    0.000757] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=80000)
 [    0.000769] pid_max: default: 32768 minimum: 301
 [    0.000836] Security Framework initialized
@@ -502,14 +501,14 @@ Starting kernel ...
 [    0.207657] iommu: Adding device ff930000.vop to group 2
 [    0.207756] iommu: Adding device vpu_service to group 3
 [    0.207846] iommu: Adding device hevc_service to group 4
-[    0.208277] rk_iommu ff900800.iommu: can't get aclk
-[    0.208294] rk_iommu ff900800.iommu: can't get hclk
-[    0.208307] rk_iommu ff900800.iommu: can't get sclk
-[    0.208663] rk_iommu ff914000.iommu: can't get sclk
-[    0.208918] rk_iommu ff930300.iommu: can't get sclk
-[    0.209128] rk_iommu ff950800.iommu: can't get sclk
-[    0.209330] rk_iommu ff9a0440.iommu: can't get sclk
-[    0.209557] rk_iommu ff9a0800.iommu: can't get sclk
+[    0.208277] rk_iommu ff900800.iommu: can&#39;t get aclk
+[    0.208294] rk_iommu ff900800.iommu: can&#39;t get hclk
+[    0.208307] rk_iommu ff900800.iommu: can&#39;t get sclk
+[    0.208663] rk_iommu ff914000.iommu: can&#39;t get sclk
+[    0.208918] rk_iommu ff930300.iommu: can&#39;t get sclk
+[    0.209128] rk_iommu ff950800.iommu: can&#39;t get sclk
+[    0.209330] rk_iommu ff9a0440.iommu: can&#39;t get sclk
+[    0.209557] rk_iommu ff9a0800.iommu: can&#39;t get sclk
 [    0.209981] SCSI subsystem initialized
 [    0.210249] usbcore: registered new interface driver usbfs
 [    0.210308] usbcore: registered new interface driver hub
@@ -553,9 +552,9 @@ Starting kernel ...
 [    0.785680] 
 [    0.785680] TEE Core Framework initialization (ver 1:0.1)
 [    0.785713] TEE armv7 Driver initialization
-[    0.786106] tz_tee_probe: name=&quot;armv7sec&quot;, id=0, pdev_name=&quot;armv7sec.0&quot;
-[    0.786126] TEE core: Alloc the misc device &quot;opteearmtz00&quot; (id=0)
-[    0.786338] TEE Core: Register the misc device &quot;opteearmtz00&quot; (id=0,minor=61)
+[    0.786106] tz_tee_probe: name=&#34;armv7sec&#34;, id=0, pdev_name=&#34;armv7sec.0&#34;
+[    0.786126] TEE core: Alloc the misc device &#34;opteearmtz00&#34; (id=0)
+[    0.786338] TEE Core: Register the misc device &#34;opteearmtz00&#34; (id=0,minor=61)
 [    0.791689] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 245)
 [    0.791717] io scheduler noop registered
 [    0.791920] io scheduler cfq registered (default)
@@ -629,7 +628,7 @@ Starting kernel ...
 [    0.838021] usbcore: registered new interface driver cdc_ncm
 [    0.838081] usbcore: registered new interface driver qmi_wwan
 [    0.838140] usbcore: registered new interface driver cdc_mbim
-[    0.839217] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    0.839217] ehci_hcd: USB 2.0 &#39;Enhanced&#39; Host Controller (EHCI) Driver
 [    0.839243] ehci-pci: EHCI PCI platform driver
 [    0.839306] ehci-platform: EHCI generic platform driver
 [    0.841657] ehci-platform ff500000.usb: EHCI Host Controller
@@ -643,7 +642,7 @@ Starting kernel ...
 [    0.851820] usb usb1: SerialNumber: ff500000.usb
 [    0.852394] hub 1-0:1.0: USB hub found
 [    0.852439] hub 1-0:1.0: 1 port detected
-[    0.852987] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    0.852987] ohci_hcd: USB 1.1 &#39;Open&#39; Host Controller (OHCI) Driver
 [    0.853026] ohci-platform: OHCI generic platform driver
 [    0.853290] ohci-platform ff520000.usb: Generic Platform OHCI controller
 [    0.853487] ohci-platform ff520000.usb: new USB bus registered, assigned bus number 2
@@ -805,7 +804,7 @@ Starting kernel ...
 [    1.096423] dwmmc_rockchip ff0d0000.dwmmc: Using internal DMA controller.
 [    1.096446] dwmmc_rockchip ff0d0000.dwmmc: Version ID is 270a
 [    1.096498] dwmmc_rockchip ff0d0000.dwmmc: DW MMC controller at irq 17,32 bit host data width,256 deep fifo
-[    1.096525] dwmmc_rockchip ff0d0000.dwmmc: 'clock-freq-min-max' property was deprecated.
+[    1.096525] dwmmc_rockchip ff0d0000.dwmmc: &#39;clock-freq-min-max&#39; property was deprecated.
 [    1.096564] dwmmc_rockchip ff0d0000.dwmmc: No vmmc regulator found
 [    1.096575] dwmmc_rockchip ff0d0000.dwmmc: No vqmmc regulator found
 [    1.097153] dwmmc_rockchip ff0f0000.dwmmc: supports-highspeed property is deprecated.
@@ -905,8 +904,8 @@ Starting kernel ...
 [    2.198246] rk3x-i2c ff150000.i2c: timeout, ipd: 0x00, state: 1
 [    2.198277] gc2145 3-003c: gc2145 read reg:0xf0 failed !
 [    2.198473] gc2145: probe of 3-003c failed with error -110
-[    2.198979] Error: Driver 'gc0312' is already registered, aborting...
-[    2.199156] Error: Driver 'gc2145' is already registered, aborting...
+[    2.198979] Error: Driver &#39;gc0312&#39; is already registered, aborting...
+[    2.199156] Error: Driver &#39;gc2145&#39; is already registered, aborting...
 [    2.200554] Registered cp15_barrier emulation handler
 [    2.200574] Registered setend emulation handler
 [    2.201531] registered taskstats version 1
@@ -926,7 +925,7 @@ Starting kernel ...
 [    2.208729] dwmmc_rockchip ff0d0000.dwmmc: Using internal DMA controller.
 [    2.208747] dwmmc_rockchip ff0d0000.dwmmc: Version ID is 270a
 [    2.208780] dwmmc_rockchip ff0d0000.dwmmc: DW MMC controller at irq 17,32 bit host data width,256 deep fifo
-[    2.208806] dwmmc_rockchip ff0d0000.dwmmc: 'clock-freq-min-max' property was deprecated.
+[    2.208806] dwmmc_rockchip ff0d0000.dwmmc: &#39;clock-freq-min-max&#39; property was deprecated.
 [    2.208845] dwmmc_rockchip ff0d0000.dwmmc: No vmmc regulator found
 [    2.208857] dwmmc_rockchip ff0d0000.dwmmc: No vqmmc regulator found
 [    2.209174] dwmmc_rockchip ff0d0000.dwmmc: allocated mmc-pwrseq
@@ -953,7 +952,7 @@ Starting kernel ...
 [    2.275634] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
 [    2.278489] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
 [    2.285820] vcc_tp: disabling
-[    2.287548] I : [File] : drivers/gpu/arm/mali400/mali/linux/mali_kernel_linux.c; [Line] : 417; [Func] : mali_module_init(); svn_rev_string_from_arm of this mali_ko is '', rk_ko_ver is '5', built at '11:56:30', on 'Mar 30 2020'.
+[    2.287548] I : [File] : drivers/gpu/arm/mali400/mali/linux/mali_kernel_linux.c; [Line] : 417; [Func] : mali_module_init(); svn_rev_string_from_arm of this mali_ko is &#39;&#39;, rk_ko_ver is &#39;5&#39;, built at &#39;11:56:30&#39;, on &#39;Mar 30 2020&#39;.
 [    2.287951] Mali: Mali device driver loaded
 [    2.288636] input: rk29-keypad as /devices/platform/rockchip-key/input/input0
 [    2.289574] ALSA device list:
@@ -1006,35 +1005,35 @@ Starting kernel ...
 [   12.638689] selinux: SELinux:  Could not stat /dev/block: No such file or directory.
 [   12.638689] 
 [   12.639750] init: waitid failed: No child processes
-[   12.639877] init: Couldn't load property file '/system/etc/prop.default': open() failed: No such file or directory: No such file or directory
-[   12.643500] init: Unable to set property 'ro.product.first_api_level' to '28' in property file '/prop.default': Read-only property was already set
-[   12.643992] init: Unable to set property 'ro.board.platform' to 'rk3368' in property file '/prop.default': Read-only property was already set
-[   12.646405] init: Unable to set property 'ro.target.product' to 'tablet' in property file '/prop.default': Read-only property was already set
-[   12.646592] init: Couldn't load property file '/product/build.prop': open() failed: No such file or directory: No such file or directory
-[   12.646659] init: Couldn't load property file '/odm/default.prop': open() failed: No such file or directory: No such file or directory
-[   12.646716] init: Couldn't load property file '/vendor/default.prop': open() failed: No such file or directory: No such file or directory
-[   12.647438] init: Created socket '/dev/socket/property_service', mode 666, user 0, group 0
-[   12.648349] init: Forked subcontext for 'u:r:vendor_init:s0' with pid 196
-[   12.649091] init: Forked subcontext for 'u:r:vendor_init:s0' with pid 197
+[   12.639877] init: Couldn&#39;t load property file &#39;/system/etc/prop.default&#39;: open() failed: No such file or directory: No such file or directory
+[   12.643500] init: Unable to set property &#39;ro.product.first_api_level&#39; to &#39;28&#39; in property file &#39;/prop.default&#39;: Read-only property was already set
+[   12.643992] init: Unable to set property &#39;ro.board.platform&#39; to &#39;rk3368&#39; in property file &#39;/prop.default&#39;: Read-only property was already set
+[   12.646405] init: Unable to set property &#39;ro.target.product&#39; to &#39;tablet&#39; in property file &#39;/prop.default&#39;: Read-only property was already set
+[   12.646592] init: Couldn&#39;t load property file &#39;/product/build.prop&#39;: open() failed: No such file or directory: No such file or directory
+[   12.646659] init: Couldn&#39;t load property file &#39;/odm/default.prop&#39;: open() failed: No such file or directory: No such file or directory
+[   12.646716] init: Couldn&#39;t load property file &#39;/vendor/default.prop&#39;: open() failed: No such file or directory: No such file or directory
+[   12.647438] init: Created socket &#39;/dev/socket/property_service&#39;, mode 666, user 0, group 0
+[   12.648349] init: Forked subcontext for &#39;u:r:vendor_init:s0&#39; with pid 196
+[   12.649091] init: Forked subcontext for &#39;u:r:vendor_init:s0&#39; with pid 197
 [   12.649255] init: Parsing file /init.rc...
-[   12.649442] init: Added '/init.recovery.rk30board.rc' to import list
-[   12.649493] init: Added '/init.rk30board.usb.rc' to import list
-[   12.649525] init: Added '/init.usb.configfs.rc' to import list
+[   12.649442] init: Added &#39;/init.recovery.rk30board.rc&#39; to import list
+[   12.649493] init: Added &#39;/init.rk30board.usb.rc&#39; to import list
+[   12.649525] init: Added &#39;/init.usb.configfs.rc&#39; to import list
 [   12.650171] random: init: uninitialized urandom read (40 bytes read, 39 bits of entropy available)
 [   12.650290] random: init: uninitialized urandom read (40 bytes read, 39 bits of entropy available)
 [   12.650378] init: Parsing file /init.recovery.rk30board.rc...
-[   12.650454] init: Unable to read config file '/init.recovery.rk30board.rc': open() failed: No such file or directory
-[   12.650497] init: /init.rc: 1: Could not import file '/init.recovery.rk30board.rc': No such file or directory
+[   12.650454] init: Unable to read config file &#39;/init.recovery.rk30board.rc&#39;: open() failed: No such file or directory
+[   12.650497] init: /init.rc: 1: Could not import file &#39;/init.recovery.rk30board.rc&#39;: No such file or directory
 [   12.650538] init: Parsing file /init.rk30board.usb.rc...
 [   12.651324] init: Parsing file /init.usb.configfs.rc...
 [   12.652630] init: Parsing file /system/etc/init...
-[   12.652719] init: Unable to read config file '/system/etc/init': open() failed: No such file or directory
+[   12.652719] init: Unable to read config file &#39;/system/etc/init&#39;: open() failed: No such file or directory
 [   12.652779] init: Parsing file /product/etc/init...
-[   12.652845] init: Unable to read config file '/product/etc/init': open() failed: No such file or directory
+[   12.652845] init: Unable to read config file &#39;/product/etc/init&#39;: open() failed: No such file or directory
 [   12.652892] init: Parsing file /odm/etc/init...
-[   12.652957] init: Unable to read config file '/odm/etc/init': open() failed: No such file or directory
+[   12.652957] init: Unable to read config file &#39;/odm/etc/init&#39;: open() failed: No such file or directory
 [   12.653000] init: Parsing file /vendor/etc/init...
-[   12.653056] init: Unable to read config file '/vendor/etc/init': open() failed: No such file or directory
+[   12.653056] init: Unable to read config file &#39;/vendor/etc/init&#39;: open() failed: No such file or directory
 [   12.653187] init: processing action (early-init) fromStarting  recovery (pid 208) on Fr(i Jan 18 08:50:54 /2013
 init.rc:5)
 [   12.6recovery filesystem table
@@ -1071,8 +1070,8 @@ emmc_point is
 sd_point is (null)
 sd_point_2 is (null)
 read cmdline
-rvice 'ueventd'...
-[   12.654353] audit: type=1400 audit(1358499053.886:3): avc:  denied  { write } for  pid=1 comm=&quot;init&quot; path=&quot;/acct/uid_0/pid_198/cgroup.procs&quot; dev=&quot;rootfs&quot; ino=9496 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+rvice &#39;ueventd&#39;...
+[   12.654353] audit: type=1400 audit(1358499053.886:3): avc:  denied  { write } for  pid=1 comm=&#34;init&#34; path=&#34;/acct/uid_0/pid_198/cgroup.procs&#34; dev=&#34;rootfs&#34; ino=9496 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 [   12.654758] init: processing action (wait_for_coldboot_done) from (&lt;Builtin Action&gt;:0)
 [   12.655861] random: ueventd: uninitialized urandom read (40 bytes read, 39 bits of entropy available)
 [   12.659915] ueventd: ueventd started!
@@ -1080,14 +1079,14 @@ rvice 'ueventd'...
 [   12.664310] 
 [   12.664431] ueventd: Parsing file /ueventd.rc...
 [   12.665604] ueventd: Parsing file /vendor/ueventd.rc...
-[   12.665700] ueventd: Unable to read config file '/vendor/ueventd.rc': open() failed: No such file or directory
+[   12.665700] ueventd: Unable to read config file &#39;/vendor/ueventd.rc&#39;: open() failed: No such file or directory
 [   12.665812] ueventd: Parsing file /odm/ueventd.rc...
-[   12.665882] ueventd: Unable to read config file '/odm/ueventd.rc': open() failed: No such file or directory
+[   12.665882] ueventd: Unable to read config file &#39;/odm/ueventd.rc&#39;: open() failed: No such file or directory
 [   12.666070] ueventd: Parsing file /ueventd.rk30board.rc...
-[   12.666185] ueventd: Unable to read config file '/ueventd.rk30board.rc': open() failed: No such file or directory
+[   12.666185] ueventd: Unable to read config file &#39;/ueventd.rk30board.rc&#39;: open() failed: No such file or directory
 [   12.868870] ueventd: Coldboot took 0.201 seconds
-[   12.877114] init: wait for '/dev/.coldboot_done' took 222ms
-[   12.877271] init: Command 'wait_for_coldboot_done' action=wait_for_coldboot_done (&lt;Builtin Action&gt;:0) took 222ms and succeeded
+[   12.877114] init: wait for &#39;/dev/.coldboot_done&#39; took 222ms
+[   12.877271] init: Command &#39;wait_for_coldboot_done&#39; action=wait_for_coldboot_done (&lt;Builtin Action&gt;:0) took 222ms and succeeded
 [   12.877340] init: processing action (MixHwrngIntoLinuxRng) from (&lt;Builtin Action&gt;:0)
 [   12.877403] init: /dev/hw_random not found
 [   12.877457] init: processing action (SetMmapRndBits) from (&lt;Builtin Action&gt;:0)
@@ -1100,46 +1099,46 @@ rvice 'ueventd'...
 [   12.884449] init: processing action (late-init) from (/init.rc:58)
 [   12.884596] init: processing action (queue_property_triggers) from (&lt;Builtin Action&gt;:0)
 [   12.884682] init: processing action (load_system_props_action) from (/init.rc:51)
-[   12.884809] init: Couldn't load property file '/system/build.prop': open() failed: No such file or directory: No such file or directory
-[   12.884897] init: Couldn't load property file '/odm/build.prop': open() failed: No such file or directory: No such file or directory
-[   12.885002] init: Couldn't load property file '/vendor/build.prop': open() failed: No such file or directory: No such file or directory
-[   12.885057] init: Couldn't load property file '/factory/factory.prop': open() failed: No such file or directory: No such file or directory
+[   12.884809] init: Couldn&#39;t load property file &#39;/system/build.prop&#39;: open() failed: No such file or directory: No such file or directory
+[   12.884897] init: Couldn&#39;t load property file &#39;/odm/build.prop&#39;: open() failed: No such file or directory: No such file or directory
+[   12.885002] init: Couldn&#39;t load property file &#39;/vendor/build.prop&#39;: open() failed: No such file or directory: No such file or directory
+[   12.885057] init: Couldn&#39;t load property file &#39;/factory/factory.prop&#39;: open() failed: No such file or directory: No such file or directory
 [   12.886509] init: error opening block device /dev/block/by-name/recovery: No such file or directory
 [   12.886643] init: processing action (firmware_mounts_complete) from (/init.rc:54)
 [   12.886813] init: processing action (persist.sys.usb.config=* &amp;&amp; boot) from (/init.rc:36)
 [   12.887406] init: processing action (boot) from (/init.rc:43)
-[   12.888875] init: starting service 'charger'...
-[   12.890165] init: starting service 'recovery'...
+[   12.888875] init: starting service &#39;charger&#39;...
+[   12.890165] init: starting service &#39;recovery&#39;...
 [   12.891387] init: processing action (boot) from (/init.rk30board.usb.rc:1)
 [   12.893189] random: charger: uninitialized urandom read (40 bytes read, 39 bits of entropy available)
 [   12.893203] random: recovery: uninitialized urandom read (40 bytes read, 39 bits of entropy available)
-[   12.895687] audit: type=1400 audit(1358499054.130:4): avc:  denied  { read } for  pid=207 comm=&quot;charger&quot; name=&quot;type&quot; dev=&quot;sysfs&quot; ino=15662 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
-[   12.895788] audit: type=1400 audit(1358499054.130:5): avc:  denied  { open } for  pid=207 comm=&quot;charger&quot; path=&quot;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-charger/power_supply/ac/type&quot; dev=&quot;sysfs&quot; ino=15662 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
-[   12.895872] audit: type=1400 audit(1358499054.130:6): avc:  denied  { getattr } for  pid=207 comm=&quot;charger&quot; path=&quot;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-charger/power_supply/ac/type&quot; dev=&quot;sysfs&quot; ino=15662 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   12.895687] audit: type=1400 audit(1358499054.130:4): avc:  denied  { read } for  pid=207 comm=&#34;charger&#34; name=&#34;type&#34; dev=&#34;sysfs&#34; ino=15662 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   12.895788] audit: type=1400 audit(1358499054.130:5): avc:  denied  { open } for  pid=207 comm=&#34;charger&#34; path=&#34;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-charger/power_supply/ac/type&#34; dev=&#34;sysfs&#34; ino=15662 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   12.895872] audit: type=1400 audit(1358499054.130:6): avc:  denied  { getattr } for  pid=207 comm=&#34;charger&#34; path=&#34;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-charger/power_supply/ac/type&#34; dev=&#34;sysfs&#34; ino=15662 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
 [   12.897660] healthd: BatteryTechnologyPath not found
 [   12.897734] healthd: BatteryCycleCountPath not found
 [   12.899434] file system registered
 [   12.901431] using random self ethernet address
 [   12.901459] using random host ethernet address
-[   12.902200] init: Command 'write /config/usb_gadget/g1/functions/rndis.gs4/wceis 1' action=boot (/init.rk30board.usb.rc:19) took 0ms and failed: Unable to write to file '/config/usb_gadget/g1/functions/rndis.gs4/wceis': open() failed: Permission denied
+[   12.902200] init: Command &#39;write /config/usb_gadget/g1/functions/rndis.gs4/wceis 1&#39; action=boot (/init.rk30board.usb.rc:19) took 0ms and failed: Unable to write to file &#39;/config/usb_gadget/g1/functions/rndis.gs4/wceis&#39;: open() failed: Permission denied
 [   12.904796] healthd: battery l=66 v=3888 t=18.8 h=2 st=2 c=1000 fc=7536000 chg=au
 [   12.906674] init: processing action (enable_property_trigger) from (&lt;Builtin Action&gt;:0)
 [   12.906916] init: processing action (ro.debuggable=1) from (/init.rc:92)
-[   12.907015] init: starting service 'adbd'...
-[   12.908518] audit: type=1400 audit(1358499054.143:7): avc:  granted  { read } for  pid=1 comm=&quot;init&quot; name=&quot;ttyFIQ0&quot; dev=&quot;tmpfs&quot; ino=1241 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
-[   12.908599] audit: type=1400 audit(1358499054.143:8): avc:  granted  { read open } for  pid=1 comm=&quot;init&quot; path=&quot;/dev/ttyFIQ0&quot; dev=&quot;tmpfs&quot; ino=1241 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
-[   12.908772] init: starting service 'console'...
-[   12.909270] init: Created socket '/dev/socket/adbd', mode 660, user 1000, group 1000
-[   12.909892] audit: type=1400 audit(1358499054.143:9): avc:  granted  { read } for  pid=211 comm=&quot;init&quot; name=&quot;ttyFIQ0&quot; dev=&quot;tmpfs&quot; ino=1241 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
-[   12.909957] audit: type=1400 audit(1358499054.143:10): avc:  granted  { read open } for  pid=211 comm=&quot;init&quot; path=&quot;/dev/ttyFIQ0&quot; dev=&quot;tmpfs&quot; ino=1241 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
+[   12.907015] init: starting service &#39;adbd&#39;...
+[   12.908518] audit: type=1400 audit(1358499054.143:7): avc:  granted  { read } for  pid=1 comm=&#34;init&#34; name=&#34;ttyFIQ0&#34; dev=&#34;tmpfs&#34; ino=1241 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
+[   12.908599] audit: type=1400 audit(1358499054.143:8): avc:  granted  { read open } for  pid=1 comm=&#34;init&#34; path=&#34;/dev/ttyFIQ0&#34; dev=&#34;tmpfs&#34; ino=1241 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
+[   12.908772] init: starting service &#39;console&#39;...
+[   12.909270] init: Created socket &#39;/dev/socket/adbd&#39;, mode 660, user 1000, group 1000
+[   12.909892] audit: type=1400 audit(1358499054.143:9): avc:  granted  { read } for  pid=211 comm=&#34;init&#34; name=&#34;ttyFIQ0&#34; dev=&#34;tmpfs&#34; ino=1241 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
+[   12.909957] audit: type=1400 audit(1358499054.143:10): avc:  granted  { read open } for  pid=211 comm=&#34;init&#34; path=&#34;/dev/ttyFIQ0&#34; dev=&#34;tmpfs&#34; ino=1241 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
 [   12.910204] init: setpgid failed for console: Operation not permitted
 [   12.910290] init: processing action (sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1) from (/init.rk30board.usb.rc:43)
 [   12.911220] random: adbd: uninitialized urandom read (40 bytes read, 39 bits of entropy available)
 [   12.912043] init: processing action (sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1) from (/init.usb.configfs.rc:32)
 [   12.912217] init: processing action (sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1 &amp;&amp; sys.usb.ffs.ready=1) from (/init.usb.configfs.rc:35)
-[   12.913855] configfs-gadget gadget: unbind function 'mtp'/ffffffc00a287000
+[   12.913855] configfs-gadget gadget: unbind function &#39;mtp&#39;/ffffffc00a287000
 [   12.913938] configfs-gadget ff580000.usb: failed to start g1: -19
-[   12.914161] init: Command 'write /config/usb_gadget/g1/UDC ${sys.usb.controller}' action=sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1 &amp;&amp; sys.usb.ffs.ready=1 (/init.usb.configfs.rc:39) took 0ms and failed: Unable to write to file '/config/usb_gadget/g1/UDC': Unable to write file contents: No such device
+[   12.914161] init: Command &#39;write /config/usb_gadget/g1/UDC ${sys.usb.controller}&#39; action=sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1 &amp;&amp; sys.usb.ffs.ready=1 (/init.usb.configfs.rc:39) took 0ms and failed: Unable to write to file &#39;/config/usb_gadget/g1/UDC&#39;: Unable to write file contents: No such device
 [   12.914688] read descriptors
 [   12.914736] read strings
 [   12.915745] init: processing action (sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1 &amp;&amp; sys.usb.ffs.ready=1) from (/init.usb.configfs.rc:35)
@@ -1183,7 +1182,7 @@ E:failed to stat /dev/block/by-name/misc try 10: No such file or directory
 E:failed to stat /dev/block/by-name/misc
 E:
 E:Failed to mount /cache: No such file or directory
-E:Can't mount /cache/recovery/last_locale
+E:Can&#39;t mount /cache/recovery/last_locale
 locale is [en-US]
 stage is []
 reason is [(null)]
@@ -1208,7 +1207,7 @@ mount metadata fail,so formate...
  of entropy available)
 E:format_volume: Failed to make ext4 on /dev/block/by-name/metadata: No such file or directory
 E:Failed to mount /metadata: No such file or directory
-Command: &quot;/sbin/recovery&quot;
+Command: &#34;/sbin/recovery&#34;
 
 
 [   34.597239] audit: type=1400 audit(13584ro.boottime.adbd=12906062023
@@ -1265,7 +1264,7 @@ ro.boot.dtbo_idx=0
 ro.boo=t.boot_devices=ff0f0000.dwmmc.ff400000.nandc
 ro.wifi.channels=
 ro.allow.mock.location=0
-ro.build.flavor=rk336&quot;8-userdebug
+ro.build.flavor=rk336&#34;8-userdebug
 ro.bruild.version.all_ecodenames=REL
 roc.build.version.mion_supported_target_sdk=17
 ro.build.charvacteristics=tablet
@@ -1281,7 +1280,7 @@ inita.svc.adbd=runningt
 init.svc.chargehr=running
 init.svc.console=running
 ini=t.svc.ueventd=running
-init.svc.rec&quot;overy=running
+init.svc.rec&#34;overy=running
 ri/ld.libargs=-d
 ridld.libpath=/systeem/lib/libril-rk29v-dataonly.so
 persist.tegra.nvmmlite=1
@@ -1343,18 +1342,18 @@ ro.enable_boot_dcharger_mode=0
 drm.service.enabled_=true
 keyguard.npo_require_sim=trure
 tombstoned.maxo_tombstone_count=p50
-:s0ro.dalvik.&quot;vm.native.bridge= 0
+:s0ro.dalvik.&#34;vm.native.bridge= 0
 dalvik.vm.isa.darm.variant=corteex-a7
 dalvik.vm.isa.arm.features=default
 dalvik.vm.isa.arvm64.variant=corte=x-a53
-dalvik.vm.isa.arm64.features&quot;=default
+dalvik.vm.isa.arm64.features&#34;=default
 dalvik.vm.dexopt.secondarty=true
 dalvik.vmm.usejit=true
 dalpvik.vm.heapsize=512m
 dalvik.vm.lockprof.threshold=500
 dalvik.vm.dex2oat-Xmf=64m
 dalvik.vm.dsex2oat-Xmx=512m
-&quot;dalvik.vm.heapmaxfree=8m
+&#34;dalvik.vm.heapmaxfree=8m
 dalvik.vm .heapminfree=512k
 dalvik.vm.heapstartsize=16m
 dalvik.vm.ippimageformat=lz4n
@@ -1426,27 +1425,27 @@ rmissive=1
 [   34.597354] audit: type=1400 audit(1358499075.830:enter try_do_sdcard_boot 
 is_boot_from_sd is_sd_boot=0 1
 try_do_sdcard_boot is done,  is_s2dupdate=0 *stat=0) 
-: avc:  denied  { getattr } for  pid=208 comm=&quot;recovery&quot; path=&quot;/dev/__properties__/u:object_r:bluetooth_a2dp_offload_prop:s0&quot; dev=&quot;tmpfs&quot; ino=9376 scontext=u:r:recovery:s0 tcontext=u:object_r:bluetooth_a2dp_offload_prop:s0 tclass=file permissive=1
-[   34.597504] audit: type=1400 audit(1358499075.830:13): avc:  denied  { open } for  pid=208 comm=&quot;recovery&quot; path=&quot;/dev/__properties__/u:object_r:bluetooth_pI:Savinrg locale &quot;en-US&quot;
+: avc:  denied  { getattr } for  pid=208 comm=&#34;recovery&#34; path=&#34;/dev/__properties__/u:object_r:bluetooth_a2dp_offload_prop:s0&#34; dev=&#34;tmpfs&#34; ino=9376 scontext=u:r:recovery:s0 tcontext=u:object_r:bluetooth_a2dp_offload_prop:s0 tclass=file permissive=1
+[   34.597504] audit: type=1400 audit(1358499075.830:13): avc:  denied  { open } for  pid=208 comm=&#34;recovery&#34; path=&#34;/dev/__properties__/u:object_r:bluetooth_pI:Savinrg locale &#34;en-US&#34;
 op:s0E:Failed to mount /cache: No such file or directory
-&quot; dev=&quot;tmpfs&quot; ino=9377 scontext=u:r:recovery:s0 tcontext=u:object_r:bluetooth_prop:s0 tclass=file permissive=1
-[   34.597553] audit: type=1400 audit(1358499075.830:14): avc:  denied  { getattr } for  pid=208 comm=&quot;recovery&quot; path=E:Failed to mou&quot;nt /cache/recover/y/last_locale
-dev/__properties__/u:object_r:bluetooth_prop:s0&quot; dev=&quot;tmpfs&quot; ino=9377 scontext=u:r:recovery:s0 tcontext=u:object_r:bluetooth_prop:s0 tclass=file permissive=1
-[   34.597762] audit: type=1400 audit(1358499075.830:15): avc:  denied  { open } for  pid=208 comm=&quot;recovery&quot;E:Failed to clear BCB messagpe: failed to opena /dev/block/by-name/misc: No such file or directory
-th=&quot;/dev/__properties__/u:object_r:boottime_prop:s0&quot; dev=&quot;tmpfs&quot; ino=9379 scontext=u:r:recovery:s0 tcontext=u:object_r:boottime_prop:s0 tclass=file permissive=1
-[   34.597853] audit: type=1400 audit(1358499075.830:16): avc:  denied  { getattr } for  pid=208 comm=&quot;recovery&quot; path=&quot;/dev/__properties__/u:objelibc: invalid pthread_t (0) passed to libcc
+&#34; dev=&#34;tmpfs&#34; ino=9377 scontext=u:r:recovery:s0 tcontext=u:object_r:bluetooth_prop:s0 tclass=file permissive=1
+[   34.597553] audit: type=1400 audit(1358499075.830:14): avc:  denied  { getattr } for  pid=208 comm=&#34;recovery&#34; path=E:Failed to mou&#34;nt /cache/recover/y/last_locale
+dev/__properties__/u:object_r:bluetooth_prop:s0&#34; dev=&#34;tmpfs&#34; ino=9377 scontext=u:r:recovery:s0 tcontext=u:object_r:bluetooth_prop:s0 tclass=file permissive=1
+[   34.597762] audit: type=1400 audit(1358499075.830:15): avc:  denied  { open } for  pid=208 comm=&#34;recovery&#34;E:Failed to clear BCB messagpe: failed to opena /dev/block/by-name/misc: No such file or directory
+th=&#34;/dev/__properties__/u:object_r:boottime_prop:s0&#34; dev=&#34;tmpfs&#34; ino=9379 scontext=u:r:recovery:s0 tcontext=u:object_r:boottime_prop:s0 tclass=file permissive=1
+[   34.597853] audit: type=1400 audit(1358499075.830:16): avc:  denied  { getattr } for  pid=208 comm=&#34;recovery&#34; path=&#34;/dev/__properties__/u:objelibc: invalid pthread_t (0) passed to libcc
 Join led threatd error!
 _rE:Failed to mount /cache: No such file or directory
-:boottime_prop:s0&quot; dev=&quot;tmpfs&quot; ino=9379 scontext=u:r:recovery:s0 tcontext=u:object_r:boottime_prop:s0 tclass=file permissive=1
-[   34.620253] audit: type=1400 audit(1358499075.853:17): avc:  denied  { open } for  pid=208 comm=&quot;recovery&quot; path=&quot;/dev/__properties__/u:object_r:ctl_console_prop:s0&quot; dev=&quot;tmpfs&quot; ino=9384 scontext=u:r:reW:Can't unlink /cache/recovery/commcand
+:boottime_prop:s0&#34; dev=&#34;tmpfs&#34; ino=9379 scontext=u:r:recovery:s0 tcontext=u:object_r:boottime_prop:s0 tclass=file permissive=1
+[   34.620253] audit: type=1400 audit(1358499075.853:17): avc:  denied  { open } for  pid=208 comm=&#34;recovery&#34; path=&#34;/dev/__properties__/u:object_r:ctl_console_prop:s0&#34; dev=&#34;tmpfs&#34; ino=9384 scontext=u:r:reW:Can&#39;t unlink /cache/recovery/commcand
 overy:s0 tcontext=u:object_r:ctl_console_prop:s0 tclass=file permissive=1
-[   34.620305] audit: type=1400 audit(1358499075.853:18): avc:  denied  { getattr } for  pid=208 comm=&quot;recovery&quot; path=&quot;/dev/__properties__/u:object_r:ctl_console_prop:s0&quot; dev=&quot;tmpfs&quot; ino=9384 scontext=u:r:recovery:s0 tcontext=u:object_r:ctl_console_prop:s0 tclass=file permissive=1
-[   34.620506] audit: type=1400 audit(1358499075.853:19): avc:  denied  { open } for  pid=208 comm=&quot;recovery&quot; path=&quot;/dev/__properties__/u:object_r:ctl_dumpstate_prop:s0&quot; dev=&quot;tmpfs&quot; ino=9386 scontext=u:r:recovery:s0 tcontext=u:object_r:ctl_dumpstate_prop:s0 tclass=file permissive=1
-[   34.620588] audit: type=1400 audit(1358499075.853:20): avc:  denied  { getattr } for  pid=208 comm=&quot;recovery&quot; path=&quot;/dev/__properties__/u:object_r:ctl_dumpstate_prop:s0&quot; dev=&quot;tmpfs&quot; ino=9386 scontext=u:r:recovery:s0 tcontext=u:object_r:ctl_dumpstate_prop:s0 tclass=file permissive=1
+[   34.620305] audit: type=1400 audit(1358499075.853:18): avc:  denied  { getattr } for  pid=208 comm=&#34;recovery&#34; path=&#34;/dev/__properties__/u:object_r:ctl_console_prop:s0&#34; dev=&#34;tmpfs&#34; ino=9384 scontext=u:r:recovery:s0 tcontext=u:object_r:ctl_console_prop:s0 tclass=file permissive=1
+[   34.620506] audit: type=1400 audit(1358499075.853:19): avc:  denied  { open } for  pid=208 comm=&#34;recovery&#34; path=&#34;/dev/__properties__/u:object_r:ctl_dumpstate_prop:s0&#34; dev=&#34;tmpfs&#34; ino=9386 scontext=u:r:recovery:s0 tcontext=u:object_r:ctl_dumpstate_prop:s0 tclass=file permissive=1
+[   34.620588] audit: type=1400 audit(1358499075.853:20): avc:  denied  { getattr } for  pid=208 comm=&#34;recovery&#34; path=&#34;/dev/__properties__/u:object_r:ctl_dumpstate_prop:s0&#34; dev=&#34;tmpfs&#34; ino=9386 scontext=u:r:recovery:s0 tcontext=u:object_r:ctl_dumpstate_prop:s0 tclass=file permissive=1
 [   72.898288] audit_printk_skb: 246 callbacks suppressed
-[   72.898324] audit: type=1400 audit(1358499114.133:103): avc:  denied  { read } for  pid=207 comm=&quot;charger&quot; name=&quot;present&quot; dev=&quot;sysfs&quot; ino=15189 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
-[   72.898387] audit: type=1400 audit(1358499114.133:104): avc:  denied  { open } for  pid=207 comm=&quot;charger&quot; path=&quot;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-battery/power_supply/battery/present&quot; dev=&quot;sysfs&quot; ino=15189 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
-[   72.898450] audit: type=1400 audit(1358499114.133:105): avc:  denied  { getattr } for  pid=207 comm=&quot;charger&quot; path=&quot;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-battery/power_supply/battery/present&quot; dev=&quot;sysfs&quot; ino=15189 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   72.898324] audit: type=1400 audit(1358499114.133:103): avc:  denied  { read } for  pid=207 comm=&#34;charger&#34; name=&#34;present&#34; dev=&#34;sysfs&#34; ino=15189 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   72.898387] audit: type=1400 audit(1358499114.133:104): avc:  denied  { open } for  pid=207 comm=&#34;charger&#34; path=&#34;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-battery/power_supply/battery/present&#34; dev=&#34;sysfs&#34; ino=15189 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   72.898450] audit: type=1400 audit(1358499114.133:105): avc:  denied  { getattr } for  pid=207 comm=&#34;charger&#34; path=&#34;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-battery/power_supply/battery/present&#34; dev=&#34;sysfs&#34; ino=15189 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
 [   72.903824] healthd: battery l=66 v=3888 t=18.8 h=2 st=2 c=1000 fc=7536000 chg=au
 [  100.904968] random: nonblocking pool is initialized
 [  132.903406] healthd: battery l=66 v=3888 t=18.8 h=2 st=2 c=1000 fc=7536000 chg=au
@@ -1470,7 +1469,7 @@ overy:s0 tcontext=u:object_r:ctl_console_prop:s0 tclass=file permissive=1
 
 Script done on Thu Apr  2 13:17:01 2020
 </code></pre><h1 id="appendix-2">Appendix 2</h1>
-<pre><code class="language-log" data-lang="log">
+<pre tabindex="0"><code class="language-log" data-lang="log">
 #   0 /vendor ext4 /dev/blodck/by-name/vendor 0
   1 /mnt/interenal_sd vfat /dev/fblock/platform/ffa0f0000.dwmmc/by-name/user 0
   2 /mnt/external_sd vfaut /dev/block/mlcblk0p1 0
@@ -1509,7 +1508,7 @@ read cmdli ne
 I:Got 2 arguments from boaot message
 ve:mpu6500_gyro,id=49
 [    1.148460] sensor_register_slave:E:Failed to mmount /cache: Invpalid argument
-E:Can't mount /cache/recovery/last_locale
+E:Can&#39;t mount /cache/recovery/last_locale
 locale is [en-US]
 stage is []
 reason is [(null)]
@@ -1532,8 +1531,8 @@ _gyro,id=50
 [    2.214913] rk3x-i2c ff150000.i2c: timeout, ipd: 0x00, state: 1
 [    2.214944] gc2145 3-003c: gc2145 read reg:0xf0 failed !
 [    2.215148] gc2145: probe of 3-003c failed with error -110
-[    2.215691] Error: Driver 'gc0312' is already registered, aborting...
-[    2.215868] Error: Driver 'gc2145' is already registered, aborting...
+[    2.215691] Error: Driver &#39;gc0312&#39; is already registered, aborting...
+[    2.215868] Error: Driver &#39;gc2145&#39; is already registered, aborting...
 [    2.217265] Registered cp15_barrier emulation handler
 [    2.217285] Registered setend emulation handler
 [    2.218192] registered taskstats version 1
@@ -1553,7 +1552,7 @@ _gyro,id=50
 [    2.225273] dwmmc_rockchip ff0d0000.dwmmc: Using internal DMA controller.
 [    2.225291] dwmmc_rockchip ff0d0000.dwmmc: Version ID is 270a
 [    2.225324] dwmmc_rockchip ff0d0000.dwmmc: DW MMC controller at irq 17,32 bit host data width,256 deep fifo
-[    2.225349] dwmmc_rockchip ff0d0000.dwmmc: 'clock-freq-min-max' property was deprecated.
+[    2.225349] dwmmc_rockchip ff0d0000.dwmmc: &#39;clock-freq-min-max&#39; property was deprecated.
 [    2.225388] dwmmc_rockchip ff0d0000.dwmmc: No vmmc regulator found
 [    2.225400] dwmmc_rockchip ff0d0000.dwmmc: No vqmmc regulator found
 [    2.225713] dwmmc_rockchip ff0d0000.dwmmc: allocated mmc-pwrseq
@@ -1583,7 +1582,7 @@ _gyro,id=50
 [    2.298894] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
 [    2.301172] vcc_tp: disabling
 [    2.301739] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
-[    2.302890] I : [File] : drivers/gpu/arm/mali400/mali/linux/mali_kernel_linux.c; [Line] : 417; [Func] : mali_module_init(); svn_rev_string_from_arm of this mali_ko is '', rk_ko_ver is '5', built at '11:56:30', on 'Mar 30 2020'.
+[    2.302890] I : [File] : drivers/gpu/arm/mali400/mali/linux/mali_kernel_linux.c; [Line] : 417; [Func] : mali_module_init(); svn_rev_string_from_arm of this mali_ko is &#39;&#39;, rk_ko_ver is &#39;5&#39;, built at &#39;11:56:30&#39;, on &#39;Mar 30 2020&#39;.
 [    2.303292] Mali: Mali device driver loaded
 [    2.303934] input: rk29-keypad as /devices/platform/rockchip-key/input/input0
 [    2.304830] ALSA device list:
@@ -1607,38 +1606,38 @@ _gyro,id=50
 [    2.651895] 
 [    2.651969] init: Running restorecon...
 [    2.665104] init: waitid failed: No child processes
-[    2.665253] init: Couldn't load property file '/system/etc/prop.default': open() failed: No such file or directory: No such file or directory
-[    2.668890] init: Unable to set property 'ro.product.first_api_level' to '28' in property file '/prop.default': Read-only property was already set
-[    2.669388] init: Unable to set property 'ro.board.platform' to 'rk3368' in property file '/prop.default': Read-only property was already set
-[    2.671777] init: Unable to set property 'ro.target.product' to 'tablet' in property file '/prop.default': Read-only property was already set
-[    2.671973] init: Couldn't load property file '/product/build.prop': open() failed: No such file or directory: No such file or directory
-[    2.672045] init: Couldn't load property file '/odm/default.prop': open() failed: No such file or directory: No such file or directory
-[    2.672111] init: Couldn't load property file '/vendor/default.prop': open() failed: No such file or directory: No such file or directory
-[    2.672851] init: Created socket '/dev/socket/property_service', mode 666, user 0, group 0
-[    2.673734] init: Forked subcontext for 'u:r:vendor_init:s0' with pid 203
-[    2.674464] init: Forked subcontext for 'u:r:vendor_init:s0' with pid 204
+[    2.665253] init: Couldn&#39;t load property file &#39;/system/etc/prop.default&#39;: open() failed: No such file or directory: No such file or directory
+[    2.668890] init: Unable to set property &#39;ro.product.first_api_level&#39; to &#39;28&#39; in property file &#39;/prop.default&#39;: Read-only property was already set
+[    2.669388] init: Unable to set property &#39;ro.board.platform&#39; to &#39;rk3368&#39; in property file &#39;/prop.default&#39;: Read-only property was already set
+[    2.671777] init: Unable to set property &#39;ro.target.product&#39; to &#39;tablet&#39; in property file &#39;/prop.default&#39;: Read-only property was already set
+[    2.671973] init: Couldn&#39;t load property file &#39;/product/build.prop&#39;: open() failed: No such file or directory: No such file or directory
+[    2.672045] init: Couldn&#39;t load property file &#39;/odm/default.prop&#39;: open() failed: No such file or directory: No such file or directory
+[    2.672111] init: Couldn&#39;t load property file &#39;/vendor/default.prop&#39;: open() failed: No such file or directory: No such file or directory
+[    2.672851] init: Created socket &#39;/dev/socket/property_service&#39;, mode 666, user 0, group 0
+[    2.673734] init: Forked subcontext for &#39;u:r:vendor_init:s0&#39; with pid 203
+[    2.674464] init: Forked subcontext for &#39;u:r:vendor_init:s0&#39; with pid 204
 [    2.674620] init: Parsing file /init.rc...
-[    2.674811] init: Added '/init.recovery.rk30board.rc' to import list
-[    2.674867] init: Added '/init.rk30board.usb.rc' to import list
-[    2.674950] init: Added '/init.usb.configfs.rc' to import list
+[    2.674811] init: Added &#39;/init.recovery.rk30board.rc&#39; to import list
+[    2.674867] init: Added &#39;/init.rk30board.usb.rc&#39; to import list
+[    2.674950] init: Added &#39;/init.usb.configfs.rc&#39; to import list
 [    2.675591] random: init: uninitialized urandom read (40 bytes read, 25 bits of entropy available)
 [    2.675795] random: init: uninitialized urandom read (40 bytes read, 25 bits of entropy available)
 [    2.675847] init: Parsing file /init.recovery.rk30board.rc...
-[    2.675920] init: Unable to read config file '/init.recovery.rk30board.rc': open() failed: No such file or directory
-[    2.675977] init: /init.rc: 1: Could not import file '/init.recovery.rk30board.rc': No such file or directory
+[    2.675920] init: Unable to read config file &#39;/init.recovery.rk30board.rc&#39;: open() failed: No such file or directory
+[    2.675977] init: /init.rc: 1: Could not import file &#39;/init.recovery.rk30board.rc&#39;: No such file or directory
 [    2.676017] init: Parsing file /init.rk30board.usb.rc...
 [    2.676782] init: Parsing file /init.usb.configfs.rc...
 [    2.678049] init: Parsing file /system/etc/init...
-[    2.678141] init: Unable to read config file '/system/etc/init': open() failed: No such file or directory
+[    2.678141] init: Unable to read config file &#39;/system/etc/init&#39;: open() failed: No such file or directory
 [    2.678245] init: Parsing file /product/etc/init...
-[    2.678315] init: Unable to read config file '/product/etc/init': open() failed: No such file or directory
+[    2.678315] init: Unable to read config file &#39;/product/etc/init&#39;: open() failed: No such file or directory
 [    2.678389] init: Parsing file /odm/etc/init...
-[    2.678440] init: Unable to read config file '/odm/etc/init': open() failed: No such file or directory
+[    2.678440] init: Unable to read config file &#39;/odm/etc/init&#39;: open() failed: No such file or directory
 [    2.678483] init: Parsing file /vendor/etc/init...
-[    2.678533] init: Unable to read config file '/vendor/etc/init': open() failed: No such file or directory
+[    2.678533] init: Unable to read config file &#39;/vendor/etc/init&#39;: open() failed: No such file or directory
 [    2.678676] init: processing action (early-init) from (/init.rc:5)
-[    2.678857] init: starting service 'ueventd'...
-[    2.679825] audit: type=1400 audit(1358499029.896:3): avc:  denied  { write } for  pid=1 comm=&quot;init&quot; path=&quot;/acct/uid_0/pid_205/cgroup.procs&quot; dev=&quot;rootfs&quot; ino=9373 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
+[    2.678857] init: starting service &#39;ueventd&#39;...
+[    2.679825] audit: type=1400 audit(1358499029.896:3): avc:  denied  { write } for  pid=1 comm=&#34;init&#34; path=&#34;/acct/uid_0/pid_205/cgroup.procs&#34; dev=&#34;rootfs&#34; ino=9373 scontext=u:r:init:s0 tcontext=u:object_r:rootfs:s0 tclass=file permissive=1
 [    2.680226] init: processing action (wait_for_coldboot_done) from (&lt;Builtin Action&gt;:0)
 [    2.681356] random: ueventd: uninitialized urandom read (40 bytes read, 25 bits of entropy available)
 [    2.685422] ueventd: ueventd started!
@@ -1646,17 +1645,17 @@ _gyro,id=50
 [    2.689807] 
 [    2.689935] ueventd: Parsing file /ueventd.rc...
 [    2.691075] ueventd: Parsing file /vendor/ueventd.rc...
-[    2.691204] ueventd: Unable to read config file '/vendor/ueventd.rc': open() failed: No such file or directory
+[    2.691204] ueventd: Unable to read config file &#39;/vendor/ueventd.rc&#39;: open() failed: No such file or directory
 [    2.691264] ueventd: Parsing file /odm/ueventd.rc...
-[    2.691377] ueventd: Unable to read config file '/odm/ueventd.rc': open() failed: No such file or directory
+[    2.691377] ueventd: Unable to read config file &#39;/odm/ueventd.rc&#39;: open() failed: No such file or directory
 [    2.691520] ueventd: Parsing file /ueventd.rk30board.rc...
-[    2.691667] ueventd: Unable to read config file '/ueventd.rk30board.rc': open() failed: No such file or directory
+[    2.691667] ueventd: Unable to read config file &#39;/ueventd.rk30board.rc&#39;: open() failed: No such file or directory
 [    2.754995] dwmmc_rockchip ff0d0000.dwmmc: Successfully tuned phase to 211
 [    2.759026] mmc1: queuing unknown CIS tuple 0x91 (3 bytes)
 [    2.759083] mmc1: new ultra high speed SDR104 SDIO card at address 0001
 [    2.905740] ueventd: Coldboot took 0.213 seconds
-[    2.912718] init: wait for '/dev/.coldboot_done' took 232ms
-[    2.912900] init: Command 'wait_for_coldboot_done' action=wait_for_coldboot_done (&lt;Builtin Action&gt;:0) took 232ms and succeeded
+[    2.912718] init: wait for &#39;/dev/.coldboot_done&#39; took 232ms
+[    2.912900] init: Command &#39;wait_for_coldboot_done&#39; action=wait_for_coldboot_done (&lt;Builtin Action&gt;:0) took 232ms and succeeded
 [    2.912976] init: processing action (MixHwrngIntoLinuxRng) from (&lt;Builtin Action&gt;:0)
 [    2.913042] init: /dev/hw_random not found
 [    2.913108] init: processing action (SetMmapRndBits) from (&lt;Builtin Action&gt;:0)
@@ -1669,20 +1668,20 @@ _gyro,id=50
 [    2.921965] init: processing action (late-init) from (/init.rc:58)
 [    2.922271] init: processing action (queue_property_triggers) from (&lt;Builtin Action&gt;:0)
 [    2.922394] init: processing action (load_system_props_action) from (/init.rc:51)
-[    2.922601] init: Couldn't load property file '/system/build.prop': open() failed: No such file or directory: No such file or directory
-[    2.922769] init: Couldn't load property file '/odm/build.prop': open() failed: No such file or directory: No such file or directory
-[    2.922969] init: Couldn't load property file '/vendor/build.prop': open() failed: No such file or directory: No such file or directory
-[    2.923171] init: Couldn't load property file '/factory/factory.prop': open() failed: No such file or directory: No such file or directory
+[    2.922601] init: Couldn&#39;t load property file &#39;/system/build.prop&#39;: open() failed: No such file or directory: No such file or directory
+[    2.922769] init: Couldn&#39;t load property file &#39;/odm/build.prop&#39;: open() failed: No such file or directory: No such file or directory
+[    2.922969] init: Couldn&#39;t load property file &#39;/vendor/build.prop&#39;: open() failed: No such file or directory: No such file or directory
+[    2.923171] init: Couldn&#39;t load property file &#39;/factory/factory.prop&#39;: open() failed: No such file or directory: No such file or directory
 [    2.926860] init: processing action (firmware_mounts_complete) from (/init.rc:54)
 [    2.927141] init: processing action (persist.sys.usb.config=* &amp;&amp; boot) from (/init.rc:36)
 [    2.927985] init: processing action (boot) from (/init.rc:43)
-[    2.929920] init: starting service 'charger'...
-[    2.931415] init: starting service 'recovery'...
+[    2.929920] init: starting service &#39;charger&#39;...
+[    2.931415] init: starting service &#39;recovery&#39;...
 [    2.933065] init: processing action (boot) from (/init.rk30board.usb.rc:1)
 [    2.933316] random: charger: uninitialized urandom read (40 bytes read, 28 bits of entropy available)
-[    2.936075] audit: type=1400 audit(1358499030.153:4): avc:  denied  { read } for  pid=214 comm=&quot;charger&quot; name=&quot;type&quot; dev=&quot;sysfs&quot; ino=15656 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
-[    2.936162] audit: type=1400 audit(1358499030.153:5): avc:  denied  { open } for  pid=214 comm=&quot;charger&quot; path=&quot;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-charger/power_supply/ac/type&quot; dev=&quot;sysfs&quot; ino=15656 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
-[    2.936234] audit: type=1400 audit(1358499030.153:6): avc:  denied  { getattr } for  pid=214 comm=&quot;charger&quot; path=&quot;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-charger/power_supply/ac/type&quot; dev=&quot;sysfs&quot; ino=15656 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[    2.936075] audit: type=1400 audit(1358499030.153:4): avc:  denied  { read } for  pid=214 comm=&#34;charger&#34; name=&#34;type&#34; dev=&#34;sysfs&#34; ino=15656 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[    2.936162] audit: type=1400 audit(1358499030.153:5): avc:  denied  { open } for  pid=214 comm=&#34;charger&#34; path=&#34;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-charger/power_supply/ac/type&#34; dev=&#34;sysfs&#34; ino=15656 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[    2.936234] audit: type=1400 audit(1358499030.153:6): avc:  denied  { getattr } for  pid=214 comm=&#34;charger&#34; path=&#34;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-charger/power_supply/ac/type&#34; dev=&#34;sysfs&#34; ino=15656 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
 [    2.937822] healthd: BatteryTechnologyPath not found
 [    2.937872] healthd: BatteryCycleCountPath not found
 [    2.940628] random: recovery: uninitialized urandom read (40 bytes read, 28 bits of entropy available)
@@ -1690,20 +1689,20 @@ _gyro,id=50
 [    2.944767] healthd: battery l=66 v=3888 t=18.8 h=2 st=2 c=1000 fc=7536000 chg=au
 [    2.946158] using random self ethernet address
 [    2.946201] using random host ethernet address
-[    2.946684] init: Command 'write /config/usb_gadget/g1/functions/rndis.gs4/wceis 1' action=boot (/init.rk30board.usb.rc:19) took 0ms and failed: Unable to write to file '/config/usb_gadget/g1/functions/rndis.gs4/wceis': open() failed: Permission denied
+[    2.946684] init: Command &#39;write /config/usb_gadget/g1/functions/rndis.gs4/wceis 1&#39; action=boot (/init.rk30board.usb.rc:19) took 0ms and failed: Unable to write to file &#39;/config/usb_gadget/g1/functions/rndis.gs4/wceis&#39;: open() failed: Permission denied
 [    2.949780] init: processing action (enable_property_trigger) from (&lt;Builtin Action&gt;:0)
 [    2.950043] init: processing action (ro.debuggable=1) from (/init.rc:92)
-[    2.950153] init: starting service 'adbd'...
-[    2.951480] audit: type=1400 audit(1358499030.166:7): avc:  granted  { read } for  pid=1 comm=&quot;init&quot; name=&quot;ttyFIQ0&quot; dev=&quot;tmpfs&quot; ino=9055 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
-[    2.951618] audit: type=1400 audit(1358499030.170:8): avc:  granted  { read open } for  pid=1 comm=&quot;init&quot; path=&quot;/dev/ttyFIQ0&quot; dev=&quot;tmpfs&quot; ino=9055 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
-[    2.951811] init: starting service 'console'...
-[    2.952935] audit: type=1400 audit(1358499030.170:9): avc:  granted  { read } for  pid=218 comm=&quot;init&quot; name=&quot;ttyFIQ0&quot; dev=&quot;tmpfs&quot; ino=9055 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
-[    2.953025] audit: type=1400 audit(1358499030.170:10): avc:  granted  { read open } for  pid=218 comm=&quot;init&quot; path=&quot;/dev/ttyFIQ0&quot; dev=&quot;tmpfs&quot; ino=9055 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
+[    2.950153] init: starting service &#39;adbd&#39;...
+[    2.951480] audit: type=1400 audit(1358499030.166:7): avc:  granted  { read } for  pid=1 comm=&#34;init&#34; name=&#34;ttyFIQ0&#34; dev=&#34;tmpfs&#34; ino=9055 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
+[    2.951618] audit: type=1400 audit(1358499030.170:8): avc:  granted  { read open } for  pid=1 comm=&#34;init&#34; path=&#34;/dev/ttyFIQ0&#34; dev=&#34;tmpfs&#34; ino=9055 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
+[    2.951811] init: starting service &#39;console&#39;...
+[    2.952935] audit: type=1400 audit(1358499030.170:9): avc:  granted  { read } for  pid=218 comm=&#34;init&#34; name=&#34;ttyFIQ0&#34; dev=&#34;tmpfs&#34; ino=9055 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
+[    2.953025] audit: type=1400 audit(1358499030.170:10): avc:  granted  { read open } for  pid=218 comm=&#34;init&#34; path=&#34;/dev/ttyFIQ0&#34; dev=&#34;tmpfs&#34; ino=9055 scontext=u:r:init:s0 tcontext=u:object_r:serial_device:s0 tclass=chr_file
 [    2.9532       installing_te6xt: en (228 x 29 @ 1050)
 9] init: processing action (sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1) from (/init.rk30board.usb.rc:43)
 [    2.953450] init: setpgid failed for console: Operation not permitted
-[    2.954212] init: Created socket '/dev/SELinux: Loaded files_contexts
-ocket/adbd', modeE:Failed to  mount /metadata: Invalid argument
+[    2.954212] init: Created socket &#39;/dev/SELinux: Loaded files_contexts
+ocket/adbd&#39;, modeE:Failed to  mount /metadata: Invalid argument
 660, user 1000, group 1000
 [    2.954539] init: processing actmount metadata fail,iso formate...
 on (sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1) from (/init.usb.configfs.rc:32)
@@ -1715,28 +1714,28 @@ t: processing action (sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1 &amp;
 
 Allocating group tables: 0/1   done    n  d                       
 fWriting inode tables: 0/1   done                            
-unctCreating journal (1024 blocks): ion 'mtp'/ffffffc079067000
+unctCreating journal (1024 blocks): ion &#39;mtp&#39;/ffffffc079067000
 [    2.956280] configfs-gadget ff580000.usb: failed to start g1: -19
-[    2.956487] init: Command 'write /config/usb_gadget/g1/UDC ${sys.usb.codone
-Writing superblocks and filesynstem accounting information: trol0/1l   er}' action=sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1 &amp;&amp; sys.usb.ffs.ready=1 (/init.usb.configfs.rc:39) took 0ms and failed: Unable to write to file '/config/usb_gadget/g1/UDC': Unable to write file contents: No such device
+[    2.956487] init: Command &#39;write /config/usb_gadget/g1/UDC ${sys.usb.codone
+Writing superblocks and filesynstem accounting information: trol0/1l   er}&#39; action=sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1 &amp;&amp; sys.usb.ffs.ready=1 (/init.usb.configfs.rc:39) took 0ms and failed: Unable to write to file &#39;/config/usb_gadget/g1/UDC&#39;: Unable to write file contents: No such device
 [    2.959401] read descriptors
 [    2.959478] read strings
 [    2.960507] init: processing action (sys.usb.config=mtp,adb &amp;&amp; sys.usb.configfs=1 &amp;&amp; sys.usb.ffs.ready=1) from (/init.usb.configfs.rc:35)
 [    2.961947] pcd_pullup, is_on 1
-[    3.088038] EXT4-fs (mmcblk0p13): VFS: Can't find ext4 filesystem
+[    3.088038] EXT4-fs (mmcblk0p13): VFS: Can&#39;t find ext4 filesystem
 [    3.124223] rockchip-vop ff930000.vop: [drm:vop_crtc_enable] Update mode to 800x1280p60, type: 16
 [    3.124777] dw-mipi-dsi ff960000.dsi: final DSI-Link bandwidth: 444 x 4 Mbps
 [    3.127244] panel_simple_prepare: set enable_gpio to 1
 [    3.148334] panel_simple_prepare: set reset_gpio to 1
 [    3.169412] panel_simple_prepare: set reset_gpio to 0
 [    3.190482] panel_simple_prepare: send on_cmds
-[    4.479742] EXT4-fs (mmcblk0p15): VFS: Can't find ext4 filesystem
+[    4.479742] EXT4-fs (mmcblk0p15): VFS: Can&#39;t find ext4 filesystem
 [    4.500230] random: mke2fs_static: uninitialized urandom read (40 bytes read, 30 bits of entropy available)
 [    4.533853] random: mke2fs_static: uninitialized urandom read (16 bytes read, 32 bits of entropy available)
 [    4.533920] random: mke2fs_static: uninitialized urandom read (16 done
 
 bytes read, 32 bits of entropy available)
-Command: &quot;/sbin/recovery&quot; &quot;--wipe_all&quot;
+Command: &#34;/sbin/recovery&#34; &#34;--wipe_all&#34;
 
 
 ro.boottime.adbd=2949208105
@@ -1981,9 +1980,9 @@ Info: [/dev/block/by-name/userdata] Discarding device
 [    6.051543] rk818-bat: changed: dsoc=0, rsoc=0, v=4200, ov=4200 c=0, cap=0, f=7536, st=charge off, hotdie=0
 [    6.051613] rk818-bat: dl=0, rl=0, v=4200, halt=0, halt_n=0, max=0, init=1, sw=0, calib=0, below0=0, force=0
 [    6.057535] audit_printk_skb: 276 callbacks suppressed
-[    6.057559] audit: type=1400 audit(1358499033.273:103): avc:  denied  { read } for  pid=214 comm=&quot;charger&quot; name=&quot;present&quot; dev=&quot;sysfs&quot; ino=15183 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
-[    6.057611] audit: type=1400 audit(1358499033.273:104): avc:  denied  { open } for  pid=214 comm=&quot;charger&quot; path=&quot;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-battery/power_supply/battery/present&quot; dev=&quot;sysfs&quot; ino=15183 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
-[    6.057704] audit: type=1400 audit(1358499033.273:105): avc:  denied  { getattr } for  pid=214 comm=&quot;charger&quot; path=&quot;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-battery/power_supply/battery/present&quot; dev=&quot;sysfs&quot; ino=15183 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[    6.057559] audit: type=1400 audit(1358499033.273:103): avc:  denied  { read } for  pid=214 comm=&#34;charger&#34; name=&#34;present&#34; dev=&#34;sysfs&#34; ino=15183 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[    6.057611] audit: type=1400 audit(1358499033.273:104): avc:  denied  { open } for  pid=214 comm=&#34;charger&#34; path=&#34;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-battery/power_supply/battery/present&#34; dev=&#34;sysfs&#34; ino=15183 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[    6.057704] audit: type=1400 audit(1358499033.273:105): avc:  denied  { getattr } for  pid=214 comm=&#34;charger&#34; path=&#34;/sys/devices/platform/ff650000.i2c/i2c-0/0-001c/rk818-battery/power_supply/battery/present&#34; dev=&#34;sysfs&#34; ino=15183 scontext=u:r:charger:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
 [    6.063344] healthd: battery l=66 v=3888 t=18.8 h=2 st=2 c=1000 fc=7536000 chg=au
 Info: Secure Discarded 0 MB
 [f2fs_init_sit_area: 475] [6CFilling sit area at offset 0x00600000
@@ -2040,7 +2039,7 @@ Info: Overprovision segments = 322 (GC reserved = 166)
 [    9.835901] 
 [    9.841747] android_work: sent uevent USB_STATE=CONFIGURED
 Info: format successful
-[   10.478417] EXT4-fs (mmcblk0p13): VFS: Can't find ext4 filesysE:Failed to mount /cache: Invalid argument
+[   10.478417] EXT4-fs (mmcblk0p13): VFS: Can&#39;t find ext4 filesysE:Failed to mount /cache: Invalid argument
 tem
 Formatting /cache...
 mke2fs 1.43.3 (04-Sep-2016)
@@ -2060,7 +2059,7 @@ Formatting /metadata...
 mke2fs 1.43.3 (04-Sep-2016)
 [   11.132236] audit: type=1400 audit(1358499038.350:106): avc:  /dev/block/by-name/metadata codntains a ext4 file system
 enied  { create }[7Clast mounted on Fri Jan 18 08:5 0:31 2013
-for  pid=237 comm=&quot;mke2fs_static&quot; name=&quot;blkid.tab&quot; scontext=u:r:rec
+for  pid=237 comm=&#34;mke2fs_static&#34; name=&#34;blkid.tab&#34; scontext=u:r:rec
 </code></pre>
   </div>
 </div>
@@ -2068,7 +2067,7 @@ for  pid=237 comm=&quot;mke2fs_static&quot; name=&quot;blkid.tab&quot; scontext=
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -2079,5 +2078,11 @@ for  pid=237 comm=&quot;mke2fs_static&quot; name=&quot;blkid.tab&quot; scontext=
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

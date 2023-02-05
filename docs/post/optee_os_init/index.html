@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -65,13 +64,13 @@ if (!doNotTrack) {
   </div>
   <div class="blog-post-content">
     <h1 id="get-the-source-code">Get the source code</h1>
-<pre><code>git clone https://github.com/OP-TEE/optee_os.git
+<pre tabindex="0"><code>git clone https://github.com/OP-TEE/optee_os.git
 </code></pre><h2 id="how-to-compile">How to Compile</h2>
 <p>The code must be compiled with cross-compiler, I have an quad-A7 SDK from
 Rockchip.</p>
-<pre><code>CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make
+<pre tabindex="0"><code>CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make
 </code></pre><p>The default PLATFORM would be vexpress, in order to select a platform:</p>
-<pre><code>PLATFORM=rockchip CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make
+<pre tabindex="0"><code>PLATFORM=rockchip CROSS_COMPILE=path/to/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi- make
 </code></pre><p>A complete list of platform could be found in <code>core/arch/arm</code>.</p>
 <h1 id="psci-power-state-coordination-interface">PSCI (Power State Coordination Interface)</h1>
 <p>One of the secure firmware is to start/stop/suspend additional cores. PSCI is
@@ -86,20 +85,20 @@ fetch the psci implementation version in the firmware:</p>
 ARM32:</p>
 <p><img src="https://pandysong.github.io/blog/img/psci_suspend.png" alt="psci_version"></p>
 <p>Which is corresponding to the DTS configuration for the psci driver in arm</p>
-<pre><code>    psci {
-        compatible = &quot;arm,psci&quot;;
+<pre tabindex="0"><code>    psci {
+        compatible = &#34;arm,psci&#34;;
         cpu_off = &lt;0x84000002&gt;;
         cpu_on = &lt;0x84000003&gt;;
         cpu_suspend = &lt;0x84000001&gt;;
-        method = &quot;smc&quot;;
+        method = &#34;smc&#34;;
     };
 </code></pre><p>The driver code in <code>arch/arm/kernel/psci.c</code> looks like:</p>
-<pre><code>  void __init psci_init(void)
+<pre tabindex="0"><code>  void __init psci_init(void)
   {
 
     ...
 
-      if (!of_property_read_u32(np, &quot;cpu_suspend&quot;, &amp;id)) {
+      if (!of_property_read_u32(np, &#34;cpu_suspend&#34;, &amp;id)) {
           psci_function_id[PSCI_FN_CPU_SUSPEND] = id;
           psci_ops.cpu_suspend = psci_cpu_suspend;
       }
@@ -107,7 +106,7 @@ ARM32:</p>
   }
 </code></pre><p>The ops is saved in <code>psci_function_id</code>. When needed, we use it to suspend the
 CPU:</p>
-<pre><code>static int psci_cpu_suspend(struct psci_power_state state,
+<pre tabindex="0"><code>static int psci_cpu_suspend(struct psci_power_state state,
                   unsigned long entry_point)
   {
       int err;
@@ -120,15 +119,14 @@ CPU:</p>
   }
 </code></pre><p>This function is saved in global variables <code>psci_ops</code> and used in <code>psci_smp.c</code>
 by the function psci_boot_secondary which is exposed by <code>psci_smp_ops</code>.</p>
-<pre><code>struct smp_operations __initdata psci_smp_ops = {
+<pre tabindex="0"><code>struct smp_operations __initdata psci_smp_ops = {
       .smp_boot_secondary = psci_boot_secondary,
   #ifdef CONFIG_HOTPLUG_CPU
       .cpu_die        = psci_cpu_die,
       .cpu_kill       = psci_cpu_kill,
   #endif
   };
-
-</code></pre><pre><code>__cpu_up -&gt; boot_secondary -&gt; smp_ops.smp_boot_secondary(cpu, idle);
+</code></pre><pre tabindex="0"><code>__cpu_up -&gt; boot_secondary -&gt; smp_ops.smp_boot_secondary(cpu, idle);
 -&gt; rockchip_boot_secondary
 </code></pre>
   </div>
@@ -137,7 +135,7 @@ by the function psci_boot_secondary which is exposed by <code>psci_smp_ops</code
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -148,5 +146,11 @@ by the function psci_boot_secondary which is exposed by <code>psci_smp_ops</code
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,30 +66,29 @@ if (!doNotTrack) {
     <h1 id="introduction">Introduction</h1>
 <p>This describes how the config file in mmcv is converted to models in mmcv</p>
 <h1 id="build_from_cfg">build_from_cfg</h1>
-<pre><code>mmcv/utils/registry.py:9: build_from_cfg
+<pre tabindex="0"><code>mmcv/utils/registry.py:9: build_from_cfg
 
 def build_from_cfg(cfg, registry, default_args=None):
 ...
 
     args = cfg.copy()
 
-    obj_type = args.pop('type')
+    obj_type = args.pop(&#39;type&#39;)
 
     return obj_cls(**args)
-
 </code></pre><p>This function converts a config dictionary to a model.</p>
 <p>This function popes the type from the directory and pass the rest of dict to
-the class defined by the &lsquo;type&rsquo; string.</p>
+the class defined by the &rsquo;type&rsquo; string.</p>
 <p>For example:</p>
 <p>In following config</p>
-<pre><code>model = dict(
-    type='GlidingVertex',
-    pretrained='torchvision://resnet50',
+<pre tabindex="0"><code>model = dict(
+    type=&#39;GlidingVertex&#39;,
+    pretrained=&#39;torchvision://resnet50&#39;,
     backbone=dict(
 ...
 </code></pre><p>type &lsquo;GlidingVertex&rsquo; is the classname, The rest of the parameters are passed to
 the constructor of the class:</p>
-<pre><code>class GlidingVertex(OBBTwoStageDetector):
+<pre tabindex="0"><code>class GlidingVertex(OBBTwoStageDetector):
 
     def __init__(self,
                  backbone,
@@ -111,9 +109,9 @@ the constructor of the class:</p>
 </code></pre><p>Each parameter is defined in the dict of the config.</p>
 <p>The dict converting to keyword argument could be demonstrated by following
 sample python code:</p>
-<pre><code>params = dict(
+<pre tabindex="0"><code>params = dict(
     id=567,
-    name=&quot;123&quot;,
+    name=&#34;123&#34;,
     hello=3)
 
 
@@ -122,20 +120,20 @@ def func_test(name, id):
 
 
 func_test(**params)
-</code></pre><h1 id="same-with-building-backbone-and-other-type">same with building backbone and other &lsquo;type&rsquo;</h1>
-<pre><code>    backbone=dict(
-        type='ResNet',
+</code></pre><h1 id="same-with-building-backbone-and-other-type">same with building backbone and other &rsquo;type&rsquo;</h1>
+<pre tabindex="0"><code>    backbone=dict(
+        type=&#39;ResNet&#39;,
         depth=50,
         num_stages=4,
         out_indices=(0, 1, 2, 3),
         frozen_stages=1,
-        norm_cfg=dict(type='BN', requires_grad=True),
+        norm_cfg=dict(type=&#39;BN&#39;, requires_grad=True),
         norm_eval=True,
-        style='pytorch'),
+        style=&#39;pytorch&#39;),
 </code></pre><p>This is corresponding to</p>
-<pre><code>OBBDetection/mmdet/models/backbones/resnet.py:337
+<pre tabindex="0"><code>OBBDetection/mmdet/models/backbones/resnet.py:337
 </code></pre><p>where parameters are defined</p>
-<pre><code>    Args:
+<pre tabindex="0"><code>    Args:
         depth (int): Depth of resnet, from {18, 34, 50, 101, 152}.
         stem_channels (int): Number of stem channels. Default: 64.
         base_channels (int): Number of base channels of res layer. Default: 64.
@@ -144,7 +142,7 @@ func_test(**params)
         strides (Sequence[int]): Strides of the first block of each stage.
         dilations (Sequence[int]): Dilation of each stage.
         out_indices (Sequence[int]): Output from which stages.
-        style (str): `pytorch` or `caffe`. If set to &quot;pytorch&quot;, the stride-two
+        style (str): `pytorch` or `caffe`. If set to &#34;pytorch&#34;, the stride-two
             layer is the 3x3 conv layer, otherwise the stride-two layer is
             the first 1x1 conv layer.
         deep_stem (bool): Replace 7x7 conv in input stem with 3 3x3 conv
@@ -160,9 +158,9 @@ func_test(**params)
 
             - cfg (dict, required): Cfg dict to build plugin.
             - position (str, required): Position inside block to insert
-              plugin, options are 'after_conv1', 'after_conv2', 'after_conv3'.
+              plugin, options are &#39;after_conv1&#39;, &#39;after_conv2&#39;, &#39;after_conv3&#39;.
             - stages (tuple[bool], optional): Stages to apply plugin, length
-              should be same as 'num_stages'.
+              should be same as &#39;num_stages&#39;.
         with_cp (bool): Use checkpoint or not. Using checkpoint will save some
             memory while slowing down the training speed.
         zero_init_residual (bool): Whether to use zero init for last norm layer
@@ -184,8 +182,8 @@ func_test(**params)
 </code></pre><h1 id="off-cause-same-with-fpn-type">off cause same with &lsquo;FPN&rsquo; type</h1>
 <p>FPN is Feature Pyramid Net. Insteading of get features from Image Pyramid, it
 gets feature pyramid from a single image.</p>
-<pre><code>class FPN(nn.Module):
-    &quot;&quot;&quot;
+<pre tabindex="0"><code>class FPN(nn.Module):
+    &#34;&#34;&#34;
     Feature Pyramid Network.
 
     This is an implementation of - Feature Pyramid Networks for Object
@@ -205,13 +203,13 @@ gets feature pyramid from a single image.</p>
             If str, it specifies the source feature map of the extra convs.
             Only the following options are allowed
 
-            - 'on_input': Last feat map of neck inputs (i.e. backbone feature).
-            - 'on_lateral':  Last feature map after lateral convs.
-            - 'on_output': The last output feature map after fpn convs.
+            - &#39;on_input&#39;: Last feat map of neck inputs (i.e. backbone feature).
+            - &#39;on_lateral&#39;:  Last feature map after lateral convs.
+            - &#39;on_output&#39;: The last output feature map after fpn convs.
         extra_convs_on_inputs (bool, deprecated): Whether to apply extra convs
             on the original feature from the backbone. If True,
-            it is equivalent to `add_extra_convs='on_input'`. If False, it is
-            equivalent to set `add_extra_convs='on_output'`. Default to True.
+            it is equivalent to `add_extra_convs=&#39;on_input&#39;`. If False, it is
+            equivalent to set `add_extra_convs=&#39;on_output&#39;`. Default to True.
         relu_before_extra_convs (bool): Whether to apply relu before the extra
             conv. Default: False.
         no_norm_on_lateral (bool): Whether to apply norm on lateral.
@@ -221,7 +219,7 @@ gets feature pyramid from a single image.</p>
         act_cfg (str): Config dict for activation layer in ConvModule.
             Default: None.
         upsample_cfg (dict): Config dict for interpolate layer.
-            Default: `dict(mode='nearest')`
+            Default: `dict(mode=&#39;nearest&#39;)`
 
     Example:
         &gt;&gt;&gt; import torch
@@ -232,12 +230,12 @@ gets feature pyramid from a single image.</p>
         &gt;&gt;&gt; self = FPN(in_channels, 11, len(in_channels)).eval()
         &gt;&gt;&gt; outputs = self.forward(inputs)
         &gt;&gt;&gt; for i in range(len(outputs)):
-        ...     print(f'outputs[{i}].shape = {outputs[i].shape}')
+        ...     print(f&#39;outputs[{i}].shape = {outputs[i].shape}&#39;)
         outputs[0].shape = torch.Size([1, 11, 340, 340])
         outputs[1].shape = torch.Size([1, 11, 170, 170])
         outputs[2].shape = torch.Size([1, 11, 84, 84])
         outputs[3].shape = torch.Size([1, 11, 43, 43])
-    &quot;&quot;&quot;
+    &#34;&#34;&#34;
 </code></pre>
   </div>
 </div>
@@ -245,7 +243,7 @@ gets feature pyramid from a single image.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -256,5 +254,11 @@ gets feature pyramid from a single image.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

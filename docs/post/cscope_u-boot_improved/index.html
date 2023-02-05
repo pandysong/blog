@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -70,17 +69,17 @@ by u-boot or Linux makefile to build the cscope database. But the disadvantage
 of that approach is that there are duplicated files for the same functions, so
 it is difficult the find a single path for the specific build.</p>
 <p>E.g. in the current build</p>
-<pre><code>pandy@ubuntu:~/u-boot-2018.09$ cat cscope.files | wc -l
+<pre tabindex="0"><code>pandy@ubuntu:~/u-boot-2018.09$ cat cscope.files | wc -l
 5342
 </code></pre><p>The database includes 5K files.</p>
 <h2 id="improvement">Improvement</h2>
 <p>The approach is to limit the files to the ones used in the real build. We use
 the utility <code>readelf</code> to list all the files.</p>
-<pre><code>readelf --string-dump=.debug_str u-boot | sed -n '/\/\|\.c/{s/.*\]  //p}' &gt; cscope.files
+<pre tabindex="0"><code>readelf --string-dump=.debug_str u-boot | sed -n &#39;/\/\|\.c/{s/.*\]  //p}&#39; &gt; cscope.files
 </code></pre><p>This will create a list of files which is used in the compilation and included
 in the elf file.</p>
 <p>Then use following command to create cscope database:</p>
-<pre><code>cscope -bqk
+<pre tabindex="0"><code>cscope -bqk
 </code></pre><p>The advantage of this method is that this method includes only files which are
 used in actual compilation.</p>
 <h2 id="header-files">Header files</h2>
@@ -91,19 +90,19 @@ compilation.</p>
 compilation.</p>
 <p>In u-boot, environment var <code>KCFLAGS</code> could be used to specify customized
 option. Add following environment var:</p>
-<pre><code>export KCFLAGS=-H
+<pre tabindex="0"><code>export KCFLAGS=-H
 </code></pre><p>Prepare for a clean build:</p>
-<pre><code>make clean
+<pre tabindex="0"><code>make clean
 </code></pre><p>Capture all printing:</p>
-<pre><code>make &gt; headers.txt 2&gt;&amp;1
+<pre tabindex="0"><code>make &gt; headers.txt 2&gt;&amp;1
 </code></pre><p>Filter out all header files:</p>
-<pre><code>cat headers.txt  | sed -n 's/.* \(.*\.h\)/\1/p' | sort | uniq &gt; headers_filted_uniq.txt
+<pre tabindex="0"><code>cat headers.txt  | sed -n &#39;s/.* \(.*\.h\)/\1/p&#39; | sort | uniq &gt; headers_filted_uniq.txt
 </code></pre><p>Create cscope.files as usualy:</p>
-<pre><code>readelf --string-dump=.debug_str u-boot | sed -n '/\/\|\.c/{s/.*\]  //p}' &gt; cscope.files
+<pre tabindex="0"><code>readelf --string-dump=.debug_str u-boot | sed -n &#39;/\/\|\.c/{s/.*\]  //p}&#39; &gt; cscope.files
 </code></pre><p>Then add all header files:</p>
-<pre><code>cat headers_filted_uniq.txt &gt;&gt; cscope.files
+<pre tabindex="0"><code>cat headers_filted_uniq.txt &gt;&gt; cscope.files
 </code></pre><p>Finally create cscope database:</p>
-<pre><code>cscope -bqk
+<pre tabindex="0"><code>cscope -bqk
 </code></pre>
   </div>
 </div>
@@ -111,7 +110,7 @@ option. Add following environment var:</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -122,5 +121,11 @@ option. Add following environment var:</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -65,7 +64,7 @@ if (!doNotTrack) {
   </div>
   <div class="blog-post-content">
     <h1 id="how-to">how to</h1>
-<pre><code> wget -r -l1 -A.pdf -A.DSN  target_web.com/target_url
+<pre tabindex="0"><code> wget -r -l1 -A.pdf -A.DSN  target_web.com/target_url
 </code></pre><p><code>-r</code> means <code>recursive</code>
 <code>-l1</code> means recursive depth is 1, &lsquo;-l0&rsquo; means indefinitely</p>
 
@@ -75,7 +74,7 @@ if (!doNotTrack) {
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -86,5 +85,11 @@ if (!doNotTrack) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

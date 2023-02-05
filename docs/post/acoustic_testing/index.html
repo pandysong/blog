@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,7 +65,7 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h1 id="speakerresponsetesting">SpeakerResponseTesting</h1>
 <p><a href="https://www.diyaudioandvideo.com/Tutorial/SpeakerResponseTesting/">https://www.diyaudioandvideo.com/Tutorial/SpeakerResponseTesting/</a></p>
-<pre><code>I don't see anything in any of these tests that would warrant any additional
+<pre tabindex="0"><code>I don&#39;t see anything in any of these tests that would warrant any additional
 modifications to the crossover. Given this is an off-the-shelf speaker that is
 to be expected. Here are some things to look for in speaker testing:
 
@@ -76,7 +75,7 @@ drivers to see if the dip goes away. If the response is louder at the crossover
 point with the polarity reversed then it should probably be reversed.  Any
 other narrow spike (~10dB) (Ex: at the resonant frequency of a tweeter) might
 need to be fixed using a Series Notch Filter.  A wide dB gain in the response
-that corresponds to a single driver's output could be caused by that driver
+that corresponds to a single driver&#39;s output could be caused by that driver
 having a higher sensitivity than the others. This can be resolved with a Driver
 Attenuation Circuit / L-Pad.  Other dB gains over a wide area that are not
 attributed to different driver sensitivities can be resolved using a Parallel
@@ -85,11 +84,11 @@ impedance of the large coil in the crossover at higher frequencies) can be
 fixed with an Impedance Equalization Circuit.  A driver with a rising response
 curve can be resolved with a Contour Network.
 </code></pre><h1 id="what-is-fs-free-air-resonance">What is Fs (free air resonance)</h1>
-<pre><code>The Fs (free air resonance) of the tweeter is at 1000Hz. This is the frequency
+<pre tabindex="0"><code>The Fs (free air resonance) of the tweeter is at 1000Hz. This is the frequency
 at which the tweeter will resonate, and produce a large positive spike in the
 frequency response. A series-notch filter will be used to remove this spike.
 </code></pre><h1 id="heading"></h1>
-<pre><code>A sealed space, or pressure chamber, lifts the low frequencies by 12 dB/octave
+<pre tabindex="0"><code>A sealed space, or pressure chamber, lifts the low frequencies by 12 dB/octave
 below a frequency related to the dimensions of the enclosed volume. With an ear
 canal that is approximately 2 cm long, this magical frequency is located at
 about 5 kHz. With more than five octaves separating the bass range from this
@@ -102,7 +101,7 @@ frequency, imagine the bass boost!
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -113,5 +112,11 @@ frequency, imagine the bass boost!
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

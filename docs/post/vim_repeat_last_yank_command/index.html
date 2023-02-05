@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -65,12 +64,12 @@ if (!doNotTrack) {
   </div>
   <div class="blog-post-content">
     <h1 id="how-to">how to</h1>
-<pre><code>set cpoptions+=y
+<pre tabindex="0"><code>set cpoptions+=y
 </code></pre><p>So for example if we type <code>Ayy</code>, to append the current line to the register a,
 if we now go to next line which we want to append, you could just type dot
 command.</p>
 <h1 id="how-to-append-all-matches-to-register">how to append all matches to register</h1>
-<pre><code>:g/some pattern here/yank A
+<pre tabindex="0"><code>:g/some pattern here/yank A
 </code></pre><p>yank to register a, but since it is A, so it means append to register A.</p>
 
   </div>
@@ -79,7 +78,7 @@ command.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -90,5 +89,11 @@ command.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

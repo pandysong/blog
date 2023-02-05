@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -79,7 +78,7 @@ noise, it applies a little attenuation.</p>
 <h1 id="nonlinear-beamforming">Nonlinear beamforming</h1>
 <p>WebRTC released a beamforming algorithm implementation based on ref[2]. In the
 summary it saids:</p>
-<pre><code>
+<pre tabindex="0"><code>
 Provided are methods and systems for spatially selecting acoustic sources using
 a post-processor that consists of a selection of one postfilter from a set of
 postfilters, or a cascade of postfilters, where each postfilter is optimal for
@@ -88,11 +87,10 @@ gain for each time-frequency bin based on knowledge of (i) a spatial covariance
 matrix for the desired Source, (ii) a spatial covariance matrix for the
 interfering Sources, and (iii) microphone signals in Some neighborhood of the
 current time-frequency bin. 
-
 </code></pre><p>That is to say it has a desired source which is represented by a spatial
 covariance matrix.</p>
 <h2 id="increased-nr-of-mic-is-not-always-helping">increased nr of mic is not always helping</h2>
-<pre><code>
+<pre tabindex="0"><code>
 The lack of robustness in many existing beam forming approaches is generally
 most severe for straightforward optimal procedures such as, for example, the
 minimum variance distortionless response (MVDR) method or the related
@@ -102,7 +100,6 @@ recent approaches reduce beam former robustness problems by explicitly
 accounting for the uncertainty in location of the desired and interfering
 Sources, these existing systems gen erally require a large number of
 microphones for good performance. 
-
 </code></pre><p>The robustness of MVDR is not as good as we expected.</p>
 <h1 id="some-thoughts">Some thoughts</h1>
 <p>In webrtc beamforming algorithm, it uses conventional method to design a set of
@@ -110,7 +107,7 @@ postfilter with predefined gain. Probably we could use RNN on the feature map
 of microphone signals to estimate the gain which should be applied to remove
 the unwanted noise/voice.</p>
 <p>To reduce the complexity, we could use the spectrum spacing scheme in RNNoise:</p>
-<pre><code>We choose to divide the spectrum into the same approximation of the Bark scale
+<pre tabindex="0"><code>We choose to divide the spectrum into the same approximation of the Bark scale
 [12] as the Opus codec [13] uses.
 </code></pre><p>Which is total 22 bands.</p>
 <p>The gain is estimated based of the multiple microphone feature input.</p>
@@ -127,7 +124,7 @@ directon of voice. The output is the gain of total 22 bands.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -138,5 +135,11 @@ directon of voice. The output is the gain of total 22 bands.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -72,36 +71,35 @@ if (!doNotTrack) {
 <p>V to select whole line</p>
 <h1 id="copy-the-internal-command-output-to-buffer">copy the internal command output to buffer</h1>
 <p>This is the workaround:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">:redir @+&gt;
-:set guifont?
-:redir END
-</code></pre></div><p>Now in the reigster &ldquo;+, it is the output of set guifont?.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>:redir @+&gt;
+</span></span><span style="display:flex;"><span>:set guifont?
+</span></span><span style="display:flex;"><span>:redir END
+</span></span></code></pre></div><p>Now in the reigster &ldquo;+, it is the output of set guifont?.
 we can not using &ldquo;+p to paste the register content to buffer.</p>
 <h1 id="excellent-lint-plugin">Excellent Lint Plugin</h1>
 <p>It works out of box as long as the lint tool is available in the system.
 <a href="https://github.com/w0rp/ale">https://github.com/w0rp/ale</a></p>
 <p>config in vim so that we know where the error comes from, as there might be multiple linter in system:</p>
-<pre><code>let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+<pre tabindex="0"><code>let g:ale_echo_msg_format = &#39;[%linter%] %s [%severity%]&#39;
 </code></pre><h1 id="code-search-plugin-using-ag">Code Search Plugin using Ag</h1>
 <p>Inspired by:
 <a href="https://gorillalogic.com/blog/faster-grepping-vim/">https://gorillalogic.com/blog/faster-grepping-vim/</a></p>
 <p>Install Ag first:</p>
 <p>Then add following line into .vimrc</p>
-<pre><code>Plugin 'mileszs/ack.vim'
+<pre tabindex="0"><code>Plugin &#39;mileszs/ack.vim&#39;
 
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
+if executable(&#39;ag&#39;)
+    let g:ackprg = &#39;ag --vimgrep&#39;
 endif
-
 </code></pre><p>Search in all c code:</p>
-<pre><code>Ack --cc SomeVar
+<pre tabindex="0"><code>Ack --cc SomeVar
 </code></pre><p>Search in all go code:</p>
-<pre><code>Ack --go SomeVar
+<pre tabindex="0"><code>Ack --go SomeVar
 </code></pre><h1 id="slimevim">slime.vim</h1>
 <p>The perfact and elegant tool to do repl in tmux (it also support other</p>
 <p><a href="https://github.com/jpalardy/vim-slime">https://github.com/jpalardy/vim-slime</a></p>
 <p>It is also perfect to send the data to another tmux session</p>
-<pre><code>&quot;h:i.j&quot; means the tmux session where h is the session identifier
+<pre tabindex="0"><code>&#34;h:i.j&#34; means the tmux session where h is the session identifier
         (either session name or number), the ith window and the jth pane
 </code></pre><h2 id="find-out-the-pane-number">Find out the pane number</h2>
 <p>press <code>prefix + q</code>, it will shows the pane number in the same window.</p>
@@ -114,7 +112,7 @@ endif
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -125,5 +123,11 @@ endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

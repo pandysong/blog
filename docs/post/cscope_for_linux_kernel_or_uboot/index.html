@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -68,9 +67,9 @@ if (!doNotTrack) {
 <p>Follow the usual instructions on how to build Linux kernel or u-boot until the
 step which does the real <code>make</code>, at this stage you could create scope data by
 typing:</p>
-<pre><code>make cscope
+<pre tabindex="0"><code>make cscope
 </code></pre><p>This will create scope.out, which could be used in vim:</p>
-<pre><code>cs add scope.out
+<pre tabindex="0"><code>cs add scope.out
 </code></pre><p>Then you could use the command defined in the following section to search the
 database and jump around.</p>
 <h1 id="cscope-setup">cscope setup</h1>
@@ -78,7 +77,7 @@ database and jump around.</p>
 u-boot.</p>
 <p>I likes to use <code>cabbrev</code> command:</p>
 <p>Add following lines into your <em>.vimrc</em></p>
-<pre><code>cabbrev fs :cs find s &lt;cword&gt;
+<pre tabindex="0"><code>cabbrev fs :cs find s &lt;cword&gt;
 cabbrev fg :cs find g &lt;cword&gt;
 cabbrev fd :cs find d &lt;cword&gt;
 cabbrev fc :cs find c &lt;cword&gt;
@@ -87,7 +86,7 @@ cabbrev fe :cs find e &lt;cword&gt;
 cabbrev ff :cs find f &lt;cword&gt;
 cabbrev fi :cs find i &lt;cword&gt;
 </code></pre><p>The meaning for each command is as follows (copied from vim helper):</p>
-<pre><code>0 or s: Find this C symbol
+<pre tabindex="0"><code>0 or s: Find this C symbol
 1 or g: Find this definition
 2 or d: Find functions called by this function
 3 or c: Find functions calling this function
@@ -105,13 +104,13 @@ command line as you want.</p>
 <h1 id="other-type-of-database">other type of database</h1>
 <p>In u-boot, other type of database like ctags or etags could be generated.</p>
 <p>Generate ctags database:</p>
-<pre><code>make tags
+<pre tabindex="0"><code>make tags
 </code></pre><p>Or</p>
-<pre><code>make ctags
+<pre tabindex="0"><code>make ctags
 </code></pre><p>Generate etags database:</p>
-<pre><code>make etags
+<pre tabindex="0"><code>make etags
 </code></pre><p>In linux kernel source code, following target are available in Makefile:</p>
-<pre><code>tags TAGS cscope gtags
+<pre tabindex="0"><code>tags TAGS cscope gtags
 </code></pre>
   </div>
 </div>
@@ -119,7 +118,7 @@ command line as you want.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -130,5 +129,11 @@ command line as you want.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

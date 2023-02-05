@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,49 +66,49 @@ if (!doNotTrack) {
     <h1 id="courses">courses</h1>
 <p><a href="https://www.seas.upenn.edu/~cis194/fall16/">https://www.seas.upenn.edu/~cis194/fall16/</a></p>
 <h2 id="exercies-1">Exercies 1</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell"><span style="color:#66d9ef">import</span> CodeWorld
-<span style="color:#66d9ef">import</span> Data.Fixed
-<span style="color:#a6e22e">trafficController</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
-<span style="color:#a6e22e">trafficController</span> t
-    <span style="color:#f92672">|</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">=</span> trafficLight <span style="color:#66d9ef">Green</span>
-    <span style="color:#f92672">|</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">=</span> trafficLight <span style="color:#66d9ef">Amber</span>
-    <span style="color:#f92672">|</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">=</span> trafficLight <span style="color:#66d9ef">Red</span>
-    <span style="color:#f92672">|</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">=</span> trafficLight <span style="color:#66d9ef">RedAmber</span>
-    <span style="color:#66d9ef">where</span> s <span style="color:#f92672">=</span> mod&#39; t <span style="color:#ae81ff">7</span>
-
-<span style="color:#a6e22e">botCircle</span> c <span style="color:#f92672">=</span> colored c (translated <span style="color:#ae81ff">0</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>) (solidCircle <span style="color:#ae81ff">1</span>))
-<span style="color:#a6e22e">midCircle</span> c <span style="color:#f92672">=</span> colored c (translated <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> (solidCircle <span style="color:#ae81ff">1</span>))
-<span style="color:#a6e22e">topCircle</span> c <span style="color:#f92672">=</span> colored c (translated <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2.5</span>  (solidCircle <span style="color:#ae81ff">1</span>))
-
-<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">TrafficState</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Green</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Amber</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Red</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">RedAmber</span>
-<span style="color:#a6e22e">trafficLight</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">TrafficState</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
-<span style="color:#a6e22e">trafficLight</span> <span style="color:#66d9ef">Green</span> <span style="color:#f92672">=</span> botCircle green <span style="color:#f92672">&amp;</span> midCircle black <span style="color:#f92672">&amp;</span> topCircle black <span style="color:#f92672">&amp;</span> frame
-<span style="color:#a6e22e">trafficLight</span> <span style="color:#66d9ef">Amber</span> <span style="color:#f92672">=</span> botCircle black <span style="color:#f92672">&amp;</span> midCircle yellow <span style="color:#f92672">&amp;</span> topCircle black <span style="color:#f92672">&amp;</span> frame
-<span style="color:#a6e22e">trafficLight</span> <span style="color:#66d9ef">Red</span> <span style="color:#f92672">=</span> botCircle black <span style="color:#f92672">&amp;</span> midCircle black <span style="color:#f92672">&amp;</span> topCircle red <span style="color:#f92672">&amp;</span> frame
-<span style="color:#a6e22e">trafficLight</span> <span style="color:#66d9ef">RedAmber</span> <span style="color:#f92672">=</span> botCircle black <span style="color:#f92672">&amp;</span> midCircle yellow <span style="color:#f92672">&amp;</span> topCircle red <span style="color:#f92672">&amp;</span> frame
-
-<span style="color:#a6e22e">frame</span> <span style="color:#f92672">=</span> rectangle <span style="color:#ae81ff">2.5</span> <span style="color:#ae81ff">7.5</span>
-<span style="color:#a6e22e">main</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> ()
-<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> animationOf trafficController
-</code></pre></div><h2 id="exercise-2">Exercise 2</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Haskell" data-lang="Haskell"><span style="color:#66d9ef">import</span> CodeWorld
-<span style="color:#66d9ef">import</span> Data.Fixed
-<span style="color:#a6e22e">tree</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
-<span style="color:#a6e22e">tree</span> <span style="color:#ae81ff">0</span> b <span style="color:#f92672">=</span> b
-<span style="color:#a6e22e">tree</span> n b <span style="color:#f92672">=</span> path [(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)] <span style="color:#f92672">&amp;</span> translated <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> (
-  rotated (pi<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>) (tree (n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) b) <span style="color:#f92672">&amp;</span> rotated (<span style="color:#f92672">-</span> pi<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>) (tree (n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) b))
-
-<span style="color:#a6e22e">blossom</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
-<span style="color:#a6e22e">blossom</span> t <span style="color:#f92672">=</span> colored yellow (solidCircle ( min s (t <span style="color:#f92672">/</span> <span style="color:#ae81ff">10.0</span> <span style="color:#f92672">*</span> s)))
-  <span style="color:#66d9ef">where</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>
-
-<span style="color:#a6e22e">tree_blossom</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
-<span style="color:#a6e22e">tree_blossom</span> t <span style="color:#f92672">=</span> tree <span style="color:#ae81ff">8</span> (blossom t)
-<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> animationOf (tree_blossom)
-</code></pre></div><h1 id="which-applicaton-is-applicable-of-using-haskell">Which applicaton is applicable of using Haskell?</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> CodeWorld
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> Data.Fixed
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">trafficController</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">trafficController</span> t
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">|</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">=</span> trafficLight <span style="color:#66d9ef">Green</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">|</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">=</span> trafficLight <span style="color:#66d9ef">Amber</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">|</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">=</span> trafficLight <span style="color:#66d9ef">Red</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">|</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">=</span> trafficLight <span style="color:#66d9ef">RedAmber</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">where</span> s <span style="color:#f92672">=</span> mod&#39; t <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">botCircle</span> c <span style="color:#f92672">=</span> colored c (translated <span style="color:#ae81ff">0</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>) (solidCircle <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">midCircle</span> c <span style="color:#f92672">=</span> colored c (translated <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> (solidCircle <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">topCircle</span> c <span style="color:#f92672">=</span> colored c (translated <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2.5</span>  (solidCircle <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">TrafficState</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Green</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Amber</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Red</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">RedAmber</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">trafficLight</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">TrafficState</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">trafficLight</span> <span style="color:#66d9ef">Green</span> <span style="color:#f92672">=</span> botCircle green <span style="color:#f92672">&amp;</span> midCircle black <span style="color:#f92672">&amp;</span> topCircle black <span style="color:#f92672">&amp;</span> frame
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">trafficLight</span> <span style="color:#66d9ef">Amber</span> <span style="color:#f92672">=</span> botCircle black <span style="color:#f92672">&amp;</span> midCircle yellow <span style="color:#f92672">&amp;</span> topCircle black <span style="color:#f92672">&amp;</span> frame
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">trafficLight</span> <span style="color:#66d9ef">Red</span> <span style="color:#f92672">=</span> botCircle black <span style="color:#f92672">&amp;</span> midCircle black <span style="color:#f92672">&amp;</span> topCircle red <span style="color:#f92672">&amp;</span> frame
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">trafficLight</span> <span style="color:#66d9ef">RedAmber</span> <span style="color:#f92672">=</span> botCircle black <span style="color:#f92672">&amp;</span> midCircle yellow <span style="color:#f92672">&amp;</span> topCircle red <span style="color:#f92672">&amp;</span> frame
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">frame</span> <span style="color:#f92672">=</span> rectangle <span style="color:#ae81ff">2.5</span> <span style="color:#ae81ff">7.5</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> ()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> animationOf trafficController
+</span></span></code></pre></div><h2 id="exercise-2">Exercise 2</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haskell" data-lang="Haskell"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> CodeWorld
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> Data.Fixed
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tree</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tree</span> <span style="color:#ae81ff">0</span> b <span style="color:#f92672">=</span> b
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tree</span> n b <span style="color:#f92672">=</span> path [(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)] <span style="color:#f92672">&amp;</span> translated <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> (
+</span></span><span style="display:flex;"><span>  rotated (pi<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>) (tree (n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) b) <span style="color:#f92672">&amp;</span> rotated (<span style="color:#f92672">-</span> pi<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>) (tree (n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) b))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">blossom</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">blossom</span> t <span style="color:#f92672">=</span> colored yellow (solidCircle ( min s (t <span style="color:#f92672">/</span> <span style="color:#ae81ff">10.0</span> <span style="color:#f92672">*</span> s)))
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">where</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tree_blossom</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Picture</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tree_blossom</span> t <span style="color:#f92672">=</span> tree <span style="color:#ae81ff">8</span> (blossom t)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> animationOf (tree_blossom)
+</span></span></code></pre></div><h1 id="which-applicaton-is-applicable-of-using-haskell">Which applicaton is applicable of using Haskell?</h1>
 <p>Haskell is for sure not suitable for embedded application, but where it is most suitable?</p>
 <p>Following paper may give some idea:</p>
-<p><a href="http://www.starling-software.com/misc/icfp-2009-cjs.pdf">www.starling-software.com/misc/icfp-2009-cjs.pdf</a></p>
+<p><a href="https://www.starling-software.com/misc/icfp-2009-cjs.pdf">www.starling-software.com/misc/icfp-2009-cjs.pdf</a></p>
 <p>In short, in finnacial applications, where</p>
 <ul>
 <li>algorithm is complex and the language should be more <code>expressive</code></li>
@@ -161,7 +160,7 @@ if (!doNotTrack) {
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -172,5 +171,11 @@ if (!doNotTrack) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

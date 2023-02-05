@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -85,7 +84,7 @@ which is using the buffer. The producer could dequeue the buffer but have to
 wait for the fence to be signaled before it could actually overwritten the
 buffer.</p>
 <p>See following description in <em>frameworks/native/include/gui/ConsumerBase.h</em></p>
-<pre><code>        // mFence is a fence which will signal when the buffer associated with
+<pre tabindex="0"><code>        // mFence is a fence which will signal when the buffer associated with
         // this buffer slot is no longer being used by the consumer and can be
         // overwritten. The buffer can be dequeued before the fence signals;
         // the producer is responsible for delaying writes until it signals.
@@ -93,7 +92,7 @@ buffer.</p>
 </code></pre><h2 id="how-it-works">How it works</h2>
 <p>When a consumer <code>acquireBuffer()</code>, it will also copy/get the fence that in the
 future it could wait on.</p>
-<pre><code>
+<pre tabindex="0"><code>
 status_t ConsumerBase::acquireBufferLocked(BufferItem *item,
         nsecs_t presentWhen, uint64_t maxFrameNumber) {
 ...
@@ -104,7 +103,6 @@ status_t ConsumerBase::acquireBufferLocked(BufferItem *item,
     mSlots[item-&gt;mSlot].mFence = item-&gt;mFence;
 ...
 }
-
 </code></pre><p>Above code acquire a buffer from buffer queue and save the fence</p>
 
   </div>
@@ -113,7 +111,7 @@ status_t ConsumerBase::acquireBufferLocked(BufferItem *item,
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -124,5 +122,11 @@ status_t ConsumerBase::acquireBufferLocked(BufferItem *item,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

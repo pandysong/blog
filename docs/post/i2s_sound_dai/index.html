@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -76,19 +75,19 @@ driver. The I2S driver is in the same postion of Host Driver while Codec driver
 is of panel driver.</p>
 <h1 id="how-these-two-drivers-are-bound-together">How these two drivers are bound together</h1>
 <p>The &ldquo;simple-audio-card&rdquo; driver will associate the two DAI together:</p>
-<pre><code> rk809_sound: rk809-sound {
-     compatible = &quot;simple-audio-card&quot;;
-     simple-audio-card,format = &quot;i2s&quot;;
-     simple-audio-card,name = &quot;rockchip,rk809-codec&quot;;
+<pre tabindex="0"><code> rk809_sound: rk809-sound {
+     compatible = &#34;simple-audio-card&#34;;
+     simple-audio-card,format = &#34;i2s&#34;;
+     simple-audio-card,name = &#34;rockchip,rk809-codec&#34;;
      simple-audio-card,mclk-fs = &lt;256&gt;;
      simple-audio-card,widgets =
-         &quot;Microphone&quot;, &quot;Mic Jack&quot;,
-         &quot;Headphone&quot;, &quot;Headphone Jack&quot;;
+         &#34;Microphone&#34;, &#34;Mic Jack&#34;,
+         &#34;Headphone&#34;, &#34;Headphone Jack&#34;;
      simple-audio-card,routing =
-         &quot;Mic Jack&quot;, &quot;MICBIAS1&quot;,
-         &quot;IN1P&quot;, &quot;Mic Jack&quot;,
-         &quot;Headphone Jack&quot;, &quot;HPOL&quot;,
-         &quot;Headphone Jack&quot;, &quot;HPOR&quot;;
+         &#34;Mic Jack&#34;, &#34;MICBIAS1&#34;,
+         &#34;IN1P&#34;, &#34;Mic Jack&#34;,
+         &#34;Headphone Jack&#34;, &#34;HPOL&#34;,
+         &#34;Headphone Jack&#34;, &#34;HPOR&#34;;
      simple-audio-card,cpu {
          sound-dai = &lt;&amp;i2s0_8ch&gt;;
      };
@@ -99,7 +98,7 @@ is of panel driver.</p>
 </code></pre><p>So this sound card contains (logically) two DAI:</p>
 <p>the cpu dai &ldquo;i2s0_8ch&rdquo; and &ldquo;rk809_codec&rdquo; the external codec.</p>
 <p>During sound card startup, the cpu dai&rsquo;s clock is firstly enabled.</p>
-<pre><code>static int asoc_simple_card_startup(struct snd_pcm_substream *substream)
+<pre tabindex="0"><code>static int asoc_simple_card_startup(struct snd_pcm_substream *substream)
 {
     struct snd_soc_pcm_runtime *rtd = substream-&gt;private_data;
     struct simple_card_data *priv = snd_soc_card_get_drvdata(rtd-&gt;card);
@@ -118,14 +117,14 @@ is of panel driver.</p>
     return ret;
 }
 </code></pre><p>The cpu dai&rsquo;s clock is set via DTS.  clocks and clock-names are used.</p>
-<pre><code> i2s0_8ch: i2s@ff800000 {
-     compatible = &quot;rockchip,rv1126-i2s-tdm&quot;;
+<pre tabindex="0"><code> i2s0_8ch: i2s@ff800000 {
+     compatible = &#34;rockchip,rv1126-i2s-tdm&#34;;
 ...
      clocks = &lt;&amp;cru MCLK_I2S0_TX&gt;, &lt;&amp;cru MCLK_I2S0_RX&gt;, &lt;&amp;cru HCLK_I2S0&gt;;
-     clock-names = &quot;mclk_tx&quot;, &quot;mclk_rx&quot;, &quot;hclk&quot;;
+     clock-names = &#34;mclk_tx&#34;, &#34;mclk_rx&#34;, &#34;hclk&#34;;
 ...
  };
-</code></pre><pre><code>rockchip_i2s_hw_params
+</code></pre><pre tabindex="0"><code>rockchip_i2s_hw_params
 </code></pre>
   </div>
 </div>
@@ -133,7 +132,7 @@ is of panel driver.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -144,5 +143,11 @@ is of panel driver.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -67,7 +66,7 @@ if (!doNotTrack) {
     <h1 id="issue-1-graphic-issue">Issue 1: Graphic Issue</h1>
 <p>The same one as &ldquo;<a href="https://askubuntu.com/questions/881608/ubuntu-16-10-with-multiple-graphics-issues-on-atom-intel%22">https://askubuntu.com/questions/881608/ubuntu-16-10-with-multiple-graphics-issues-on-atom-intel&quot;</a></p>
 <p>The solution mentioned in the post actually works:</p>
-<pre><code>sudo apt-get install tasksel
+<pre tabindex="0"><code>sudo apt-get install tasksel
 sudo tasksel
 </code></pre><p>Select Xubunut-Deskop and then OK, it will install new desktop applications.</p>
 <p>Once reboot, it should work.</p>
@@ -75,9 +74,9 @@ sudo tasksel
 <p>One could use &ldquo;Ctrl+Alt+Fn&rdquo; to switch to console mode, so that changes to the
 system could be done.</p>
 <p>For example to change the grub configuration:</p>
-<pre><code>sudo vim /etc/default/grub
+<pre tabindex="0"><code>sudo vim /etc/default/grub
 </code></pre><h1 id="show-the-graphic-device-and-driver">show the graphic device and driver</h1>
-<pre><code>lspci -k | grep -EA3 'VGA|3D|Display'
+<pre tabindex="0"><code>lspci -k | grep -EA3 &#39;VGA|3D|Display&#39;
 </code></pre>
   </div>
 </div>
@@ -85,7 +84,7 @@ system could be done.</p>
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -96,5 +95,11 @@ system could be done.</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 

@@ -27,7 +27,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body>
       <div class="container-fluid">
@@ -66,7 +65,7 @@ if (!doNotTrack) {
   <div class="blog-post-content">
     <h1 id="introduction">Introduction</h1>
 <p>When following back trace is seen, how to debug it?</p>
-<pre><code>[    4.877849] [&lt;c05f563c&gt;] (sensor_probe+0x314/0xcfc) from [&lt;c05fe870&gt;] (i2c_device_probe+0xa8/0xd4)
+<pre tabindex="0"><code>[    4.877849] [&lt;c05f563c&gt;] (sensor_probe+0x314/0xcfc) from [&lt;c05fe870&gt;] (i2c_device_probe+0xa8/0xd4)
 [    4.886672] [&lt;c05fe870&gt;] (i2c_device_probe+0xa8/0xd4) from [&lt;c0355550&gt;] (really_probe+0xa8/0x20c)
 [    4.895403] [&lt;c0355550&gt;] (really_probe+0xa8/0x20c) from [&lt;c03557ac&gt;] (driver_probe_device+0x30/0x48)
 [    4.904395] [&lt;c03557ac&gt;] (driver_probe_device+0x30/0x48) from [&lt;c0355824&gt;] (__driver_attach+0x60/0x84)
@@ -75,7 +74,7 @@ if (!doNotTrack) {
 </code></pre><p>The problem here is how to find the line number according to the address</p>
 <h1 id="uses-addr2line">uses addr2line</h1>
 <p>Following command will print the line number for the specific address:</p>
-<pre><code>addr2line -a c05f563c -e vmlinux
+<pre tabindex="0"><code>addr2line -a c05f563c -e vmlinux
 </code></pre>
   </div>
 </div>
@@ -83,7 +82,7 @@ if (!doNotTrack) {
       <footer>
         <hr>
         <small>
-          &copy; 2022 Pandy Song.
+          &copy; 2023 Pandy Song.
           Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
         </small>
       </footer>
@@ -94,5 +93,11 @@ if (!doNotTrack) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
 </html>
 
