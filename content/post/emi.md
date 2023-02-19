@@ -1,3 +1,9 @@
+---
+date: 2019-09-28
+title: about EMI (Chinese)
+weight: 10
+---
+
 # 单独的地层
 
 如果已经有“地”层，那么包地起不到什么作用
