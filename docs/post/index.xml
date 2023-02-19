@@ -334,6 +334,17 @@ This is the notes on reading LPRNet.
     </item>
     
     <item>
+      <title>Platform Driver</title>
+      <link>https://pandysong.github.io/blog/post/platform_driver/</link>
+      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/platform_driver/</guid>
+      <description>What is a Platform Device? in Kernel document kernel/Documentation/i2c/instantiating-devices:
+  Unlike PCI or USB devices, I2C devices are not enumerated at the hardware level (at run time). Instead, the software must know (at compile time) which devices are connected on each I2C bus segment. So USB and PCI are not platform devices.
+  </description>
+    </item>
+    
+    <item>
       <title>Sound Card Driver</title>
       <link>https://pandysong.github.io/blog/post/i2s_sound_dai/</link>
       <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
@@ -1481,17 +1492,6 @@ Convert Types To convert a data item from one type to another, we can use the sy
       
       <guid>https://pandysong.github.io/blog/post/books/</guid>
       <description>C book Algorithms\ in\ C\ [Sedgewick\ 1990-01-01]</description>
-    </item>
-    
-    <item>
-      <title>Platform Driver</title>
-      <link>https://pandysong.github.io/blog/post/platform_driver/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://pandysong.github.io/blog/post/platform_driver/</guid>
-      <description>What is a Platform Device? in Kernel document kernel/Documentation/i2c/instantiating-devices:
-  Unlike PCI or USB devices, I2C devices are not enumerated at the hardware level (at run time). Instead, the software must know (at compile time) which devices are connected on each I2C bus segment. So USB and PCI are not platform devices.
-  </description>
     </item>
     
     <item>
