@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Pandy&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://pandysong.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>using repo to manage official sdk from vendor and local development repo</title>
+      <link>https://pandysong.github.io/blog/post/using_repo_to_manage_sdk_and_local_development_repo/</link>
+      <pubDate>Sat, 18 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/using_repo_to_manage_sdk_and_local_development_repo/</guid>
+      <description>Introduction You just get a new SDK from your vendor via repo command from vendor&amp;rsquo;s server. You have started a new project based on this SDK. However since it is not possible to push your code changes to your supplier, you have to have a local mirror (That could be done by changing the manifests.xml). But you also want to track the new updates from your vendor, how to get update from your vendor as well as maintain a local copies?</description>
+    </item>
+    
     <item>
       <title>openwrt source code reading - uhttpd</title>
       <link>https://pandysong.github.io/blog/post/uhttpd/</link>
@@ -728,15 +737,6 @@ project-objects projects
 How these are organized?
 Basically in projects, the layout is same as the one for the working directory, the project-objects layout is same as the files in the remote server.
 While in the working directory for each project, as usual for git repository, there is a .git directory, which basically has bunch of symbol link to project-objects and projects directory.</description>
-    </item>
-    
-    <item>
-      <title>using repo to manage official sdk from vendor and local development repo</title>
-      <link>https://pandysong.github.io/blog/post/using_repo_to_manage_sdk_and_local_development_repo/</link>
-      <pubDate>Sun, 25 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pandysong.github.io/blog/post/using_repo_to_manage_sdk_and_local_development_repo/</guid>
-      <description>Introduction You just get a new SDK from your vendor via repo command from vendor&amp;rsquo;s server. You have started a new project based on this SDK. However since it is not possible to push your code changes to your supplier, you have to have a local mirror (That could be done by changing the manifests.xml). But you also want to track the new updates from your vendor, how to get update from your vendor as well as maintain a local copies?</description>
     </item>
     
     <item>
