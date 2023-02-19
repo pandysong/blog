@@ -5,6 +5,9 @@
     <loc>https://pandysong.github.io/blog/post/uhttpd/</loc>
     <lastmod>2023-02-04T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://pandysong.github.io/blog/post/run_uhttpd_on_ubuntu/</loc>
+    <lastmod>2023-02-04T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://pandysong.github.io/blog/post/wechat_audio_dec/</loc>
     <lastmod>2022-09-28T00:00:00+00:00</lastmod>
   </url><url>
@@ -192,6 +195,9 @@
     <lastmod>2019-08-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://pandysong.github.io/blog/post/understanding_android_repo/</loc>
+    <lastmod>2019-08-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://pandysong.github.io/blog/post/using_repo_to_manage_sdk_and_local_development_repo/</loc>
     <lastmod>2019-08-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://pandysong.github.io/blog/post/vim-folded-feature-on-dts/</loc>

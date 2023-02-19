@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>openwrt uhttpd - run it on ubuntu</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>openwrt uhttpd - run it on ubuntu</h1>
+  <div class="blog-post-subheader">
+    <time>04 Feb 2023</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="run-uhttpd-on-ubuntu">run uhttpd on ubuntu</h1>
+<p>For development purpose or for debuging purpose, it might be interesting to run
+it on ubuntu or any other PC linux environments.</p>
+<h1 id="prerequisite">prerequisite</h1>
+<h1 id="install-lua51">install lua5.1</h1>
+<pre tabindex="0"><code>sudo apt install lua5.1
+sudo apt install lua5.1-0-dev
+</code></pre><h1 id="libubox">libubox</h1>
+<p>For generic information, refer to <a href="https://openwrt.org/docs/techref/libubox">https://openwrt.org/docs/techref/libubox</a></p>
+<p>It provides basic infrastructures for higher level application:</p>
+<p>Clone the following code and build it:
+<a href="https://git.openwrt.org/project/libubox.git">https://git.openwrt.org/project/libubox.git</a></p>
+<pre tabindex="0"><code>cd libubox
+mkdir build
+cd build
+cmake ../
+make
+sudo make install
+</code></pre><h1 id="ubus">ubus</h1>
+<p><a href="https://git.openwrt.org/project/ubus.git">https://git.openwrt.org/project/ubus.git</a></p>
+<p>similar to libubox:</p>
+<pre tabindex="0"><code>mkdir build
+cd build
+cmake ../
+make
+sudo make install
+</code></pre><h1 id="openssl-111o">openssl-1.1.1o</h1>
+<pre tabindex="0"><code>./config
+make
+sudo make intall
+</code></pre><h1 id="ustream-ssl">ustream-ssl</h1>
+<p><a href="https://git.openwrt.org/project/ustream-ssl.git">https://git.openwrt.org/project/ustream-ssl.git</a></p>
+<pre tabindex="0"><code>mkdir build
+cd build
+cmake ../
+make
+sudo make install
+</code></pre><h1 id="build-uhttpd">build uhttpd</h1>
+<p>Turn off ucode for simplicity:</p>
+<pre tabindex="0"><code>mkdir build
+cd build
+cmake ../ -DUCODE_SUPPORT=off
+</code></pre><h1 id="run-the-uhttpd">run the uhttpd</h1>
+<pre tabindex="0"><code>./uhttpd -c ../../httpd.conf  -p 0.0.0.0:8090 -h ../../www/
+</code></pre><p>Now in the same mach, a http request could be issue</p>
+<pre tabindex="0"><code>wget 127.0.0.1:8090
+</code></pre><p>This will return the index.html in ../../www/ folder.</p>
+<h1 id="lua-support-in-details">lua support in details</h1>
+<p>each server has one lua_prefix, with this url prefix, it will be handled by the
+corresponding lua_handler:</p>
+<pre tabindex="0"><code>uhttpd/main.c:500: add_lua_prefix
+</code></pre><p>Note that in main.c it allows only one handler, but in the supporting function,
+it allows multiple handlers with multiple url as a list of lua prefix are built
+in the linked-list conf.lua_prefix.</p>
+<p>During uhttpd bootup, for each prefix, <code>uh_lua_state_init</code> is called, to
+initialize the running environments:</p>
+<p>In each environment, the C function is added to the running-time of lua:</p>
+<pre tabindex="0"><code> lua_pushcfunction(L, uh_lua_send);
+ lua_setfield(L, -2, &#34;send&#34;);
+</code></pre><p>above function add the lh_lua_send c code to lua environment and named it as
+&ldquo;send&rdquo; which will be called in lua script. Similar to &ldquo;uh_lua_recv&rdquo;,
+&ldquo;uh_lua_urldecode&rdquo;, &ldquo;urlencode&rdquo;, and global string &ldquo;docroot&rdquo;</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2023 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
+</html>
+

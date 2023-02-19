@@ -20,6 +20,19 @@ void uh_plugin_post_init(void) { struct uhttpd_plugin *p; list_for_each_entry(p,
     </item>
     
     <item>
+      <title>openwrt uhttpd - run it on ubuntu</title>
+      <link>https://pandysong.github.io/blog/post/run_uhttpd_on_ubuntu/</link>
+      <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/run_uhttpd_on_ubuntu/</guid>
+      <description>run uhttpd on ubuntu For development purpose or for debuging purpose, it might be interesting to run it on ubuntu or any other PC linux environments.
+prerequisite install lua5.1 sudo apt install lua5.1 sudo apt install lua5.1-0-dev libubox For generic information, refer to https://openwrt.org/docs/techref/libubox
+It provides basic infrastructures for higher level application:
+Clone the following code and build it: https://git.openwrt.org/project/libubox.git
+cd libubox mkdir build cd build cmake ../ make sudo make install ubus https://git.</description>
+    </item>
+    
+    <item>
       <title>Wechat Audio Decode</title>
       <link>https://pandysong.github.io/blog/post/wechat_audio_dec/</link>
       <pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate>
@@ -715,6 +728,15 @@ project-objects projects
 How these are organized?
 Basically in projects, the layout is same as the one for the working directory, the project-objects layout is same as the files in the remote server.
 While in the working directory for each project, as usual for git repository, there is a .git directory, which basically has bunch of symbol link to project-objects and projects directory.</description>
+    </item>
+    
+    <item>
+      <title>using repo to manage official sdk from vendor and local development repo</title>
+      <link>https://pandysong.github.io/blog/post/using_repo_to_manage_sdk_and_local_development_repo/</link>
+      <pubDate>Sun, 25 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pandysong.github.io/blog/post/using_repo_to_manage_sdk_and_local_development_repo/</guid>
+      <description>Introduction You just get a new SDK from your vendor via repo command from vendor&amp;rsquo;s server. You have started a new project based on this SDK. However since it is not possible to push your code changes to your supplier, you have to have a local mirror (That could be done by changing the manifests.xml). But you also want to track the new updates from your vendor, how to get update from your vendor as well as maintain a local copies?</description>
     </item>
     
     <item>

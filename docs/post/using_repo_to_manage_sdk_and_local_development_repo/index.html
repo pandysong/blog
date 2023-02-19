@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+        <title>using repo to manage official sdk from vendor and local development repo</title>
+
+        <link rel="stylesheet" href="https://pandysong.github.io/blog/css/stylesheet.css">
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-131168379-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body>
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-light">
+
+          
+          <span class="navbar-brand mb-0 h1"></span>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation" name="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/">Home</a>
+              <a class="nav-item nav-link" href="https://github.com/pandysong" target="_blank">GitHub</a>
+              
+              <a class="nav-item nav-link " href="https://pandysong.github.io/blog/about/">About</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="page-title">
+          <h1><a href="https://pandysong.github.io/blog/">Pandy&#39;s Blog</a></h1>
+          <span id="author-name">
+            <h6><a href="https://pandysong.github.io/blog/about/">Pandy Song</a></h6>
+          </span>
+        </section>
+
+
+<div class="blog-post">
+  <h1>using repo to manage official sdk from vendor and local development repo</h1>
+  <div class="blog-post-subheader">
+    <time>25 Aug 2019</time>
+  </div>
+  <div class="blog-post-content">
+    <h1 id="introduction">Introduction</h1>
+<p>You just get a new SDK from your vendor via repo command from vendor&rsquo;s server.
+You have started a new project based on this SDK. However since it is not
+possible to push your code changes to your supplier, you have to have a local
+mirror (That could be done by changing the manifests.xml). But you also want to
+track the new updates from your vendor, how to get update from your vendor as
+well as maintain a local copies?</p>
+<p>This post explains how.</p>
+<p>TLDR: it is possible to accomplish this by using multiple git remote and
+&ldquo;repo&rdquo;&rsquo;s command &ldquo;repo init -b <!-- raw HTML omitted -->&rdquo;.</p>
+<h1 id="get-the-sdk-from-your-supplier">Get the SDK from your supplier</h1>
+<p>For demo purpose, I have created a manifests on github.</p>
+<pre tabindex="0"><code>repo init -u git@github.com:pandysong/repo_test_manifests.git -b master -m door_phone.xml
+</code></pre><p>For whom has difficulties to access the google server add following before repo
+command:</p>
+<pre tabindex="0"><code>REPO_URL=&#39;https://mirrors.tuna.tsinghua.edu.cn/git/git-repo&#39; repo init -u git@github.com:pandysong/repo_test_manifests.git -b master -m door_phone.xml
+</code></pre><p>sync the projects:</p>
+<pre tabindex="0"><code>repo sync
+</code></pre><h1 id="start-your-development">Start your development</h1>
+<p>Now you have the SDK ready for your own product development.</p>
+<p>You want to change the code in &ldquo;repo_test_sdk_project_a&rdquo;. You check the remote
+of this repo and find that the remote is &ldquo;SDK&rdquo;.</p>
+<pre tabindex="0"><code>repo_test_sdk_project_a$ git remote -v
+sdk     ssh://git@github.com/pandysong/repo_test_sdk_project_a.git (fetch)
+sdk     ssh://git@github.com/pandysong/repo_test_sdk_project_a.git (push)
+</code></pre><p>Of case you could not push to remote &ldquo;sdk&rdquo; because it is on your supplier&rsquo;s server.</p>
+<p>So you need to create a repository. For demo purpose: I create a repo on my
+local disk (instead of creating on a server):</p>
+<pre tabindex="0"><code>~/temp/repo_test/repo_test_sdk_project_a$ git init --bare
+</code></pre><p>Now add an additional remote to this project:</p>
+<pre tabindex="0"><code>repo_test_sdk_project_a$ git remote add idh /home/pandy/temp/repo_test/repo_test_sdk_project_a/
+repo_test_sdk_project_a$ git remote -v
+idh     /home/pandy/temp/repo_test_sdk_project_a.git (fetch)
+idh     /home/pandy/temp/repo_test_sdk_project_a.git (push)
+sdk     ssh://git@github.com/pandysong/repo_test_sdk_project_a.git (fetch)
+sdk     ssh://git@github.com/pandysong/repo_test_sdk_project_a.git (push)
+</code></pre><p>Now push the all the code to your own repo</p>
+<pre tabindex="0"><code>repo_test_sdk_project_a$ git checkout master
+repo_test_sdk_project_a$ git push idh master
+</code></pre><p>Now you start the actual development and add some file to this repository.</p>
+<pre tabindex="0"><code>touch file_added_by_idh.txt
+git checkout -b door_phone_dev
+git add file_added_by_idh.txt
+git commit -m &#34;file added for idh door phone project&#34;
+git remote -v
+git push idh door_phone_dev
+</code></pre><p>You could now get a new manifests.xml from the current working directies:</p>
+<h1 id="create-a-local-xml">create a local xml</h1>
+<pre tabindex="0"><code>repo manifest -r -o door_phone.xml
+</code></pre><p>Using this new door_phone.xml to overwrite the original one.</p>
+<pre tabindex="0"><code>cp door_phone.xml .repo/manifests/door_phone.xml
+</code></pre><p>We need to manually edit the door_phone.xml to have multiple remote</p>
+<pre tabindex="0"><code>diff --git a/door_phone.xml b/door_phone.xml
+index 0c40d9e..fc1aed7 100644
+--- a/door_phone.xml
++++ b/door_phone.xml
+@@ -1,9 +1,10 @@
+ &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+ &lt;manifest&gt;
+   &lt;remote fetch=&#34;ssh://git@github.com&#34; name=&#34;sdk&#34;/&gt;
++  &lt;remote fetch=&#34;/home/pandy/temp/&#34; name=&#34;idh&#34;/&gt;
+
+   &lt;default remote=&#34;sdk&#34; sync-j=&#34;4&#34;/&gt;
+
+-  &lt;project name=&#34;pandysong/repo_test_sdk_project_a.git&#34; path=&#34;repo_test_sdk_project_a&#34; revision=&#34;cee3730e491d3f81f865660deb39205e6622723f&#34; upstream=&#34;master&#34;/&gt;
++  &lt;project name=&#34;repo_test_sdk_project_a.git&#34; path=&#34;repo_test_sdk_project_a&#34; revision=&#34;19ed9158622d83a4952f3d7298526f7f44e3e6a4&#34; upstream=&#34;door_phone_dev&#34; remote=&#34;idh&#34;/&gt;
+   &lt;project name=&#34;pandysong/repo_test_sdk_project_b.git&#34; path=&#34;repo_test_sdk_project_b&#34; revision=&#34;132a25ac3e64a25dbfb66ee7bb472fb97fff2a02&#34; upstream=&#34;master&#34;/&gt;
+ &lt;/manifest&gt;
+</code></pre><p>Since this manifests is for our local usage, we need to create a local
+repository for the local development.</p>
+<p>For demo purpose we create a bare git repo in the local disk</p>
+<pre tabindex="0"><code>mkdir manifests_idh.git
+cd manifests_idh.git/
+git init --bare
+</code></pre><p>Add this remote to manifests:</p>
+<pre tabindex="0"><code>git remote add idh /home/pandy/temp/manifests_idh.git
+git remote -v
+</code></pre><pre tabindex="0"><code>idh     /home/pandy/temp/manifests_idh.git (fetch)
+idh     /home/pandy/temp/manifests_idh.git  (push)
+origin  git@github.com:pandysong/repo_test_manifests.git (fetch)
+origin  git@github.com:pandysong/repo_test_manifests.git (push)
+</code></pre><p>Edit the door_phone.xml file to crate</p>
+<p>Create a development branch:</p>
+<pre tabindex="0"><code>git checkout -b door_phone_dev
+git add -u
+git commit -m &#34;door phone dev: add some code on repo_test_sdk_project_a&#34;
+git push idh door_phone_dev
+git push idh master
+</code></pre><h1 id="use-the-local-manifests_idh-to-manage-the-development">use the local manifests_idh to manage the development</h1>
+<pre tabindex="0"><code>repo init -b door_phone_dev -u /home/pandy/temp/manifests_idh.git/ -m door_phone.xml
+</code></pre><p>Now you could switch to SDK release by</p>
+<pre tabindex="0"><code>repo init -b master -m door_phone.xml
+</code></pre><p>Or you could use the switch to development branch</p>
+<pre tabindex="0"><code>repo init -b door_phone_dev -m door_phone.xml
+</code></pre><p>After switching, remember to sync:</p>
+<pre tabindex="0"><code>repo sync
+</code></pre><p>In the modified project, you could find two remotes:</p>
+<pre tabindex="0"><code>repo_test_sdk_project_a$ git remote -v
+idh     /home/pandy/temp/repo_test_sdk_project_a.git (fetch)
+idh     /home/pandy/temp/repo_test_sdk_project_a.git (push)
+sdk     ssh://git@github.com/pandysong/repo_test_sdk_project_a.git (fetch)
+sdk     ssh://git@github.com/pandysong/repo_test_sdk_project_a.git (push)
+</code></pre><h1 id="make-a-release">make a release</h1>
+<p>Once a phase of development is done, you may want to make a release.  Use the
+following command to make a snapshot of all git repository.</p>
+<pre tabindex="0"><code>repo manifest -r -o door_phone.xml
+</code></pre><p>If you have several tags on the door_phone_dev branch, and want to go back to
+some specific hash. Just checkout the specific manifests</p>
+<pre tabindex="0"><code>cd .repo/manifests
+git checkout 42004ea1b4392ebcde9f485f0bc3aa08f2cb6185
+</code></pre><p>And then do</p>
+<pre tabindex="0"><code>repo sync
+</code></pre><p>It will go back to the specific version (like a time machine)</p>
+<p>You may want to make a tag for this release.</p>
+<h1 id="how-to-upgrade-the-upstream">How to upgrade the upstream</h1>
+<p>What if the upstream SDK has upgraded.</p>
+<p>The SDK manifests is always upgraded on master, while your own project is
+branched out from the SDK release.</p>
+<p>The steps to upgrade to upstream new SDK would be:</p>
+<ul>
+<li>
+<p>in the .repo/manifests, you should see two remotes one is &ldquo;idh&rdquo;, another
+should be the vendor&rsquo;s. If not, use the git command to add the remote and
+fetch the latest changes and then checkout the manifests xml latest version.</p>
+</li>
+<li>
+<p>then <code>repo sync</code> to get the latest version.</p>
+</li>
+</ul>
+<p>Now go to each project, you would see the master is upgraded to latest SDK
+version.</p>
+<p>For the new development on new sdk, you would need to create branch and rebase
+the changes on the old sdk to this new branch and then using &ldquo;git manifests -r
+-o xxx.xml&rdquo; to create a new xml file and manually fix the &ldquo;remote&rdquo; and
+&ldquo;upstream&rdquo; elements and put this new xml on a branch from new SDK tag.</p>
+
+  </div>
+</div>
+
+      <footer>
+        <hr>
+        <small>
+          &copy; 2023 Pandy Song.
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> using the <a href="https://github.com/arjunkrishnababu96/basics" target="_blank">Basics</a> theme.
+        </small>
+      </footer>
+    </div> 
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    window.onload = function() {
+        mermaid.init({ theme: 'dark', startOnLoad: true }, ".language-mermaid");
+    };
+  </script>
+</html>
+
