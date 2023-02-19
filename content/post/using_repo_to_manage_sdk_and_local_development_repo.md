@@ -1,5 +1,5 @@
 ---
-date: 2019-08-25
+date: 2023-02-18
 title: using repo to manage official sdk from vendor and local development repo
 weight: 10
 ---
